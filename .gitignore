@@ -22,7 +22,7 @@ node_modules/
 /public/sitemap*.xml
 /public/robots.txt
 # Build-script image output (AVIF/WebP generated from originals)
-/public/img/generated/
+/public/images/generated/
 
 # ---------------------------------------------------------------
 # Secrets and server-side PHP runtime data
