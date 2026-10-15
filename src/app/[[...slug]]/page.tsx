@@ -35,5 +35,5 @@ export default async function Page({ params }: Props) {
   else if (id === "about") body = <AboutPage lang={lang} />;
   else if (id === "contact") body = <ContactPage lang={lang} />;
   else body = <LegalPage id={id as "imprint" | "privacy" | "a11yStatement"} lang={lang} />;
-  return (<><Header lang={lang} current={id} /><main id="main" tabIndex={-1}>{body}</main><Footer lang={lang} /></>);
+  return (<><Header lang={lang} current={id} /><main key={`${lang}-${id}`} id="main" tabIndex={-1} className="page-enter">{body}</main><Footer lang={lang} /></>);
 }
