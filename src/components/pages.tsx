@@ -72,14 +72,14 @@ function Cta({ lang }: { lang: Lang }) {
   );
 }
 
-export function ServiceCard({ id, lang, small }: { id: ServiceId; lang: Lang; small?: boolean }) {
+export function ServiceCard({ id, lang, small, as: H = "h3" }: { id: ServiceId; lang: Lang; small?: boolean; as?: "h2" | "h3" }) {
   const ui = getContent(lang).ui;
   const s = getContent(lang).services[id];
   return (
     <article className="flex flex-col rounded border border-line p-5">
-      <h3 className={small ? "text-lg font-bold" : "text-xl font-bold"}>
+      <H className={small ? "text-lg font-bold" : "text-xl font-bold"}>
         <Link href={pathFor(id, lang)} className="hover:underline">{s.title}</Link>
-      </h3>
+      </H>
       <p className="mt-2 flex-1">{s.card}</p>
       <p className="mt-3 font-bold text-ink">{priceLabel(id, lang)}</p>
       <Link href={pathFor(id, lang)} className="mt-2 underline text-accent">
@@ -141,7 +141,7 @@ export function ServicesIndex({ lang }: { lang: Lang }) {
     <>
       <PageHead lang={lang} id="services" h1={p.h1} lead={p.lead} />
       <div className={`${wrap} grid gap-5 ${section} sm:grid-cols-2 lg:grid-cols-3`}>
-        {serviceIds.map((id) => <ServiceCard key={id} id={id} lang={lang} />)}
+        {serviceIds.map((id) => <ServiceCard key={id} id={id} lang={lang} as="h2" />)}
       </div>
     </>
   );
@@ -155,8 +155,8 @@ export function Home({ lang }: { lang: Lang }) {
   return (
     <>
       <section className="relative isolate overflow-hidden bg-ink text-white" aria-labelledby="hero">
-        <Picture src="/images/hero.jpg" alt="" width={1920} height={1080} priority
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-50" />
+        <Picture src="/images/hero.jpg" alt="" width={1280} height={960} priority variants={[{ suffix: "-768", w: 768 }]}
+          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-35" />
         <div className={`${wrap} py-20 md:py-32`}>
           <p className="text-lg uppercase tracking-wide">{p.sub}</p>
           <h1 id="hero" className="mt-4 max-w-3xl text-4xl font-bold text-white md:text-5xl">{p.h1}</h1>
@@ -209,16 +209,17 @@ export function Home({ lang }: { lang: Lang }) {
   );
 }
 
-function References({ lang, limit, heading }: { lang: Lang; limit?: number; heading: string }) {
+function References({ lang, limit, heading, eager = 0 }: { lang: Lang; limit?: number; heading: string; eager?: number }) {
   const r = getContent(lang).pages.references;
   const items = r.items.slice(0, limit);
   return (
     <section className={`${wrap} ${section}`} aria-labelledby="refs">
       <h2 id="refs" className="text-2xl font-bold">{heading}</h2>
       <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((i) => (
+        {items.map((i, idx) => (
           <li key={i.name} className="overflow-hidden rounded border border-line">
-            <Picture src={`/images/work/${i.image}`} alt="" width={720} height={480} className="h-auto w-full" sizes="(min-width:1024px) 33vw, 100vw" />
+            <Picture src={`/images/work/${i.image}`} alt="" width={720} height={480} className="h-auto w-full" priority={idx < eager}
+              variants={[{ suffix: "-480", w: 480 }]} sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" />
             <div className="p-4">
               <h3 className="font-bold text-ink">{i.name}</h3><p className="mt-1">{i.text}</p>
               <a className="mt-2 inline-block underline text-accent" href={i.url} rel="noopener noreferrer" target="_blank">
@@ -232,7 +233,7 @@ function References({ lang, limit, heading }: { lang: Lang; limit?: number; head
 
 export function ReferencesPage({ lang }: { lang: Lang }) {
   const r = getContent(lang).pages.references;
-  return (<><PageHead lang={lang} id="references" h1={r.h1} lead={r.lead} /><References lang={lang} heading={r.h1} /></>);
+  return (<><PageHead lang={lang} id="references" h1={r.h1} lead={r.lead} /><References lang={lang} heading={r.h1} eager={2} /></>);
 }
 
 export function AnalysisPage({ lang }: { lang: Lang }) {

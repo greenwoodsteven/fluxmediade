@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
 /* Self-hosted Univers (from the legacy site) — no third-party requests */
-@font-face { font-family: "Univers"; src: url("/fonts/universltstd-light-webfont.woff") format("woff"); font-weight: 300; font-style: normal; font-display: swap; }
-@font-face { font-family: "Univers"; src: url("/fonts/universltstd-webfont.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "Univers"; src: url("/fonts/universltstd-bold-webfont.woff") format("woff"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Univers"; src: url("/fonts/universltstd-webfont.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: optional; }
+@font-face { font-family: "Univers"; src: url("/fonts/universltstd-bold-webfont.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: optional; }
 
 @theme {
   --font-sans: "Univers", Arial, Helvetica, sans-serif;

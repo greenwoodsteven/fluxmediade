@@ -19,14 +19,19 @@ async function* walk(dir) {
 let n = 0;
 for await (const file of walk(root)) {
   const rel = path.relative(root, file).replace(/\.[^.]+$/, "");
-  for (const [ext, opts] of [["avif", { quality: 55 }], ["webp", { quality: 78 }]]) {
-    const dest = path.join(out, `${rel}.${ext}`);
-    try {
-      if ((await stat(dest)).mtimeMs > (await stat(file)).mtimeMs) continue;
-    } catch {}
-    await mkdir(path.dirname(dest), { recursive: true });
-    await sharp(file)[ext](opts).toFile(dest);
-    n++;
-  }
+  // Extra 480 px variants for portfolio images (used in srcset on phones).
+  const variants = [{ name: rel, width: null }, ...(rel.startsWith("work/") ? [{ name: `${rel}-480`, width: 480 }] : [])];
+  for (const v of variants)
+    for (const [ext, opts] of [["avif", { quality: 50 }], ["webp", { quality: 75 }]]) {
+      const dest = path.join(out, `${v.name}.${ext}`);
+      try {
+        if ((await stat(dest)).mtimeMs > (await stat(file)).mtimeMs) continue;
+      } catch {}
+      await mkdir(path.dirname(dest), { recursive: true });
+      let img = sharp(file);
+      if (v.width) img = img.resize({ width: v.width });
+      await img[ext](opts).toFile(dest);
+      n++;
+    }
 }
 console.log(`images: ${n} file(s) generated`);
