@@ -51,11 +51,8 @@ node_modules/
 *.pem
 *.key
 
-# ---------------------------------------------------------------
-# Documentation is not part of the repo/export
-# (strategy and competitor docs stay in the archive repo)
-# ---------------------------------------------------------------
-/docs/
+# docs/ is tracked: it is never deployed (deploy.sh ships only out/ and api/; .htaccess blocks it).
+# If strategy/competitor material is ever copied in, ignore just those subfolders.
 
 
 # ---------------------------------------------------------------
