@@ -44,3 +44,7 @@ body { font-family: var(--font-sans); color: var(--color-text); background: #fff
 .page-enter { animation: page-enter 240ms ease-out both; }
 @keyframes page-enter { from { opacity: 0; transform: translateY(8px); } }
 @media (prefers-reduced-motion: reduce) { .page-enter { animation: none; } }
+
+/* Invalid form fields: blue border (set via aria-invalid by the form's own validation; the browser bubbles are off) */
+.field[aria-invalid="true"] { border: 2px solid var(--color-accent); padding: calc(.65rem - 1px) calc(.75rem - 1px); }
+input[type="checkbox"][aria-invalid="true"], input[type="radio"][aria-invalid="true"] { outline: 2px solid var(--color-accent); outline-offset: 2px; }

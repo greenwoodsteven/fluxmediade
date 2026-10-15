@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent, type ReactNode } from "react";
+import { createContext, useContext, useRef, useState, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
 import type { Content } from "@/content";
 import { pathFor, type Lang } from "@/i18n/routes";
@@ -8,19 +8,52 @@ import { site } from "@/content/site";
 
 // Strings are passed in from server components so the client bundle does not ship both language files.
 type F = Content["ui"]["forms"];
-
 type Status = "idle" | "sending" | "ok" | "error";
+type Errors = Record<string, string>;
 
-function Shell({ endpoint, lang, f, children, submitLabel, onSubmitData, hideSubmit }: {
-  endpoint: string; lang: Lang; f: F; children: ReactNode; submitLabel?: string;
-  onSubmitData?: (fd: FormData) => void; hideSubmit?: boolean;
+const ErrorsCtx = createContext<Errors>({});
+
+/** Message for the first failed constraint of a control, or "" when valid. */
+function messageFor(el: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, f: F): string {
+  if (el.validity.valid) return "";
+  if (el.validity.valueMissing) return el.name === "consent" ? f.errConsent : f.errRequired;
+  if (el.validity.typeMismatch || el.validity.patternMismatch) return (el as HTMLInputElement).type === "email" ? f.errEmail : f.errUrl;
+  return el.validationMessage;
+}
+
+function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit }: {
+  endpoint: string; lang: Lang; f: F; children: ReactNode; submitLabel?: string; hideSubmit?: boolean;
 }) {
   const [status, setStatus] = useState<Status>("idle");
+  const [errors, setErrors] = useState<Errors>({});
+  const formRef = useRef<HTMLFormElement>(null);
+
+  /** Own validation (the form has noValidate, so no browser bubbles). Returns true when everything is valid. */
+  function validate(): boolean {
+    const next: Errors = {};
+    let first: HTMLElement | null = null;
+    for (const el of Array.from(formRef.current!.elements) as HTMLInputElement[]) {
+      if (!el.name || el.type === "submit" || el.type === "button" || next[el.name] !== undefined) continue;
+      const msg = messageFor(el, f);
+      if (msg) { next[el.name] = msg; first ??= el; }
+    }
+    setErrors(next);
+    first?.focus();
+    return !first;
+  }
+
+  function onInput(e: FormEvent<HTMLFormElement>) {
+    const el = e.target as HTMLInputElement;
+    if (el.name && errors[el.name] !== undefined) {
+      const msg = messageFor(el, f);
+      setErrors((prev) => { const n = { ...prev }; if (msg) n[el.name] = msg; else delete n[el.name]; return n; });
+    }
+  }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!validate()) return;
     const fd = new FormData(e.currentTarget);
-    onSubmitData?.(fd);
     fd.set("lang", lang);
     const ref = new URLSearchParams(window.location.search).get("ref");
     if (ref) fd.set("ref", ref);
@@ -37,42 +70,53 @@ function Shell({ endpoint, lang, f, children, submitLabel, onSubmitData, hideSub
   if (status === "ok")
     return <p role="status" className="rounded border-2 border-accent p-4 font-bold text-ink">{f.ok}</p>;
 
+  const count = Object.keys(errors).length;
   return (
-    <form onSubmit={onSubmit} className="space-y-4" noValidate={false}>
-      <p className="text-sm text-muted">{f.required}</p>
-      {children}
-      {/* honeypot: hidden from people and assistive tech, bots fill it */}
-      <div aria-hidden="true" style={{ position: "absolute", left: "-10000px" }}>
-        <label>Company<input type="text" name="company" tabIndex={-1} autoComplete="off" /></label>
-      </div>
-      <label className="flex items-start gap-2">
-        <input type="checkbox" name="consent" value="1" required className="mt-1 size-5" />
-        <span>{f.consent.split(/<a>|<\/a>/).map((part, i) =>
-          i === 1 ? <Link key={i} className="underline" href={pathFor("privacy", lang)}>{part}</Link> : <span key={i}>{part}</span>)}</span>
-      </label>
-      <div aria-live="polite">
-        {status === "error" && (
-          <p role="alert" className="font-bold text-red-800">{f.error} <a className="underline" href={`mailto:${site.email}`}>{site.email}</a></p>
+    <ErrorsCtx.Provider value={errors}>
+      <form ref={formRef} onSubmit={onSubmit} onInput={onInput} noValidate className="space-y-4">
+        <p className="text-sm text-muted">{f.required}</p>
+        {children}
+        {/* honeypot: hidden from people and assistive tech, bots fill it */}
+        <div aria-hidden="true" style={{ position: "absolute", left: "-10000px" }}>
+          <label>Company<input type="text" name="company" tabIndex={-1} autoComplete="off" /></label>
+        </div>
+        <div>
+          <label className="flex items-start gap-2">
+            <input type="checkbox" name="consent" value="1" required className="mt-1 size-5"
+              aria-invalid={errors.consent ? true : undefined} aria-describedby={errors.consent ? "consent-error" : undefined} />
+            <span>{f.consent.split(/<a>|<\/a>/).map((part, i) =>
+              i === 1 ? <Link key={i} className="underline" href={pathFor("privacy", lang)}>{part}</Link> : <span key={i}>{part}</span>)}</span>
+          </label>
+          {errors.consent && <p id="consent-error" className="mt-1 font-bold text-accent">{errors.consent}</p>}
+        </div>
+        <div aria-live="polite">
+          {count > 0 && <p className="font-bold text-accent">{f.errSummary}</p>}
+          {status === "error" && (
+            <p role="alert" className="font-bold text-red-800">{f.error} <a className="underline" href={`mailto:${site.email}`}>{site.email}</a></p>
+          )}
+        </div>
+        {!hideSubmit && (
+          <button type="submit" disabled={status === "sending"} className="btn">
+            {status === "sending" ? f.sending : submitLabel ?? f.send}
+          </button>
         )}
-      </div>
-      {!hideSubmit && (
-        <button type="submit" disabled={status === "sending"} className="btn">
-          {status === "sending" ? f.sending : submitLabel ?? f.send}
-        </button>
-      )}
-    </form>
+      </form>
+    </ErrorsCtx.Provider>
   );
 }
 
-function Field({ id, label, type = "text", required, hint, autoComplete }: {
-  id: string; label: string; type?: string; required?: boolean; hint?: string; autoComplete?: string;
+function Field({ id, label, type = "text", required, hint, autoComplete, multiline, rows = 4 }: {
+  id: string; label: string; type?: string; required?: boolean; hint?: string; autoComplete?: string; multiline?: boolean; rows?: number;
 }) {
+  const error = useContext(ErrorsCtx)[id];
+  const describedBy = [hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(" ") || undefined;
+  const common = { id, name: id, required, "aria-invalid": error ? true : undefined, "aria-describedby": describedBy, className: "field" } as const;
   return (
     <div>
       <label htmlFor={id} className="label">{label}{required && " *"}</label>
-      <input id={id} name={id} type={type} required={required} autoComplete={autoComplete}
-        aria-describedby={hint ? `${id}-hint` : undefined} className="field" />
+      {multiline ? <textarea {...common} rows={rows} /> : <input {...common} type={type} autoComplete={autoComplete} />}
       {hint && <p id={`${id}-hint`} className="mt-1 text-sm text-muted">{hint}</p>}
+      {error && <p id={`${id}-error`} className="mt-1 font-bold text-accent">{error}</p>}
     </div>
   );
 }
@@ -104,10 +148,7 @@ export function ContactForm({ lang, f }: { lang: Lang; f: F }) {
         <Field id="name" label={f.name} required autoComplete="name" />
         <Field id="email" label={f.email} type="email" required autoComplete="email" />
       </div>
-      <div>
-        <label htmlFor="message" className="label">{f.message} *</label>
-        <textarea id="message" name="message" rows={6} required className="field" />
-      </div>
+      <Field id="message" label={f.message} required multiline rows={6} />
     </Shell>
   );
 }
@@ -147,11 +188,8 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
               <Field id="name" label={f.name} required autoComplete="name" />
               <Field id="email" label={f.email} type="email" required autoComplete="email" />
             </div>
-            <Field id="url" label={f.url.replace(" (URL)", "") + " (URL)"} type="url" />
-            <div>
-              <label htmlFor="message" className="label">{f.message}</label>
-              <textarea id="message" name="message" rows={4} className="field" />
-            </div>
+            <Field id="url" label={f.url} type="url" />
+            <Field id="message" label={f.message} multiline />
           </div>
         ))}
       </Shell>
