@@ -9,8 +9,7 @@ export default async function RootLayout({ children, params }: { children: React
   return (
     <html lang={lang}>
       <head>
-        <link rel="preload" href="/fonts/universltstd-webfont.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/universltstd-bold-webfont.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body>
         <a href="#main" className="skip-link">{getContent(lang).ui.skip}</a>

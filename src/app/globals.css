@@ -1,11 +1,10 @@
 @import "tailwindcss";
 
-/* Self-hosted Univers (from the legacy site) — no third-party requests */
-@font-face { font-family: "Univers"; src: url("/fonts/universltstd-webfont.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: optional; }
-@font-face { font-family: "Univers"; src: url("/fonts/universltstd-bold-webfont.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: optional; }
+/* Self-hosted Inter variable (SIL OFL, Latin subset) — no third-party requests */
+@font-face { font-family: "Inter"; src: url("/fonts/inter-var-latin.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: optional; }
 
 @theme {
-  --font-sans: "Univers", Arial, Helvetica, sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --color-ink: #222;
   --color-text: #444;          /* >= 4.5:1 on white and on paper */
   --color-muted: #595959;
@@ -18,7 +17,7 @@
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 
-body { font-family: var(--font-sans); color: var(--color-text); background: #fff; line-height: 1.6; }
+body { font-family: var(--font-sans); color: var(--color-text); background: #fff; font-size: clamp(0.875rem, 0.875rem + ((1vw - 0.2rem) * 0.342), 1.063rem); line-height: 1.7; font-optical-sizing: auto; }
 @layer base { h1, h2, h3 { color: var(--color-ink); line-height: 1.2; } }
 
 :focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
