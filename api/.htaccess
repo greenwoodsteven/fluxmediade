@@ -1,0 +1,5 @@
+# Only the *.php endpoints in this folder are public.
+<FilesMatch "^(config.*\.php|.*\.example\.php)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes

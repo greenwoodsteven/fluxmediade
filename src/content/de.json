@@ -1,0 +1,292 @@
+{
+  "ui": {
+    "skip": "Zum Inhalt springen",
+    "menu": "Menü",
+    "mainNav": "Hauptnavigation",
+    "langLabel": "Sprache",
+    "langName": { "de": "Deutsch", "en": "English" },
+    "nav": { "services": "Leistungen", "analysis": "Kostenlose Analyse", "quote": "Angebot", "references": "Referenzen", "about": "Über uns", "contact": "Kontakt" },
+    "footer": { "legal": "Rechtliches", "services": "Leistungen", "rights": "Alle Rechte vorbehalten.", "hosting": "Gehostet in Deutschland" },
+    "breadcrumbHome": "Startseite",
+    "priceDrivers": "Was den Preis bestimmt",
+    "audience": "Für wen",
+    "notFor": "Eher nicht für Sie, wenn",
+    "deliverables": "Das erhalten Sie",
+    "process": "So läuft es ab",
+    "faq": "Häufige Fragen",
+    "related": "Weitere Leistungen",
+    "moreInfo": "Mehr erfahren",
+    "ctaAnalysis": "Kostenlose SEO- & KI-Analyse",
+    "ctaQuote": "Festpreis-Angebot anfragen",
+    "forms": {
+      "name": "Name",
+      "email": "E-Mail",
+      "url": "Adresse Ihrer Website (URL)",
+      "terms": "Suchbegriffe bzw. Leistung und Ort (1–3)",
+      "termsHint": "z. B. „Zahnarzt Konstanz“",
+      "source": "Wie haben Sie uns gefunden? (optional)",
+      "businessType": "Branche (optional)",
+      "platform": "Aktuelle Plattform (optional)",
+      "platforms": ["Weiß ich nicht", "WordPress", "Anderes CMS / Baukasten", "Individuell programmiert", "Noch keine Website"],
+      "budget": "Grobes Budget (optional)",
+      "message": "Ihre Nachricht",
+      "consent": "Ich habe die <a>Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage einverstanden.",
+      "send": "Absenden",
+      "sending": "Wird gesendet …",
+      "ok": "Vielen Dank! Ihre Anfrage ist eingegangen. Sie erhalten eine Bestätigung per E-Mail.",
+      "error": "Das Senden hat nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie an",
+      "required": "Pflichtfelder sind mit * markiert.",
+      "next": "Weiter",
+      "back": "Zurück",
+      "step": "Schritt",
+      "of": "von"
+    }
+  },
+  "services": {
+    "geo": {
+      "title": "KI-Sichtbarkeit (GEO / AEO)",
+      "card": "Wird Ihre Firma in ChatGPT, Perplexity und Google-KI-Antworten genannt? Wir prüfen es und beheben die technischen Ursachen.",
+      "seoTitle": "KI-Sichtbarkeit: Gefunden in ChatGPT & Google KI | Fluxmedia",
+      "description": "Audit und Quick Wins für Sichtbarkeit in KI-Antworten: strukturierte Daten, klare Inhalte, saubere Technik. Persönlich vom Webentwickler am Bodensee.",
+      "lead": "KI-Suchsysteme zitieren Websites, die klar, schnell und gut strukturiert sind. Wir prüfen, wie Ihre Firma in ChatGPT, Perplexity, Gemini und Google-KI-Antworten erscheint, beheben die technischen Ursachen und formulieren Ihre Inhalte so, dass sie zitierbar werden. Ein Platz in den Antworten lässt sich nicht garantieren.",
+      "audience": ["Handwerksbetriebe, Praxen und Dienstleister mit lokalem Einzugsgebiet", "Firmen, deren Website zwar existiert, aber selten genannt wird", "Alle, die wissen möchten, wo sie heute stehen"],
+      "notFor": ["Sie erwarten eine garantierte Platzierung in KI-Antworten", "Sie suchen Backlink-Pakete oder Anzeigenverwaltung"],
+      "deliverables": ["Kurzbericht mit technischen Grundlagen (Titel, Überschriften, Indexierung, Mobil, Core Web Vitals)", "Prüfung der strukturierten Daten (JSON-LD) – vorhanden, fehlend, fehlerhaft", "Stichprobe: drei Suchfragen in ChatGPT, Perplexity, Gemini und Google-KI-Antworten", "Die fünf wirksamsten Maßnahmen als Quick-Win-Liste", "Auf Wunsch: Umsetzung im Paket „Audit & Quick Wins“"],
+      "process": ["Anfrage über das Formular", "Persönliche Analyse (Bericht innerhalb von 48 Stunden)", "Gespräch zu den Ergebnissen", "Festpreis für die Umsetzung"],
+      "priceDrivers": "Umfang der Website, Anzahl der Seiten und Sprachen, vorhandene Technik und gewünschte Umsetzungstiefe.",
+      "faq": [
+        { "q": "Kann man in KI-Antworten garantiert erscheinen?", "a": "Nein. Niemand kann das garantieren. Wir verbessern die technischen und inhaltlichen Voraussetzungen, damit Ihre Website verständlich, schnell und zitierfähig ist." },
+        { "q": "Was kostet die erste Analyse?", "a": "Die persönliche Erstanalyse ist kostenlos. Sie dauert bei uns etwa eine Stunde und wird als kurzer PDF-Bericht geliefert." },
+        { "q": "Brauche ich dafür eine neue Website?", "a": "Meist nicht. Oft genügen strukturierte Daten, klarere Texte und einige technische Korrekturen an der bestehenden Seite." },
+        { "q": "Wie lange dauert es bis zur Wirkung?", "a": "Das lässt sich nicht seriös vorhersagen. KI-Systeme und Suchmaschinen aktualisieren ihre Daten in unterschiedlichen Abständen." }
+      ]
+    },
+    "a11y": {
+      "title": "Barrierefreiheit (BFSG / WCAG 2.2)",
+      "card": "Prüfung und Behebung nach WCAG 2.2 – verständlich erklärt, ob das BFSG für Sie gilt.",
+      "seoTitle": "Barrierefreiheit prüfen & umsetzen (WCAG 2.2, BFSG) | Fluxmedia",
+      "description": "Barrierefreiheits-Check und Umsetzung nach WCAG 2.2. Wir klären zuerst, ob das BFSG für Ihr Unternehmen gilt.",
+      "lead": "Barrierefreie Websites erreichen mehr Menschen und sind meist auch schneller und besser auffindbar. Wir prüfen Ihre Seite nach WCAG 2.2, zeigen die Hürden in verständlicher Sprache und beheben sie. Vorab klären wir ehrlich, ob das Barrierefreiheitsstärkungsgesetz (BFSG) für Ihr Unternehmen überhaupt gilt.",
+      "audience": ["Betriebe mit Online-Shop oder Buchungsfunktion für Verbraucher", "Unternehmen, die unsicher sind, ob das BFSG sie betrifft", "Alle, die ihre Seite für alle nutzbar machen möchten"],
+      "notFor": ["Sie suchen ein Overlay-Plugin, das „automatisch“ alles behebt – das ersetzt keine Barrierefreiheit", "Sie erwarten eine Rechtsberatung"],
+      "deliverables": ["Prüfung mit automatischen Werkzeugen und manueller Kontrolle (Tastatur, Screenreader-Stichprobe, Kontraste, Beschriftungen)", "Priorisierte Liste der Hürden mit Lösungsvorschlägen", "Einschätzung, ob das BFSG für Sie gilt (keine Rechtsberatung)", "Auf Wunsch: Behebung und Entwurf der Barrierefreiheitserklärung"],
+      "process": ["Kurzer Fragebogen zu Ihrem Angebot", "Prüfung und Bericht", "Besprechung der Prioritäten", "Umsetzung zum Festpreis"],
+      "priceDrivers": "Anzahl und Komplexität der Seiten, Formulare, Shop- oder Buchungsfunktionen und der Zustand der Technik.",
+      "faq": [
+        { "q": "Gilt das BFSG für mein Unternehmen?", "a": "Es betrifft vor allem Anbieter von Produkten und Dienstleistungen für Verbraucher, etwa Online-Shops. Kleinstunternehmen mit Dienstleistungen sind ausgenommen. Im Zweifel klären wir das vorab." },
+        { "q": "Reicht ein Accessibility-Plugin?", "a": "Nein. Automatische Overlays beheben die Ursachen nicht. Barrierefreiheit entsteht im Aufbau der Seite." },
+        { "q": "Welcher Standard gilt?", "a": "Wir prüfen nach WCAG 2.2, Stufe AA. Sie ist die gängige Grundlage." }
+      ]
+    },
+    "relaunch": {
+      "title": "Website-Relaunch",
+      "card": "Aus der alten Seite wird eine schnelle, mobile, barrierefreie – mit WordPress oder individuell.",
+      "seoTitle": "Website-Relaunch zum Festpreis | WordPress oder individuell | Fluxmedia",
+      "description": "Relaunch Ihrer Website zum Festpreis: schlank, mobil, barrierefrei. WordPress oder individuell – wir empfehlen, was zu Ihrem Betrieb passt.",
+      "lead": "Ein Relaunch lohnt sich, wenn die Website langsam, nicht mobil nutzbar oder schwer zu pflegen ist. Wir bauen sie zum Festpreis neu: schnell, barrierefrei und sauber strukturiert. Ob WordPress oder individuell, entscheiden wir gemeinsam danach, wer Inhalte pflegt und was die Seite leisten soll.",
+      "audience": ["Betriebe mit einer veralteten oder langsamen Website", "Firmen, die ihre Inhalte künftig selbst pflegen möchten", "Seiten, die bei Google an Boden verlieren"],
+      "notFor": ["Sie möchten nur kleine Textänderungen – dann genügt ein Wartungsvertrag", "Sie erwarten ein Ergebnis in wenigen Tagen"],
+      "deliverables": ["Konzept und Seitenstruktur mit Ihren Inhalten", "Schlanke, barrierefreie Umsetzung (WordPress oder individuell)", "Weiterleitungen alter Adressen, damit Rankings erhalten bleiben", "Einweisung und Übergabe"],
+      "process": ["Analyse der bestehenden Seite", "Festpreis-Angebot", "Umsetzung mit Zwischenständen", "Launch und Nachkontrolle"],
+      "priceDrivers": "Seitenanzahl, Sprachen, Funktionen (Formulare, Buchung, Shop auf Anfrage) und vorhandene Inhalte.",
+      "compare": {
+        "title": "WordPress oder individuell?",
+        "cols": ["Kriterium", "WordPress", "Individuell (statisch)"],
+        "rows": [
+          ["Inhalte selbst bearbeiten", "Sehr gut (Block-Editor)", "Über Dateien im Code-Repository (nicht für Laien)"],
+          ["Laufende Kosten", "Updates und Pflege nötig", "Sehr gering"],
+          ["Geschwindigkeit", "Hoch bei schlankem Aufbau", "Höchste"],
+          ["Wartungsaufwand", "Laufend (Plugins, Updates)", "Minimal"]
+        ]
+      },
+      "faq": [
+        { "q": "Bleibe ich bei Google sichtbar?", "a": "Wir übernehmen die Adressstruktur und richten Weiterleitungen ein. Ein Ranking lässt sich nicht garantieren, die Risiken minimieren wir." },
+        { "q": "Bieten Sie Online-Shops an?", "a": "Auf Anfrage mit WooCommerce oder Shopify. Dafür gibt es keinen Festpreis ab Seite, sondern ein individuelles Angebot." },
+        { "q": "Warum Festpreis?", "a": "Weil Sie vorher wissen sollten, was es kostet. Änderungen am Umfang besprechen wir vorab." }
+      ]
+    },
+    "wordpress": {
+      "title": "WordPress-Optimierung & Support",
+      "card": "Langsam, unsicher oder schlecht gefunden? Tempo, Sicherheit, Barrierefreiheit und laufende Pflege.",
+      "seoTitle": "WordPress Wartung & Optimierung | Fluxmedia",
+      "description": "WordPress-Optimierung und Support: Ladezeit, Sicherheit, Barrierefreiheit, Schema-Markup, Updates und Backups – auch für Seiten, die wir nicht gebaut haben.",
+      "lead": "Wir machen bestehende WordPress-Seiten schneller, sicherer und besser auffindbar: Plugins prüfen, Ladezeit senken, Barrierefreiheit und strukturierte Daten verbessern, Updates und Backups einrichten. Das gilt auch für Seiten, die wir nicht gebaut haben. Auf Wunsch betreuen wir Ihre Seite monatlich.",
+      "audience": ["Betriebe mit WordPress-Seite, die langsam oder veraltet wirkt", "Seiten mit vielen Plugins und unklarem Sicherheitsstand", "Firmen, die einen festen Ansprechpartner für ihre Website suchen"],
+      "notFor": ["Sie möchten WordPress durch etwas anderes ersetzen – dann ist ein Relaunch passender"],
+      "deliverables": ["Plugin- und Theme-Prüfung", "Ladezeit-Optimierung (Core Web Vitals)", "Schema-Markup und Grundlagen für KI-Sichtbarkeit", "Barrierefreiheit: Behebung der wichtigsten Hürden", "Sicherheit: Updates, Backups, Härtung", "Optional: monatlicher Support"],
+      "process": ["Prüfung Ihrer Seite", "Maßnahmenliste mit Festpreis", "Umsetzung", "Optional: laufende Betreuung"],
+      "priceDrivers": "Zustand der Seite, Anzahl der Plugins, gewünschte Maßnahmen und Umfang des monatlichen Supports.",
+      "faq": [
+        { "q": "Betreuen Sie auch Seiten anderer Anbieter?", "a": "Ja. Wir prüfen zuerst den Zustand und sagen ehrlich, was sich lohnt." },
+        { "q": "Gibt es einen Vertrag mit Mindestlaufzeit?", "a": "Einmalige Optimierungen sind ohne Vertrag. Beim Support besprechen wir die Laufzeit offen und transparent." }
+      ]
+    },
+    "landing": {
+      "title": "Landingpage zum Festpreis",
+      "card": "Eine gezielte Seite für ein Angebot – schnell, mobil und klar auf eine Anfrage ausgerichtet.",
+      "seoTitle": "Landingpage zum Festpreis | Fluxmedia",
+      "description": "Eine Landingpage zum Festpreis: klar, schnell, mobil und barrierefrei – ausgerichtet auf Ihre Anfragen.",
+      "lead": "Eine Landingpage ist eine einzelne Seite für ein Angebot, die Besucher zu einer Anfrage führt. Wir bauen sie zum Festpreis: klare Aussage, schnelle Ladezeit, mobil und barrierefrei. Ideal für Handwerker, Praxen und Dienstleister, die ein bestimmtes Angebot sichtbar machen wollen.",
+      "audience": ["Kleine Betriebe mit einem klaren Angebot", "Neue Dienstleistungen oder Aktionen", "Alle, die zunächst klein starten möchten"],
+      "notFor": ["Sie brauchen eine mehrseitige Firmenwebsite – dann passt der Relaunch besser"],
+      "deliverables": ["Eine Seite mit Ihren Texten und Bildern", "Kontaktformular mit Bestätigung", "Mobil, schnell und barrierefrei", "Rechtliche Seiten auf Wunsch"],
+      "process": ["Kurzes Briefing", "Entwurf", "Korrekturschleife", "Veröffentlichung"],
+      "priceDrivers": "Umfang der Inhalte, Bildmaterial und gewünschte Funktionen.",
+      "faq": [
+        { "q": "Wie lange dauert eine Landingpage?", "a": "Das hängt von Ihren Inhalten ab. Wir nennen den Zeitplan im Angebot." },
+        { "q": "Kann ich später erweitern?", "a": "Ja. Die Seite lässt sich zu einer vollständigen Website ausbauen." }
+      ]
+    },
+    "chatbot": {
+      "title": "KI-Chatbot für Ihre Website",
+      "card": "Ein Chatbot, der Fragen anhand Ihrer eigenen Inhalte beantwortet – DSGVO-bewusst geplant.",
+      "seoTitle": "KI-Chatbot (RAG) für Ihre Website | Fluxmedia",
+      "description": "KI-Chatbot auf Basis Ihrer eigenen Inhalte (RAG), DSGVO-bewusst geplant, mit Hinweisen zur KI-Verordnung. Projektbasiert.",
+      "lead": "Ein Chatbot kann häufige Fragen Ihrer Kunden anhand Ihrer eigenen Inhalte beantworten. Wir planen ihn projektbezogen mit Blick auf Datenschutz und die Kennzeichnungspflichten der KI-Verordnung. Ob sich das für Ihren Betrieb lohnt, klären wir vorab ehrlich.",
+      "audience": ["Betriebe mit vielen wiederkehrenden Kundenfragen", "Firmen mit umfangreichen Informationen auf der Website"],
+      "notFor": ["Sie haben wenige Anfragen – ein gutes FAQ genügt oft"],
+      "deliverables": ["Konzept und Prüfung der Datengrundlage", "Umsetzung auf Basis Ihrer Inhalte (RAG)", "Datenschutz- und Kennzeichnungshinweise", "Einweisung"],
+      "process": ["Gespräch zum Bedarf", "Konzept und Angebot", "Umsetzung", "Test und Übergabe"],
+      "priceDrivers": "Menge und Qualität der Inhalte, Sprachen, Anbindungen und Betrieb.",
+      "faq": [
+        { "q": "Gibt es eine Live-Demo?", "a": "Derzeit nicht. Wir zeigen auf Anfrage ein Beispiel im Gespräch." },
+        { "q": "Wo liegen die Daten?", "a": "Das klären wir pro Projekt. Wir planen mit Blick auf EU-Standorte und Auftragsverarbeitung." }
+      ]
+    },
+    "automation": {
+      "title": "Automatisierung mit n8n",
+      "card": "Wiederkehrende Abläufe automatisieren – projektbezogen und auf Anfrage.",
+      "seoTitle": "Automatisierung mit n8n | Fluxmedia",
+      "description": "Wiederkehrende Abläufe mit n8n automatisieren: projektbezogen, auf Anfrage und ohne unnötige Komplexität.",
+      "lead": "Viele kleine Aufgaben wiederholen sich: Anfragen weiterleiten, Daten übertragen, Berichte erzeugen. Mit n8n automatisieren wir solche Abläufe projektbezogen. Wir sagen vorher ehrlich, wann sich das lohnt und wann noch nicht.",
+      "audience": ["Betriebe mit wiederkehrenden Büroaufgaben", "Teams, die Daten zwischen Programmen übertragen"],
+      "notFor": ["Der Ablauf kommt nur selten vor – dann lohnt sich Automatisierung meist nicht"],
+      "deliverables": ["Gemeinsame Aufnahme des Ablaufs", "Umsetzung in n8n", "Dokumentation und Übergabe"],
+      "process": ["Gespräch", "Angebot", "Umsetzung", "Übergabe"],
+      "priceDrivers": "Anzahl der Schritte und angebundenen Systeme sowie der Betrieb.",
+      "faq": [
+        { "q": "Gibt es eine Demo?", "a": "Nein, wir arbeiten projektbezogen und auf Anfrage." }
+      ]
+    }
+  },
+  "pages": {
+    "home": {
+      "seoTitle": "Webentwicklung am Bodensee: schnell, barrierefrei, KI-sichtbar | Fluxmedia",
+      "description": "Fluxmedia, Webentwickler am Bodensee mit über 10 Jahren Erfahrung: kostenlose SEO- und KI-Analyse, Website-Relaunch, WordPress-Support und Barrierefreiheit zum Festpreis.",
+      "h1": "Ihre Website: schnell, barrierefrei und in KI-Antworten sichtbar.",
+      "sub": "Über 10 Jahre Erfahrung in Webentwicklung am Bodensee",
+      "analysisTitle": "Kostenlose SEO- & KI-Analyse Ihrer Website",
+      "analysisText": "Persönlich vom Webentwickler, nicht automatisch erzeugt. Sie erhalten einen kurzen PDF-Bericht innerhalb von 48 Stunden.",
+      "leadServices": "Unsere Leistungen",
+      "more": "Weitere Lösungen",
+      "stepsTitle": "So funktioniert es",
+      "steps": ["Anfrage", "Analyse in 48 Stunden", "Gespräch", "Festpreis"],
+      "trust": ["Über 10 Jahre Erfahrung", "Server in Deutschland", "DSGVO-bewusst", "Festpreis", "Persönlich am Bodensee"],
+      "refsTitle": "Ausgewählte Referenzen",
+      "faqTitle": "Häufige Fragen",
+      "faq": [
+        { "q": "Was kostet eine Website?", "a": "Das hängt vom Umfang ab. Wir nennen Festpreise ab einem klaren Betrag und erstellen jedes Angebot persönlich." },
+        { "q": "WordPress oder individuell?", "a": "Wir empfehlen, was zu Ihrem Betrieb passt. Wer selbst Inhalte pflegt, ist mit WordPress oft gut bedient." },
+        { "q": "Ist die Erstanalyse wirklich kostenlos?", "a": "Ja. Sie verpflichtet zu nichts. Wir erstellen sie persönlich und begrenzen die Anzahl pro Woche." },
+        { "q": "Wo arbeiten Sie?", "a": "Am Bodensee, für Kunden in der ganzen Region und darüber hinaus." }
+      ],
+      "closing": "Bereit für den nächsten Schritt?"
+    },
+    "services": {
+      "seoTitle": "Leistungen | Fluxmedia",
+      "description": "Alle Leistungen im Überblick: KI-Sichtbarkeit, Barrierefreiheit, Website-Relaunch, WordPress-Support, Landingpage, KI-Chatbot und Automatisierung.",
+      "h1": "Leistungen",
+      "lead": "Von der Analyse bis zur Umsetzung. Alles zum Festpreis und persönlich betreut."
+    },
+    "analysis": {
+      "seoTitle": "Kostenlose SEO- & KI-Analyse Ihrer Website | Fluxmedia",
+      "description": "Kostenlose manuelle Analyse Ihrer Website: SEO-Grundlagen, strukturierte Daten, KI-Sichtbarkeit und Barrierefreiheit. Bericht innerhalb von 48 Stunden.",
+      "h1": "Kostenlose SEO- & KI-Analyse",
+      "lead": "Tragen Sie Ihre Website ein. Wir prüfen sie persönlich und senden Ihnen innerhalb von 48 Stunden (2 Werktagen) einen kurzen PDF-Bericht. Der Bericht verpflichtet zu nichts.",
+      "contentsTitle": "Was der Bericht enthält",
+      "contents": ["Technische Grundlagen: Titel, Beschreibung, Überschriften, Indexierung, Mobil, Core Web Vitals", "Strukturierte Daten: vorhanden oder fehlend", "KI-Sichtbarkeit: Stichprobe mit drei Fragen in ChatGPT, Perplexity, Gemini und Google-KI-Antworten", "Barrierefreiheit: auffällige Hürden (Alternativtexte, Kontraste, Tastatur, Beschriftungen)", "Die fünf wirksamsten Maßnahmen", "Auf Wunsch: ein Angebot zur Umsetzung"],
+      "honest": "Wir versprechen keine Rankings. Der Bericht zeigt, wo Ihre Website steht und was sich lohnt."
+    },
+    "quote": {
+      "seoTitle": "Festpreis-Angebot anfragen | Fluxmedia",
+      "description": "In wenigen Schritten zum persönlichen Festpreis-Angebot – innerhalb von 24 bis 48 Stunden, von Hand erstellt.",
+      "h1": "Festpreis-Angebot anfragen",
+      "lead": "Vier kurze Schritte. Ihr Angebot erstellen wir persönlich, nicht automatisiert, innerhalb von 24 bis 48 Stunden.",
+      "stepTitles": ["Was brauchen Sie?", "Plattform", "Umfang", "Kontakt"],
+      "needs": ["Neue Website", "Relaunch", "Landingpage", "WordPress-Optimierung / Support", "Barrierefreiheit", "KI-Sichtbarkeit", "Anderes"],
+      "platformQ": "Welche Plattform wünschen Sie?",
+      "platforms": ["Empfehlen Sie mir", "WordPress", "Individuell (statisch)"],
+      "scopeQ": "Wie groß soll die Website werden?",
+      "scopes": ["1 Seite", "2–5 Seiten", "6–15 Seiten", "Mehr als 15 Seiten", "Weiß ich noch nicht"],
+      "extra": "Shops (WooCommerce, Shopify) sind auf Anfrage möglich."
+    },
+    "references": {
+      "seoTitle": "Referenzen | Fluxmedia",
+      "description": "Ausgewählte Projekte aus über 10 Jahren Webentwicklung am Bodensee.",
+      "h1": "Referenzen",
+      "lead": "Eine kleine Auswahl unserer Arbeit. Aktuelle Beispiele und Vorher-Nachher-Vergleiche folgen.",
+      "visit": "Website besuchen",
+      "items": [
+        { "name": "Onlineshop für Höffner", "text": "Webentwicklung in Node.js, CoffeeScript, jQuery, HTML5 und CSS3", "image": "hoeffner_720x480.jpeg", "url": "https://www.hoeffner.de" },
+        { "name": "Onlineshop für Möbel-Kraft", "text": "Webentwicklung in Node.js, CoffeeScript, jQuery, HTML5 und CSS3", "image": "moebel-kraft_720x480.jpeg", "url": "https://www.moebel-kraft.de" },
+        { "name": "Yoga Kreis Bodensee", "text": "WordPress-Website: Design und Entwicklung, Poster und Flyer", "image": "yoga-kreis_720x480.jpeg", "url": "https://www.yogakreis-bodensee.de" },
+        { "name": "Prof. Bruno Latour", "text": "Internetpräsentation mit dem Content-Management-System Drupal", "image": "bruno_720x480.jpeg", "url": "http://www.bruno-latour.fr" },
+        { "name": "Sonne & Mond", "text": "Onlineshop mit xt:Commerce", "image": "sonne-und-mond_720x480.jpeg", "url": "http://www.sonneundmond.com/shop" },
+        { "name": "eMotion – Mapping Museum Experience", "text": "Internetpräsentation mit dem Content-Management-System Drupal", "image": "emotion_720x480.jpeg", "url": "http://www.mapping-museum-experience.com/" }
+      ]
+    },
+    "about": {
+      "seoTitle": "Über uns: Webentwickler am Bodensee | Fluxmedia",
+      "description": "Fluxmedia ist ein kleines Studio für Webentwicklung in Überlingen am Bodensee. Über 10 Jahre Erfahrung, persönlich und transparent.",
+      "h1": "Über uns",
+      "lead": "Fluxmedia ist ein kleines Studio für Webentwicklung und Design am Bodensee. Sie sprechen direkt mit den Menschen, die Ihre Website bauen.",
+      "body": [
+        "Wir haben über 10 Jahre Erfahrung in der Webentwicklung, vom Onlineshop bis zum Webauftritt für Institutionen. Wir setzen auf bewährte, offene Technik und legen Wert auf Geschwindigkeit, Barrierefreiheit und saubere Struktur.",
+        "Diese Website ist unser Beleg: ohne Tracking, ohne Drittanbieter-Schriften und mit messbaren Ergebnissen. Wir setzen bei der Arbeit auch KI-Werkzeuge ein – jedes Ergebnis wird von Menschen geprüft."
+      ],
+      "values": ["Persönlich und transparent", "Festpreise statt Überraschungen", "Ehrlicher Umfang: keine Ranking-Versprechen"]
+    },
+    "contact": {
+      "seoTitle": "Kontakt | Fluxmedia",
+      "description": "Kontakt zu Fluxmedia, Webentwicklung am Bodensee: Nachricht senden oder direkt anrufen.",
+      "h1": "Kontakt",
+      "lead": "Schreiben Sie uns. Wir antworten innerhalb eines Werktags.",
+      "direct": "Direkt erreichen"
+    },
+    "imprint": {
+      "seoTitle": "Impressum | Fluxmedia",
+      "description": "Impressum der Fluxmedia GbR.",
+      "h1": "Impressum",
+      "note": "Entwurf: Angaben vor Veröffentlichung prüfen und vervollständigen.",
+      "sections": [
+        { "h": "Angaben gemäß § 5 DDG", "p": ["{legalName}", "{address}", "Gesellschafter: {partners}"] },
+        { "h": "Kontakt", "p": ["Telefon: {phone}", "E-Mail: {email}"] },
+        { "h": "Umsatzsteuer-ID", "p": ["Umsatzsteuer-Identifikationsnummer: {vatId}"] },
+        { "h": "Haftung für Inhalte und Links", "p": ["Die Inhalte wurden mit größter Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität können wir keine Gewähr übernehmen. Für Inhalte externer Links sind ausschließlich deren Betreiber verantwortlich."] }
+      ]
+    },
+    "privacy": {
+      "seoTitle": "Datenschutzerklärung | Fluxmedia",
+      "description": "Datenschutzerklärung der Fluxmedia GbR.",
+      "h1": "Datenschutzerklärung",
+      "note": "Entwurf: vor Veröffentlichung juristisch prüfen lassen.",
+      "sections": [
+        { "h": "Verantwortliche", "p": ["{legalName}, {address}. E-Mail: {email}"] },
+        { "h": "Hosting", "p": ["Diese Website wird bei netcup GmbH in Deutschland gehostet. Beim Aufruf werden technisch notwendige Verbindungsdaten (z. B. IP-Adresse, Zeitpunkt) in Server-Logdateien verarbeitet. Ein Auftragsverarbeitungsvertrag besteht."] },
+        { "h": "Cookies und Analyse", "p": ["Wir setzen keine Cookies, keine Analyse-Werkzeuge und keine Drittanbieter-Schriften oder -Karten ein."] },
+        { "h": "Formulare", "p": ["Wenn Sie ein Formular absenden, verarbeiten wir Ihre Angaben (z. B. Name, E-Mail, Website-Adresse) ausschließlich, um Ihre Anfrage zu beantworten. Rechtsgrundlage ist Ihre Einwilligung bzw. die Anbahnung eines Vertrags. Die Daten werden per E-Mail übermittelt und nach Abschluss der Bearbeitung gelöscht, soweit keine Aufbewahrungspflichten bestehen. Zum Schutz vor Missbrauch wird kurzzeitig ein gekürzter Hash Ihrer IP-Adresse zur Mengenbegrenzung gespeichert."] },
+        { "h": "Ihre Rechte", "p": ["Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch sowie das Recht auf Beschwerde bei einer Aufsichtsbehörde."] }
+      ]
+    },
+    "a11yStatement": {
+      "seoTitle": "Erklärung zur Barrierefreiheit | Fluxmedia",
+      "description": "Erklärung zur Barrierefreiheit dieser Website.",
+      "h1": "Erklärung zur Barrierefreiheit",
+      "note": "Entwurf: nach Abschluss der Prüfungen aktualisieren.",
+      "sections": [
+        { "h": "Stand", "p": ["Wir streben für diese Website die Konformität mit WCAG 2.2, Stufe AA, an. Die Prüfung mit automatischen Werkzeugen und manuell (Tastatur, Screenreader) wird vor dem Start abgeschlossen und hier dokumentiert."] },
+        { "h": "Feedback und Kontakt", "p": ["Barrieren melden Sie bitte an {email}. Wir antworten innerhalb eines Werktags."] }
+      ]
+    }
+  }
+}

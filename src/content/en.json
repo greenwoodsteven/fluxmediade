@@ -1,0 +1,292 @@
+{
+  "ui": {
+    "skip": "Skip to content",
+    "menu": "Menu",
+    "mainNav": "Main navigation",
+    "langLabel": "Language",
+    "langName": { "de": "Deutsch", "en": "English" },
+    "nav": { "services": "Services", "analysis": "Free analysis", "quote": "Quote", "references": "References", "about": "About", "contact": "Contact" },
+    "footer": { "legal": "Legal", "services": "Services", "rights": "All rights reserved.", "hosting": "Hosted in Germany" },
+    "breadcrumbHome": "Home",
+    "priceDrivers": "What drives the price",
+    "audience": "Who it is for",
+    "notFor": "Probably not for you if",
+    "deliverables": "What you get",
+    "process": "How it works",
+    "faq": "Frequently asked questions",
+    "related": "More services",
+    "moreInfo": "Learn more",
+    "ctaAnalysis": "Free SEO & AI analysis",
+    "ctaQuote": "Request a fixed-price quote",
+    "forms": {
+      "name": "Name",
+      "email": "Email",
+      "url": "Your website address (URL)",
+      "terms": "Search terms, or service and location (1–3)",
+      "termsHint": "e.g. “dentist Konstanz”",
+      "source": "How did you find us? (optional)",
+      "businessType": "Industry (optional)",
+      "platform": "Current platform (optional)",
+      "platforms": ["Not sure", "WordPress", "Other CMS / site builder", "Custom-coded", "No website yet"],
+      "budget": "Rough budget (optional)",
+      "message": "Your message",
+      "consent": "I have read the <a>privacy policy</a> and agree to my details being processed to handle my request.",
+      "send": "Send",
+      "sending": "Sending …",
+      "ok": "Thank you! Your request has arrived. You will receive a confirmation by email.",
+      "error": "Sending failed. Please try again or write to",
+      "required": "Required fields are marked *.",
+      "next": "Next",
+      "back": "Back",
+      "step": "Step",
+      "of": "of"
+    }
+  },
+  "services": {
+    "geo": {
+      "title": "AI visibility (GEO / AEO)",
+      "card": "Is your business named in ChatGPT, Perplexity and Google AI answers? We check and fix the technical causes.",
+      "seoTitle": "AI visibility: be found in ChatGPT & Google AI | Fluxmedia",
+      "description": "Audit and quick wins for visibility in AI answers: structured data, clear content, clean technology. Personally from a web developer on Lake Constance.",
+      "lead": "AI search systems cite websites that are clear, fast and well structured. We check how your business appears in ChatGPT, Perplexity, Gemini and Google AI answers, fix the technical causes and word your content so it can be cited. A place in the answers cannot be guaranteed.",
+      "audience": ["Trades, practices and service providers with a local catchment area", "Businesses whose website exists but is rarely mentioned", "Anyone who wants to know where they stand today"],
+      "notFor": ["You expect a guaranteed placement in AI answers", "You are looking for backlink packages or ad management"],
+      "deliverables": ["Short report on technical basics (title, headings, indexing, mobile, Core Web Vitals)", "Structured-data check (JSON-LD): present, missing, faulty", "Spot check: three queries in ChatGPT, Perplexity, Gemini and Google AI answers", "The five most effective measures as a quick-win list", "On request: implementation in the “Audit & Quick Wins” package"],
+      "process": ["Request via the form", "Personal analysis (report within 48 hours)", "Call about the results", "Fixed price for implementation"],
+      "priceDrivers": "Size of the website, number of pages and languages, existing technology and the depth of implementation you want.",
+      "faq": [
+        { "q": "Can you guarantee appearing in AI answers?", "a": "No, nobody can. We improve the technical and content conditions so your website is understandable, fast and citable." },
+        { "q": "What does the first analysis cost?", "a": "The personal first analysis is free. It takes us about an hour and is delivered as a short PDF report." },
+        { "q": "Do I need a new website for this?", "a": "Usually not. Structured data, clearer copy and a few technical fixes to the existing site are often enough." },
+        { "q": "How long until it has an effect?", "a": "That cannot be predicted reliably. AI systems and search engines update their data at different intervals." }
+      ]
+    },
+    "a11y": {
+      "title": "Accessibility (BFSG / WCAG 2.2)",
+      "card": "Audit and remediation to WCAG 2.2, with a clear answer on whether the BFSG applies to you.",
+      "seoTitle": "Accessibility audit & remediation (WCAG 2.2, BFSG) | Fluxmedia",
+      "description": "Accessibility check and remediation to WCAG 2.2. We first clarify whether the BFSG applies to your business.",
+      "lead": "Accessible websites reach more people and are usually faster and easier to find. We audit your site against WCAG 2.2, explain the barriers in plain language and fix them. First we state honestly whether the German Accessibility Act (BFSG) applies to your business at all.",
+      "audience": ["Businesses with an online shop or booking function for consumers", "Companies unsure whether the BFSG affects them", "Anyone who wants their site usable by everyone"],
+      "notFor": ["You want an overlay plugin that fixes everything “automatically”; it does not replace accessibility", "You expect legal advice"],
+      "deliverables": ["Audit with automated tools and manual checks (keyboard, screen-reader sample, contrast, labels)", "Prioritised list of barriers with proposed fixes", "Assessment of whether the BFSG applies to you (not legal advice)", "On request: remediation and a draft accessibility statement"],
+      "process": ["Short questionnaire about your offer", "Audit and report", "Discussion of priorities", "Implementation at a fixed price"],
+      "priceDrivers": "Number and complexity of pages, forms, shop or booking functions and the state of the code.",
+      "faq": [
+        { "q": "Does the BFSG apply to my business?", "a": "It mainly concerns providers of products and services for consumers, such as online shops. Micro-enterprises providing services are exempt. If in doubt we clarify this first." },
+        { "q": "Is an accessibility plugin enough?", "a": "No. Automatic overlays do not fix the causes. Accessibility comes from how the page is built." },
+        { "q": "Which standard applies?", "a": "We audit against WCAG 2.2, level AA, the common baseline." }
+      ]
+    },
+    "relaunch": {
+      "title": "Website relaunch",
+      "card": "From an old site to a fast, mobile, accessible one, with WordPress or custom.",
+      "seoTitle": "Website relaunch at a fixed price | WordPress or custom | Fluxmedia",
+      "description": "Relaunch your website at a fixed price: lean, mobile, accessible. WordPress or custom; we recommend what fits your business.",
+      "lead": "A relaunch pays off when the website is slow, unusable on mobile or hard to maintain. We rebuild it at a fixed price: fast, accessible and cleanly structured. Whether WordPress or custom, we decide together based on who maintains the content and what the site has to do.",
+      "audience": ["Businesses with an outdated or slow website", "Companies that want to maintain their content themselves", "Sites losing ground on Google"],
+      "notFor": ["You only want small text changes; a maintenance plan is enough then", "You expect a result within days"],
+      "deliverables": ["Concept and page structure using your content", "Lean, accessible build (WordPress or custom)", "Redirects from old URLs so rankings are preserved", "Training and handover"],
+      "process": ["Analysis of the existing site", "Fixed-price quote", "Build with interim reviews", "Launch and follow-up checks"],
+      "priceDrivers": "Number of pages, languages, features (forms, booking, shop on request) and existing content.",
+      "compare": {
+        "title": "WordPress or custom?",
+        "cols": ["Criterion", "WordPress", "Custom (static)"],
+        "rows": [
+          ["Editing content yourself", "Very good (block editor)", "Via files in a code repository (not for non-developers)"],
+          ["Running cost", "Updates and care needed", "Very low"],
+          ["Speed", "High when built lean", "Highest"],
+          ["Maintenance effort", "Ongoing (plugins, updates)", "Minimal"]
+        ]
+      },
+      "faq": [
+        { "q": "Will I stay visible on Google?", "a": "We keep the URL structure and set up redirects. Rankings cannot be guaranteed, but we minimise the risks." },
+        { "q": "Do you build online shops?", "a": "On request, with WooCommerce or Shopify. These get an individual quote rather than a fixed starting price." },
+        { "q": "Why a fixed price?", "a": "Because you should know the cost beforehand. Changes in scope are agreed in advance." }
+      ]
+    },
+    "wordpress": {
+      "title": "WordPress optimisation & support",
+      "card": "Slow, insecure or hard to find? Speed, security, accessibility and ongoing care.",
+      "seoTitle": "WordPress maintenance & optimisation | Fluxmedia",
+      "description": "WordPress optimisation and support: load time, security, accessibility, schema markup, updates and backups, also for sites we did not build.",
+      "lead": "We make existing WordPress sites faster, safer and easier to find: audit plugins, cut load time, improve accessibility and structured data, set up updates and backups. This includes sites we did not build. On request we look after your site monthly.",
+      "audience": ["Businesses with a WordPress site that feels slow or outdated", "Sites with many plugins and an unclear security status", "Companies that want a fixed contact for their website"],
+      "notFor": ["You want to replace WordPress with something else; a relaunch fits better"],
+      "deliverables": ["Plugin and theme audit", "Load-time optimisation (Core Web Vitals)", "Schema markup and basics for AI visibility", "Accessibility: fixing the main barriers", "Security: updates, backups, hardening", "Optional: monthly support"],
+      "process": ["Audit of your site", "Measures list at a fixed price", "Implementation", "Optional: ongoing care"],
+      "priceDrivers": "State of the site, number of plugins, the measures you want and the scope of monthly support.",
+      "faq": [
+        { "q": "Do you look after sites built by others?", "a": "Yes. We assess the state first and tell you honestly what is worthwhile." },
+        { "q": "Is there a contract with a minimum term?", "a": "One-off optimisations need no contract. For support we discuss the term openly." }
+      ]
+    },
+    "landing": {
+      "title": "Landing page at a fixed price",
+      "card": "One focused page for one offer: fast, mobile and geared toward enquiries.",
+      "seoTitle": "Landing page at a fixed price | Fluxmedia",
+      "description": "A landing page at a fixed price: clear, fast, mobile and accessible, geared toward your enquiries.",
+      "lead": "A landing page is a single page for one offer that leads visitors to an enquiry. We build it at a fixed price: clear message, fast loading, mobile and accessible. Ideal for tradespeople, practices and service providers who want to make a specific offer visible.",
+      "audience": ["Small businesses with a clear offer", "New services or promotions", "Anyone who wants to start small"],
+      "notFor": ["You need a multi-page company website; the relaunch fits better"],
+      "deliverables": ["One page with your copy and images", "Contact form with confirmation", "Mobile, fast and accessible", "Legal pages on request"],
+      "process": ["Short briefing", "Draft", "Revision round", "Publication"],
+      "priceDrivers": "Amount of content, image material and features you want.",
+      "faq": [
+        { "q": "How long does a landing page take?", "a": "It depends on your content. We state the schedule in the quote." },
+        { "q": "Can I expand it later?", "a": "Yes. The page can grow into a full website." }
+      ]
+    },
+    "chatbot": {
+      "title": "AI chatbot for your website",
+      "card": "A chatbot that answers questions from your own content, planned with data protection in mind.",
+      "seoTitle": "AI chatbot (RAG) for your website | Fluxmedia",
+      "description": "AI chatbot based on your own content (RAG), planned with GDPR in mind and notes on the EU AI Act. Project-based.",
+      "lead": "A chatbot can answer your customers' frequent questions from your own content. We plan it per project with data protection and the labelling duties of the EU AI Act in mind. Whether it is worth it for your business, we clarify honestly beforehand.",
+      "audience": ["Businesses with many recurring customer questions", "Companies with extensive information on their website"],
+      "notFor": ["You get few enquiries; a good FAQ is often enough"],
+      "deliverables": ["Concept and review of the data basis", "Implementation based on your content (RAG)", "Data-protection and labelling notes", "Training"],
+      "process": ["Conversation about needs", "Concept and quote", "Implementation", "Testing and handover"],
+      "priceDrivers": "Amount and quality of content, languages, integrations and operation.",
+      "faq": [
+        { "q": "Is there a live demo?", "a": "Not at the moment. On request we show an example in a call." },
+        { "q": "Where is the data stored?", "a": "We clarify this per project and plan with EU locations and data processing agreements in mind." }
+      ]
+    },
+    "automation": {
+      "title": "Automation with n8n",
+      "card": "Automate recurring workflows, per project and on request.",
+      "seoTitle": "Automation with n8n | Fluxmedia",
+      "description": "Automate recurring workflows with n8n: per project, on request and without needless complexity.",
+      "lead": "Many small tasks repeat: forwarding enquiries, transferring data, producing reports. With n8n we automate such workflows per project. We tell you beforehand when it pays off and when it does not yet.",
+      "audience": ["Businesses with recurring office tasks", "Teams that move data between programs"],
+      "notFor": ["The workflow rarely occurs; automation then usually does not pay off"],
+      "deliverables": ["Joint mapping of the workflow", "Implementation in n8n", "Documentation and handover"],
+      "process": ["Conversation", "Quote", "Implementation", "Handover"],
+      "priceDrivers": "Number of steps and connected systems, and operation.",
+      "faq": [
+        { "q": "Is there a demo?", "a": "No, we work per project and on request." }
+      ]
+    }
+  },
+  "pages": {
+    "home": {
+      "seoTitle": "Web development on Lake Constance: fast, accessible, AI-visible | Fluxmedia",
+      "description": "Fluxmedia, web developer on Lake Constance with over 10 years of experience: free SEO and AI analysis, website relaunch, WordPress support and accessibility at fixed prices.",
+      "h1": "Your website: fast, accessible and visible in AI answers.",
+      "sub": "Over 10 years of experience in web development on Lake Constance",
+      "analysisTitle": "Free SEO & AI analysis of your website",
+      "analysisText": "Done personally by a web developer, not generated automatically. You receive a short PDF report within 48 hours.",
+      "leadServices": "Our services",
+      "more": "More solutions",
+      "stepsTitle": "How it works",
+      "steps": ["Request", "Analysis in 48 hours", "Conversation", "Fixed price"],
+      "trust": ["Over 10 years of experience", "Servers in Germany", "GDPR-conscious", "Fixed prices", "Personal, on Lake Constance"],
+      "refsTitle": "Selected references",
+      "faqTitle": "Frequently asked questions",
+      "faq": [
+        { "q": "What does a website cost?", "a": "It depends on scope. We give fixed prices from a clear starting amount and prepare every quote personally." },
+        { "q": "WordPress or custom?", "a": "We recommend what fits your business. If you maintain content yourself, WordPress often serves you well." },
+        { "q": "Is the first analysis really free?", "a": "Yes, with no obligation. We do it personally and limit the number per week." },
+        { "q": "Where do you work?", "a": "On Lake Constance, for clients across the region and beyond." }
+      ],
+      "closing": "Ready for the next step?"
+    },
+    "services": {
+      "seoTitle": "Services | Fluxmedia",
+      "description": "All services at a glance: AI visibility, accessibility, website relaunch, WordPress support, landing page, AI chatbot and automation.",
+      "h1": "Services",
+      "lead": "From analysis to implementation. Everything at a fixed price and personally handled."
+    },
+    "analysis": {
+      "seoTitle": "Free SEO & AI analysis of your website | Fluxmedia",
+      "description": "Free manual analysis of your website: SEO basics, structured data, AI visibility and accessibility. Report within 48 hours.",
+      "h1": "Free SEO & AI analysis",
+      "lead": "Enter your website. We review it personally and send you a short PDF report within 48 hours (2 working days). The report carries no obligation.",
+      "contentsTitle": "What the report contains",
+      "contents": ["Technical basics: title, description, headings, indexing, mobile, Core Web Vitals", "Structured data: present or missing", "AI visibility: spot check with three questions in ChatGPT, Perplexity, Gemini and Google AI answers", "Accessibility: visible barriers (alt text, contrast, keyboard, labels)", "The five most effective measures", "On request: a quote for implementation"],
+      "honest": "We do not promise rankings. The report shows where your website stands and what is worthwhile."
+    },
+    "quote": {
+      "seoTitle": "Request a fixed-price quote | Fluxmedia",
+      "description": "A personal fixed-price quote in a few steps, prepared by hand within 24 to 48 hours.",
+      "h1": "Request a fixed-price quote",
+      "lead": "Four short steps. We prepare your quote personally, not automatically, within 24 to 48 hours.",
+      "stepTitles": ["What do you need?", "Platform", "Scope", "Contact"],
+      "needs": ["New website", "Relaunch", "Landing page", "WordPress optimisation / support", "Accessibility", "AI visibility", "Something else"],
+      "platformQ": "Which platform would you like?",
+      "platforms": ["Recommend to me", "WordPress", "Custom (static)"],
+      "scopeQ": "How large should the website be?",
+      "scopes": ["1 page", "2–5 pages", "6–15 pages", "More than 15 pages", "Not sure yet"],
+      "extra": "Shops (WooCommerce, Shopify) are possible on request."
+    },
+    "references": {
+      "seoTitle": "References | Fluxmedia",
+      "description": "Selected projects from over 10 years of web development on Lake Constance.",
+      "h1": "References",
+      "lead": "A small selection of our work. Current examples and before/after comparisons will follow.",
+      "visit": "Visit website",
+      "items": [
+        { "name": "Online shop for Höffner", "text": "Web development in Node.js, CoffeeScript, jQuery, HTML5 and CSS3", "image": "hoeffner_720x480.jpeg", "url": "https://www.hoeffner.de" },
+        { "name": "Online shop for Möbel-Kraft", "text": "Web development in Node.js, CoffeeScript, jQuery, HTML5 and CSS3", "image": "moebel-kraft_720x480.jpeg", "url": "https://www.moebel-kraft.de" },
+        { "name": "Yoga Kreis Bodensee", "text": "WordPress website: design and development, posters and flyers", "image": "yoga-kreis_720x480.jpeg", "url": "https://www.yogakreis-bodensee.de" },
+        { "name": "Prof. Bruno Latour", "text": "Web presence built with the Drupal content management system", "image": "bruno_720x480.jpeg", "url": "http://www.bruno-latour.fr" },
+        { "name": "Sonne & Mond", "text": "Online shop with xt:Commerce", "image": "sonne-und-mond_720x480.jpeg", "url": "http://www.sonneundmond.com/shop" },
+        { "name": "eMotion – Mapping Museum Experience", "text": "Web presence built with the Drupal content management system", "image": "emotion_720x480.jpeg", "url": "http://www.mapping-museum-experience.com/" }
+      ]
+    },
+    "about": {
+      "seoTitle": "About us: web developers on Lake Constance | Fluxmedia",
+      "description": "Fluxmedia is a small web development studio in Überlingen on Lake Constance. Over 10 years of experience, personal and transparent.",
+      "h1": "About us",
+      "lead": "Fluxmedia is a small web development and design studio on Lake Constance. You talk directly to the people who build your website.",
+      "body": [
+        "We have over 10 years of experience in web development, from online shops to web presences for institutions. We rely on proven, open technology and care about speed, accessibility and clean structure.",
+        "This website is our proof: no tracking, no third-party fonts and measurable results. We also use AI tools in our work; every result is reviewed by people."
+      ],
+      "values": ["Personal and transparent", "Fixed prices, not surprises", "Honest scope: no ranking promises"]
+    },
+    "contact": {
+      "seoTitle": "Contact | Fluxmedia",
+      "description": "Contact Fluxmedia, web development on Lake Constance: send a message or call directly.",
+      "h1": "Contact",
+      "lead": "Write to us. We reply within one working day.",
+      "direct": "Reach us directly"
+    },
+    "imprint": {
+      "seoTitle": "Legal notice | Fluxmedia",
+      "description": "Legal notice of Fluxmedia GbR.",
+      "h1": "Legal notice",
+      "note": "Courtesy translation. The German version is authoritative. Draft: check and complete before publication.",
+      "sections": [
+        { "h": "Information pursuant to § 5 DDG", "p": ["{legalName}", "{address}", "Partners: {partners}"] },
+        { "h": "Contact", "p": ["Phone: {phone}", "Email: {email}"] },
+        { "h": "VAT ID", "p": ["VAT identification number: {vatId}"] },
+        { "h": "Liability for content and links", "p": ["The content was created with great care. We cannot guarantee its accuracy, completeness or timeliness. The operators of external links are solely responsible for their content."] }
+      ]
+    },
+    "privacy": {
+      "seoTitle": "Privacy policy | Fluxmedia",
+      "description": "Privacy policy of Fluxmedia GbR.",
+      "h1": "Privacy policy",
+      "note": "Courtesy translation. The German version is authoritative. Draft: have it legally reviewed before publication.",
+      "sections": [
+        { "h": "Controller", "p": ["{legalName}, {address}. Email: {email}"] },
+        { "h": "Hosting", "p": ["This website is hosted by netcup GmbH in Germany. When you visit, technically necessary connection data (e.g. IP address, time) is processed in server log files. A data processing agreement is in place."] },
+        { "h": "Cookies and analytics", "p": ["We use no cookies, no analytics tools and no third-party fonts or maps."] },
+        { "h": "Forms", "p": ["When you submit a form, we process your details (e.g. name, email, website address) solely to answer your request. The legal basis is your consent or the initiation of a contract. Data is transmitted by email and deleted once processing is complete, unless retention duties apply. To prevent abuse, a shortened hash of your IP address is stored briefly for rate limiting."] },
+        { "h": "Your rights", "p": ["You have the right to access, rectification, erasure, restriction, data portability and objection, and the right to lodge a complaint with a supervisory authority."] }
+      ]
+    },
+    "a11yStatement": {
+      "seoTitle": "Accessibility statement | Fluxmedia",
+      "description": "Accessibility statement for this website.",
+      "h1": "Accessibility statement",
+      "note": "Courtesy translation. The German version is authoritative. Draft: update after the audits are complete.",
+      "sections": [
+        { "h": "Status", "p": ["We aim for conformance of this website with WCAG 2.2, level AA. Automated and manual testing (keyboard, screen reader) will be completed before launch and documented here."] },
+        { "h": "Feedback and contact", "p": ["Please report barriers to {email}. We reply within one working day."] }
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+# Staging (staging.fluxmedia.de): noindex + password. Create the .htpasswd outside Git.
+AuthType Basic
+AuthName "Fluxmedia staging"
+AuthUserFile /path/outside/webroot/.htpasswd
+Require valid-user
+Header set X-Robots-Tag "noindex, nofollow"

@@ -1,0 +1,55 @@
+# Apache config for the static export (copied into out/ by `next build`).
+# Page routes need no rewrites: /leistungen/x/ is the file leistungen/x/index.html.
+AddDefaultCharset UTF-8
+Options -Indexes
+DirectoryIndex index.html
+
+# --- HTTPS + one canonical host -----------------------------------------
+RewriteEngine On
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^www\.fluxmedia\.de$ [NC]
+RewriteRule ^ https://www.fluxmedia.de%{REQUEST_URI} [L,R=301]
+
+# --- Never serve internals ----------------------------------------------
+RewriteRule (^|/)\.(?!well-known/) - [F]
+RewriteRule ^(config|docs|deploy|scripts|src|node_modules)(/|$) - [F]
+RewriteRule ^api/(lib|PHPMailer)(/|$) - [F]
+
+# --- Legacy URLs (301 to the new equivalents; extend from the old URL list)
+RewriteRule ^index\.html$ / [R=301,L]
+
+# --- Errors: a real 404 page (the old `ErrorDocument 404 /` caused soft-404s)
+ErrorDocument 404 /404.html
+
+# --- Compression ---------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/json application/javascript text/javascript image/svg+xml
+</IfModule>
+
+# --- Security headers ----------------------------------------------------
+# script-src needs 'unsafe-inline' because Next.js inlines its bootstrap scripts;
+# tighten with hashes later if desired.
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), interest-cohort=()"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'self'; object-src 'none'"
+</IfModule>
+
+# --- Caching -------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Hashed build assets never change
+  <If "%{REQUEST_URI} =~ m#^/_next/static/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  # Fonts and images: long, but not immutable (names are not hashed)
+  <FilesMatch "\.(woff2?|avif|webp|jpe?g|png|svg|ico)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  # HTML and RSC payloads: always revalidate
+  <FilesMatch "\.(html|txt|xml)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>

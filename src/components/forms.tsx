@@ -1,0 +1,164 @@
+"use client";
+
+import { useState, type FormEvent, type ReactNode } from "react";
+import Link from "next/link";
+import type { Content } from "@/content";
+import { pathFor, type Lang } from "@/i18n/routes";
+import { site } from "@/content/site";
+
+// Strings are passed in from server components so the client bundle does not ship both language files.
+type F = Content["ui"]["forms"];
+
+type Status = "idle" | "sending" | "ok" | "error";
+
+function Shell({ endpoint, lang, f, children, submitLabel, onSubmitData, hideSubmit }: {
+  endpoint: string; lang: Lang; f: F; children: ReactNode; submitLabel?: string;
+  onSubmitData?: (fd: FormData) => void; hideSubmit?: boolean;
+}) {
+  const [status, setStatus] = useState<Status>("idle");
+
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    onSubmitData?.(fd);
+    fd.set("lang", lang);
+    const ref = new URLSearchParams(window.location.search).get("ref");
+    if (ref) fd.set("ref", ref);
+    setStatus("sending");
+    try {
+      const res = await fetch(endpoint, { method: "POST", body: fd, headers: { Accept: "application/json" } });
+      const json = await res.json().catch(() => ({}));
+      setStatus(res.ok && json.ok ? "ok" : "error");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  if (status === "ok")
+    return <p role="status" className="rounded border-2 border-accent p-4 font-bold text-ink">{f.ok}</p>;
+
+  return (
+    <form onSubmit={onSubmit} className="space-y-4" noValidate={false}>
+      <p className="text-sm text-muted">{f.required}</p>
+      {children}
+      {/* honeypot: hidden from people and assistive tech, bots fill it */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-10000px" }}>
+        <label>Company<input type="text" name="company" tabIndex={-1} autoComplete="off" /></label>
+      </div>
+      <label className="flex items-start gap-2">
+        <input type="checkbox" name="consent" value="1" required className="mt-1 size-5" />
+        <span>{f.consent.split(/<a>|<\/a>/).map((part, i) =>
+          i === 1 ? <Link key={i} className="underline" href={pathFor("privacy", lang)}>{part}</Link> : <span key={i}>{part}</span>)}</span>
+      </label>
+      <div aria-live="polite">
+        {status === "error" && (
+          <p role="alert" className="font-bold text-red-800">{f.error} <a className="underline" href={`mailto:${site.email}`}>{site.email}</a></p>
+        )}
+      </div>
+      {!hideSubmit && (
+        <button type="submit" disabled={status === "sending"} className="btn">
+          {status === "sending" ? f.sending : submitLabel ?? f.send}
+        </button>
+      )}
+    </form>
+  );
+}
+
+function Field({ id, label, type = "text", required, hint, autoComplete }: {
+  id: string; label: string; type?: string; required?: boolean; hint?: string; autoComplete?: string;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="label">{label}{required && " *"}</label>
+      <input id={id} name={id} type={type} required={required} autoComplete={autoComplete}
+        aria-describedby={hint ? `${id}-hint` : undefined} className="field" />
+      {hint && <p id={`${id}-hint`} className="mt-1 text-sm text-muted">{hint}</p>}
+    </div>
+  );
+}
+
+export function AnalysisForm({ lang, f, submitLabel }: { lang: Lang; f: F; submitLabel: string }) {
+  return (
+    <Shell endpoint="/api/analysis.php" lang={lang} f={f} submitLabel={submitLabel}>
+      <Field id="url" label={f.url} type="url" required />
+      <Field id="terms" label={f.terms} required hint={f.termsHint} />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field id="name" label={f.name} required autoComplete="name" />
+        <Field id="email" label={f.email} type="email" required autoComplete="email" />
+      </div>
+      <Field id="business" label={f.businessType} />
+      <div>
+        <label htmlFor="platform" className="label">{f.platform}</label>
+        <select id="platform" name="platform" className="field">{f.platforms.map((p) => <option key={p}>{p}</option>)}</select>
+      </div>
+      <Field id="budget" label={f.budget} />
+      <Field id="source" label={f.source} />
+    </Shell>
+  );
+}
+
+export function ContactForm({ lang, f }: { lang: Lang; f: F }) {
+  return (
+    <Shell endpoint="/api/contact.php" lang={lang} f={f}>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field id="name" label={f.name} required autoComplete="name" />
+        <Field id="email" label={f.email} type="email" required autoComplete="email" />
+      </div>
+      <div>
+        <label htmlFor="message" className="label">{f.message} *</label>
+        <textarea id="message" name="message" rows={6} required className="field" />
+      </div>
+    </Shell>
+  );
+}
+
+export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"]["quote"] }) {
+  const [step, setStep] = useState(0);
+  const last = q.stepTitles.length - 1;
+
+  const choice = (name: string, options: string[], legend: string) => (
+    <fieldset>
+      <legend className="label">{legend}</legend>
+      <div className="mt-2 grid gap-2 sm:grid-cols-2">
+        {options.map((o, i) => (
+          <label key={o} className="flex items-center gap-2 rounded border border-line p-3">
+            <input type="radio" name={name} value={o} required defaultChecked={i === 0} className="size-5" />{o}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  );
+
+  // All steps stay in the DOM (hidden) so one native FormData collects everything.
+  const panel = (i: number, body: ReactNode) => <div hidden={step !== i}>{body}</div>;
+
+  return (
+    <div>
+      <p className="mb-4 font-bold text-ink" aria-live="polite">
+        {f.step} {step + 1} {f.of} {q.stepTitles.length}: {q.stepTitles[step]}
+      </p>
+      <Shell endpoint="/api/quote.php" lang={lang} f={f} hideSubmit={step !== last}>
+        {panel(0, choice("need", q.needs, q.stepTitles[0]))}
+        {panel(1, choice("platform", q.platforms, q.platformQ))}
+        {panel(2, <>{choice("scope", q.scopes, q.scopeQ)}<p className="mt-3 text-sm text-muted">{q.extra}</p></>)}
+        {panel(3, (
+          <div className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field id="name" label={f.name} required autoComplete="name" />
+              <Field id="email" label={f.email} type="email" required autoComplete="email" />
+            </div>
+            <Field id="url" label={f.url.replace(" (URL)", "") + " (URL)"} type="url" />
+            <div>
+              <label htmlFor="message" className="label">{f.message}</label>
+              <textarea id="message" name="message" rows={4} className="field" />
+            </div>
+          </div>
+        ))}
+      </Shell>
+      <div className="mt-4 flex gap-3">
+        {step > 0 && <button type="button" className="btn btn-outline" onClick={() => setStep(step - 1)}>{f.back}</button>}
+        {step < last && <button type="button" className="btn" onClick={() => setStep(step + 1)}>{f.next}</button>}
+      </div>
+    </div>
+  );
+}

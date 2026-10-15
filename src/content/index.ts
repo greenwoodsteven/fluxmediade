@@ -1,0 +1,10 @@
+import de from "./de.json";
+import en from "./en.json";
+import type { Lang } from "@/i18n/routes";
+
+export type Content = typeof de;
+export type ServiceContent = Content["services"]["geo"];
+export type LegalSection = { h: string; p: string[] };
+
+const dict: Record<Lang, Content> = { de, en: en as Content };
+export const getContent = (lang: Lang): Content => dict[lang];
