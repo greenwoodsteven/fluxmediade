@@ -232,11 +232,11 @@
       "lead": "A small selection of our work. Current examples and before/after comparisons will follow.",
       "visit": "Visit website",
       "items": [
-        { "name": "Online shop for Höffner", "text": "Web development in Node.js, CoffeeScript, jQuery, HTML5 and CSS3", "image": "hoeffner_720x480.jpeg", "url": "https://www.hoeffner.de" },
-        { "name": "Online shop for Möbel-Kraft", "text": "Web development in Node.js, CoffeeScript, jQuery, HTML5 and CSS3", "image": "moebel-kraft_720x480.jpeg", "url": "https://www.moebel-kraft.de" },
+        { "name": "Online shop for Höffner", "text": "Web development in Node.js, React, HTML5 and CSS3", "image": "hoeffner_720x480.jpeg", "url": "https://www.hoeffner.de" },
+        { "name": "Online shop for Möbel-Kraft", "text": "Web development in Node.js, React, HTML5 and CSS3", "image": "moebel-kraft_720x480.jpeg", "url": "https://www.moebel-kraft.de" },
         { "name": "Yoga Kreis Bodensee", "text": "WordPress website: design and development, posters and flyers", "image": "yoga-kreis_720x480.jpeg", "url": "https://www.yogakreis-bodensee.de" },
         { "name": "Prof. Bruno Latour", "text": "Web presence built with the Drupal content management system", "image": "bruno_720x480.jpeg", "url": "http://www.bruno-latour.fr" },
-        { "name": "Sonne & Mond", "text": "Online shop with xt:Commerce", "image": "sonne-und-mond_720x480.jpeg", "url": "http://www.sonneundmond.com/shop" },
+        { "name": "pdf-to-fax", "text": "Web development with Next.js, React, Payload CMS and Cloudflare, payments via Stripe, fax delivery via Telnyx", "image": "pdf-to-fax_720x480.jpeg", "url": "https://pdftofax.com" },
         { "name": "eMotion – Mapping Museum Experience", "text": "Web presence built with the Drupal content management system", "image": "emotion_720x480.jpeg", "url": "http://www.mapping-museum-experience.com/" }
       ]
     },
