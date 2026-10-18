@@ -21,10 +21,32 @@ function messageFor(el: HTMLInputElement | HTMLTextAreaElement | HTMLSelectEleme
   return el.validationMessage;
 }
 
-function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit }: {
+type Pow = { salt: string; sig: string; nonce: number };
+
+/** Proof of work against bots: find a nonce so that SHA-256("salt:nonce") starts with `bits` zero bits (~0.3 s). */
+async function solvePow(): Promise<Pow | null> {
+  try {
+    const res = await fetch("/api/challenge.php", { headers: { Accept: "application/json" } });
+    const c = await res.json();
+    const enc = new TextEncoder();
+    for (let nonce = 0; nonce < 5_000_000; nonce++) {
+      const h = new Uint8Array(await crypto.subtle.digest("SHA-256", enc.encode(`${c.salt}:${nonce}`)));
+      let bits = 0;
+      for (const b of h) { if (b === 0) { bits += 8; continue; } bits += Math.clz32(b) - 24; break; }
+      if (bits >= c.bits) return { salt: c.salt, sig: c.sig, nonce };
+    }
+  } catch {}
+  return null;
+}
+
+function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMessage, notice }: {
   endpoint: string; lang: Lang; f: F; children: ReactNode; submitLabel?: string; hideSubmit?: boolean;
+  pow?: boolean; okMessage?: string; notice?: string;
 }) {
   const [status, setStatus] = useState<Status>("idle");
+  const [errorKey, setErrorKey] = useState("");
+  const powRef = useRef<Promise<Pow | null> | null>(null);
+  const startPow = () => { if (pow) powRef.current ??= solvePow(); };
   const [errors, setErrors] = useState<Errors>({});
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -59,8 +81,15 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit }: {
     if (ref) fd.set("ref", ref);
     setStatus("sending");
     try {
+      if (pow) {
+        startPow();
+        const solved = await powRef.current;
+        powRef.current = null; // a challenge can be used once
+        if (solved) { fd.set("pow_salt", solved.salt); fd.set("pow_sig", solved.sig); fd.set("pow_nonce", String(solved.nonce)); }
+      }
       const res = await fetch(endpoint, { method: "POST", body: fd, headers: { Accept: "application/json" } });
       const json = await res.json().catch(() => ({}));
+      setErrorKey(res.ok && json.ok ? "" : json.error ?? "");
       setStatus(res.ok && json.ok ? "ok" : "error");
     } catch {
       setStatus("error");
@@ -68,14 +97,15 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit }: {
   }
 
   if (status === "ok")
-    return <p role="status" className="rounded border-2 border-accent p-4 font-bold text-ink">{f.ok}</p>;
+    return <p role="status" className="rounded border-2 border-accent p-4 font-bold text-ink">{okMessage ?? f.ok}</p>;
 
   const count = Object.keys(errors).length;
   return (
     <ErrorsCtx.Provider value={errors}>
-      <form ref={formRef} onSubmit={onSubmit} onInput={onInput} noValidate className="space-y-4">
+      <form ref={formRef} onSubmit={onSubmit} onInput={onInput} onFocus={startPow} noValidate className="space-y-4">
         <p className="text-sm text-muted">{f.required}</p>
         {children}
+        {notice && <p className="text-sm text-muted">{notice}</p>}
         {/* honeypot: hidden from people and assistive tech, bots fill it */}
         <div aria-hidden="true" style={{ position: "absolute", left: "-10000px" }}>
           <label>Company<input type="text" name="company" tabIndex={-1} autoComplete="off" /></label>
@@ -92,7 +122,7 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit }: {
         <div aria-live="polite">
           {count > 0 && <p className="font-bold text-accent">{f.errSummary}</p>}
           {status === "error" && (
-            <p role="alert" className="font-bold text-red-800">{f.error} <a className="underline" href={`mailto:${site.email}`}>{site.email}</a></p>
+            <p role="alert" className="font-bold text-red-800">{errorKey === "domain" ? f.errDomain : errorKey === "capacity" ? f.errCapacity : f.error} <a className="underline" href={`mailto:${site.email}`}>{site.email}</a></p>
           )}
         </div>
         {!hideSubmit && (
@@ -123,7 +153,7 @@ function Field({ id, label, type = "text", required, hint, autoComplete, multili
 
 export function AnalysisForm({ lang, f, submitLabel }: { lang: Lang; f: F; submitLabel: string }) {
   return (
-    <Shell endpoint="/api/analysis.php" lang={lang} f={f} submitLabel={submitLabel}>
+    <Shell endpoint="/api/analysis.php" lang={lang} f={f} submitLabel={submitLabel} pow okMessage={f.okAnalysis} notice={f.analysisTerms}>
       <Field id="url" label={f.url} type="url" required />
       <Field id="terms" label={f.terms} required hint={f.termsHint} />
       <div className="grid gap-4 sm:grid-cols-2">

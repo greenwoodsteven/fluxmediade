@@ -14,5 +14,12 @@ return [
         'from_name'  => 'Fluxmedia',
     ],
     'rate_limit' => ['max' => 5, 'window' => 3600],   // per IP hash
-    'storage_dir' => null,                            // null = system temp dir
+    // Persistent state of the free analysis (pending confirmations, domain history, weekly cap) and the
+    // rate limiter. Use a folder OUTSIDE the release folder, e.g. /path/to/fluxmedia/shared/storage,
+    // otherwise every deploy resets the limits. null = api/storage (denied by .htaccess, reset by deploys).
+    'storage_dir' => null,
+    'base_url'    => 'https://www.fluxmedia.de',      // used in the confirmation link
+    'secret'      => 'CHANGE_ME_LONG_RANDOM',         // signs proof-of-work challenges (openssl rand -hex 32)
+    'audit'       => ['weekly_cap' => 10, 'domain_days' => 90, 'pending_hours' => 48],
+    // 'mail_dump' => '/tmp/mails',                   // testing only: write mails to files instead of sending
 ];

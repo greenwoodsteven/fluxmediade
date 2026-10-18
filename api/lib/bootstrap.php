@@ -76,9 +76,19 @@ function require_fields(array $values, array $required): void {
 
 function lang(): string { return ($_POST['lang'] ?? 'de') === 'en' ? 'en' : 'de'; }
 
+/** Test helper: with config['mail_dump'] set, mails are written to that folder instead of being sent. */
+class DumpMailer extends PHPMailer {
+    public function postSend(): bool {
+        $dir = config()['mail_dump'];
+        if (!is_dir($dir)) @mkdir($dir, 0700, true);
+        file_put_contents($dir . '/' . date('His') . '-' . bin2hex(random_bytes(3)) . '.eml', $this->getSentMIMEMessage());
+        return true;
+    }
+}
+
 function mailer(): PHPMailer {
     $s = config()['smtp'];
-    $m = new PHPMailer(true);
+    $m = !empty(config()['mail_dump']) ? new DumpMailer(true) : new PHPMailer(true);
     $m->isSMTP();
     $m->Host = $s['host'];
     $m->Port = $s['port'];

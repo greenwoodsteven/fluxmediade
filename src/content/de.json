@@ -31,6 +31,10 @@
       "budget": "Grobes Budget (optional)",
       "message": "Ihre Nachricht",
       "consent": "Ich habe die <a>Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage einverstanden.",
+      "okAnalysis": "Fast geschafft! Wir haben Ihnen eine E-Mail mit einem Bestätigungslink geschickt. Ihre Anfrage wird erst nach einem Klick auf den Link bearbeitet. Bitte prüfen Sie auch den Spam-Ordner.",
+      "errDomain": "Für diese Domain wurde in den letzten 90 Tagen bereits eine Analyse angefragt. Bei Fragen schreiben Sie uns an",
+      "errCapacity": "Diese Woche sind alle Analyse-Plätze vergeben. Bitte versuchen Sie es in einigen Tagen erneut oder schreiben Sie an",
+      "analysisTerms": "Die Analyse gilt für Ihre eigene Website: eine Analyse pro Unternehmen und Domain innerhalb von 90 Tagen. Die Zahl der Analysen pro Woche ist begrenzt, wir können Anfragen ablehnen. Bearbeitet wird Ihre Anfrage erst, nachdem Sie Ihre E-Mail-Adresse bestätigt haben.",
       "send": "Absenden",
       "sending": "Wird gesendet …",
       "ok": "Vielen Dank! Ihre Anfrage ist eingegangen. Sie erhalten eine Bestätigung per E-Mail.",
@@ -279,7 +283,7 @@
         { "h": "Verantwortliche", "p": ["{legalName}, {address}. E-Mail: {email}"] },
         { "h": "Hosting", "p": ["Diese Website wird bei netcup GmbH in Deutschland gehostet. Beim Aufruf werden technisch notwendige Verbindungsdaten (z. B. IP-Adresse, Zeitpunkt) in Server-Logdateien verarbeitet. Ein Auftragsverarbeitungsvertrag besteht."] },
         { "h": "Cookies und Analyse", "p": ["Wir setzen keine Cookies, keine Analyse-Werkzeuge und keine Drittanbieter-Schriften oder -Karten ein."] },
-        { "h": "Formulare", "p": ["Wenn Sie ein Formular absenden, verarbeiten wir Ihre Angaben (z. B. Name, E-Mail, Website-Adresse) ausschließlich, um Ihre Anfrage zu beantworten. Rechtsgrundlage ist Ihre Einwilligung bzw. die Anbahnung eines Vertrags. Die Daten werden per E-Mail übermittelt und nach Abschluss der Bearbeitung gelöscht, soweit keine Aufbewahrungspflichten bestehen. Zum Schutz vor Missbrauch wird kurzzeitig ein gekürzter Hash Ihrer IP-Adresse zur Mengenbegrenzung gespeichert."] },
+        { "h": "Formulare", "p": ["Wenn Sie ein Formular absenden, verarbeiten wir Ihre Angaben (z. B. Name, E-Mail, Website-Adresse) ausschließlich, um Ihre Anfrage zu beantworten. Rechtsgrundlage ist Ihre Einwilligung bzw. die Anbahnung eines Vertrags. Die Daten werden per E-Mail übermittelt und nach Abschluss der Bearbeitung gelöscht, soweit keine Aufbewahrungspflichten bestehen. Zum Schutz vor Missbrauch wird kurzzeitig ein gekürzter Hash Ihrer IP-Adresse zur Mengenbegrenzung gespeichert. Bei der kostenlosen Analyse speichern wir Ihre Angaben bis zur Bestätigung Ihrer E-Mail-Adresse auf dem Server (höchstens 48 Stunden); danach wird die Anfrage per E-Mail übermittelt. Um Mehrfachanfragen zu begrenzen, speichern wir die angefragte Domain 90 Tage lang nur als Hash."] },
         { "h": "Ihre Rechte", "p": ["Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch sowie das Recht auf Beschwerde bei einer Aufsichtsbehörde."] }
       ]
     },

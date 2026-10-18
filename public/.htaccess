@@ -13,7 +13,7 @@ RewriteRule ^ https://www.fluxmedia.de%{REQUEST_URI} [L,R=301]
 # --- Never serve internals ----------------------------------------------
 RewriteRule (^|/)\.(?!well-known/) - [F]
 RewriteRule ^(config|docs|deploy|scripts|src|node_modules)(/|$) - [F]
-RewriteRule ^api/(lib|PHPMailer)(/|$) - [F]
+RewriteRule ^api/(lib|PHPMailer|storage)(/|$) - [F]
 
 # --- Legacy URLs (301 to the new equivalents; extend from the old URL list)
 RewriteRule ^index\.html$ / [R=301,L]

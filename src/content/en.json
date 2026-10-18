@@ -31,6 +31,10 @@
       "budget": "Rough budget (optional)",
       "message": "Your message",
       "consent": "I have read the <a>privacy policy</a> and agree to my details being processed to handle my request.",
+      "okAnalysis": "Almost done! We have sent you an email with a confirmation link. Your request is only processed after you click the link. Please also check your spam folder.",
+      "errDomain": "An analysis has already been requested for this domain in the last 90 days. If you have questions, write to",
+      "errCapacity": "All analysis slots for this week are taken. Please try again in a few days or write to",
+      "analysisTerms": "The analysis is for your own website: one analysis per company and domain within 90 days. The number of analyses per week is limited and we may decline requests. Your request is only processed after you have confirmed your email address.",
       "send": "Send",
       "sending": "Sending …",
       "ok": "Thank you! Your request has arrived. You will receive a confirmation by email.",
@@ -279,7 +283,7 @@
         { "h": "Controller", "p": ["{legalName}, {address}. Email: {email}"] },
         { "h": "Hosting", "p": ["This website is hosted by netcup GmbH in Germany. When you visit, technically necessary connection data (e.g. IP address, time) is processed in server log files. A data processing agreement is in place."] },
         { "h": "Cookies and analytics", "p": ["We use no cookies, no analytics tools and no third-party fonts or maps."] },
-        { "h": "Forms", "p": ["When you submit a form, we process your details (e.g. name, email, website address) solely to answer your request. The legal basis is your consent or the initiation of a contract. Data is transmitted by email and deleted once processing is complete, unless retention duties apply. To prevent abuse, a shortened hash of your IP address is stored briefly for rate limiting."] },
+        { "h": "Forms", "p": ["When you submit a form, we process your details (e.g. name, email, website address) solely to answer your request. The legal basis is your consent or the initiation of a contract. Data is transmitted by email and deleted once processing is complete, unless retention duties apply. To prevent abuse, a shortened hash of your IP address is stored briefly for rate limiting. For the free analysis we keep your details on the server until you confirm your email address (48 hours at most); after that the request is passed on by email. To limit repeat requests we keep the requested domain, as a hash only, for 90 days."] },
         { "h": "Your rights", "p": ["You have the right to access, rectification, erasure, restriction, data portability and objection, and the right to lodge a complaint with a supervisory authority."] }
       ]
     },
