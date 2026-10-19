@@ -106,8 +106,10 @@ Audit reports are kept in `docs/audits/` (one dated file per run). Before a rele
 
 ## Deployment
 
-`deploy/deploy.sh` builds the site, uploads it to a timestamped release folder on netcup and switches the `current`
-symlink, with rollback. Setup, checklists and troubleshooting are in **[deploy/README.md](deploy/README.md)**.
+Simple route: build locally (`npm run build`), upload the contents of `out/` by FTP, and `git pull` on the server
+for the PHP endpoints. Optional upgrade: `deploy/deploy.sh` builds, uploads to a timestamped release folder and
+switches the `current` symlink, with rollback. Both are described, with checklists and troubleshooting, in
+**[deploy/README.md](deploy/README.md)**.
 
 ## Open items before launch
 

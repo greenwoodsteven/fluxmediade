@@ -1,5 +1,11 @@
 # Deployment (netcup shared hosting)
 
+Two ways to deploy. **[Simple: `git pull` + FTP](#simple-deployment-git-pull--ftp)** needs nothing but an FTP client and
+git on the server and is enough for this site. The release-folder route below (script, atomic switch, rollback) is the
+optional upgrade; both build on your machine, because the server never needs Node.
+
+## Release-folder deployment
+
 The site is built on your machine (`out/` = static files) and uploaded together with `api/` (PHP) into a new release
 folder. The domain's document root points at a `current` symlink, so a release goes live atomically and can be rolled
 back in seconds.
@@ -107,6 +113,192 @@ ssh $DEPLOY_HOST "ln -sfn releases/<timestamp> $DEPLOY_PATH/current"
 HTML, `.txt` and `.xml` are served with `max-age=0, must-revalidate`; `/_next/static/*` is hashed and immutable;
 fonts and images are cached for 30 days (their names are not hashed). A deploy needs no cache purge. If you replace an
 image under the same name, visitors can see the old one for up to 30 days, so give changed images a new name.
+
+## Alternative: deployment via git
+
+The site is a static export, so the **server never builds anything**. Node and the image tooling are not available
+on shared hosting, and they are not needed: git only has to move the finished `out/` and `api/` there. Two ways, both
+using the same release folders, `shared/config.php`, `shared/storage` and `current` symlink as above. Both need a
+git remote (GitHub, GitLab or similar), which this repository does not have yet.
+
+| | A. CI builds and deploys on push (recommended) | B. Built artifacts in a `release` branch, server pulls |
+|---|---|---|
+| Trigger | `git push` to `master` (or a `v*` tag) | `deploy/release.sh` locally, then one `ssh` command |
+| Build happens | on the CI runner | on your machine |
+| Needs on the server | SSH + rsync (as now) | SSH + `git`, no inbound rsync |
+| Git history | source only | source plus a second branch with generated files |
+| Best when | you want push-to-deploy and a clean audit trail | the CI runner cannot reach the server, or only `git` is available |
+
+Check first whether your netcup plan offers SSH and `git` on the server (this varies by package).
+
+### A. CI builds and deploys
+
+1. Create a deploy-only SSH key pair (`ssh-keygen -t ed25519 -f flux-deploy -N ""`), add the public key to
+   `~/.ssh/authorized_keys` on the server, and keep the private key out of the repository.
+2. Add these as repository secrets: `DEPLOY_HOST` (`user@host`), `DEPLOY_PATH`, `DEPLOY_KEY` (private key),
+   `DEPLOY_KNOWN_HOSTS` (output of `ssh-keyscan host`, so the host key is pinned), and `SITE_LOCAL_JSON` (the content
+   of `config/site.local.json`, which is not in git).
+3. Add `.github/workflows/deploy.yml` (GitLab CI works the same way with the same steps):
+
+```yaml
+name: deploy
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: {}
+concurrency: deploy          # never two deploys at once
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production  # optional: require a manual approval in the repository settings
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run lint
+      - name: Business data and deploy settings
+        env:
+          SITE_LOCAL_JSON: ${{ secrets.SITE_LOCAL_JSON }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          printf '%s' "$SITE_LOCAL_JSON" > config/site.local.json
+          printf 'DEPLOY_HOST=%s\nDEPLOY_PATH=%s\n' "$DEPLOY_HOST" "$DEPLOY_PATH" > deploy/.env
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+      - run: deploy/deploy.sh   # strict site check, build, rsync, symlink switch, keeps 5 releases
+```
+
+   The workflow reuses `deploy/deploy.sh`, so local and CI deploys behave the same. A placeholder left in
+   `site.local.json` fails the run before anything is uploaded.
+4. Run the smoke test from section 4 against the live site after the first run.
+
+Notes
+- **Rollback:** `deploy/deploy.sh rollback` from your machine, or re-run the workflow on an older commit
+  (`workflow_dispatch` on that ref). The old release folders stay on the server (newest five).
+- **Quality gate:** add the Lighthouse/axe run as a job before `deploy` once it is scripted; today it is manual.
+- **Secrets:** the deploy key can only log in to this one account; give it a dedicated server user if the plan allows.
+  Never print secrets in the log, and rotate the key if the repository access changes.
+- **Pull requests:** do not run the deploy job for forks or pull requests (secrets would be exposed); the trigger above
+  only fires on pushes to `master`.
+
+### B. Built artifacts in a `release` branch
+
+Only for the case that the server can run `git pull` but nothing can push to it.
+
+1. **Once, on your machine:** create an orphan branch that holds only built files.
+
+   ```bash
+   git worktree add --orphan -b release ../fluxmedia-release   # git 2.42+, else: git checkout --orphan release
+   ```
+
+2. **Each release, on your machine** (a `deploy/release.sh` would wrap these steps):
+
+   ```bash
+   node scripts/site-config.mjs --strict && npm run build
+   rsync -a --delete --exclude '.git' out/ ../fluxmedia-release/
+   rsync -a --exclude 'config*.php' --exclude 'storage/' api/ ../fluxmedia-release/api/
+   git -C ../fluxmedia-release add -A
+   git -C ../fluxmedia-release commit -m "release $(date +%Y%m%d-%H%M%S) from $(git rev-parse --short HEAD)"
+   git -C ../fluxmedia-release push origin release
+   ```
+
+3. **Once, on the server:** clone the branch next to the releases and give it read-only access to the remote (a
+   deploy key without write permission).
+
+   ```bash
+   git clone --branch release --single-branch --depth 1 git@github.com:ORG/fluxmedia-site.git $DEPLOY_PATH/repo
+   ```
+
+4. **Each release, on the server** (run it over `ssh`, or from a small script in `$DEPLOY_PATH`):
+
+   ```bash
+   cd $DEPLOY_PATH && TS=$(date +%Y%m%d-%H%M%S)
+   git -C repo fetch --depth 1 origin release && git -C repo reset --hard origin/release
+   mkdir -p releases/$TS && rsync -a --exclude '.git' repo/ releases/$TS/
+   ln -sfn $DEPLOY_PATH/shared/config.php releases/$TS/api/config.php
+   ln -sfn releases/$TS current
+   ls -1dt releases/* | tail -n +6 | xargs -r rm -rf
+   ```
+
+   The copy into a new release folder keeps the switch atomic and the rollback identical to section 5.
+
+Notes
+- The generated images make the `release` branch large. Squash it now and then (`git checkout --orphan` and force
+  push) so the history does not keep every build.
+- Do not commit `config*.php` or anything from `shared/` to that branch. The business data in
+  `config/site.local.json` is baked into the HTML at build time, so the branch contains the public Impressum values
+  but never the SMTP password or `secret`.
+- Never serve the server's `repo/` folder: it holds `.git`. Only `current` may be the document root.
+
+## Simple deployment: git pull + FTP
+
+The static site (`out/`) is built on your machine and uploaded by FTP. The PHP endpoints (`api/`) come from git on the
+server. `out/` is **not** tracked in git (it contains your Impressum data), so there is nothing to build on the server.
+
+```
+~/fluxmedia-site/          <- git clone (source, api/, config); NOT in the webroot
+│   └── api/config.php     <- real credentials, git-ignored, survives every `git pull`
+~/fluxmedia-storage/       <- state of the free analysis (create it, mode 700)
+<webroot>/                 <- the domain's document root: contents of out/ (FTP)
+    ├── index.html, _next/, images/, .htaccess, ...
+    └── api -> ~/fluxmedia-site/api     <- symlink
+```
+
+Never clone the repository into the webroot: `.git`, `src/`, `docs/` and `config/` would be web-accessible.
+
+### One time
+
+1. Check what the server has: `ssh user@host 'command -v git php'`.
+2. Give the server read access to the repository (a read-only deploy key: `ssh-keygen -t ed25519`, add the public key
+   to the repository settings), then clone **outside** the webroot:
+   `git clone git@github.com:ORG/fluxmedia-site.git ~/fluxmedia-site`
+3. Create the config and the storage folder:
+   ```bash
+   mkdir -p ~/fluxmedia-storage && chmod 700 ~/fluxmedia-storage
+   cp ~/fluxmedia-site/api/config.example.php ~/fluxmedia-site/api/config.php && chmod 600 ~/fluxmedia-site/api/config.php
+   ```
+   Edit `config.php`: real SMTP login (rotate the old password first), `secret` (`openssl rand -hex 32`),
+   `base_url` (`https://www.fluxmedia.de`), `storage_dir` (`/full/path/to/fluxmedia-storage`), `allowed_origins`.
+4. Link the endpoints into the webroot: `ln -s ~/fluxmedia-site/api <webroot>/api`. If the plan does not allow
+   symlinks, copy instead (`cp -r ~/fluxmedia-site/api <webroot>/api`) and repeat the copy after each `git pull`
+   (keep `config.php` out of that copy loop, or copy it once).
+5. Point the domain at the webroot, choose PHP 8.x and enable the TLS certificate (customer control panel).
+
+### Every release
+
+1. **On your machine:** commit and push your changes, make sure `config/site.local.json` has no `[...]` left, then
+   ```bash
+   node scripts/site-config.mjs --strict && npm run build
+   ```
+2. **On the server, only if `api/` changed:** `cd ~/fluxmedia-site && git pull`.
+   Do this together with step 3: the forms (JavaScript in `out/`) and the PHP endpoints must be the same version.
+3. **FTP `out/` to the webroot.** Upload the **contents** of `out/`, not the folder itself.
+   - Show hidden files in your client; `.htaccess` is in `out/` and must be uploaded every time.
+   - Overwrite existing files, and do **not** delete or overwrite the `api` link/folder in the webroot.
+   - Upload order, to avoid a broken page while the upload runs: first `_next/` and `images/`, then everything else, the
+     HTML files last.
+   - Transfer mode "binary" (or "auto" in FileZilla), never "ASCII".
+   - Command-line alternative: `lftp -u USER sftp://HOST -e "mirror -R --only-newer --exclude '^api$' out/ /webroot; quit"`.
+     Add `--delete` to also remove old files (still excluding `api`), see the note below.
+4. **Smoke test** (section 4 above): home page, a 404, the free-analysis form end to end, `api/lib/` returns 403.
+
+### Notes
+
+- **Old files:** overwriting never removes files from earlier builds, so old `_next/static/chunks/*` pile up. They are
+  harmless. About once a month, delete `_next/` in the webroot and upload the new one, or use `lftp ... --delete`.
+- **Not atomic:** visitors can briefly see a mix of old and new files while the upload runs. Upload outside busy hours.
+- **Rollback:** `git checkout <commit>` on the server for the PHP part, and rebuild the old commit locally and upload
+  it again for the static part. Keep a ZIP of each uploaded `out/` (`out-YYYYMMDD.zip`) to make that quick.
+- **Changing only text or prices:** edit the JSON, rebuild, upload `out/`; no `git pull` needed on the server.
+- **Changing only PHP:** `git pull` on the server; no FTP needed.
+- **Plain FTP is unencrypted:** use SFTP or FTPS if the plan offers it; otherwise at least avoid public Wi-Fi.
+- **`git pull` fails with local changes:** you edited a tracked file on the server. `git status` shows which; the
+  `config.php` is git-ignored and never causes this.
 
 ## Staging (`staging.fluxmedia.de`)
 
