@@ -302,7 +302,7 @@
       "seoTitle": "Legal notice | Fluxmedia",
       "description": "Legal notice of Fluxmedia GbR.",
       "h1": "Legal notice",
-      "note": "Courtesy translation. The German version is authoritative. Draft: check and complete before publication.",
+      "note": "Courtesy translation. The German version is authoritative.",
       "sections": [
         { "h": "Information pursuant to § 5 DDG", "p": ["{legalName}", "{address}", "Partners: {partners}"] },
         { "h": "Contact", "p": ["Phone: {phone}", "Email: {email}"] },
@@ -314,7 +314,7 @@
       "seoTitle": "Privacy policy | Fluxmedia",
       "description": "Privacy policy of Fluxmedia GbR.",
       "h1": "Privacy policy",
-      "note": "Courtesy translation. The German version is authoritative. Draft: have it legally reviewed before publication.",
+      "note": "Courtesy translation. The German version is authoritative.",
       "sections": [
         { "h": "Controller", "p": ["{legalName}, {address}. Email: {email}"] },
         { "h": "Hosting", "p": ["This website is hosted by netcup GmbH in Germany. When you visit, technically necessary connection data (e.g. IP address, time) is processed in server log files. A data processing agreement is in place."] },
@@ -327,7 +327,7 @@
       "seoTitle": "Accessibility statement | Fluxmedia",
       "description": "Accessibility statement for this website.",
       "h1": "Accessibility statement",
-      "note": "Courtesy translation. The German version is authoritative. Draft: update after the audits are complete.",
+      "note": "Courtesy translation. The German version is authoritative.",
       "sections": [
         { "h": "Status", "p": ["We aim for conformance of this website with WCAG 2.2, level AA. Automated and manual testing (keyboard, screen reader) will be completed before launch and documented here."] },
         { "h": "Feedback and contact", "p": ["Please report barriers to {email}. We reply within one working day."] }

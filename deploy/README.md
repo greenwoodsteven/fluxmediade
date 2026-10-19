@@ -41,8 +41,6 @@ On the server (netcup customer control panel and SSH)
 3. Point the domain's **document root** at `$DEPLOY_PATH/current` (customer control panel, domain settings) and
    choose PHP 8.x for the domain.
 4. Enable the free TLS certificate for `fluxmedia.de` and `www.fluxmedia.de`.
-5. Symlinks must be allowed (`FollowSymLinks` or `SymLinksIfOwnerMatch`). If the plan does not allow them, see
-   "Without symlinks" below.
 
 ## 2. Before every deploy (checklist)
 
@@ -199,7 +197,7 @@ Only for the case that the server can run `git pull` but nothing can push to it.
 2. **Each release, on your machine** (a `deploy/release.sh` would wrap these steps):
 
    ```bash
-   node scripts/site-config.mjs --strict && npm run build
+   npm run build:prod
    rsync -a --delete --exclude '.git' out/ ../fluxmedia-release/
    rsync -a --exclude 'config*.php' --exclude 'storage/' api/ ../fluxmedia-release/api/
    git -C ../fluxmedia-release add -A
@@ -240,60 +238,101 @@ Notes
 The static site (`out/`) is built on your machine and uploaded by FTP. The PHP endpoints (`api/`) come from git on the
 server. `out/` is **not** tracked in git (it contains your Impressum data), so there is nothing to build on the server.
 
+The repository is cloned into the account's `httpdocs` folder and the domain's document root is its `out/` subfolder,
+so the repository itself (`.git`, `src/`, `docs/`, `config/`) is one level above the document root and is not served:
+
 ```
-~/fluxmedia-site/          <- git clone (source, api/, config); NOT in the webroot
-│   └── api/config.php     <- real credentials, git-ignored, survives every `git pull`
-~/fluxmedia-storage/       <- state of the free analysis (create it, mode 700)
-<webroot>/                 <- the domain's document root: contents of out/ (FTP)
+/httpdocs/_fluxmediade/            <- git clone (git pull here)
+├── .git, src/, docs/, config/ ... <- NOT web-accessible: above the document root
+├── api/                           <- PHP endpoints from git
+│   └── config.php                 <- real credentials, git-ignored, survives every `git pull`
+└── out/                           <- DOCUMENT ROOT of fluxmedia.de = contents of the local out/ (FTP)
     ├── index.html, _next/, images/, .htaccess, ...
-    └── api -> ~/fluxmedia-site/api     <- symlink
+    └── api -> ../api              <- symlink to the endpoints
+~/fluxmedia-storage/               <- state of the free analysis (create it, mode 700, outside httpdocs)
 ```
 
-Never clone the repository into the webroot: `.git`, `src/`, `docs/` and `config/` would be web-accessible.
+Paths below use `REPO=~/httpdocs/_fluxmediade`. In the customer panel and in FTP it is shown as `/httpdocs/_fluxmediade`;
+if your SSH login lands somewhere else, run `cd /httpdocs/_fluxmediade && pwd -P` and use that full path instead.
 
 ### One time
 
 1. Check what the server has: `ssh user@host 'command -v git php'`.
 2. Give the server read access to the repository (a read-only deploy key: `ssh-keygen -t ed25519`, add the public key
-   to the repository settings), then clone **outside** the webroot:
-   `git clone git@github.com:ORG/fluxmedia-site.git ~/fluxmedia-site`
+   to the repository settings on GitHub), then clone:
+   ```bash
+   git clone git@github.com:greenwoodsteven/fluxmediade.git ~/httpdocs/_fluxmediade
+   git config --global core.pager cat        # netcup has no pager; avoids "cannot run pager" errors
+   ```
+   If `git pull` later says "no tracking information" or "No commit on branch 'master' yet", see the troubleshooting
+   table.
 3. Create the config and the storage folder:
    ```bash
+   REPO=~/httpdocs/_fluxmediade
    mkdir -p ~/fluxmedia-storage && chmod 700 ~/fluxmedia-storage
-   cp ~/fluxmedia-site/api/config.example.php ~/fluxmedia-site/api/config.php && chmod 600 ~/fluxmedia-site/api/config.php
+   cd ~/fluxmedia-storage && pwd -P   # prints the full path to use as `storage_dir` below (no `realpath` on netcup)
+   cd ~
+   cp $REPO/api/config.example.php $REPO/api/config.php && chmod 600 $REPO/api/config.php
    ```
    Edit `config.php`: real SMTP login (rotate the old password first), `secret` (`openssl rand -hex 32`),
-   `base_url` (`https://www.fluxmedia.de`), `storage_dir` (`/full/path/to/fluxmedia-storage`), `allowed_origins`.
-4. Link the endpoints into the webroot: `ln -s ~/fluxmedia-site/api <webroot>/api`. If the plan does not allow
-   symlinks, copy instead (`cp -r ~/fluxmedia-site/api <webroot>/api`) and repeat the copy after each `git pull`
-   (keep `config.php` out of that copy loop, or copy it once).
-5. Point the domain at the webroot, choose PHP 8.x and enable the TLS certificate (customer control panel).
+   `base_url` (`https://www.fluxmedia.de`), `storage_dir` (the full path printed by `pwd -P` above, not `~`),
+   `allowed_origins`.
+4. Create the document root folder and link the endpoints into it. The `out/` folder does not exist after the clone
+   (it is git-ignored), and the link must point at `../api`:
+   ```bash
+   mkdir -p $REPO/out
+   ls -ld $REPO/out/api 2>&1                 # must say "No such file or directory"; if an api folder exists, rename it
+   ln -s ../api $REPO/out/api                # relative link: out/api -> ../api
+   ls -l $REPO/out/api                       # shows: api -> ../api
+   ls $REPO/out/api/                         # shows: analysis.php  challenge.php  confirm.php  config.php  lib ...
+   ```
+   Replace an existing link with `ln -sfn ../api $REPO/out/api`. If an `api` **folder** is in the way, `ln` would
+   create the link inside it, so rename or remove the folder first.
+5. In the customer control panel set the domain's **document root** to `/httpdocs/_fluxmediade/out`, choose PHP 8.x and
+   enable the TLS certificate.
+6. Check that PHP answers through the link (after the first FTP upload, or already now over a temporary host name):
+   ```bash
+   curl -s https://www.fluxmedia.de/api/challenge.php        # {"ok":true,"salt":"...","sig":"...","bits":14}
+   curl -sI https://www.fluxmedia.de/api/lib/bootstrap.php | head -1   # 403
+   ```
+7. Check that the repository is not reachable through **any other domain or subdomain of the account**. If one of them
+   uses `/httpdocs` as its document root, `https://that-domain/_fluxmediade/api/config.php` and `.git/` would be
+   served. Open `https://that-domain/_fluxmediade/.git/config`; it must be 403 or 404. If not, put this in
+   `/httpdocs/.htaccess`:
+   ```apache
+   RedirectMatch 403 ^/_fluxmediade
+   ```
+   It matches the URL path, so it does not affect fluxmedia.de, whose document root is already `out/`.
 
 ### Every release
 
 1. **On your machine:** commit and push your changes, make sure `config/site.local.json` has no `[...]` left, then
    ```bash
-   node scripts/site-config.mjs --strict && npm run build
+   npm run build:prod
    ```
-2. **On the server, only if `api/` changed:** `cd ~/fluxmedia-site && git pull`.
+2. **On the server, only if `api/` changed:** `cd ~/httpdocs/_fluxmediade && git pull`.
    Do this together with step 3: the forms (JavaScript in `out/`) and the PHP endpoints must be the same version.
-3. **FTP `out/` to the webroot.** Upload the **contents** of `out/`, not the folder itself.
+3. **FTP the contents of your local `out/` into `/httpdocs/_fluxmediade/out/`** (the document root), not the folder
+   itself.
    - Show hidden files in your client; `.htaccess` is in `out/` and must be uploaded every time.
-   - Overwrite existing files, and do **not** delete or overwrite the `api` link/folder in the webroot.
+   - Overwrite existing files, and do **not** delete or overwrite the `api` link in `out/`.
    - Upload order, to avoid a broken page while the upload runs: first `_next/` and `images/`, then everything else, the
      HTML files last.
    - Transfer mode "binary" (or "auto" in FileZilla), never "ASCII".
-   - Command-line alternative: `lftp -u USER sftp://HOST -e "mirror -R --only-newer --exclude '^api$' out/ /webroot; quit"`.
+   - Command-line alternative: `lftp -u USER sftp://HOST -e "mirror -R --only-newer --exclude '^api$' out/ /httpdocs/_fluxmediade/out; quit"`.
      Add `--delete` to also remove old files (still excluding `api`), see the note below.
 4. **Smoke test** (section 4 above): home page, a 404, the free-analysis form end to end, `api/lib/` returns 403.
 
 ### Notes
 
+- **`git pull` does not touch `out/`:** it is git-ignored, as is `api/config.php`. Never run `git clean -x` or
+  `git clean -fdx` in the clone: it deletes ignored files, which means the whole site in `out/` and your `config.php`.
 - **Old files:** overwriting never removes files from earlier builds, so old `_next/static/chunks/*` pile up. They are
-  harmless. About once a month, delete `_next/` in the webroot and upload the new one, or use `lftp ... --delete`.
+  harmless. About once a month, delete `_next/` in `out/` and upload the new one, or use `lftp ... --delete`.
 - **Not atomic:** visitors can briefly see a mix of old and new files while the upload runs. Upload outside busy hours.
-- **Rollback:** `git checkout <commit>` on the server for the PHP part, and rebuild the old commit locally and upload
-  it again for the static part. Keep a ZIP of each uploaded `out/` (`out-YYYYMMDD.zip`) to make that quick.
+- **Rollback:** `git checkout <commit>` in the clone for the PHP part (then `git checkout master` to return), and
+  rebuild the old commit locally and upload it again for the static part. Keep a ZIP of each uploaded `out/`
+  (`out-YYYYMMDD.zip`) to make that quick.
 - **Changing only text or prices:** edit the JSON, rebuild, upload `out/`; no `git pull` needed on the server.
 - **Changing only PHP:** `git pull` on the server; no FTP needed.
 - **Plain FTP is unencrypted:** use SFTP or FTPS if the plan offers it; otherwise at least avoid public Wi-Fi.
@@ -313,21 +352,6 @@ Never clone the repository into the webroot: `.git`, `src/`, `docs/` and `config
    and `api/storage`.
 4. Run the audit and the manual checks here before the production deploy.
 
-## Without symlinks
-
-If the plan does not allow symlinks, rsync straight into the webroot instead:
-
-```bash
-npm run build
-rsync -az --delete --exclude 'api/' out/ user@host:/path/to/webroot/
-rsync -az --exclude 'config.php' --exclude 'config.local.php' --exclude 'config.example.php' api/ user@host:/path/to/webroot/api/
-```
-
-`--delete` on the first command removes old files from `out/`'s area but leaves `api/` alone (it is excluded), and the
-second command has no `--delete`, so `api/config.php` survives. Keep `config.php` untracked in `webroot/api/` and set
-`storage_dir` to a folder **outside** the webroot, because the default `api/storage` is inside it. You lose atomic
-switching and one-command rollback: a half-finished upload is visible to visitors, so deploy outside busy hours.
-
 ## Troubleshooting
 
 | Symptom | Likely cause |
@@ -339,6 +363,9 @@ switching and one-command rollback: a half-finished upload is visible to visitor
 | Confirmation link says "invalid or expired" | older than `pending_hours`, already used, or `storage_dir` is not persistent or not writable |
 | Everyone gets "domain already requested" | test data left in `shared/storage/domains/` |
 | `{"error":"capacity"}` | `audit.weekly_cap` reached; entries expire after 7 days |
+| `git pull`: "There is no tracking information for the current branch" | `git branch --set-upstream-to=origin/master master` (check `git branch -a` for the remote branch name first) |
+| `git branch --set-upstream-to`: "No commit on branch 'master' yet" | the clone was made from an empty repository: `git checkout -B master --track origin/master`, or `git fetch origin && git reset --hard origin/master` |
+| `git ...`: "cannot run pager" | `git config --global core.pager cat` (no `less` on the server) |
 | Site redirects in a loop or to the wrong host | `.htaccess` canonical rule, check the TLS setup of both hostnames |
 | Old content still visible | browser cache of images or fonts (30 days); HTML always revalidates |
 | 403 for pages that should exist | a path starts with a blocked folder name (`docs`, `src`, `config`, ...) in `.htaccess` |

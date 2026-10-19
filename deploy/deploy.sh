@@ -4,9 +4,7 @@
 #        deploy/deploy.sh rollback   (point `current` at the previous release)
 # Config: deploy/.env (git-ignored) with DEPLOY_HOST=user@host and DEPLOY_PATH=/path/to/site
 # Server layout:  $DEPLOY_PATH/{releases/<ts>/, shared/config.php, current -> releases/<ts>}
-# The domain's document root points at $DEPLOY_PATH/current. If the plan does not allow symlinks
-# (FollowSymLinks / SymLinksIfOwnerMatch), rsync straight into the webroot instead:
-#   rsync -az --delete --exclude 'api/config.php' out/ api/ ... (see deploy/README.md)
+# The domain's document root points at $DEPLOY_PATH/current.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 # shellcheck disable=SC1091

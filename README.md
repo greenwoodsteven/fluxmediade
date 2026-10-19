@@ -14,6 +14,7 @@ The new fluxmedia.de: a **Next.js 16 static export** (`output: 'export'`, HTML g
 | `npm install` | install dependencies |
 | `npm run dev` | local dev server on :3000 (no PHP, so the forms do not work; see "Testing the forms") |
 | `npm run build` | `prebuild` generates AVIF/WebP images, then writes the site to `out/` |
+| `npm run build:prod` | same, but first fails if `config/site.local.json` still has `[PLACEHOLDER]` values; use it for anything you publish |
 | `npm run lint` | type check (`tsc --noEmit`) |
 | `npm run serve` | serve `out/` statically (no PHP, no `.htaccess`) |
 | `deploy/deploy.sh` | build, upload a release to netcup, switch `current` (see [deploy/README.md](deploy/README.md)) |

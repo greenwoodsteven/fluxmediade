@@ -302,7 +302,7 @@
       "seoTitle": "Impressum | Fluxmedia",
       "description": "Impressum der Fluxmedia GbR.",
       "h1": "Impressum",
-      "note": "Entwurf: Angaben vor Veröffentlichung prüfen und vervollständigen.",
+      "note": "",
       "sections": [
         { "h": "Angaben gemäß § 5 DDG", "p": ["{legalName}", "{address}", "Gesellschafter: {partners}"] },
         { "h": "Kontakt", "p": ["Telefon: {phone}", "E-Mail: {email}"] },
@@ -314,7 +314,7 @@
       "seoTitle": "Datenschutzerklärung | Fluxmedia",
       "description": "Datenschutzerklärung der Fluxmedia GbR.",
       "h1": "Datenschutzerklärung",
-      "note": "Entwurf: vor Veröffentlichung juristisch prüfen lassen.",
+      "note": "",
       "sections": [
         { "h": "Verantwortliche", "p": ["{legalName}, {address}. E-Mail: {email}"] },
         { "h": "Hosting", "p": ["Diese Website wird bei netcup GmbH in Deutschland gehostet. Beim Aufruf werden technisch notwendige Verbindungsdaten (z. B. IP-Adresse, Zeitpunkt) in Server-Logdateien verarbeitet. Ein Auftragsverarbeitungsvertrag besteht."] },
@@ -327,7 +327,7 @@
       "seoTitle": "Erklärung zur Barrierefreiheit | Fluxmedia",
       "description": "Erklärung zur Barrierefreiheit dieser Website.",
       "h1": "Erklärung zur Barrierefreiheit",
-      "note": "Entwurf: nach Abschluss der Prüfungen aktualisieren.",
+      "note": "",
       "sections": [
         { "h": "Stand", "p": ["Wir streben für diese Website die Konformität mit WCAG 2.2, Stufe AA, an. Die Prüfung mit automatischen Werkzeugen und manuell (Tastatur, Screenreader) wird vor dem Start abgeschlossen und hier dokumentiert."] },
         { "h": "Feedback und Kontakt", "p": ["Barrieren melden Sie bitte an {email}. Wir antworten innerhalb eines Werktags."] }

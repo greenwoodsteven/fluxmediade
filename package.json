@@ -12,6 +12,7 @@
     "images": "node scripts/images.mjs",
     "prebuild": "npm run site && npm run images",
     "build": "next build",
+    "build:prod": "node scripts/site-config.mjs --strict && npm run build",
     "lint": "npm run site && tsc --noEmit",
     "serve": "npx serve out"
   },

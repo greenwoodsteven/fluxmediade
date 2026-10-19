@@ -52,7 +52,7 @@ function PageHead({ lang, id, h1, lead }: { lang: Lang; id: PageId; h1: string; 
         itemListElement: crumbs.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, item: site.url + c.path })),
       }} />
       <h1 className="mt-4 text-3xl font-bold md:text-4xl">{h1}</h1>
-      <p className="mt-4 max-w-3xl text-lg">{lead}</p>
+      {lead && <p className="mt-4 max-w-3xl text-lg">{lead}</p>}
     </div>
   );
 }
