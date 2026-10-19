@@ -2,6 +2,7 @@
 require __DIR__ . '/lib/bootstrap.php';
 require __DIR__ . '/lib/audit.php';
 guard();
+if (random_int(1, 10) === 1) audit_cleanup();
 $f = ['name' => line('name', 100), 'email' => line('email', 200), 'url' => line('url', 300), 'terms' => line('terms', 200)];
 require_fields($f, ['name', 'email', 'url', 'terms']);
 if (!pow_verify()) respond(400, ['ok' => false, 'error' => 'pow']);

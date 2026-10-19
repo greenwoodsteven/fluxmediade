@@ -11,9 +11,9 @@ them. "Check" means *someone qualified should look at it*, not that something is
 
 | # | Priority | Finding | Who checks |
 |---|---|---|---|
-| 1 | **Fix now** | The accessibility statement says the audits will be completed "before launch"; the site is live and the manual pass is not done | you |
-| 2 | **Fix now** | Portfolio shows client names, logos and screenshots (Höffner, Möbel-Kraft, pdf-to-fax and others): permission and image rights not documented | you, lawyer |
-| 3 | **Fix soon** | Privacy policy is short and misses points a supervisory authority usually expects (see section 4) | lawyer / DPO |
+| 1 | ~~Fix now~~ **Done 2026-10-19** (built, deploy by uploading `out/`) | The accessibility statement said the audits would be completed "before launch". It now states the real status: automated tests passed, manual pass outstanding. Update it again when the manual pass is done | you |
+| 2 | **Check (low to medium risk, reviewed 2026-10-19; contractor of Krieger Digital for 10+ years)** | Portfolio names clients and shows small screenshots (Höffner, Möbel-Kraft, pdf-to-fax and others). Naming real customers is usually tolerated unless they object or the contract forbids it, but it is not a statutory right; the screenshots add third-party rights (logos, photos, people). See section 6a | you, lawyer |
+| 3 | ~~Fix soon~~ **Implemented 2026-10-19**, review still open | Privacy policy rewritten with the standard structure (section 4). Still to confirm: the processor agreement with netcup, the log retention at netcup, the daily cron job, and a legal review of the text | you, lawyer / DPO |
 | 4 | **Fix soon** | Impressum: check completeness (§ 18 MStV, dispute resolution, VAT ID vs small-business rule) | lawyer, Steuerberater |
 | 5 | Check | `hero.jpg` and the other site images: source and licence not recorded | you |
 | 6 | Check | Marketing claims on the site must be provable (UWG): "Über 10 Jahre Erfahrung", "Server in Deutschland", "DSGVO-bewusst", "Festpreis", prices | you |
@@ -62,6 +62,15 @@ Check:
 
 ## 4. Privacy policy (Datenschutzerklärung)
 
+**Implemented 2026-10-19** (German and English, 12 sections): controller, overview, hosting and server logs, contact/quote forms and email, free analysis, abuse protection, recipients and third countries, external links, encryption, automated decisions, rights incl. supervisory authority and how to exercise them, date. What the text promises, and what has to be true for it:
+- netcup processor agreement is concluded (customer panel).
+- netcup deletes server logs "after a short time": check the actual retention and name it if it is long.
+- A daily cron job runs `api/cleanup.php` (deploy README, One time, step 8); without it the 48-hour and one-day deletions only happen while forms are being used.
+- The authority named is the Baden-Württemberg commissioner; confirm it is the right one for the registered seat.
+- The statement that analysis addresses are not used for advertising without separate consent is a commitment you must keep.
+
+The list below is the original gap analysis, kept for the review.
+
 The current text covers: controller, hosting, no cookies or third-party content, forms, rights.
 
 Compared with what the site does, check and probably add:
@@ -98,7 +107,7 @@ Compared with what the site does, check and probably add:
 
 | Item | Question |
 |---|---|
-| Portfolio screenshots and names (Höffner, Möbel-Kraft, pdf-to-fax, Bruno, Emotion, Yoga-Kreis) | Do you have the client's permission to name them and show their pages and logos? Screenshots contain third-party logos, photos and layout (copyright and trademark). Write the permission down (an email is enough) or remove the entry. |
+| Portfolio screenshots and names (Höffner, Möbel-Kraft, pdf-to-fax, Bruno, Emotion, Yoga-Kreis) | Naming real customers is usually tolerated unless they object or the contract forbids it; it is not a statutory right. Screenshots contain third-party logos, photos (also of people) and current offers. Details and mitigations: section 6a. |
 | `public/images/hero.jpg` and `hero-768.jpg` | Where does the photo come from, and does the licence allow commercial use without attribution? It was copied from the legacy project, so the origin is not recorded. |
 | `logo_black.svg`, `logo_white.svg` | Your own logo: no issue, if you created it or hold the rights. |
 | Inter font | SIL OFL: free to self-host and use commercially; the licence note is in `public/fonts/OFL-Inter.txt`. |
@@ -107,6 +116,52 @@ Compared with what the site does, check and probably add:
 | Next.js, React, Tailwind (MIT) | Usually no visible notice is required for the compiled site; if you want to be thorough, publish a short third-party notices page. |
 | Texts | Written for this site; if text was taken from the legacy site or from another source, confirm you may reuse it. |
 | Links to client sites | Normal outbound links are fine; the liability disclaimer in the Impressum covers them. |
+
+### 6a. Portfolio references in detail (reviewed 2026-10-19)
+
+**Facts given by the owner (2026-10-19):** Fluxmedia worked for more than ten years as a **contractor for Krieger Digital**, which
+develops the web products of Höffner, Möbel-Kraft and others. The same screenshots were shown on the previous
+fluxmedia.de for more than ten years without complaint. Consequences:
+- The contract partner is **Krieger Digital**, not Höffner or Möbel-Kraft. Permission, confidentiality and
+  reference clauses are therefore a question for Krieger Digital (and its contract with Fluxmedia). Ask there first.
+- "Onlineshop für Höffner" is true as to the shop but leaves out that the work was done through Krieger Digital.
+  Safer wording: "Webentwicklung im Auftrag von Krieger Digital für Höffner" (or "... Möbel-Kraft").
+- Ten years without a complaint lowers the practical risk and shows the use was tolerated, but it is **not** a legal
+  permission: a rights holder can still object later, and the new site shows newly made screenshots with current
+  photos and offers, which is a new publication. Treat it as a sign of low risk, not as clearance.
+
+**The common view that a service provider may name its customers is partly right, but it is not a general right.**
+German law has no rule that allows it by default. The question is decided case by case, and the contract matters.
+
+- **Naming the client.** Naming a customer as a reference touches the customer's company and personality right.
+  The LG Bielefeld (judgment of 23.11.2021, 15 O 104/20) forbade a consultant to list an insurer and one subsidiary
+  as references after the insurer had objected, because the consultant could not prove the work. For another
+  subsidiary the reference was **tolerated**, because an invoice proved the collaboration. So: a *true, provable*
+  reference is usually acceptable, an unprovable or unwanted one is not, and a client's objection must be taken
+  seriously (the case escalated because the name was removed and later put back). Source: a law-firm summary only; read the
+  judgment itself or ask a lawyer before relying on it.
+- **Contract.** Confidentiality or reference clauses in the contract (or an NDA) override the above. Check each
+  client contract, and the contract of the agency or employer if the work was done through one.
+- **Truthfulness (UWG).** "Onlineshop für Höffner" claims that **Fluxmedia** did the work. If the work was done
+  earlier as an employee, through an agency, or as a subcontractor, say so ("Mitarbeit an ...", "im Auftrag von ...") or
+  have it confirmed that the reference may be used that way. The Bielefeld summary notes that it counts who actually
+  provided the service, not who arranged it.
+- **Screenshots.** A small size does not remove third-party rights: German law has no general "thumbnail is fine" rule.
+  What may be visible in a screenshot: the client's **logo** (trademark; factual reference use is often allowed,
+  but see above), **photos** (copyright of the photographer or stock agency; the Höffner screenshot shows two
+  people, which also raises personality-rights questions for the models), **product images and texts** (copyright of
+  the client or its suppliers), and **current promotions** (prices and "40 %" banners that go out of date). If you
+  built the site you may hold rights in the code and design, but not in the client's photos.
+- **Cheap mitigations.**
+  1. Send each client a short email: "we list your site as a reference, please tell us if you object", and keep the
+     reply (it is not formal consent, but it documents good faith and gives them a chance to object).
+  2. Keep proof of each project (contract, invoice, contact person).
+  3. Crop the screenshot to the header with the logo, or replace it with a neutral mockup, so no people or
+     time-limited offers appear.
+  4. Add a caption "Screenshot, Stand Oktober 2026. Marken und Inhalte gehören den jeweiligen Inhabern."
+  5. Agree to remove an entry within a short time when asked, and do it for good.
+- **Which entries to look at first:** the three with big brands and photos (Höffner, Möbel-Kraft) and the pdf-to-fax
+  entry (your own project: no issue if the site is yours or you have the owner's permission).
 
 ## 7. Advertising claims and prices (UWG, PAngV)
 
@@ -154,7 +209,7 @@ Check:
 - The BFSG mainly concerns products and services for consumers (for example online shops); micro-enterprises
   providing services are exempt. This site is a company site and is probably not in scope, but it is a showcase for an
   accessibility offer, so quality matters for credibility.
-- **Fix now:** the statement page says "Die Prüfung … wird vor dem Start abgeschlossen und hier dokumentiert." The site is live. Replace it with the real status. Facts you can state today: automated checks (Lighthouse accessibility 100 and axe with 0 violations on the audited pages, 15 October 2026); not yet done: manual keyboard and screen-reader pass, form error states and the quote wizard only partly tested, hero text contrast flagged "incomplete" by axe.
+- **Done 2026-10-19:** the statement now has the sections "Stand", "Was geprüft wurde" and "Noch nicht geprüft" (German and English). Update it after the manual pass. The original problem was: the statement page said "Die Prüfung … wird vor dem Start abgeschlossen und hier dokumentiert." The site is live. Replace it with the real status. Facts you can state today: automated checks (Lighthouse accessibility 100 and axe with 0 violations on the audited pages, 15 October 2026); not yet done: manual keyboard and screen-reader pass, form error states and the quote wizard only partly tested, hero text contrast flagged "incomplete" by axe.
 - Complete the manual pass (keyboard only, NVDA or VoiceOver, 200 % zoom, reduced motion, WAVE) and then update the statement with the date and the result. Keep the feedback address and the one-working-day reply promise only if you can keep it.
 
 ## 11. AI-related points
@@ -187,7 +242,7 @@ Check:
 ## 14. Suggested order of work
 
 1. Update the accessibility statement and finish the manual accessibility pass (section 10).
-2. Get written permission for each portfolio client, or remove the entry (section 6).
+2. Review the portfolio entries as described in section 6a: contract clauses, proof of the work, notify the clients, crop the screenshots (section 6).
 3. Fill the gaps in the privacy policy (section 4) and have it reviewed; confirm the processor agreement with netcup.
 4. Complete the Impressum (section 3) with the Steuerberater and lawyer.
 5. Confirm the security checklist (section 8) and the browser check for cookies and requests (section 5).

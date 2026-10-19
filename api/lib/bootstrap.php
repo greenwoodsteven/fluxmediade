@@ -40,12 +40,25 @@ function guard(): void {
     rate_limit();
 }
 
+/** Persistent state folder. Set `storage_dir` outside the release folder, otherwise a deploy resets it. */
+function storage(string $sub = ''): string {
+    $base = (config()['storage_dir'] ?? null) ?: __DIR__ . '/../storage';
+    $dir = $sub === '' ? $base : $base . '/' . $sub;
+    if (!is_dir($dir)) @mkdir($dir, 0700, true);
+    if (!is_file($base . '/.htaccess')) @file_put_contents($base . '/.htaccess', "Require all denied\n");
+    return $dir;
+}
+
+function prune(string $dir, int $maxAge): void {
+    foreach (glob($dir . '/*') ?: [] as $f) if (is_file($f) && filemtime($f) < time() - $maxAge) @unlink($f);
+}
+
 function rate_limit(): void {
     $cfg = config();
     $max = $cfg['rate_limit']['max'] ?? 5;
     $window = $cfg['rate_limit']['window'] ?? 3600;
-    $dir = ($cfg['storage_dir'] ?? null) ?: sys_get_temp_dir() . '/fluxmedia-rl';
-    if (!is_dir($dir)) @mkdir($dir, 0700, true);
+    $dir = storage('ratelimit');
+    if (random_int(1, 20) === 1) prune($dir, $window);
     // Only a salted hash of the IP is stored, and only for the length of the window.
     $file = $dir . '/' . hash('sha256', ($cfg['smtp']['password'] ?? '') . ($_SERVER['REMOTE_ADDR'] ?? ''));
     $now = time();

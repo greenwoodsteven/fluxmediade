@@ -12,15 +12,6 @@ function audit_cfg(): array {
     return (config()['audit'] ?? []) + ['weekly_cap' => 10, 'domain_days' => 90, 'pending_hours' => 48];
 }
 
-/** Persistent state folder. Set `storage_dir` outside the release folder, otherwise a deploy resets it. */
-function storage(string $sub = ''): string {
-    $base = (config()['storage_dir'] ?? null) ?: __DIR__ . '/../storage';
-    $dir = $sub === '' ? $base : $base . '/' . $sub;
-    if (!is_dir($dir)) @mkdir($dir, 0700, true);
-    if (!is_file($base . '/.htaccess')) @file_put_contents($base . '/.htaccess', "Require all denied\n");
-    return $dir;
-}
-
 function secret(): string { return (string) (config()['secret'] ?? config()['smtp']['password'] ?? ''); }
 
 function pow_issue(): array {
@@ -56,10 +47,6 @@ function pow_verify(): bool {
     return true;
 }
 
-function prune(string $dir, int $maxAge): void {
-    foreach (glob($dir . '/*') ?: [] as $f) if (is_file($f) && filemtime($f) < time() - $maxAge) @unlink($f);
-}
-
 /** Registrable-looking host without "www.", or null (no IPs, no localhost, no single-label names). */
 function audit_domain(string $url): ?string {
     $host = strtolower((string) parse_url($url, PHP_URL_HOST));
@@ -73,7 +60,10 @@ function domain_recent(string $host): bool {
     return is_file($f) && filemtime($f) > time() - audit_cfg()['domain_days'] * 86400;
 }
 
-function domain_register(string $host): void { touch(storage('domains') . '/' . hash('sha256', $host)); }
+function domain_register(string $host): void {
+    prune(storage('domains'), audit_cfg()['domain_days'] * 86400);
+    touch(storage('domains') . '/' . hash('sha256', $host));
+}
 
 function capacity_full(): bool {
     $dir = storage('confirmed');
@@ -95,7 +85,8 @@ function pending_save(array $data): string {
 function pending_load(string $token): ?array {
     if (!preg_match('/^[a-f0-9]{48}$/', $token)) return null;
     $f = pending_path($token);
-    if (!is_file($f) || filemtime($f) < time() - audit_cfg()['pending_hours'] * 3600) return null;
+    if (!is_file($f)) return null;
+    if (filemtime($f) < time() - audit_cfg()['pending_hours'] * 3600) { @unlink($f); return null; }
     return json_decode((string) file_get_contents($f), true) ?: null;
 }
 
@@ -117,4 +108,14 @@ function confirm_mail(string $name, string $email, string $link, string $lang): 
         error_log('fluxmedia mail error: ' . $e->getMessage());
         respond(500, ['ok' => false, 'error' => 'mail']);
     }
+}
+
+/** Delete everything that is past its retention period. Called by api/cleanup.php (daily cron) and opportunistically. */
+function audit_cleanup(): void {
+    $c = audit_cfg();
+    prune(storage('pending'), $c['pending_hours'] * 3600);
+    prune(storage('domains'), $c['domain_days'] * 86400);
+    prune(storage('confirmed'), 7 * 86400);
+    prune(storage('pow'), 3600);
+    prune(storage('ratelimit'), (int) ((config()['rate_limit']['window'] ?? 3600)));
 }

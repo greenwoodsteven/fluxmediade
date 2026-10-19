@@ -303,6 +303,14 @@ if your SSH login lands somewhere else, run `cd /httpdocs/_fluxmediade && pwd -P
    RedirectMatch 403 ^/_fluxmediade
    ```
    It matches the URL path, so it does not affect fluxmedia.de, whose document root is already `out/`.
+8. Set up the daily clean-up of the free-analysis data (the privacy policy promises deletion of unconfirmed requests
+   after 48 hours, hashed domains after 90 days and IP hashes after one day). In the netcup customer panel add a cron
+   job that runs once a day:
+   ```bash
+   php /full/path/to/httpdocs/_fluxmediade/api/cleanup.php      # prints "cleanup done"
+   ```
+   Test it once by hand over SSH. The scripts also clean up on their own while the forms are used, but only the cron
+   job deletes data when nobody is submitting anything.
 
 ### Every release
 
