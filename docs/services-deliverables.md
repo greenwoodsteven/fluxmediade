@@ -1,8 +1,9 @@
 # Services, deliverables and technical implementation
 
 Working document for deciding what each offer contains. It is not deployed (`docs/` is never shipped).
-Source of the current wording: `src/content/{de,en}.json` (`services.*`, `analysis`). Prices are placeholders
-(`src/content/prices.ts`); `[X]` / `[PRICE]` must be decided before launch.
+Source of the current wording: `src/content/{de,en}.json` (`services.*`, `analysis`). The "from" prices live in the
+same JSON files (see [Where prices are set](#where-prices-are-set)); they are calculated in
+[Price model](#price-model-at-50--hour).
 
 Status: **proposal**. The technical sections describe how we would build it and should be checked against what
 you want to promise publicly (anything you list becomes a commitment).
@@ -12,14 +13,14 @@ you want to promise publicly (anything you list becomes a commitment).
 | # | Offer | Price model | Start with | Main deliverable |
 |---|-------|-------------|------------|------------------|
 | 0 | Free start-page check | free | form on `/seo-analyse-kostenlos/` | one-page PDF about the home page only |
-| 1 | AI visibility, multi-page analysis (GEO / AEO) | fixed price, from € [PRICE] | free check or request | analysis of several pages + implementation package |
-| 2 | Accessibility (BFSG / WCAG 2.2) | fixed price, from € [PRICE] | questionnaire | audit + prioritised fixes |
-| 3 | Website relaunch | fixed price, from € [PRICE] | analysis of existing site | rebuilt site, redirects, handover |
-| 4 | WordPress optimisation & support | fixed price / monthly, from € [PRICE] | audit | faster, safer WordPress |
-| 5 | Landing page | fixed price, from € [PRICE] | briefing | one finished page |
-| 6 | AI chatbot | per project, from € [PRICE] | conversation | chatbot on your own content |
-| 7 | Automation with n8n | per project, from € [PRICE] | conversation | documented n8n workflows |
-| 8 | Custom web development | hourly, € [X] / hour | conversation | agreed development work |
+| 1 | AI visibility, multi-page analysis (GEO / AEO) | fixed price, from € 450 | free check or request | analysis of several pages + implementation package |
+| 2 | Accessibility (BFSG / WCAG 2.2) | fixed price, from € 400 | questionnaire | audit + prioritised fixes |
+| 3 | Website relaunch | fixed price, from € 2,000 | analysis of existing site | rebuilt site, redirects, handover |
+| 4 | WordPress optimisation & support | fixed price / monthly, from € 400 | audit | faster, safer WordPress |
+| 5 | Landing page | fixed price, from € 700 | briefing | one finished page |
+| 6 | AI chatbot | per project, from € 1,500 | conversation | chatbot on your own content |
+| 7 | Automation with n8n | per project, from € 500 | conversation | documented n8n workflows |
+| 8 | Custom web development | hourly, € 50 / hour | conversation | agreed development work |
 
 Rule for the split between 0 and 1: the free check **finds and names** problems on the home page; the paid
 analysis **covers the whole site and does the work**. The free report must not be a how-to guide for the paid one.
@@ -202,15 +203,15 @@ service). Larger sites by quote.
 
 ## 8. Custom web development (hourly rate)
 
-For work that does not fit a fixed-price offer: features, integrations, extensions to an existing application, or
-ongoing development.
+Simple or complex: "we can help". For work that does not fit a fixed-price offer: features, integrations,
+extensions to an existing application, or ongoing development. Live on `/leistungen/webentwicklung/` and
+`/en/services/custom-development/` (JSON key `services.custom`).
 
-**Rate:** € [X] per hour (no VAT charged, small-business rule §19 UStG, to be checked before publishing).
+**Rate:** € 50 per hour (no VAT charged, small-business rule §19 UStG).
 
 **Deliverables**
 - Written estimate with a range before work starts; no work beyond the agreed budget without your approval.
-- Work packages tracked per task; timesheet with every invoice, billed in [15]-minute units, minimum of [N] hours per
-  assignment.
+- Work tracked per task; a timesheet with every invoice.
 - Working software in your repository with tests where it makes sense; short handover notes.
 - Optional reserved hours per month at the same rate.
 
@@ -227,14 +228,60 @@ ongoing development.
 
 ---
 
+## Price model at € 50 / hour
+
+Hourly rate: **€ 50 net**. The studio uses the small-business rule (§19 UStG), so no VAT is added and net equals
+the amount the customer pays. If the studio leaves that rule, every price below needs +19 % VAT shown separately.
+
+"From" price = hours of the smallest sensible package × € 50, rounded to a clean figure. Hours are estimates
+(include about 15 % buffer for revisions and communication); check them against your first real projects.
+
+| Offer | Smallest package covered by "from" price | Est. hours | From price | JSON key (`price`) |
+|---|---|---|---|---|
+| 0 Free start-page check | one-page PDF, home page only | 1 | free (cost to studio: € 50 of time) | – |
+| 1 AI visibility | analysis of up to 5 pages (5 h), three quick wins carried out (3 h), call and report (1 h) | 9 | from € 450 | `services.geo.price` |
+| 2 Accessibility | audit of up to 5 pages incl. manual checks and report; fixes are extra, at the hourly rate | 8 | from € 400 | `services.a11y.price` |
+| 3 Website relaunch | small site up to about 5 pages: concept 4 h, build 24 h, content and migration 6 h, redirects and QA 4 h, handover 2 h | 40 | from € 2,000 | `services.relaunch.price` |
+| 4 WordPress | plugin and speed audit with the main fixes; monthly support about 2 h = € 100 / month, quoted separately | 8 | from € 400 | `services.wordpress.price` |
+| 5 Landing page | briefing 1.5 h, build 8 h, form 1.5 h, revision 1 h, QA and publish 2 h | 14 | from € 700 | `services.landing.price` |
+| 6 AI chatbot | concept 4 h, RAG setup 16 h, guardrails and labelling 4 h, testing 4 h, handover 2 h; model usage costs run separately | 30 | from € 1,500 | `services.chatbot.price` |
+| 7 Automation | one n8n workflow: mapping 2 h, build 6 h, documentation and test 2 h | 10 | from € 500 | `services.automation.price` |
+| 8 Custom development | billed by the hour, estimate with range first | – | € 50 per hour | `services.custom.price` |
+
+Observations
+- **Free check:** each check costs about an hour (€ 50). With up to 10 confirmed requests a week the cap means at most
+  about 10 h a week. Break-even: roughly one in nine checks has to turn into a "from € 450" analysis.
+- **Rate level:** € 50 an hour is at the low end for freelance web development in Germany. It works as an entry
+  price, but leaves little room for unbilled time (quotes, calls, support). Compare after the first three projects
+  and adjust the hours, not only the rate.
+- **Fixed prices carry the risk:** a fixed price at 40 h loses money if the job takes 55 h. Use the "scope changes at
+  the hourly rate" rule from offer 8 for anything beyond the agreed list.
+- **Large sites:** relaunch above about 10 pages, shops and chatbots grow by the hour; the "from" price is only the
+  entry point and every project gets a written quote.
+
+### Where prices are set
+
+The price shown on service cards, service pages and the home page is read from the content JSON, one value per
+language and service:
+
+| Place | Key |
+|---|---|
+| `src/content/de.json` | `services.<id>.price`, e.g. `"ab 450 €"` |
+| `src/content/en.json` | `services.<id>.price`, e.g. `"from €450"` |
+
+`<id>` is one of `geo`, `a11y`, `relaunch`, `wordpress`, `landing`, `chatbot`, `automation`, `custom`. Edit the string
+in both files (number format: German `2.000 €`, English `€2,000`). The VAT note under the price on service pages is
+`ui.vatNote` in the same files.
+
+---
+
 ## Open decisions
 
-1. Prices: `[PRICE]` per offer in `src/content/prices.ts`, and the hourly rate `[X]`.
+1. Prices: check the estimated hours and the "from" prices above, then adjust `services.<id>.price` in both JSON files.
 2. Page limit `[N]` for the multi-page analysis and the re-test interval.
 3. Which technical claims you are happy to publish (for example Payload, Cloudflare, RAG providers).
 4. Site changes after you approve this document (not yet done):
    - AI-visibility page: add "start with the free start-page check", replace the report items in the deliverables
      with the multi-page analysis and the implementation package.
    - Each service page: add a "Technical implementation" section.
-   - New services page for custom web development (route, content in both languages, hourly rate shown).
    - Analysis page: state clearly that the free check covers the home page only.
