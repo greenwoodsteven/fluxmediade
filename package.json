@@ -7,11 +7,12 @@
     "node": ">=20.9"
   },
   "scripts": {
-    "dev": "npm run images && next dev",
+    "site": "node scripts/site-config.mjs",
+    "dev": "npm run site && npm run images && next dev",
     "images": "node scripts/images.mjs",
-    "prebuild": "npm run images",
+    "prebuild": "npm run site && npm run images",
     "build": "next build",
-    "lint": "tsc --noEmit",
+    "lint": "npm run site && tsc --noEmit",
     "serve": "npx serve out"
   },
   "dependencies": {

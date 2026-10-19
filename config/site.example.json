@@ -1,0 +1,10 @@
+{
+  "name": "Fluxmedia",
+  "legalName": "Fluxmedia GbR",
+  "email": "info@example.com",
+  "phone": "[TELEFON]",
+  "address": { "street": "[STRASSE UND HAUSNUMMER]", "zip": "[PLZ]", "city": "[ORT]", "country": "DE" },
+  "region": "Bodensee",
+  "partners": ["[GESELLSCHAFTER 1]", "[GESELLSCHAFTER 2]"],
+  "vatId": ""
+}

@@ -21,6 +21,9 @@ node_modules/
 # Generated at build time (sitemap.xml / robots.txt come from sources in public/ or src/)
 /public/sitemap*.xml
 /public/robots.txt
+# Real business data (Impressum etc.) and the file generated from it; template is config/site.example.json
+/config/site.local.json
+/src/content/site.generated.json
 # Build-script image output (AVIF/WebP generated from originals)
 /public/images/generated/
 

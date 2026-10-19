@@ -308,7 +308,7 @@ export function LegalPage({ id, lang }: { id: "imprint" | "privacy" | "a11yState
     <>
       <PageHead lang={lang} id={id} h1={p.h1} lead={p.note} />
       <div className={`${wrap} ${section} prose-flux max-w-3xl`}>
-        {p.sections.map((s) => (
+        {p.sections.filter((s) => site.vatId || !s.p.some((t) => t.includes("{vatId}"))).map((s) => (
           <section key={s.h} className="mt-8"><h2 className="text-xl font-bold">{s.h}</h2>{s.p.map((t) => <p key={t}>{fill(t)}</p>)}</section>))}
       </div>
     </>

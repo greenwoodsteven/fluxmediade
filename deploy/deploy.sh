@@ -21,6 +21,8 @@ fi
 TS=$(date +%Y%m%d-%H%M%S)
 REL="$DEPLOY_PATH/releases/$TS"
 
+# Refuse to publish with placeholders ([TELEFON] ...) still in config/site.local.json
+node scripts/site-config.mjs --strict
 npm run build
 rsync -az --delete out/ "$DEPLOY_HOST:$REL/"
 # PHP endpoints live in api/ and are never produced by the build; config stays outside the release.
