@@ -11,6 +11,8 @@
     "priceDrivers": "Was den Preis bestimmt",
     "audience": "Für wen",
     "notFor": "Eher nicht für Sie, wenn",
+    "technical": "Technische Umsetzung",
+    "vatNote": "Alle Preise ohne Ausweis von Umsatzsteuer (Kleinunternehmerregelung nach § 19 UStG).",
     "deliverables": "Das erhalten Sie",
     "process": "So läuft es ab",
     "faq": "Häufige Fragen",
@@ -54,18 +56,21 @@
   "services": {
     "geo": {
       "title": "KI-Sichtbarkeit (GEO / AEO)",
-      "card": "Wird Ihre Firma in ChatGPT, Perplexity und Google-KI-Antworten genannt? Wir prüfen es und beheben die technischen Ursachen.",
+      "card": "Wird Ihre Firma in ChatGPT, Claude, Perplexity und Google-KI-Antworten genannt? Wir prüfen es und beheben die technischen Ursachen.",
       "seoTitle": "KI-Sichtbarkeit: Gefunden in ChatGPT & Google KI | Fluxmedia",
       "description": "Audit und Quick Wins für Sichtbarkeit in KI-Antworten: strukturierte Daten, klare Inhalte, saubere Technik. Persönlich vom Webentwickler am Bodensee.",
-      "lead": "KI-Suchsysteme zitieren Websites, die klar, schnell und gut strukturiert sind. Wir prüfen, wie Ihre Firma in ChatGPT, Perplexity, Gemini und Google-KI-Antworten erscheint, beheben die technischen Ursachen und formulieren Ihre Inhalte so, dass sie zitierbar werden. Ein Platz in den Antworten lässt sich nicht garantieren.",
+      "lead": "KI-Suchsysteme zitieren Websites, die klar, schnell und gut strukturiert sind. Wir analysieren mehrere Seiten Ihrer Website und prüfen, wie Ihre Firma in ChatGPT, Claude, Perplexity, Gemini und Google-KI-Antworten erscheint, beheben die technischen Ursachen und formulieren Ihre Inhalte so, dass sie zitierbar werden. Ein Platz in den Antworten lässt sich nicht garantieren.",
       "audience": ["Handwerksbetriebe, Praxen und Dienstleister mit lokalem Einzugsgebiet", "Firmen, deren Website zwar existiert, aber selten genannt wird", "Alle, die wissen möchten, wo sie heute stehen"],
       "notFor": ["Sie erwarten eine garantierte Platzierung in KI-Antworten", "Sie suchen Backlink-Pakete oder Anzeigenverwaltung"],
-      "deliverables": ["Kurzbericht mit technischen Grundlagen (Titel, Überschriften, Indexierung, Mobil, Core Web Vitals)", "Prüfung der strukturierten Daten (JSON-LD) – vorhanden, fehlend, fehlerhaft", "Stichprobe: drei Suchfragen in ChatGPT, Perplexity, Gemini und Google-KI-Antworten", "Die fünf wirksamsten Maßnahmen als Quick-Win-Liste", "Auf Wunsch: Umsetzung im Paket „Audit & Quick Wins“"],
-      "process": ["Anfrage über das Formular", "Persönliche Analyse (Bericht innerhalb von 48 Stunden)", "Gespräch zu den Ergebnissen", "Festpreis für die Umsetzung"],
+      "deliverables": ["Schriftliche Analyse der vereinbarten Seiten (technische Grundlagen, Überschriften, interne Verlinkung, Indexierung, Core Web Vitals)", "Prüfung der strukturierten Daten für die gesamte Website mit korrigiertem JSON-LD", "KI-Sichtbarkeitstest: Fragen, die zu Ihrem Geschäft passen, in ChatGPT, Claude, Perplexity, Gemini und Google-KI-Antworten, mit Datum dokumentiert", "Inhaltsprüfung mit konkreten Hinweisen zur Überarbeitung der Seiten, die zitiert werden sollen", "Priorisierte Maßnahmenliste nach Wirkung und Aufwand", "Umsetzung der wichtigsten Maßnahmen im Paket „Audit & Quick Wins“", "Erneute Prüfung derselben Fragen nach einigen Wochen, mit kurzem Vorher-nachher-Vergleich"],
+      "process": ["Optional: kostenloser Startseiten-Check", "Festlegen, welche Seiten abgedeckt werden", "Analyse mehrerer Seiten und Gespräch zu den Ergebnissen", "Umsetzung zum Festpreis, danach erneute Prüfung"],
+      "price": "ab 450 €",
       "priceDrivers": "Umfang der Website, Anzahl der Seiten und Sprachen, vorhandene Technik und gewünschte Umsetzungstiefe.",
+      "technical": ["Messung: Lighthouse und axe pro Seite, Antwort-Header, robots.txt und Sitemap sowie Prüfung, ob die Inhalte auch ohne JavaScript vorhanden sind", "Strukturierte Daten: JSON-LD (Organization, LocalBusiness, Service, FAQ, BreadcrumbList) aus einer Datenquelle erzeugt und validiert", "Zugriff für Crawler: robots.txt-Regeln für KI-Crawler (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended) nach Ihrer Entscheidung, optional eine llms.txt", "Inhaltsstruktur: eine H1, Zwischenüberschriften als Fragen, die kurze Antwort zuerst, FAQ-Blöcke mit passender Auszeichnung", "Geschwindigkeit: AVIF/WebP-Bilder, Caching-Header, weniger Skriptgewicht", "Dokumentation: Vorher-nachher-Tabelle, die JSON-LD-Dateien und eine Liste der geänderten Vorlagen"],
+      "freeCheck": {"title": "Starten Sie mit dem kostenlosen Check", "text": "Der kostenlose Startseiten-Check betrachtet nur Ihre Startseite und nennt die größten Befunde. Die Analyse mehrerer Seiten auf dieser Seite deckt die von Ihnen gewählten Seiten ab, setzt die Korrekturen um und prüft das Ergebnis erneut.", "link": "Kostenloser Startseiten-Check"},
       "faq": [
         { "q": "Kann man in KI-Antworten garantiert erscheinen?", "a": "Nein. Niemand kann das garantieren. Wir verbessern die technischen und inhaltlichen Voraussetzungen, damit Ihre Website verständlich, schnell und zitierfähig ist." },
-        { "q": "Was kostet die erste Analyse?", "a": "Die persönliche Erstanalyse ist kostenlos. Sie dauert bei uns etwa eine Stunde und wird als kurzer PDF-Bericht geliefert." },
+        { "q": "Was kostet die Analyse?", "a": "Der Check Ihrer Startseite ist kostenlos und wird als kurzer PDF-Bericht geliefert. Die Analyse mehrerer Seiten und die Umsetzung erhalten Sie zum Festpreis, sobald wir Ihre Website gesehen haben." },
         { "q": "Brauche ich dafür eine neue Website?", "a": "Meist nicht. Oft genügen strukturierte Daten, klarere Texte und einige technische Korrekturen an der bestehenden Seite." },
         { "q": "Wie lange dauert es bis zur Wirkung?", "a": "Das lässt sich nicht seriös vorhersagen. KI-Systeme und Suchmaschinen aktualisieren ihre Daten in unterschiedlichen Abständen." }
       ]
@@ -80,7 +85,9 @@
       "notFor": ["Sie suchen ein Overlay-Plugin, das „automatisch“ alles behebt – das ersetzt keine Barrierefreiheit", "Sie erwarten eine Rechtsberatung"],
       "deliverables": ["Prüfung mit automatischen Werkzeugen und manueller Kontrolle (Tastatur, Screenreader-Stichprobe, Kontraste, Beschriftungen)", "Priorisierte Liste der Hürden mit Lösungsvorschlägen", "Einschätzung, ob das BFSG für Sie gilt (keine Rechtsberatung)", "Auf Wunsch: Behebung und Entwurf der Barrierefreiheitserklärung"],
       "process": ["Kurzer Fragebogen zu Ihrem Angebot", "Prüfung und Bericht", "Besprechung der Prioritäten", "Umsetzung zum Festpreis"],
+      "price": "ab 400 €",
       "priceDrivers": "Anzahl und Komplexität der Seiten, Formulare, Shop- oder Buchungsfunktionen und der Zustand der Technik.",
+      "technical": ["Werkzeuge: axe, Lighthouse und ein Durchlauf nur mit der Tastatur, dazu eine Screenreader-Stichprobe (NVDA, VoiceOver) bei den wichtigsten Abläufen", "Korrektur an der Ursache: semantisches HTML, Landmarks, Beschriftungen und Fehlermeldungen passend zu den Feldern, sichtbarer Fokus, Kontraste, Alternativtexte, Unterstützung für reduzierte Bewegung", "Kein Overlay-Plugin: Die Änderungen erfolgen in Ihren Vorlagen bzw. Ihrem Theme", "Erneute Prüfung nach den Korrekturen; die Ergebnisse fließen in den Entwurf der Barrierefreiheitserklärung ein"],
       "faq": [
         { "q": "Gilt das BFSG für mein Unternehmen?", "a": "Es betrifft vor allem Anbieter von Produkten und Dienstleistungen für Verbraucher, etwa Online-Shops. Kleinstunternehmen mit Dienstleistungen sind ausgenommen. Im Zweifel klären wir das vorab." },
         { "q": "Reicht ein Accessibility-Plugin?", "a": "Nein. Automatische Overlays beheben die Ursachen nicht. Barrierefreiheit entsteht im Aufbau der Seite." },
@@ -97,7 +104,9 @@
       "notFor": ["Sie möchten nur kleine Textänderungen – dann genügt ein Wartungsvertrag", "Sie erwarten ein Ergebnis in wenigen Tagen"],
       "deliverables": ["Konzept und Seitenstruktur mit Ihren Inhalten", "Schlanke, barrierefreie Umsetzung (WordPress oder individuell)", "Weiterleitungen alter Adressen, damit Rankings erhalten bleiben", "Einweisung und Übergabe"],
       "process": ["Analyse der bestehenden Seite", "Festpreis-Angebot", "Umsetzung mit Zwischenständen", "Launch und Nachkontrolle"],
+      "price": "ab 2.000 €",
       "priceDrivers": "Seitenanzahl, Sprachen, Funktionen (Formulare, Buchung, Shop auf Anfrage) und vorhandene Inhalte.",
+      "technical": ["Individueller Aufbau: Next.js und React als statischer Export (HTML beim Build erzeugt), Tailwind CSS, selbst gehostete Schriften, keine Drittanbieter-Anfragen, PHP-Endpunkte für Formulare auf Shared Hosting", "WordPress-Aufbau: schlankes Theme, wenige Plugins, Caching und Bildoptimierung, Barrierefreiheit von Anfang an", "Umzug: Bestandsaufnahme der alten URLs, 301-Weiterleitungen, Canonical-Tags und Sitemap, Crawl-Prüfung nach dem Launch", "Prüfung vor dem Launch: Lighthouse, axe, Sicherheits-Header, HTTPS mit einer kanonischen Adresse", "Auslieferung per rsync in einen Release-Ordner mit atomarem Umschalten und Rollback"],
       "compare": {
         "title": "WordPress oder individuell?",
         "cols": ["Kriterium", "WordPress", "Individuell (statisch)"],
@@ -124,7 +133,9 @@
       "notFor": ["Sie möchten WordPress durch etwas anderes ersetzen – dann ist ein Relaunch passender"],
       "deliverables": ["Plugin- und Theme-Prüfung", "Ladezeit-Optimierung (Core Web Vitals)", "Schema-Markup und Grundlagen für KI-Sichtbarkeit", "Barrierefreiheit: Behebung der wichtigsten Hürden", "Sicherheit: Updates, Backups, Härtung", "Optional: monatlicher Support"],
       "process": ["Prüfung Ihrer Seite", "Maßnahmenliste mit Festpreis", "Umsetzung", "Optional: laufende Betreuung"],
+      "price": "ab 400 €",
       "priceDrivers": "Zustand der Seite, Anzahl der Plugins, gewünschte Maßnahmen und Umfang des monatlichen Supports.",
+      "technical": ["Zuerst eine Staging-Kopie: Änderungen werden dort getestet, vor jeder Änderung gibt es ein vollständiges Backup", "Performance: schwere Plugins ersetzen oder entfernen, Caching, Bildkonvertierung und Lazy Loading, Datenbank aufräumen, aktuelle PHP-Version", "Sicherheit: Update-Routine, Benutzer mit minimalen Rechten, Login-Härtung, Dateirechte, Sicherheits-Header, getestete Wiederherstellung", "Monatlicher Support: Erreichbarkeitsprüfung, Update-Protokoll und eine kurze monatliche Notiz"],
       "faq": [
         { "q": "Betreuen Sie auch Seiten anderer Anbieter?", "a": "Ja. Wir prüfen zuerst den Zustand und sagen ehrlich, was sich lohnt." },
         { "q": "Gibt es einen Vertrag mit Mindestlaufzeit?", "a": "Einmalige Optimierungen sind ohne Vertrag. Beim Support besprechen wir die Laufzeit offen und transparent." }
@@ -140,7 +151,9 @@
       "notFor": ["Sie brauchen eine mehrseitige Firmenwebsite – dann passt der Relaunch besser"],
       "deliverables": ["Eine Seite mit Ihren Texten und Bildern", "Kontaktformular mit Bestätigung", "Mobil, schnell und barrierefrei", "Rechtliche Seiten auf Wunsch"],
       "process": ["Kurzes Briefing", "Entwurf", "Korrekturschleife", "Veröffentlichung"],
+      "price": "ab 700 €",
       "priceDrivers": "Umfang der Inhalte, Bildmaterial und gewünschte Funktionen.",
+      "technical": ["Statische Seite mit unter 150 KB JavaScript und passend dimensionierten AVIF/WebP-Bildern", "Formular über einen PHP-Endpunkt mit Honeypot, Mengenbegrenzung, Proof-of-Work und E-Mail-Bestätigung; die Mails laufen über Ihr eigenes Postfach", "Standardmäßig keine Cookies oder Tracker, daher kein Einwilligungsbanner; Analyse nur auf Wunsch und datenschutzfreundlich", "Hosting bei Ihnen oder bei uns, mit Deployment-Skript und Übergabe-Notizen"],
       "faq": [
         { "q": "Wie lange dauert eine Landingpage?", "a": "Das hängt von Ihren Inhalten ab. Wir nennen den Zeitplan im Angebot." },
         { "q": "Kann ich später erweitern?", "a": "Ja. Die Seite lässt sich zu einer vollständigen Website ausbauen." }
@@ -156,7 +169,9 @@
       "notFor": ["Sie haben wenige Anfragen – ein gutes FAQ genügt oft"],
       "deliverables": ["Konzept und Prüfung der Datengrundlage", "Umsetzung auf Basis Ihrer Inhalte (RAG)", "Datenschutz- und Kennzeichnungshinweise", "Einweisung"],
       "process": ["Gespräch zum Bedarf", "Konzept und Angebot", "Umsetzung", "Test und Übergabe"],
+      "price": "ab 1.500 €",
       "priceDrivers": "Menge und Qualität der Inhalte, Sprachen, Anbindungen und Betrieb.",
+      "technical": ["Ihre Inhalte werden in Abschnitte geteilt, indexiert und pro Frage abgerufen (RAG); jede Antwort nennt ihre Quellen", "Rückfall auf „Das weiß ich nicht“ mit Übergabe an das Kontaktformular", "Modellanbieter und Hosting werden pro Projekt gewählt, mit EU-Standorten und Auftragsverarbeitungsvertrag im Blick", "Leitplanken: auf Ihre Themen begrenzt, Mengenbegrenzung, standardmäßig keine Speicherung personenbezogener Daten, sichtbarer Hinweis „KI-Assistent“", "Widget von Ihrer eigenen Domain ausgeliefert, standardmäßig kein Drittanbieter-Skript", "Betrieb: Prozess zur Aktualisierung der Inhalte, Testsatz für die Antwortqualität und eine monatliche Kostenschätzung für die Modellnutzung"],
       "faq": [
         { "q": "Gibt es eine Live-Demo?", "a": "Derzeit nicht. Wir zeigen auf Anfrage ein Beispiel im Gespräch." },
         { "q": "Wo liegen die Daten?", "a": "Das klären wir pro Projekt. Wir planen mit Blick auf EU-Standorte und Auftragsverarbeitung." }
@@ -172,9 +187,30 @@
       "notFor": ["Der Ablauf kommt nur selten vor – dann lohnt sich Automatisierung meist nicht"],
       "deliverables": ["Gemeinsame Aufnahme des Ablaufs", "Umsetzung in n8n", "Dokumentation und Übergabe"],
       "process": ["Gespräch", "Angebot", "Umsetzung", "Übergabe"],
+      "price": "ab 500 €",
       "priceDrivers": "Anzahl der Schritte und angebundenen Systeme sowie der Betrieb.",
+      "technical": ["n8n selbst gehostet (Docker) oder n8n Cloud, je Projekt danach entschieden, wo die Daten verarbeitet werden dürfen", "Auslöser per Webhook, Zeitplan oder Postfach", "Fehlerbehandlung: Wiederholungen, Fehlermeldungen per E-Mail, Ausführungsprotokoll", "Zugangsdaten im Credential-Speicher von n8n, Workflows als JSON in Git gesichert", "Übergabe: Workflow-Diagramm, Betriebshandbuch und wer die Meldungen erhält"],
       "faq": [
         { "q": "Gibt es eine Demo?", "a": "Nein, wir arbeiten projektbezogen und auf Anfrage." }
+      ]
+    },
+    "custom": {
+      "title": "Individuelle Webentwicklung",
+      "card": "Einfach oder komplex: Wir unterstützen Sie bei Ihrem Webprojekt. Abrechnung nach Stunden, mit vorheriger Schätzung.",
+      "seoTitle": "Individuelle Webentwicklung für 50 € pro Stunde | Fluxmedia",
+      "description": "Individuelle Webentwicklung, einfach oder komplex: Funktionen, Schnittstellen und laufende Weiterentwicklung für 50 € pro Stunde, mit schriftlicher Schätzung vor dem Start.",
+      "lead": "Ob kleine Erweiterung oder komplexe Anwendung: Wir unterstützen Sie. Wir arbeiten nach Stunden und geben Ihnen vor dem Start eine schriftliche Schätzung, damit Sie die Größenordnung der Kosten kennen. Das passt für Arbeiten, die in kein Festpreis-Paket passen: neue Funktionen, Schnittstellen, Erweiterungen einer bestehenden Website oder laufende Weiterentwicklung.",
+      "audience": ["Firmen mit einer Website oder Anwendung, die neue Funktionen braucht", "Teams, die zusätzliche Entwicklungskapazität brauchen", "Projekte, die sich noch entwickeln und noch nicht zum Festpreis angeboten werden können"],
+      "notFor": ["Sie möchten einen Festpreis für eine klar umrissene Website; Relaunch oder Landingpage passen dann besser", "Sie brauchen ein großes Team oder Betrieb rund um die Uhr"],
+      "deliverables": ["Schriftliche Schätzung mit Spanne vor Beginn der Arbeit", "Arbeit je Aufgabe erfasst, mit Stundenzettel zu jeder Rechnung", "Funktionierende Software in Ihrem Repository, wo sinnvoll getestet", "Kurze Übergabe-Notizen", "Optional: reservierte Stunden pro Monat zum gleichen Satz"],
+      "process": ["Gespräch zur Aufgabe, einfach oder komplex", "Schriftliche Schätzung mit Spanne", "Arbeit in kleinen Schritten mit regelmäßigen Zwischenständen", "Übergabe und Rechnung mit Stundenzettel"],
+      "price": "50 € pro Stunde",
+      "priceDrivers": "Benötigte Stunden: Umfang, Komplexität, Schnittstellen und wie gut der vorhandene Code dokumentiert ist. Das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen.",
+      "technical": ["Frontend: React und Next.js mit TypeScript und Tailwind CSS; Budgets für Barrierefreiheit und Performance werden im Build geprüft", "Backend: Node.js oder PHP, REST/JSON-Schnittstellen oder ein Headless-CMS wie Payload", "Schnittstellen: Zahlungen mit Stripe, E-Mail und SMS, n8n, die WordPress-REST-API", "Auslieferung: Git-Workflow mit Pull Requests, automatisierte Tests, Vorschau- und Produktivumgebung, Rollback", "Sicherheit und Datenschutz: Eingabeprüfung, Mengenbegrenzung, Sicherheits-Header, Zugangsdaten außerhalb des Repositorys, Daten in der EU, wo nötig"],
+      "faq": [
+        {"q": "Was kostet es?", "a": "50 € pro Stunde. Vor dem Start erhalten Sie eine schriftliche Schätzung mit Spanne, und das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen."},
+        {"q": "Können Sie ein bestehendes Projekt übernehmen?", "a": "Ja. Wir sehen uns zuerst den Code an und sagen Ihnen ehrlich, was sich lohnt."},
+        {"q": "Sollte ich lieber einen Festpreis anfragen?", "a": "Für klar umrissene Websites bieten wir Festpreis-Pakete an, siehe Website-Relaunch und Landingpage."}
       ]
     }
   },
@@ -203,7 +239,7 @@
     },
     "services": {
       "seoTitle": "Leistungen | Fluxmedia",
-      "description": "Alle Leistungen im Überblick: KI-Sichtbarkeit, Barrierefreiheit, Website-Relaunch, WordPress-Support, Landingpage, KI-Chatbot und Automatisierung.",
+      "description": "Alle Leistungen im Überblick: KI-Sichtbarkeit, Barrierefreiheit, Website-Relaunch, WordPress-Support, Landingpage, KI-Chatbot, Automatisierung und individuelle Webentwicklung.",
       "h1": "Leistungen",
       "lead": "Von der Analyse bis zur Umsetzung. Alles zum Festpreis und persönlich betreut."
     },
@@ -211,9 +247,9 @@
       "seoTitle": "Kostenlose SEO- & KI-Analyse Ihrer Website | Fluxmedia",
       "description": "Kostenlose manuelle Analyse Ihrer Website: SEO-Grundlagen, strukturierte Daten, KI-Sichtbarkeit und Barrierefreiheit. Bericht innerhalb von 48 Stunden.",
       "h1": "Kostenlose SEO- & KI-Analyse",
-      "lead": "Tragen Sie Ihre Website ein. Wir prüfen sie persönlich und senden Ihnen innerhalb von 48 Stunden (2 Werktagen) einen kurzen PDF-Bericht. Der Bericht verpflichtet zu nichts.",
+      "lead": "Tragen Sie Ihre Website ein. Wir prüfen Ihre Startseite persönlich und senden Ihnen innerhalb von 48 Stunden (2 Werktagen) einen kurzen PDF-Bericht. Der Bericht verpflichtet zu nichts. Für mehrere Seiten gibt es die Analyse unter KI-Sichtbarkeit.",
       "contentsTitle": "Was der Bericht enthält",
-      "contents": ["Technische Grundlagen: Titel, Beschreibung, Überschriften, Indexierung, Mobil, Core Web Vitals", "Strukturierte Daten: vorhanden oder fehlend", "KI-Sichtbarkeit: Stichprobe mit drei Fragen in ChatGPT, Perplexity, Gemini und Google-KI-Antworten", "Barrierefreiheit: auffällige Hürden (Alternativtexte, Kontraste, Tastatur, Beschriftungen)", "Die fünf wirksamsten Maßnahmen", "Auf Wunsch: ein Angebot zur Umsetzung"],
+      "contents": ["Technische Grundlagen der Startseite: Titel, Beschreibung, Überschriften, Indexierung, Mobil, Core Web Vitals", "Strukturierte Daten der Startseite: vorhanden oder fehlend", "KI-Sichtbarkeit: Stichprobe mit drei Fragen in ChatGPT, Claude, Perplexity, Gemini und Google-KI-Antworten", "Barrierefreiheit: auffällige Hürden (Alternativtexte, Kontraste, Tastatur, Beschriftungen)", "Die drei größten Befunde mit Begründung", "Auf Wunsch: ein Angebot zur Umsetzung"],
       "honest": "Wir versprechen keine Rankings. Der Bericht zeigt, wo Ihre Website steht und was sich lohnt."
     },
     "quote": {

@@ -5,7 +5,7 @@ export type Lang = (typeof locales)[number];
 export const defaultLang: Lang = "de";
 
 export const pageIds = [
-  "home", "services", "geo", "a11y", "relaunch", "wordpress", "landing", "chatbot", "automation",
+  "home", "services", "geo", "a11y", "relaunch", "wordpress", "landing", "chatbot", "automation", "custom",
   "analysis", "quote", "references", "about", "contact", "imprint", "privacy", "a11yStatement",
 ] as const;
 export type PageId = (typeof pageIds)[number];
@@ -20,6 +20,7 @@ export const slugs: Record<PageId, Record<Lang, string>> = {
   landing: { de: "leistungen/landingpage", en: "services/landing-page" },
   chatbot: { de: "leistungen/ki-chatbot", en: "services/ai-chatbot" },
   automation: { de: "leistungen/automatisierung", en: "services/automation" },
+  custom: { de: "leistungen/webentwicklung", en: "services/custom-development" },
   analysis: { de: "seo-analyse-kostenlos", en: "free-seo-analysis" },
   quote: { de: "angebot", en: "quote" },
   references: { de: "referenzen", en: "references" },
@@ -55,5 +56,5 @@ export function allSegments(): string[][] {
   return out;
 }
 
-export const serviceIds = ["geo", "a11y", "relaunch", "wordpress", "landing", "chatbot", "automation"] as const;
+export const serviceIds = ["geo", "a11y", "relaunch", "wordpress", "landing", "chatbot", "automation", "custom"] as const;
 export type ServiceId = (typeof serviceIds)[number];

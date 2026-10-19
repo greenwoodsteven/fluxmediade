@@ -11,6 +11,8 @@
     "priceDrivers": "What drives the price",
     "audience": "Who it is for",
     "notFor": "Probably not for you if",
+    "technical": "Technical implementation",
+    "vatNote": "All prices without VAT shown (small-business rule, § 19 UStG).",
     "deliverables": "What you get",
     "process": "How it works",
     "faq": "Frequently asked questions",
@@ -54,18 +56,21 @@
   "services": {
     "geo": {
       "title": "AI visibility (GEO / AEO)",
-      "card": "Is your business named in ChatGPT, Perplexity and Google AI answers? We check and fix the technical causes.",
+      "card": "Is your business named in ChatGPT, Claude, Perplexity and Google AI answers? We check and fix the technical causes.",
       "seoTitle": "AI visibility: be found in ChatGPT & Google AI | Fluxmedia",
       "description": "Audit and quick wins for visibility in AI answers: structured data, clear content, clean technology. Personally from a web developer on Lake Constance.",
-      "lead": "AI search systems cite websites that are clear, fast and well structured. We check how your business appears in ChatGPT, Perplexity, Gemini and Google AI answers, fix the technical causes and word your content so it can be cited. A place in the answers cannot be guaranteed.",
+      "lead": "AI search systems cite websites that are clear, fast and well structured. We analyse several pages of your website and check how your business appears in ChatGPT, Claude, Perplexity, Gemini and Google AI answers, fix the technical causes and word your content so it can be cited. A place in the answers cannot be guaranteed.",
       "audience": ["Trades, practices and service providers with a local catchment area", "Businesses whose website exists but is rarely mentioned", "Anyone who wants to know where they stand today"],
       "notFor": ["You expect a guaranteed placement in AI answers", "You are looking for backlink packages or ad management"],
-      "deliverables": ["Short report on technical basics (title, headings, indexing, mobile, Core Web Vitals)", "Structured-data check (JSON-LD): present, missing, faulty", "Spot check: three queries in ChatGPT, Perplexity, Gemini and Google AI answers", "The five most effective measures as a quick-win list", "On request: implementation in the “Audit & Quick Wins” package"],
-      "process": ["Request via the form", "Personal analysis (report within 48 hours)", "Call about the results", "Fixed price for implementation"],
+      "deliverables": ["Written analysis of the agreed pages (technical basics, headings, internal links, indexing, Core Web Vitals)", "Structured-data audit for the whole site with a corrected JSON-LD set", "AI visibility test: questions that fit your business in ChatGPT, Claude, Perplexity, Gemini and Google AI answers, documented with dates", "Content review with concrete rewrite notes for the pages that should be cited", "Prioritised action list by impact and effort", "Implementation of the top measures in the “Audit & Quick Wins” package", "Re-test of the same questions after a few weeks, with a short before/after note"],
+      "process": ["Optional: free start-page check", "Agree which pages are covered", "Multi-page analysis and a call about the results", "Implementation at a fixed price, then a re-test"],
+      "price": "from €450",
       "priceDrivers": "Size of the website, number of pages and languages, existing technology and the depth of implementation you want.",
+      "technical": ["Measurement: Lighthouse and axe per page, response headers, robots.txt and sitemap, and a check that the content is present without JavaScript", "Structured data: JSON-LD (Organization, LocalBusiness, Service, FAQ, BreadcrumbList) generated from one data source and validated", "Crawler access: robots.txt rules for AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended) as you decide, optionally an llms.txt", "Content structure: one H1, question-style subheadings, the short answer first, FAQ blocks with matching markup", "Speed: AVIF/WebP images, caching headers, less script weight", "Documentation: before/after table, the JSON-LD files and a list of the changed templates"],
+      "freeCheck": {"title": "Start with the free check", "text": "The free start-page check looks at your home page only and names the biggest findings. The multi-page analysis on this page covers the pages you choose, carries out the fixes and re-tests the result.", "link": "Free start-page check"},
       "faq": [
         { "q": "Can you guarantee appearing in AI answers?", "a": "No, nobody can. We improve the technical and content conditions so your website is understandable, fast and citable." },
-        { "q": "What does the first analysis cost?", "a": "The personal first analysis is free. It takes us about an hour and is delivered as a short PDF report." },
+        { "q": "What does the analysis cost?", "a": "The start-page check of your home page is free and delivered as a short PDF report. The multi-page analysis and the implementation are priced at a fixed price once we have seen your site." },
         { "q": "Do I need a new website for this?", "a": "Usually not. Structured data, clearer copy and a few technical fixes to the existing site are often enough." },
         { "q": "How long until it has an effect?", "a": "That cannot be predicted reliably. AI systems and search engines update their data at different intervals." }
       ]
@@ -80,7 +85,9 @@
       "notFor": ["You want an overlay plugin that fixes everything “automatically”; it does not replace accessibility", "You expect legal advice"],
       "deliverables": ["Audit with automated tools and manual checks (keyboard, screen-reader sample, contrast, labels)", "Prioritised list of barriers with proposed fixes", "Assessment of whether the BFSG applies to you (not legal advice)", "On request: remediation and a draft accessibility statement"],
       "process": ["Short questionnaire about your offer", "Audit and report", "Discussion of priorities", "Implementation at a fixed price"],
+      "price": "from €400",
       "priceDrivers": "Number and complexity of pages, forms, shop or booking functions and the state of the code.",
+      "technical": ["Tools: axe, Lighthouse and a keyboard-only walk-through, plus a screen-reader sample (NVDA, VoiceOver) on the key flows", "Fixes at the source: semantic HTML, landmarks, labels and error messages tied to their fields, visible focus, contrast, alt text, reduced-motion support", "No overlay plugin: the changes go into your templates or theme", "Re-test after the fixes; the results go into the draft accessibility statement"],
       "faq": [
         { "q": "Does the BFSG apply to my business?", "a": "It mainly concerns providers of products and services for consumers, such as online shops. Micro-enterprises providing services are exempt. If in doubt we clarify this first." },
         { "q": "Is an accessibility plugin enough?", "a": "No. Automatic overlays do not fix the causes. Accessibility comes from how the page is built." },
@@ -97,7 +104,9 @@
       "notFor": ["You only want small text changes; a maintenance plan is enough then", "You expect a result within days"],
       "deliverables": ["Concept and page structure using your content", "Lean, accessible build (WordPress or custom)", "Redirects from old URLs so rankings are preserved", "Training and handover"],
       "process": ["Analysis of the existing site", "Fixed-price quote", "Build with interim reviews", "Launch and follow-up checks"],
+      "price": "from €2,000",
       "priceDrivers": "Number of pages, languages, features (forms, booking, shop on request) and existing content.",
+      "technical": ["Custom build: Next.js and React as a static export (HTML generated at build time), Tailwind CSS, self-hosted fonts, no third-party requests, PHP endpoints for forms on shared hosting", "WordPress build: lean theme, few plugins, caching and image optimisation, accessibility from the start", "Migration: inventory of the old URLs, 301 redirect map, canonical tags and sitemap, crawl check after launch", "Checks before launch: Lighthouse, axe, security headers, HTTPS with one canonical host", "Deployment by rsync into a release folder with an atomic switch and rollback"],
       "compare": {
         "title": "WordPress or custom?",
         "cols": ["Criterion", "WordPress", "Custom (static)"],
@@ -124,7 +133,9 @@
       "notFor": ["You want to replace WordPress with something else; a relaunch fits better"],
       "deliverables": ["Plugin and theme audit", "Load-time optimisation (Core Web Vitals)", "Schema markup and basics for AI visibility", "Accessibility: fixing the main barriers", "Security: updates, backups, hardening", "Optional: monthly support"],
       "process": ["Audit of your site", "Measures list at a fixed price", "Implementation", "Optional: ongoing care"],
+      "price": "from €400",
       "priceDrivers": "State of the site, number of plugins, the measures you want and the scope of monthly support.",
+      "technical": ["Staging copy first: changes are tested there and a full backup is taken before every change", "Performance: replace or remove heavy plugins, caching, image conversion and lazy loading, database clean-up, current PHP version", "Security: update routine, least-privilege users, login hardening, file permissions, security headers, a tested restore", "Monthly support: uptime check, update log and a short monthly note"],
       "faq": [
         { "q": "Do you look after sites built by others?", "a": "Yes. We assess the state first and tell you honestly what is worthwhile." },
         { "q": "Is there a contract with a minimum term?", "a": "One-off optimisations need no contract. For support we discuss the term openly." }
@@ -140,7 +151,9 @@
       "notFor": ["You need a multi-page company website; the relaunch fits better"],
       "deliverables": ["One page with your copy and images", "Contact form with confirmation", "Mobile, fast and accessible", "Legal pages on request"],
       "process": ["Short briefing", "Draft", "Revision round", "Publication"],
+      "price": "from €700",
       "priceDrivers": "Amount of content, image material and features you want.",
+      "technical": ["Static page with under 150 KB of JavaScript and correctly sized AVIF/WebP images", "Form handled by a PHP endpoint with honeypot, rate limit, proof-of-work and email confirmation; mails go through your own mailbox", "No cookies or trackers by default, so no consent banner; analytics only if you want it, in a privacy-friendly form", "Hosting on your account or ours, with a deployment script and handover notes"],
       "faq": [
         { "q": "How long does a landing page take?", "a": "It depends on your content. We state the schedule in the quote." },
         { "q": "Can I expand it later?", "a": "Yes. The page can grow into a full website." }
@@ -156,7 +169,9 @@
       "notFor": ["You get few enquiries; a good FAQ is often enough"],
       "deliverables": ["Concept and review of the data basis", "Implementation based on your content (RAG)", "Data-protection and labelling notes", "Training"],
       "process": ["Conversation about needs", "Concept and quote", "Implementation", "Testing and handover"],
+      "price": "from €1,500",
       "priceDrivers": "Amount and quality of content, languages, integrations and operation.",
+      "technical": ["Your content is split into passages, indexed and retrieved per question (RAG); every answer cites its sources", "Fallback “I don't know” with a handover to the contact form", "Model provider and hosting chosen per project, with EU locations and a data processing agreement in mind", "Guardrails: limited to your topics, rate limit, no storage of personal data by default, a visible “AI assistant” label", "Widget served from your own domain, no third-party script by default", "Operation: content refresh process, a test set for answer quality and a monthly cost estimate for model usage"],
       "faq": [
         { "q": "Is there a live demo?", "a": "Not at the moment. On request we show an example in a call." },
         { "q": "Where is the data stored?", "a": "We clarify this per project and plan with EU locations and data processing agreements in mind." }
@@ -172,9 +187,30 @@
       "notFor": ["The workflow rarely occurs; automation then usually does not pay off"],
       "deliverables": ["Joint mapping of the workflow", "Implementation in n8n", "Documentation and handover"],
       "process": ["Conversation", "Quote", "Implementation", "Handover"],
+      "price": "from €500",
       "priceDrivers": "Number of steps and connected systems, and operation.",
+      "technical": ["n8n self-hosted (Docker) or n8n cloud, decided per project by where the data may be processed", "Triggers by webhook, schedule or mailbox", "Error handling: retries, failure alerts by email, execution log", "Credentials in the n8n credential store, workflows backed up as JSON in git", "Handover: workflow diagram, runbook and who receives the alerts"],
       "faq": [
         { "q": "Is there a demo?", "a": "No, we work per project and on request." }
+      ]
+    },
+    "custom": {
+      "title": "Custom web development",
+      "card": "Simple or complex: we can help with your web project. Billed by the hour, with an estimate in advance.",
+      "seoTitle": "Custom web development at €50 per hour | Fluxmedia",
+      "description": "Custom web development, simple or complex: features, integrations and ongoing development at €50 per hour, with a written estimate before we start.",
+      "lead": "Whether it is a small extension or a complex application, we can help. We work by the hour and give you a written estimate before we start, so you know the range of the cost. This suits work that does not fit a fixed-price package: new features, integrations, extensions to an existing site or ongoing development.",
+      "audience": ["Businesses with a website or application that needs new features", "Teams that need extra development capacity", "Projects that are still taking shape and cannot yet be quoted at a fixed price"],
+      "notFor": ["You want a fixed price for a clearly defined website; the relaunch or the landing page fits better", "You need a large team or round-the-clock operation"],
+      "deliverables": ["Written estimate with a range before work starts", "Work tracked per task, with a timesheet on every invoice", "Working software in your repository, tested where it makes sense", "Short handover notes", "Optional: reserved hours per month at the same rate"],
+      "process": ["Conversation about the task, simple or complex", "Written estimate with a range", "Work in small steps with regular updates", "Handover and invoice with timesheet"],
+      "price": "€50 per hour",
+      "priceDrivers": "Hours needed: scope, complexity, integrations and how well the existing code is documented. We do not exceed the agreed budget without asking you first.",
+      "technical": ["Front end: React and Next.js with TypeScript and Tailwind CSS; accessibility and performance budgets are checked in the build", "Back end: Node.js or PHP, REST/JSON APIs, or a headless CMS such as Payload", "Integrations: payments with Stripe, email and SMS, n8n, the WordPress REST API", "Delivery: git workflow with pull requests, automated tests, preview and production environments, rollback", "Security and privacy: input validation, rate limiting, security headers, secrets kept outside the repository, EU-hosted data where required"],
+      "faq": [
+        {"q": "What does it cost?", "a": "€50 per hour. Before we start you receive a written estimate with a range, and we do not go beyond the agreed budget without asking you first."},
+        {"q": "Can you take over an existing project?", "a": "Yes. We look at the code first and tell you honestly what is worthwhile."},
+        {"q": "Should I ask for a fixed price instead?", "a": "For clearly defined websites we offer fixed-price packages, see website relaunch and landing page."}
       ]
     }
   },
@@ -203,7 +239,7 @@
     },
     "services": {
       "seoTitle": "Services | Fluxmedia",
-      "description": "All services at a glance: AI visibility, accessibility, website relaunch, WordPress support, landing page, AI chatbot and automation.",
+      "description": "All services at a glance: AI visibility, accessibility, website relaunch, WordPress support, landing page, AI chatbot, automation and custom web development.",
       "h1": "Services",
       "lead": "From analysis to implementation. Everything at a fixed price and personally handled."
     },
@@ -211,9 +247,9 @@
       "seoTitle": "Free SEO & AI analysis of your website | Fluxmedia",
       "description": "Free manual analysis of your website: SEO basics, structured data, AI visibility and accessibility. Report within 48 hours.",
       "h1": "Free SEO & AI analysis",
-      "lead": "Enter your website. We review it personally and send you a short PDF report within 48 hours (2 working days). The report carries no obligation.",
+      "lead": "Enter your website. We review your home page personally and send you a short PDF report within 48 hours (2 working days). The report carries no obligation. For several pages there is the analysis under AI visibility.",
       "contentsTitle": "What the report contains",
-      "contents": ["Technical basics: title, description, headings, indexing, mobile, Core Web Vitals", "Structured data: present or missing", "AI visibility: spot check with three questions in ChatGPT, Perplexity, Gemini and Google AI answers", "Accessibility: visible barriers (alt text, contrast, keyboard, labels)", "The five most effective measures", "On request: a quote for implementation"],
+      "contents": ["Technical basics of the home page: title, description, headings, indexing, mobile, Core Web Vitals", "Structured data of the home page: present or missing", "AI visibility: spot check with three questions in ChatGPT, Claude, Perplexity, Gemini and Google AI answers", "Accessibility: visible barriers (alt text, contrast, keyboard, labels)", "The three biggest findings, with reasons", "On request: a quote for implementation"],
       "honest": "We do not promise rankings. The report shows where your website stands and what is worthwhile."
     },
     "quote": {

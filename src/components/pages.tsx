@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getContent, type ServiceContent, type LegalSection } from "@/content";
 import { pathFor, serviceIds, type Lang, type PageId, type ServiceId } from "@/i18n/routes";
-import { priceLabel } from "@/content/prices";
 import { site } from "@/content/site";
 import { Picture } from "./Picture";
 import { JsonLd } from "./JsonLd";
@@ -34,7 +33,7 @@ function Faqs({ title, items }: { title: string; items: Faq[] }) {
 
 function PageHead({ lang, id, h1, lead }: { lang: Lang; id: PageId; h1: string; lead: string }) {
   const ui = getContent(lang).ui;
-  const parent = (["geo", "a11y", "relaunch", "wordpress", "landing", "chatbot", "automation"] as PageId[]).includes(id);
+  const parent = (["geo", "a11y", "relaunch", "wordpress", "landing", "chatbot", "automation", "custom"] as PageId[]).includes(id);
   const crumbs = [{ name: ui.breadcrumbHome, path: pathFor("home", lang) },
     ...(parent ? [{ name: ui.nav.services, path: pathFor("services", lang) }] : []),
     { name: h1, path: pathFor(id, lang) }];
@@ -81,7 +80,7 @@ export function ServiceCard({ id, lang, small, as: H = "h3" }: { id: ServiceId; 
         <Link href={pathFor(id, lang)} className="hover:underline">{s.title}</Link>
       </H>
       <p className="mt-2 flex-1">{s.card}</p>
-      <p className="mt-3 font-bold text-ink">{priceLabel(id, lang)}</p>
+      <p className="mt-3 font-bold text-ink">{s.price}</p>
       <Link href={pathFor(id, lang)} className="mt-2 underline text-accent">
         {ui.moreInfo}<span className="sr-only">: {s.title}</span>
       </Link>
@@ -92,7 +91,7 @@ export function ServiceCard({ id, lang, small, as: H = "h3" }: { id: ServiceId; 
 export function ServicePage({ id, lang }: { id: ServiceId; lang: Lang }) {
   const c = getContent(lang);
   const ui = c.ui;
-  const s: ServiceContent & { compare?: { title: string; cols: string[]; rows: string[][] } } = c.services[id];
+  const s: ServiceContent & { compare?: { title: string; cols: string[]; rows: string[][] }; freeCheck?: { title: string; text: string; link: string } } = c.services[id];
   return (
     <>
       <PageHead lang={lang} id={id} h1={s.title} lead={s.lead} />
@@ -100,7 +99,16 @@ export function ServicePage({ id, lang }: { id: ServiceId; lang: Lang }) {
         "@context": "https://schema.org", "@type": "Service", name: s.title, description: s.description, inLanguage: lang,
         provider: { "@type": "ProfessionalService", name: site.legalName, url: site.url }, areaServed: "DE",
       }} />
-      <div className={`${wrap} mt-6`}><p className="font-bold text-ink">{priceLabel(id, lang)}</p><Cta lang={lang} /></div>
+      <div className={`${wrap} mt-6`}><p className="font-bold text-ink">{s.price}</p><p className="text-sm text-muted">{ui.vatNote}</p><Cta lang={lang} /></div>
+      {s.freeCheck && (
+        <aside className={`${wrap} mt-6`} aria-labelledby="free">
+          <div className="rounded border-2 border-accent p-4">
+            <h2 id="free" className="text-lg font-bold text-ink">{s.freeCheck.title}</h2>
+            <p className="mt-2">{s.freeCheck.text}</p>
+            <p className="mt-2"><Link className="font-bold underline text-accent" href={pathFor("analysis", lang)}>{s.freeCheck.link}</Link></p>
+          </div>
+        </aside>
+      )}
       <div className={`${wrap} grid gap-10 ${section} md:grid-cols-2`}>
         <section aria-labelledby="aud"><h2 id="aud" className="text-xl font-bold">{ui.audience}</h2><List items={s.audience} />
           <h3 className="mt-6 font-bold text-ink">{ui.notFor}</h3><List items={s.notFor} /></section>
@@ -109,6 +117,10 @@ export function ServicePage({ id, lang }: { id: ServiceId; lang: Lang }) {
           <ol className="mt-3 list-decimal space-y-1 pl-5">{s.process.map((p) => <li key={p}>{p}</li>)}</ol></section>
         <section aria-labelledby="price"><h2 id="price" className="text-xl font-bold">{ui.priceDrivers}</h2><p className="mt-3">{s.priceDrivers}</p></section>
       </div>
+      <section className={`${wrap} pb-10`} aria-labelledby="tech">
+        <h2 id="tech" className="text-xl font-bold">{ui.technical}</h2>
+        <List items={s.technical} />
+      </section>
       {s.compare && (
         <section className={`${wrap} pb-10`} aria-labelledby="cmp">
           <h2 id="cmp" className="text-xl font-bold">{s.compare.title}</h2>
@@ -151,7 +163,7 @@ export function Home({ lang }: { lang: Lang }) {
   const c = getContent(lang);
   const p = c.pages.home;
   const lead = ["geo", "wordpress", "relaunch", "a11y"] as const;
-  const more = ["landing", "chatbot", "automation"] as const;
+  const more = ["landing", "chatbot", "automation", "custom"] as const;
   return (
     <>
       <section className="relative isolate overflow-hidden bg-ink text-white" aria-labelledby="hero">
@@ -177,7 +189,7 @@ export function Home({ lang }: { lang: Lang }) {
           <h2 id="svc" className="text-2xl font-bold">{p.leadServices}</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{lead.map((id) => <ServiceCard key={id} id={id} lang={lang} />)}</div>
           <h3 className="mt-10 text-lg font-bold">{p.more}</h3>
-          <div className="mt-4 grid gap-5 sm:grid-cols-3">{more.map((id) => <ServiceCard key={id} id={id} lang={lang} small />)}</div>
+          <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{more.map((id) => <ServiceCard key={id} id={id} lang={lang} small />)}</div>
         </div>
       </section>
 
