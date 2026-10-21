@@ -24,6 +24,9 @@ them. "Check" means *someone qualified should look at it*, not that something is
 | 11 | Decide | AI crawlers are explicitly allowed in `robots.txt`; decide whether to keep or add a copyright reservation | you |
 | 12 | Later | AI chatbot offer (EU AI Act transparency), Stripe/PayPal, voicemail line, LinkedIn link: each needs a privacy-text update when it goes live | you |
 
+Note: the Exili insurance is recorded under owner‘s name. Type is Einzelunternehmer.
+If there was a claim against Fluxmedia this may mean no cover. Exili states that this could change at any time. Consider changing Fluxmedia.de to owner‘s Freiberufler tax number and name only and then if Exili requires change to cover Einzelunternehmer & Freiberufler under same owner’s name. Alternative could Einzelunternehmer tax number ust be used instead of Feiberufler tax number. Concern is verbärbung von Fluxmedia gbr. See md that relates to Fluxmedia close strategy. Owner is now over 55
+
 ## 2. Data-flow inventory (what the site really does)
 
 | Component | What happens | Personal data | Third party | Notes |
@@ -65,7 +68,7 @@ Check:
 **Implemented 2026-10-19** (German and English, 12 sections): controller, overview, hosting and server logs, contact/quote forms and email, free analysis, abuse protection, recipients and third countries, external links, encryption, automated decisions, rights incl. supervisory authority and how to exercise them, date. What the text promises, and what has to be true for it:
 - netcup processor agreement is concluded (customer panel).
 - netcup deletes server logs "after a short time": check the actual retention and name it if it is long.
-- A daily cron job runs `api/cleanup.php` (deploy README, One time, step 8); without it the 48-hour and one-day deletions only happen while forms are being used.
+- A daily cron job runs `api/cleanup.php` (deploy README, One time, step 7); without it the 48-hour and one-day deletions only happen while forms are being used.
 - The authority named is the Baden-Württemberg commissioner; confirm it is the right one for the registered seat.
 - The statement that analysis addresses are not used for advertising without separate consent is a commitment you must keep.
 

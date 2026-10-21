@@ -15,8 +15,9 @@ return [
     ],
     'rate_limit' => ['max' => 5, 'window' => 3600],   // per IP hash
     // Persistent state of the free analysis (pending confirmations, domain history, weekly cap) and the
-    // rate limiter. Use a folder OUTSIDE the release folder, e.g. /path/to/fluxmedia/shared/storage,
-    // otherwise every deploy resets the limits. null = api/storage (denied by .htaccess, reset by deploys).
+    // rate limiter. Use an absolute path (as PHP sees it) to a folder that is not served and not replaced by a
+    // deploy: release folders: <DEPLOY_PATH>/shared/storage; git pull + FTP: <repo>/fluxmedia-storage (git-ignored).
+    // The path must be allowed by open_basedir. null = api/storage (denied by .htaccess, reset by deploys).
     'storage_dir' => null,
     'base_url'    => 'https://www.fluxmedia.de',      // used in the confirmation link
     'secret'      => 'CHANGE_ME_LONG_RANDOM',         // signs proof-of-work challenges (openssl rand -hex 32)

@@ -33,8 +33,8 @@ Priority: **A** before you rely on the policy, **B** soon, **C** when the event 
 |---|---|---|---|---|---|
 | 1 | A | Confirm the **processor agreement (AVV) with netcup** and keep the confirmation | netcup customer control panel (data protection / contracts); download and file the PDF | you | open |
 | 2 | A | Find out **how long netcup keeps server logs** and which IP handling applies; put the real period in the policy if it is long | netcup documentation or support; update the "Hosting und Server-Logfiles" section | you | open |
-| 3 | A | Set up the **daily cron job** for `api/cleanup.php` | customer panel, cron job: `php /full/path/to/httpdocs/_fluxmediade/api/cleanup.php`; run it once over SSH and expect "cleanup done"; see `deploy/README.md` (One time, step 8) | you | open |
-| 4 | A | Make sure `storage_dir` in `api/config.php` is **outside the webroot** and the folder has mode 700 | `deploy/README.md`, One time, step 3; check `ls -ld` on the folder | you | open |
+| 3 | A | Set up the **daily cron job** for `api/cleanup.php` | customer panel, cron job: `php /full/path/to/httpdocs/_fluxmediade/api/cleanup.php`; run it once over SSH and expect "cleanup done"; see `deploy/README.md` (One time, step 7) | you | open |
+| 4 | A | Make sure `storage_dir` in `api/config.php` is **above the document root** (not served), allowed by `open_basedir`, git-ignored, and the folder has mode 700 | `deploy/README.md`, One time, steps 1, 3 and 4; check `ls -ld` on the folder | you | open |
 | 5 | A | **Legal review** of the policy text (German version is authoritative) | lawyer or DPO; send them `src/content/de.json` section `pages.privacy` and this file | you | open |
 | 6 | B | Define the **mailbox retention rule** for requests ("delete after completion, keep business records for the statutory period") and apply it | a yearly clean-up of the mailbox; mark requests that became contracts | you | open |
 | 7 | B | Confirm the **supervisory authority** for the registered seat | register entry or Gewerbeanmeldung gives the seat; compare with the authority named in the policy | you | open |
@@ -105,7 +105,7 @@ Controller: Fluxmedia GbR, address and email as in the Impressum. Processor: net
 ```bash
 # on the server (SSH), after the first deploy
 php /full/path/to/api/cleanup.php                       # prints "cleanup done"
-ls -ld /full/path/to/fluxmedia-storage                  # drwx------ (700), outside httpdocs
+ls -ld /full/path/to/fluxmedia-storage                  # drwx------ (700), above the document root (out/)
 ls /full/path/to/fluxmedia-storage                      # pending domains confirmed pow ratelimit
 
 # from any machine

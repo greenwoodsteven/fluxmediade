@@ -42,6 +42,7 @@ node_modules/
 /api/.env
 /api/logs/
 /api/storage/
+/fluxmedia-storage/
 /api/rate-limit/
 /api/*.log
 /api/vendor/composer/tmp-*

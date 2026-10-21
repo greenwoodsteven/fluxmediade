@@ -14,7 +14,9 @@ RewriteRule ^ https://www.fluxmedia.de%{REQUEST_URI} [L,R=301]
 RewriteRule (^|/)\.(?!well-known/) - [F]
 RewriteRule ^(config|docs|deploy|scripts|src|node_modules)(/|$) - [F]
 RewriteRule ^api/(lib|PHPMailer|storage)(/|$) - [F]
-RewriteRule ^api/config(\.[a-z]+)?\.php$ - [F]
+RewriteRule ^api/config - [F]
+RewriteRule ^api/.*\.(save|bak|old|orig|swp|tmp|json|md|txt)$ - [F,NC]
+RewriteRule ^api/.*~$ - [F]
 
 # --- Legacy URLs (301 to the new equivalents; extend from the old URL list)
 RewriteRule ^index\.html$ / [R=301,L]

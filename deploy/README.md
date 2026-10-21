@@ -236,81 +236,92 @@ Notes
 ## Simple deployment: git pull + FTP
 
 The static site (`out/`) is built on your machine and uploaded by FTP. The PHP endpoints (`api/`) come from git on the
-server. `out/` is **not** tracked in git (it contains your Impressum data), so there is nothing to build on the server.
+server. `out/` is **not** tracked in git (it contains the Impressum data), so nothing is built on the server.
 
-The repository is cloned into the account's `httpdocs` folder and the domain's document root is its `out/` subfolder,
-so the repository itself (`.git`, `src/`, `docs/`, `config/`) is one level above the document root and is not served:
+The repository is cloned into `httpdocs`, and the domain's document root is its `out/` subfolder. The repository itself
+(`.git`, `src/`, `config/`, the storage folder) is therefore above the document root and not served:
 
 ```
 /httpdocs/_fluxmediade/            <- git clone (git pull here)
-├── .git, src/, docs/, config/ ... <- NOT web-accessible: above the document root
 ├── api/                           <- PHP endpoints from git
 │   └── config.php                 <- real credentials, git-ignored, survives every `git pull`
+├── fluxmedia-storage/             <- state of the free analysis (mode 700, git-ignored)
 └── out/                           <- DOCUMENT ROOT of fluxmedia.de = contents of the local out/ (FTP)
     ├── index.html, _next/, images/, .htaccess, ...
     └── api -> ../api              <- symlink to the endpoints
-~/fluxmedia-storage/               <- state of the free analysis (create it, mode 700, outside httpdocs)
 ```
 
-Paths below use `REPO=~/httpdocs/_fluxmediade`. In the customer panel and in FTP it is shown as `/httpdocs/_fluxmediade`;
-if your SSH login lands somewhere else, run `cd /httpdocs/_fluxmediade && pwd -P` and use that full path instead.
+**Paths on netcup.** The SSH session is chrooted: there `~` is `/` and the repository is `/httpdocs/_fluxmediade`.
+PHP and cron see the real path, `/var/www/vhosts/hosting161521.ae822.netcup.net/httpdocs/_fluxmediade`. Use the real
+path in `config.php` (`storage_dir`) and in the cron job. Below, `REPO=/httpdocs/_fluxmediade` is used in SSH.
 
 ### One time
 
-1. Check what the server has: `ssh user@host 'command -v git php'`.
-2. Give the server read access to the repository (a read-only deploy key: `ssh-keygen -t ed25519`, add the public key
-   to the repository settings on GitHub), then clone:
+1. **Panel settings** (Plesk, *Websites & Domains → fluxmedia.de*):
+   - Document root: `/httpdocs/_fluxmediade/out`.
+   - *PHP Settings*: PHP 8.4, and **`open_basedir` = `{WEBSPACEROOT}{/}{:}{TMP}{/}{:}{/}var{/}lib{/}php{/}sessions`**
+     (choose it in the dropdown). The default (`{DOCROOT}{/}...`) confines PHP to `out/`, so `/api/*.php` fails with
+     "No input file specified." (PHP may not follow `out/api -> ../api` or write the storage folder). Check this setting
+     again after every PHP version change.
+   - TLS certificate enabled.
+2. **Clone** (read-only deploy key: `ssh-keygen -t ed25519`, add the public key in the GitHub repository settings):
    ```bash
-   git clone git@github.com:greenwoodsteven/fluxmediade.git ~/httpdocs/_fluxmediade
-   git config --global core.pager cat        # netcup has no pager; avoids "cannot run pager" errors
+   git clone git@github.com:greenwoodsteven/fluxmediade.git /httpdocs/_fluxmediade
+   git config --global core.pager cat        # netcup has no pager
    ```
-   If `git pull` later says "no tracking information" or "No commit on branch 'master' yet", see the troubleshooting
-   table.
-3. Create the config and the storage folder:
+3. **Storage folder, config and the link:**
    ```bash
-   REPO=~/httpdocs/_fluxmediade
-   mkdir -p ~/fluxmedia-storage && chmod 700 ~/fluxmedia-storage
-   cd ~/fluxmedia-storage && pwd -P   # prints the full path to use as `storage_dir` below (no `realpath` on netcup)
-   cd ~
+   REPO=/httpdocs/_fluxmediade
+   mkdir -p $REPO/fluxmedia-storage && chmod 700 $REPO/fluxmedia-storage   # git-ignored
    cp $REPO/api/config.example.php $REPO/api/config.php && chmod 600 $REPO/api/config.php
-   ```
-   Edit `config.php`: real SMTP login (rotate the old password first), `secret` (`openssl rand -hex 32`),
-   `base_url` (`https://www.fluxmedia.de`), `storage_dir` (the full path printed by `pwd -P` above, not `~`),
-   `allowed_origins`.
-4. Create the document root folder and link the endpoints into it. The `out/` folder does not exist after the clone
-   (it is git-ignored), and the link must point at `../api`:
-   ```bash
    mkdir -p $REPO/out
-   ls -ld $REPO/out/api 2>&1                 # must say "No such file or directory"; if an api folder exists, rename it
    ln -s ../api $REPO/out/api                # relative link: out/api -> ../api
    ls -l $REPO/out/api                       # shows: api -> ../api
-   ls $REPO/out/api/                         # shows: analysis.php  challenge.php  confirm.php  config.php  lib ...
    ```
-   Replace an existing link with `ln -sfn ../api $REPO/out/api`. If an `api` **folder** is in the way, `ln` would
-   create the link inside it, so rename or remove the folder first.
-5. In the customer control panel set the domain's **document root** to `/httpdocs/_fluxmediade/out`, choose PHP 8.x and
-   enable the TLS certificate.
-6. Check that PHP answers through the link (after the first FTP upload, or already now over a temporary host name):
+   Link commands: `ln -sfn ../api $REPO/out/api` repairs or replaces it (an `api` *folder* in `out/` must be renamed
+   first, or `ln` would create the link inside it); `rm $REPO/out/api` removes the link only (no trailing slash, never
+   `rm -r`). Re-create it if an FTP upload ever removes it.
+4. **`api/config.php`** (this is the working configuration; replace the two `SECRET` values, `openssl rand -hex 32`
+   for `secret`, and use the rotated SMTP password):
+   ```php
+   <?php
+   return [
+       'allowed_origins' => ['https://www.fluxmedia.de', 'https://fluxmedia.de'],
+       'to'        => 'greenwood@fluxmedia.de',
+       'smtp' => [
+           'host'       => 'mxe824.netcup.net',
+           'port'       => 465,
+           'encryption' => 'ssl',            // 'ssl' | 'tls'
+           'username'   => 'support@fluxmedia.de',
+           'password'   => 'SECRET',
+           'from_email' => 'support@fluxmedia.de',
+           'from_name'  => 'Fluxmedia',
+       ],
+       'rate_limit'  => ['max' => 5, 'window' => 3600],   // per IP hash
+       'storage_dir' => '/var/www/vhosts/hosting161521.ae822.netcup.net/httpdocs/_fluxmediade/fluxmedia-storage',
+       'base_url'    => 'https://www.fluxmedia.de',       // no trailing slash; used in the confirmation link
+       'secret'      => 'SECRET',                         // signs proof-of-work challenges
+       'audit'       => ['weekly_cap' => 10, 'domain_days' => 90, 'pending_hours' => 48],
+   ];
+   ```
+   `storage_dir` is the real path PHP sees (`__DIR__` in a temporary PHP file shows it), not `~` and not what the
+   chrooted SSH prints. `mail_dump` is for tests only and stays out.
+5. **Check:**
    ```bash
-   curl -s https://www.fluxmedia.de/api/challenge.php        # {"ok":true,"salt":"...","sig":"...","bits":14}
+   curl -s https://www.fluxmedia.de/api/challenge.php                  # {"ok":true,"salt":"...","sig":"...","bits":14}
    curl -sI https://www.fluxmedia.de/api/lib/bootstrap.php | head -1   # 403
+   curl -sI https://www.fluxmedia.de/api/config.php | head -1          # 403
    ```
-7. Check that the repository is not reachable through **any other domain or subdomain of the account**. If one of them
-   uses `/httpdocs` as its document root, `https://that-domain/_fluxmediade/api/config.php` and `.git/` would be
-   served. Open `https://that-domain/_fluxmediade/.git/config`; it must be 403 or 404. If not, put this in
-   `/httpdocs/.htaccess`:
-   ```apache
-   RedirectMatch 403 ^/_fluxmediade
-   ```
-   It matches the URL path, so it does not affect fluxmedia.de, whose document root is already `out/`.
-8. Set up the daily clean-up of the free-analysis data (the privacy policy promises deletion of unconfirmed requests
-   after 48 hours, hashed domains after 90 days and IP hashes after one day). In the netcup customer panel add a cron
-   job that runs once a day:
+   `No input file specified.` means PHP cannot reach `api/`: see the troubleshooting table (`open_basedir`, link).
+6. **Other domains of the account:** if any of them uses `/httpdocs` as its document root, `https://that-domain/_fluxmediade/.git/config`
+   must be 403 or 404. If not, put `RedirectMatch 403 ^/_fluxmediade` into `/httpdocs/.htaccess`.
+7. **Daily clean-up** of the free-analysis data (the privacy policy promises deletion after 48 hours, 90 days and one
+   day). In the panel add a cron job once a day, running with PHP 8.4:
    ```bash
-   php /full/path/to/httpdocs/_fluxmediade/api/cleanup.php      # prints "cleanup done"
+   php /var/www/vhosts/hosting161521.ae822.netcup.net/httpdocs/_fluxmediade/api/cleanup.php    # prints "cleanup done"
    ```
-   Test it once by hand over SSH. The scripts also clean up on their own while the forms are used, but only the cron
-   job deletes data when nobody is submitting anything.
+   Run it once by hand over SSH first. The scripts also clean up while the forms are used, but only the cron job deletes
+   data when nobody submits anything.
 
 ### Every release
 
@@ -318,7 +329,7 @@ if your SSH login lands somewhere else, run `cd /httpdocs/_fluxmediade && pwd -P
    ```bash
    npm run build:prod
    ```
-2. **On the server, only if `api/` changed:** `cd ~/httpdocs/_fluxmediade && git pull`.
+2. **On the server, only if `api/` changed:** `cd /httpdocs/_fluxmediade && git pull`.
    Do this together with step 3: the forms (JavaScript in `out/`) and the PHP endpoints must be the same version.
 3. **FTP the contents of your local `out/` into `/httpdocs/_fluxmediade/out/`** (the document root), not the folder
    itself.
@@ -364,6 +375,7 @@ if your SSH login lands somewhere else, run `cd /httpdocs/_fluxmediade && pwd -P
 
 | Symptom | Likely cause |
 |---|---|
+| `/api/*.php` answers "No input file specified." (even though `out/api -> ../api` is correct) | PHP `open_basedir` is limited to `out/`, so PHP cannot follow the link or write `storage_dir`. Widen it in the panel (One time, step 1); check again after a PHP version change |
 | 500 from `/api/*.php`, `{"error":"config"}` | `api/config.php` missing: the symlink to `shared/config.php` was not created or the file does not exist |
 | Form says sending failed, `{"error":"mail"}` | wrong SMTP login or port in `config.php`; check the PHP error log |
 | `{"error":"origin"}` (403) | the site host is not in `allowed_origins` |
