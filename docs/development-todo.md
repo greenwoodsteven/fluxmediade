@@ -13,7 +13,7 @@ This list collects every open point from the audits, the legal and privacy docum
 | # | Pri | Type | Task | Done when | Effort | Source |
 |---|---|---|---|---|---|---|
 | 1 | P1 | ops | **Daily cron job** for `api/cleanup.php` in the netcup panel | job runs, `cleanup done` printed once by hand, `storage/pending` empties after 48 h | S | privacy-actions #3 |
-| 2 | P1 | ops | Check `storage_dir` is **above the document root**, mode 700, git-ignored, and allowed by `open_basedir` | `ls -ld` shows `drwx------`; `/api/challenge.php` returns JSON | S | privacy-actions #4 |
+| 2 | ~~P1~~ **Done 2026-10-21** | ops | Check `storage_dir` is **above the document root**, mode 700, git-ignored, and allowed by `open_basedir` | `ls -ld` shows `drwx------`; `/api/challenge.php` returns JSON | S | privacy-actions #4 (live: `open_basedir` widened, storage inside the clone, `/api/challenge.php` works) |
 | 3 | P1 | ops | **netcup processor agreement** (AVV) confirmed and filed; log retention at netcup found out | PDF saved, policy section "Hosting und Server-Logfiles" names the real retention if it is long | S | privacy-actions #1, #2 |
 | 4 | P1 | legal | **Legal review** of the privacy policy and the Impressum | written OK or list of changes from a lawyer or DPO | M | legal-audit #3, #4 |
 | 5 | P1 | content | **Portfolio references**: ask Krieger Digital for OK, change the entry text to "im Auftrag von Krieger Digital", crop the Höffner screenshot (no photo of people, no time-limited offers), add the caption "Screenshot, Stand Oktober 2026. Marken und Inhalte gehören den jeweiligen Inhabern." | reply saved, `de.json`/`en.json` updated, `hoeffner_720x480.jpeg` and `moebel-kraft_720x480.jpeg` re-cropped | M | legal-audit #2, section 6a |
@@ -89,6 +89,7 @@ Items from your review notes in `docs/content-de-en.md` that are **not applied y
 | 43 | P3 | ops | Backups: mailbox and repository; know how to restore | restore tested once | M | legal-audit section 8 |
 | 44 | P3 | ops | Two-factor authentication on netcup, mailbox, GitHub, registrar; repository private; read-only deploy key | checked off | S | legal-audit section 8 |
 | 45 | P3 | code | **Rewrite the troubleshooting row** that blames the `shared/config.php` symlink (it applies only to the release-folder route) | table covers both routes | S | deploy README |
+| 50 | P2 | ops | **Re-check `open_basedir` after every PHP version change** in the netcup panel (it was reset to the document root by the switch to PHP 8.4 and broke `/api/*.php`) | `curl https://www.fluxmedia.de/api/challenge.php` returns JSON after each upgrade | S | 2026-10-21 incident, deploy README |
 
 ## 8. Documentation and tooling (P3)
 
@@ -114,4 +115,4 @@ Self-hosted Inter font, responsive images, security headers and CSP, free-analys
 confirmation, per-domain limit, weekly cap), privacy policy rewrite with retention clean-up, accessibility statement with
 the real status, legal-page draft notes removed, custom web development service, "from" prices in the JSON, technical
 sections on all service pages, business data in a git-ignored config file, `build:prod`, deployment guides (release
-folders, git, git pull plus FTP), deployment on netcup, SMTP host corrected.
+folders, git, git pull plus FTP), deployment on netcup, SMTP host corrected, `open_basedir` and storage folder set up and the `.htaccess` hardened for `api/config*` and editor backups (2026-10-21).

@@ -323,6 +323,44 @@ path in `config.php` (`storage_dir`) and in the cron job. Below, `REPO=/httpdocs
    Run it once by hand over SSH first. The scripts also clean up while the forms are used, but only the cron job deletes
    data when nobody submits anything.
 
+### Update content (after setup)
+
+Day-to-day changes (text, prices, references, legal pages) are made on your machine and uploaded by FTP. The server needs
+no build tools and no `git pull` for them.
+
+| What you change | Where | Needs |
+|---|---|---|
+| Page text, prices (`services.<id>.price`), FAQ, legal pages, DE and EN | `src/content/de.json`, `src/content/en.json` | rebuild + FTP `out/` |
+| Address, phone, partners, VAT ID, email | `config/site.local.json` (git-ignored, exists only on your machine) | rebuild + FTP `out/` |
+| Images, fonts, `robots.txt`, `.htaccess` | `public/` | rebuild + FTP `out/` |
+| PHP endpoints, `smtp`, `secret`, `storage_dir` | `api/` (code, via git) or `api/config.php` (on the server) | `git pull` on the server, or edit `config.php` there |
+
+Steps:
+
+1. **Once per machine:** `git clone` the repository, `npm install`, and put your `config/site.local.json` in place (copy
+   `config/site.example.json`; keep a backup, it is not in git).
+2. **Update and preview:**
+   ```bash
+   git pull                      # latest version
+   npm run dev                   # http://localhost:3000, DE at /, EN at /en/
+   ```
+   Edit the JSON files. Keep both languages in step: a key missing in `en.json` is not caught by the type check, so
+   compare the two files after editing.
+3. **Check and build for production:**
+   ```bash
+   npm run lint                  # site check + TypeScript
+   npm run build:prod            # strict check (fails on any [PLACEHOLDER]) + build into out/
+   npm run serve                 # optional: look at the built site locally
+   ```
+4. **Save the change in git:** `git add -A && git commit -m "Update content: ..." && git push`.
+5. **Upload by FTP:** send the contents of your local `out/` to `/httpdocs/_fluxmediade/out/` (details in *Every release*
+   below: overwrite files, upload `_next/` and `images/` first and the HTML files last, include the hidden
+   `.htaccess`, keep the `api` link, binary mode).
+6. **Check on the live site:** hard-reload (Ctrl/Cmd+Shift+R) the changed pages in both languages, open `/impressum/`
+   if business data changed, and run the smoke test (home page, a 404, the contact form).
+
+If a change also touches `api/`, run `git pull` on the server in the same session (step 2 of *Every release*).
+
 ### Every release
 
 1. **On your machine:** commit and push your changes, make sure `config/site.local.json` has no `[...]` left, then
