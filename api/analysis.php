@@ -20,5 +20,5 @@ $token = pending_save([
     'host' => $host, 'lang' => lang(), 'ref' => line('ref', 50),
 ]);
 $base = rtrim(config()['base_url'] ?? 'https://www.fluxmedia.de', '/');
-confirm_mail($f['name'], $f['email'], "$base/api/confirm.php?t=$token", lang());
+confirm_mail($f['name'], $f['email'], "$base/api/confirm.php?t=$token", lang(), $f['url'], $f['terms']);
 respond(200, ['ok' => true]);

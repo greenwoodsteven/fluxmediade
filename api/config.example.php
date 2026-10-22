@@ -22,5 +22,6 @@ return [
     'base_url'    => 'https://www.fluxmedia.de',      // used in the confirmation link
     'secret'      => 'CHANGE_ME_LONG_RANDOM',         // signs proof-of-work challenges (openssl rand -hex 32)
     'audit'       => ['weekly_cap' => 10, 'domain_days' => 90, 'pending_hours' => 48],
+    // 'log_timing' => true,   // log how long each mail takes to the PHP error log (no personal data)
     // 'mail_dump' => '/tmp/mails',                   // testing only: write mails to files instead of sending
 ];

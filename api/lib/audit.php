@@ -92,7 +92,7 @@ function pending_load(string $token): ?array {
 
 function pending_delete(string $token): void { @unlink(pending_path($token)); }
 
-function confirm_mail(string $name, string $email, string $link, string $lang): void {
+function confirm_mail(string $name, string $email, string $link, string $lang, string $url, string $terms): void {
     $hours = audit_cfg()['pending_hours'];
     $de = $lang === 'de';
     try {
@@ -100,10 +100,12 @@ function confirm_mail(string $name, string $email, string $link, string $lang): 
         $m->addAddress($email, $name);
         $m->Subject = $de ? 'Bitte bestätigen Sie Ihre Analyse-Anfrage' : 'Please confirm your analysis request';
         $m->Body = $de
-            ? "Guten Tag $name,\n\nbitte bestätigen Sie Ihre E-Mail-Adresse, damit wir Ihre Anfrage für die kostenlose Analyse bearbeiten können:\n\n$link\n\nDer Link ist $hours Stunden gültig. Wenn Sie die Analyse nicht angefragt haben, ignorieren Sie diese E-Mail einfach.\n\nFreundliche Grüße\nFluxmedia\n"
-            : "Hello $name,\n\nplease confirm your email address so we can process your request for the free analysis:\n\n$link\n\nThe link is valid for $hours hours. If you did not request the analysis, simply ignore this email.\n\nKind regards\nFluxmedia\n";
+            ? "Guten Tag $name,\n\nbitte bestätigen Sie Ihre E-Mail-Adresse, damit wir Ihre Anfrage für die kostenlose Analyse bearbeiten können:\n\nWebsite: $url\nSuchbegriffe: $terms\n\n$link\n\nDer Link ist $hours Stunden gültig. Wenn Sie die Analyse nicht angefragt haben, ignorieren Sie diese E-Mail einfach.\n\nFreundliche Grüße\nFluxmedia\n"
+            : "Hello $name,\n\nplease confirm your email address so we can process your request for the free analysis:\n\nWebsite: $url\nSearch terms: $terms\n\n$link\n\nThe link is valid for $hours hours. If you did not request the analysis, simply ignore this email.\n\nKind regards\nFluxmedia\n";
         $m->addCustomHeader('Auto-Submitted', 'auto-generated');
+        $t = microtime(true);
         $m->send();
+        log_timing(sprintf('confirmation %.2fs', microtime(true) - $t));
     } catch (\Throwable $e) {
         error_log('fluxmedia mail error: ' . $e->getMessage());
         respond(500, ['ok' => false, 'error' => 'mail']);

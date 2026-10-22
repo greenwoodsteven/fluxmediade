@@ -123,7 +123,10 @@ function notify(string $subject, array $fields, string $replyName, string $reply
     foreach ($fields as $label => $value) if ($value !== '') $body .= $label . ': ' . $value . "\n";
     $body .= "\nLang: " . lang() . "\nRef: " . line('ref', 50) . "\n";
     try {
+        // One SMTP connection for both messages (one TLS handshake and login instead of two)
         $m = mailer();
+        $m->SMTPKeepAlive = true;
+        $t = microtime(true);
         $m->addAddress(config()['to']);
         $m->addReplyTo($replyEmail, $replyName);
         $m->Subject = $subject;
@@ -133,17 +136,29 @@ function notify(string $subject, array $fields, string $replyName, string $reply
         $m->addCustomHeader('X-MSMail-Priority', 'High');
         $m->addCustomHeader('Importance', 'High');
         $m->send();
+        $t1 = microtime(true) - $t;
 
-        $r = mailer();
-        $r->addAddress($replyEmail, $replyName);
-        $r->Subject = $autoReply['subject'];
-        $r->Body = $autoReply['body'];
-        $r->addCustomHeader('Auto-Submitted', 'auto-replied');
-        $r->send();
+        $m->clearAllRecipients();
+        $m->clearReplyTos();
+        $m->clearCustomHeaders();
+        $m->Priority = null;
+        $m->addAddress($replyEmail, $replyName);
+        $m->Subject = $autoReply['subject'];
+        $m->Body = $autoReply['body'];
+        $m->addCustomHeader('Auto-Submitted', 'auto-replied');
+        $t = microtime(true);
+        $m->send();
+        $m->smtpClose();
+        log_timing(sprintf('studio %.2fs, auto-reply %.2fs', $t1, microtime(true) - $t));
     } catch (MailException $e) {
         error_log('fluxmedia mail error: ' . $e->getMessage());
         respond(500, ['ok' => false, 'error' => 'mail']);
     }
+}
+
+/** With 'log_timing' => true in config.php, write mail durations (no personal data) to the PHP error log. */
+function log_timing(string $what): void {
+    if (!empty(config()['log_timing'])) error_log('fluxmedia mail timing: ' . $what);
 }
 
 function auto_reply(string $name, string $kind): array {
