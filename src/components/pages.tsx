@@ -31,6 +31,18 @@ function Faqs({ title, items }: { title: string; items: Faq[] }) {
   );
 }
 
+const orgId = `${site.url}/#organization`;
+// Optional profile URLs (config/site.local.json "sameAs": [...]); omitted when not set
+const sameAs: string[] = (site as { sameAs?: string[] }).sameAs ?? [];
+
+/** "from €450" / "ab 450 €" -> Offer with a minimum price; nothing when the text has no number. */
+function offer(price: string) {
+  const m = price.match(/\d[\d.,]*/);
+  if (!m) return {};
+  const amount = m[0].replace(/\.(?=\d{3}\b)/g, "").replace(",", ".");
+  return { offers: { "@type": "Offer", priceCurrency: "EUR", priceSpecification: { "@type": "PriceSpecification", minPrice: amount, priceCurrency: "EUR" }, description: price, availability: "https://schema.org/InStock", seller: { "@id": orgId, name: site.legalName } } };
+}
+
 function PageHead({ lang, id, h1, lead }: { lang: Lang; id: PageId; h1: string; lead: string }) {
   const ui = getContent(lang).ui;
   const parent = (["geo", "a11y", "relaunch", "wordpress", "landing", "chatbot", "automation", "custom"] as PageId[]).includes(id);
@@ -97,7 +109,8 @@ export function ServicePage({ id, lang }: { id: ServiceId; lang: Lang }) {
       <PageHead lang={lang} id={id} h1={s.title} lead={s.lead} />
       <JsonLd data={{
         "@context": "https://schema.org", "@type": "Service", name: s.title, description: s.description, inLanguage: lang,
-        provider: { "@type": "ProfessionalService", name: site.legalName, url: site.url }, areaServed: "DE",
+        provider: { "@type": "ProfessionalService", "@id": orgId, name: site.legalName, url: site.url }, areaServed: "DE",
+        ...offer(s.price),
       }} />
       <div className={`${wrap} mt-6`}><p className="font-bold text-ink">{s.price}</p><p className="text-sm text-muted">{ui.vatNote}</p><Cta lang={lang} /></div>
       {s.freeCheck && (
@@ -212,10 +225,18 @@ export function Home({ lang }: { lang: Lang }) {
         <h2 className="text-2xl font-bold">{p.closing}</h2><div className="flex justify-center"><Cta lang={lang} /></div>
       </section>
       <JsonLd data={{
-        "@context": "https://schema.org", "@type": "ProfessionalService", name: site.legalName, url: site.url,
-        email: site.email, areaServed: site.region, inLanguage: lang,
-        address: { "@type": "PostalAddress", addressLocality: site.address.city, addressCountry: site.address.country },
-        description: p.description,
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfessionalService", "@id": orgId, name: site.legalName, url: site.url,
+            logo: `${site.url}/images/logo_black.svg`, image: `${site.url}/images/hero.jpg`,
+            email: site.email, areaServed: site.region, inLanguage: lang,
+            address: { "@type": "PostalAddress", addressLocality: site.address.city, addressCountry: site.address.country },
+            description: p.description,
+            ...(sameAs.length ? { sameAs } : {}),
+          },
+          { "@type": "WebSite", "@id": `${site.url}/#website`, url: site.url, name: site.name, inLanguage: lang, publisher: { "@id": orgId } },
+        ],
       }} />
     </>
   );

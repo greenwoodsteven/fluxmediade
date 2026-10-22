@@ -41,6 +41,14 @@ ErrorDocument 404 /404.html
   Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'self'; object-src 'none'"
 </IfModule>
 
+# --- Early hints: start the font download before the HTML is parsed ------
+# Only for page requests (not assets); the hashed CSS name changes per build, so it is not listed.
+<IfModule mod_headers.c>
+  <If "%{REQUEST_URI} =~ m#(/|\.html)$#">
+    Header add Link "</fonts/inter-var-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin"
+  </If>
+</IfModule>
+
 # --- Caching -------------------------------------------------------------
 <IfModule mod_headers.c>
   # Hashed build assets never change
