@@ -258,7 +258,7 @@
       "h1": "Request a fixed-price quote",
       "lead": "Four short steps. We prepare your quote personally, not automatically, within 24 to 48 hours.",
       "stepTitles": ["What do you need?", "Platform", "Scope", "Contact"],
-      "needs": ["New website", "Relaunch", "Landing page", "WordPress optimisation / support", "Accessibility", "AI visibility", "Something else"],
+      "needs": ["New website", "Relaunch", "Landing page", "WordPress optimisation / support", "Accessibility", "AI visibility & SEO", "Something else"],
       "platformQ": "Which platform would you like?",
       "platforms": ["Recommend to me", "WordPress", "Custom (static)"],
       "scopeQ": "How large should the website be?",
