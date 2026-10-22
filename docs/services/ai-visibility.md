@@ -168,7 +168,280 @@ check, is left for the paid analysis).
 Checklist before sending: URL and date correct, three findings ranked and supported by evidence, no fix
 instructions in the free version, limits section present, no personal data of third parties in screenshots.
 
-## 4. Open decisions
+## 4. Technical markup checklist
+
+Tick per page. "Measured by" says how the check is done (section 2.2). Items marked *optional* have no proven effect
+on AI answers; list them as hygiene, not as promises.
+
+**Crawling and indexing**
+- [ ] Status 200, one canonical URL (http to https, with or without `www`, trailing slash: one 301 hop at most)
+- [ ] `<link rel="canonical">` is absolute, self-referencing and matches the sitemap URL
+- [ ] No `noindex` in meta robots or `X-Robots-Tag` on pages that should be found
+- [ ] `robots.txt` reachable, no blanket `Disallow: /`, rules for AI crawlers set on purpose (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, PerplexityBot, Google-Extended)
+- [ ] `sitemap.xml` present, listed in `robots.txt`, only indexable URLs, `lastmod` correct
+- [ ] Main text is in the raw HTML (check with `curl` and with JavaScript off)
+- [ ] `hreflang` pairs are reciprocal where there are two languages, plus `x-default`
+- [ ] *Optional:* `/llms.txt` with a short description and links to key pages
+
+**Page basics**
+- [ ] `<html lang>` set and correct
+- [ ] Unique `<title>` (about 50 to 60 characters) with the service and place
+- [ ] Unique meta description (about 120 to 160 characters)
+- [ ] Exactly one `<h1>`; headings in order; sub-headings phrased as real questions where it fits
+- [ ] The short answer comes first, details after
+- [ ] Descriptive link text; no "click here"
+- [ ] Open Graph and Twitter tags (`og:title`, `og:description`, `og:image`, `og:url`) for previews
+
+**Structured data (JSON-LD, one `<script type="application/ld+json">` per node or one `@graph`)**
+- [ ] `Organization` or a `LocalBusiness` subtype (for example `ProfessionalService`) with `@id`, `name`, `url`, `logo`, `image`, `email` or `telephone`, `address` (`PostalAddress`), `areaServed`
+- [ ] Opening hours (`openingHoursSpecification`) and `geo` for local businesses with a shop or practice
+- [ ] `sameAs` with real profile URLs (Google Business Profile, LinkedIn, directories); only profiles that exist
+- [ ] `WebSite` node with `publisher` pointing to the organisation `@id`
+- [ ] `Service` (with `provider`, `areaServed`, `Offer` and price where public) on service pages
+- [ ] `BreadcrumbList` on sub-pages
+- [ ] `FAQPage` only for questions that are visible on the same page, with the same text
+- [ ] `Person` for named experts or authors, where the page is about them
+- [ ] Every value in the markup is also visible on the page; name, address and phone agree with Google Business Profile and directories
+- [ ] No errors in the Schema Markup Validator and the Rich Results Test; warnings reviewed
+
+**Performance and accessibility basics that crawlers and people both feel**
+- [ ] LCP 2.5 s or less, CLS 0.1 or less, INP 200 ms or less (mobile lab data, field data if available)
+- [ ] Images with `alt` (decorative ones `alt=""`), `width` and `height`, modern formats, lazy loading below the fold
+- [ ] Contrast, visible focus, labelled form fields, landmarks (`header`, `nav`, `main`, `footer`)
+- [ ] HTTPS with HSTS; no mixed content; cache headers on static assets
+
+Measured by: curl, Lighthouse, axe, Schema Markup Validator, Rich Results Test, Search Console.
+
+---
+
+## 5. Minimal open-source visibility tracker (LiteLLM and Promptfoo)
+
+Purpose: repeat the question set from section 2.3 on a schedule and keep the answers, so changes show up as numbers
+instead of impressions. **Complement to the manual spot check, not a replacement.**
+
+Two small open-source tools, each with one job:
+
+| Tool | Job |
+|------|-----|
+| **LiteLLM** (Python) | One call syntax for many providers; used to collect raw answers and run the simple "is the brand named" check |
+| **Promptfoo** (Node) | Declarative test runs: same prompts against several models, repeated runs, assertions, a comparison table and a history |
+
+### 5.1 Honest limits (put in every report that uses it)
+
+- An API call is **not** the same as the consumer product. The ChatGPT, Claude or Gemini apps add web search,
+  memory, location and system prompts. A bare API call to a model answers from training data and shows nothing about
+  today's web. To measure citations from live sources, use a model or mode that searches the web (for example
+  Perplexity Sonar, or the provider's search tool/option where it exists), and say which one was used.
+- Answers vary from run to run: repeat each prompt (at least 3 times) and report a rate ("named in 2 of 5 runs"), never a single result.
+- Model names change often; check each provider's current model list before a run and store the exact model ID in the log.
+- Cost is small but not zero (a few cents per run with 10 prompts and 4 models). Set a budget limit at the provider.
+- API keys live in environment variables or a git-ignored `.env`, never in the repository (see `.gitignore`).
+- Only the customer's public business data goes into prompts.
+
+### 5.2 Setup
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install litellm
+export OPENAI_API_KEY=...  ANTHROPIC_API_KEY=...  PERPLEXITYAI_API_KEY=...   # only the providers you use
+npm install -g promptfoo        # or: npx promptfoo@latest ...
+```
+
+Suggested folder, outside the website build (for example `tools/visibility/` or a separate repo per customer):
+
+```
+visibility/
+  prompts.yaml        # question set (customer-specific)
+  brand.yaml          # names, domains, competitors to look for
+  track.py            # LiteLLM script: raw answers + simple check
+  promptfooconfig.yaml
+  results/            # dated JSON output (git-ignored if it holds customer data)
+```
+
+### 5.3 LiteLLM script
+
+Starts from the basic example: ask each model, look for the brand name or domain. Extended with repeats, a question
+list, competitor counts and a dated result file. Model IDs are placeholders; replace them with current ones.
+
+```python
+import json, re, datetime, pathlib
+import litellm
+
+BRAND = ["Fluxmedia", "fluxmedia.de"]                # names and domains that count as "visible"
+COMPETITORS = ["Beispiel Agentur", "example-agency.de"]
+PROMPTS = [
+    "Welche Webentwickler am Bodensee bieten SEO- und KI-Sichtbarkeitsanalysen an?",
+    "Worauf achte ich bei einem Website-Relaunch zum Festpreis?",
+    "Was ist Fluxmedia für ein Unternehmen?",
+]
+MODELS = ["gpt-4o", "claude-sonnet-4-5", "perplexity/sonar"]   # placeholders: check current IDs
+RUNS = 3
+
+def mentions(text, needles):
+    return [n for n in needles if re.search(re.escape(n), text, re.I)]
+
+results = []
+for prompt in PROMPTS:
+    for model in MODELS:
+        for run in range(RUNS):
+            row = {"prompt": prompt, "model": model, "run": run,
+                   "date": datetime.date.today().isoformat()}
+            try:
+                r = litellm.completion(model=model, messages=[{"role": "user", "content": prompt}], temperature=0.7)
+                text = r.choices[0].message.content or ""
+                row |= {
+                    "visible": bool(mentions(text, BRAND)),
+                    "brand_hits": mentions(text, BRAND),
+                    "competitor_hits": mentions(text, COMPETITORS),
+                    "snippets": [l.strip() for l in text.splitlines() if mentions(l, BRAND)][:3],
+                    # Perplexity returns its sources; other providers may not
+                    "citations": getattr(r, "citations", None),
+                    "answer": text,
+                }
+            except Exception as e:                     # one failing model must not stop the run
+                row["error"] = str(e)
+            results.append(row)
+
+out = pathlib.Path("results") / f"{datetime.date.today()}.json"
+out.parent.mkdir(exist_ok=True)
+out.write_text(json.dumps(results, ensure_ascii=False, indent=2))
+
+# Summary: share of runs in which the brand was named, per model
+for model in MODELS:
+    rows = [r for r in results if r["model"] == model and "error" not in r]
+    hits = sum(r["visible"] for r in rows)
+    print(f"{model}: named in {hits} of {len(rows)} runs")
+```
+
+Notes:
+- `temperature` above 0 keeps the natural variation, which is what a visitor would see.
+- A string match is a rough test: "Flux" in unrelated text, or the brand mentioned negatively, counts too. The
+  manual review of a sample stays part of the report.
+- Store the full `answer`, so a changed result can be traced and checked later.
+
+### 5.4 Promptfoo config
+
+Promptfoo adds repeats, assertions and a comparison view without extra code. `promptfooconfig.yaml`:
+
+```yaml
+description: Visibility of Fluxmedia, Bodensee web agency
+prompts:
+  - "{{question}}"
+providers:                       # exact IDs: see the provider docs; these are placeholders
+  - openai:gpt-4o
+  - anthropic:messages:claude-sonnet-4-5
+  - perplexity:sonar
+tests:
+  - vars: { question: "Welche Webentwickler am Bodensee bieten SEO- und KI-Sichtbarkeitsanalysen an?" }
+    assert:
+      - type: icontains-any
+        value: ["Fluxmedia", "fluxmedia.de"]
+        metric: brand_named
+  - vars: { question: "Was ist Fluxmedia für ein Unternehmen?" }
+    assert:
+      - type: icontains
+        value: "Überlingen"           # fact the answer should get right
+        metric: fact_location
+      - type: not-icontains
+        value: "Hamburg"              # a fact it should not invent
+        metric: no_wrong_location
+```
+
+Run and read:
+
+```bash
+promptfoo eval -c promptfooconfig.yaml --repeat 3 -o results/$(date +%F).json
+promptfoo view            # local web UI with the comparison table
+```
+
+Why both: LiteLLM gives raw data and full control (custom checks, citations, your own file format); Promptfoo gives
+a table the customer can understand and checks that fail loudly. Promptfoo can also call models through a LiteLLM
+proxy (OpenAI-compatible endpoint) if one set of keys and budgets is wanted.
+
+### 5.5 What goes into the report
+
+| Metric | Meaning |
+|--------|---------|
+| Mention rate | share of runs in which brand or domain appears, per model and per question |
+| Citation rate | share of runs that link or cite the customer's domain (only where the provider returns sources) |
+| Fact accuracy | address, services, location named correctly (Promptfoo assertions or manual check) |
+| Competitor share | who is named when the customer is not |
+| Trend | the same set re-run after the changes, with dates (the "vorher-nachher" comparison in the paid package) |
+
+Run monthly for ongoing customers, or before and after the implementation for one-off projects. Keep the question
+set fixed between runs, otherwise numbers are not comparable.
+
+---
+
+## 6. API-driven Lighthouse audit
+
+Two ways, same result format. Use the **PageSpeed Insights API** for quick checks and field data, the **Lighthouse
+CLI** when full control or a login-free staging URL is needed.
+
+### 6.1 PageSpeed Insights API (Google runs Lighthouse for you)
+
+Endpoint: `https://www.googleapis.com/pagespeedonline/v5/runPagespeed`. Works for public URLs only. An API key is
+free and avoids tight rate limits (create it in Google Cloud, restrict it to the PageSpeed Insights API, keep it in
+`PSI_API_KEY`, never in the repository). The tested URL is sent to Google, which is acceptable for a customer's
+public site; do not use it for non-public pages.
+
+```python
+import os, json, urllib.parse, urllib.request
+
+def psi(url, strategy="mobile"):
+    q = [("url", url), ("strategy", strategy), ("locale", "de")] + \
+        [("category", c) for c in ("performance", "accessibility", "best-practices", "seo")]
+    if os.environ.get("PSI_API_KEY"):
+        q.append(("key", os.environ["PSI_API_KEY"]))
+    api = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?" + urllib.parse.urlencode(q)
+    with urllib.request.urlopen(api, timeout=120) as r:
+        d = json.load(r)
+    lh = d["lighthouseResult"]
+    a = lh["audits"]
+    field = d.get("loadingExperience", {}).get("metrics", {})   # real-user data, absent for low-traffic sites
+    return {
+        "url": url, "strategy": strategy, "fetched": lh["fetchTime"], "lighthouse": lh["lighthouseVersion"],
+        "scores": {k: round(v["score"] * 100) for k, v in lh["categories"].items()},
+        "lab": {k: a[k]["numericValue"] for k in
+                ("largest-contentful-paint", "cumulative-layout-shift", "total-blocking-time", "first-contentful-paint")},
+        "field_lcp_ms": field.get("LARGEST_CONTENTFUL_PAINT_MS", {}).get("percentile"),
+        "failed_audits": [k for k, v in a.items() if v.get("score") == 0][:15],
+    }
+
+for strategy in ("mobile", "desktop"):
+    print(json.dumps(psi("https://www.example.com/", strategy), ensure_ascii=False, indent=2))
+```
+
+Practice: run three times and take the median (lab values scatter); run both `mobile` and `desktop`; store the JSON
+with date and Lighthouse version.
+
+### 6.2 Lighthouse CLI (local, repeatable, works for staging)
+
+```bash
+npm install -g lighthouse             # needs Chrome or Chromium
+lighthouse https://www.example.com/ \
+  --only-categories=performance,accessibility,best-practices,seo \
+  --output=json --output=html --output-path=./results/lh-$(date +%F) \
+  --chrome-flags="--headless=new" --quiet
+
+# read scores from the JSON
+jq '{perf: .categories.performance.score, a11y: .categories.accessibility.score,
+     seo: .categories.seo.score, lcp: .audits["largest-contentful-paint"].numericValue}' results/lh-*.report.json
+```
+
+Defaults emulate a mid-range phone on slow 4G; add `--preset=desktop` for desktop. For CI, **Lighthouse CI**
+(`@lhci/cli`) can fail a build when a budget is missed, for example performance below 0.9 or LCP above 2500 ms.
+
+### 6.3 Reading the result
+
+- Scores are indicators. The measured values (LCP, CLS, TBT, INP in the field) and the list of failed audits matter more.
+- SEO category passes do not mean AI visibility: it checks basics only (title, description, crawlable links, robots, `lang`, canonical).
+- Lab data on one machine differs from field data; say which one a number is from.
+- Accessibility category is a subset of what axe finds and is no conformity statement; run axe separately (section 2.2).
+
+---
+
+## 7. Open decisions
 
 - Report template format (Markdown to PDF script, or a fixed document template). Not built yet.
 - Which assistants and modes the public text promises; the site lists ChatGPT, Claude, Perplexity, Gemini and
