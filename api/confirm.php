@@ -61,7 +61,7 @@ pending_delete($token);
 $_POST['lang'] = $lang;
 $_POST['ref'] = $data['ref'] ?? '';
 $fields = ['E-Mail bestätigt' => 'ja'] + $data['fields'];
-notify('Analyse-Anfrage: ' . $data['fields']['URL'], $fields, $data['fields']['Name'], $data['fields']['E-Mail'], auto_reply($data['fields']['Name'], 'analysis'));
+notify('[free-analysis] Analyse-Anfrage: ' . $data['fields']['URL'], $fields, $data['fields']['Name'], $data['fields']['E-Mail'], auto_reply($data['fields']['Name'], 'analysis'));
 page($lang, $de ? 'Vielen Dank!' : 'Thank you!',
     $de ? 'Ihre E-Mail-Adresse ist bestätigt. Wir melden uns innerhalb von 48 Stunden (2 Werktagen) persönlich bei Ihnen.'
         : 'Your email address is confirmed. We will get back to you personally within 48 hours (2 working days).');

@@ -128,6 +128,10 @@ function notify(string $subject, array $fields, string $replyName, string $reply
         $m->addReplyTo($replyEmail, $replyName);
         $m->Subject = $subject;
         $m->Body = $body;
+        // High priority for the studio notification (not for the visitor's auto-reply)
+        $m->Priority = 1;                                  // X-Priority: 1 (Highest)
+        $m->addCustomHeader('X-MSMail-Priority', 'High');
+        $m->addCustomHeader('Importance', 'High');
         $m->send();
 
         $r = mailer();
