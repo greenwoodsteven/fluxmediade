@@ -28,6 +28,8 @@ path in `config.php` (`storage_dir`) and in the cron job. Below, `REPO=/httpdocs
 
 ### Update content (after setup)
 
+**`cd /Users/bob/Sites/fluxmedia-de && cp deploy/.env.example deploy/.env && ./deploy/upload.sh`**
+
 Day-to-day changes (text, prices, references, legal pages) are made on your machine and uploaded by FTP. The server needs
 no build tools and no `git pull` for them.
 
@@ -40,10 +42,25 @@ no build tools and no `git pull` for them.
 
 Steps:
 
-1. **Once per machine:** `git clone` the repository, `npm install`, and put your `config/site.local.json` in place (copy
-   `config/site.example.json`; keep a backup, it is not in git).
-2. **Update and preview:**
+1. **Once per machine** (macOS, run in Terminal on your computer, not on the server). Check what is installed and
+   install what is missing with [Homebrew](https://brew.sh):
    ```bash
+   node -v && npm -v && git --version && ssh -V     # Node must be >= 20.9; ssh and tar come with macOS
+   brew --version || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   brew install node git                            # only what is missing (or use nvm for Node)
+   brew install lftp                                # only for the optional lftp upload (see "Every release")
+   brew install php                                 # only to test the PHP forms locally (README, PHP section)
+   ```
+   Then set up the project:
+   ```bash
+   git clone git@github.com:greenwoodsteven/fluxmediade.git /Users/bob/Sites/fluxmedia-de
+   cd /Users/bob/Sites/fluxmedia-de          # all commands below run from this project root
+   npm install
+   cp config/site.example.json config/site.local.json   # then fill in your real data; keep a backup, it is not in git
+   ```
+2. **Update and preview** (from `/Users/bob/Sites/fluxmedia-de`):
+   ```bash
+   cd /Users/bob/Sites/fluxmedia-de
    git pull                      # latest version
    npm run dev                   # http://localhost:3000, DE at /, EN at /en/
    ```
@@ -56,9 +73,11 @@ Steps:
    npm run serve                 # optional: look at the built site locally
    ```
 4. **Save the change in git:** `git add -A && git commit -m "Update content: ..." && git push`.
-5. **Upload by FTP:** send the contents of your local `out/` to `/httpdocs/_fluxmediade/out/` (details in *Every release*
-   below: overwrite files, upload `_next/` and `images/` first and the HTML files last, include the hidden
-   `.htaccess`, keep the `api` link, binary mode).
+5. **Upload** `out/` to `/httpdocs/_fluxmediade/out/`, either with the script (recommended) or by FTP:
+   ```bash
+   deploy/upload.sh              # build:prod + upload over SSH + verify (see "Every release" for options)
+   ```
+   or send the contents of `out/` by FTP (details in *Every release* below).
 6. **Check on the live site:** hard-reload (Ctrl/Cmd+Shift+R) the changed pages in both languages, open `/impressum/`
    if business data changed, and run the smoke test (home page, a 404, the contact form).
 
@@ -135,20 +154,47 @@ If a change also touches `api/`, run `git pull` on the server in the same sessio
 ### Every release
 
 1. **On your machine:** commit and push your changes, make sure `config/site.local.json` has no `[...]` left, then
-   ```bash
-   npm run build:prod
-   ```
+   `npm run build:prod` (`deploy/upload.sh` in step 3 does this for you; skip it there with `--no-build` if you built already).
 2. **On the server, only if `api/` changed:** `cd /httpdocs/_fluxmediade && git pull`.
    Do this together with step 3: the forms (JavaScript in `out/`) and the PHP endpoints must be the same version.
-3. **FTP the contents of your local `out/` into `/httpdocs/_fluxmediade/out/`** (the document root), not the folder
+3. **Upload `out/`.** Recommended: `deploy/upload.sh` (SSH, no FTP client). Alternative: FTP (below).
+
+   ```bash
+   deploy/upload.sh                         # build:prod, upload, verify
+   deploy/upload.sh --pull                  # also `git pull` on the server first (when api/ changed)
+   deploy/upload.sh --no-build              # upload the existing out/ without rebuilding
+   deploy/upload.sh --keep-old              # do not empty the server's out/ first (overwrite only)
+   ```
+   **Login:** the script (and the one-liner below) use your normal `ssh` login, `hosting161521@fluxmedia.de` (built in; override with `UPLOAD_HOST` in an optional, git-ignored `deploy/.env`, see `deploy/.env.example`). It needs only `ssh` and `tar`, both part of macOS. With an SSH
+   key set up (`ssh hosting161521@fluxmedia.de` logs in without a password) it runs without any prompt; otherwise `ssh`
+   asks for the password once per command (the script connects several times). The same applies to `--pull`.
+   The script sends `out/` as one `tar` stream through SSH (netcup has no `rsync`, and an FTP client may silently skip
+   the `__next.*.txt` route files). By default it **empties the server's `out/` completely** (except the `api` link): the new build is uploaded to `out.new/`, then swapped in, so a failed upload leaves the live site untouched. It fails if the server has a
+   different number of `__next._tree.txt` files than your build (37 at the time of writing). The same without the script:
+   ```bash
+   tar czf - --no-xattrs -C out . | ssh hosting161521@fluxmedia.de 'tar xzf - --no-same-owner -C /httpdocs/_fluxmediade/out'
+   ```
+   **By FTP instead:** send the contents of your local `out/` into `/httpdocs/_fluxmediade/out/` (the document root), not the folder
    itself.
    - Show hidden files in your client; `.htaccess` is in `out/` and must be uploaded every time.
    - Overwrite existing files, and do **not** delete or overwrite the `api` link in `out/`.
    - Upload order, to avoid a broken page while the upload runs: first `_next/` and `images/`, then everything else, the
      HTML files last.
    - Transfer mode "binary" (or "auto" in FileZilla), never "ASCII".
-   - Command-line alternative: `lftp -u USER sftp://HOST -e "mirror -R --only-newer --exclude '^api$' out/ /httpdocs/_fluxmediade/out; quit"`.
-     Add `--delete` to also remove old files (still excluding `api`), see the note below.
+   - Command-line alternative (macOS: `brew install lftp` once). It uses SFTP, i.e. the same SSH login, and
+     **empties the server's `out/` first**: `--delete` removes everything that is not in your build (old chunks,
+     removed pages, stray files such as a forgotten `where.php`). `--exclude '^api$'` keeps the `api -> ../api` link, and
+     `.DS_Store` is skipped. The empty password after the comma stops lftp from asking when your SSH key is used.
+     Run the dry run first and read the list (`rm` lines are deletions, `get` lines are uploads; there must be no line
+     for `api`):
+     ```bash
+     find out -name .DS_Store -delete
+     lftp -u hosting161521, sftp://fluxmedia.de -e "mirror -R --delete --dry-run --exclude '^api$' --exclude '\.DS_Store$' out/ /httpdocs/_fluxmediade/out; quit"
+     lftp -u hosting161521, sftp://fluxmedia.de -e "mirror -R --delete --exclude '^api$' --exclude '\.DS_Store$' out/ /httpdocs/_fluxmediade/out; quit"
+     ```
+     Do not add `--only-newer`: it can leave an older changed file on the server. If lftp still asks for a password, name
+     the key: `set sftp:connect-program "ssh -a -x -i ~/.ssh/id_ed25519"` (before `mirror`, separated by `;`).
+     lftp deletes after it has uploaded, so the site stays up while the old files disappear.
 4. **Smoke test** (section 4 of the release-folder route below): home page, a 404, the free-analysis form end to end, `api/lib/` returns 403.
 
 ### Notes
@@ -413,6 +459,7 @@ Notes
 
 | Symptom | Likely cause |
 |---|---|
+| Console shows 404 for `/<page>/__next._tree.txt` (and `_full.txt`, `__next.$oc$slug.__PAGE__.txt`) after loading a page | the upload skipped the `__next.*.txt` route files (an FTP client filter or failed transfer). Upload with `deploy/upload.sh` (tar over SSH); check `find /httpdocs/_fluxmediade/out -name "__next._tree.txt" \| wc -l` against your local `out/` |
 | `/api/*.php` answers "No input file specified." (even though `out/api -> ../api` is correct) | PHP `open_basedir` is limited to `out/`, so PHP cannot follow the link or write `storage_dir`. Widen it in the panel (One time, step 1); check again after a PHP version change |
 | 500 from `/api/*.php`, `{"error":"config"}` | `api/config.php` missing: the symlink to `shared/config.php` was not created or the file does not exist |
 | Form says sending failed, `{"error":"mail"}` | wrong SMTP login or port in `config.php`; check the PHP error log |

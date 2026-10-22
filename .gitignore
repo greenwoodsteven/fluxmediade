@@ -74,3 +74,4 @@ Thumbs.db
 !.vscode/extensions.json
 *.swp
 .claude/settings.local.json
+/out.new/
