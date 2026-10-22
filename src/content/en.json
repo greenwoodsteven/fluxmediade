@@ -197,18 +197,18 @@
     "custom": {
       "title": "Custom web development",
       "card": "Simple or complex: we can help with your web project. Billed by the hour, with an estimate in advance.",
-      "seoTitle": "Custom web development at €50 per hour | Fluxmedia",
-      "description": "Custom web development, simple or complex: features, integrations and ongoing development at €50 per hour, with a written estimate before we start.",
+      "seoTitle": "Custom web development from €50 per hour | Fluxmedia",
+      "description": "Custom web development, simple or complex: features, integrations and ongoing development from €50 per hour, with a written estimate before we start.",
       "lead": "Whether it is a small extension or a complex application, we can help. We work by the hour and give you a written estimate before we start, so you know the range of the cost. This suits work that does not fit a fixed-price package: new features, integrations, extensions to an existing site or ongoing development.",
       "audience": ["Businesses with a website or application that needs new features", "Teams that need extra development capacity", "Projects that are still taking shape and cannot yet be quoted at a fixed price"],
       "notFor": ["You want a fixed price for a clearly defined website; the relaunch or the landing page fits better", "You need a large team or round-the-clock operation"],
       "deliverables": ["Written estimate with a range before work starts", "Work tracked per task, with a timesheet on every invoice", "Working software in your repository, tested where it makes sense", "Short handover notes", "Optional: reserved hours per month at the same rate"],
       "process": ["Conversation about the task, simple or complex", "Written estimate with a range", "Work in small steps with regular updates", "Handover and invoice with timesheet"],
-      "price": "€50 per hour",
-      "priceDrivers": "Hours needed: scope, complexity, integrations and how well the existing code is documented. We do not exceed the agreed budget without asking you first.",
+      "price": "from €50 per hour",
+      "priceDrivers": "Hours needed: scope, complexity, integrations and how well the existing code is documented. The hourly rate depends on the monthly volume: the lowest rate (€50) applies to a larger number of hours, shorter jobs cost more per hour. We do not exceed the agreed budget without asking you first.",
       "technical": ["Front end: React and Next.js with TypeScript and Tailwind CSS; accessibility and performance budgets are checked in the build", "Back end: Node.js or PHP, REST/JSON APIs, or a headless CMS such as Payload", "Integrations: payments with Stripe, email and SMS, n8n, the WordPress REST API", "Delivery: git workflow with pull requests, automated tests, preview and production environments, rollback", "Security and privacy: input validation, rate limiting, security headers, secrets kept outside the repository, EU-hosted data where required"],
       "faq": [
-        {"q": "What does it cost?", "a": "€50 per hour. Before we start you receive a written estimate with a range, and we do not go beyond the agreed budget without asking you first."},
+        {"q": "What does it cost?", "a": "From €50 per hour. The €50 rate applies to projects with a larger number of hours per month; for shorter jobs the hourly rate is higher. Before we start you receive a written estimate with a range, and we do not go beyond the agreed budget without asking you first."},
         {"q": "Can you take over an existing project?", "a": "Yes. We look at the code first and tell you honestly what is worthwhile."},
         {"q": "Should I ask for a fixed price instead?", "a": "For clearly defined websites we offer fixed-price packages, see website relaunch and landing page."}
       ]
@@ -277,7 +277,7 @@
         { "name": "Yoga Kreis Bodensee", "text": "WordPress website: design and development, posters and flyers", "image": "yoga-kreis_720x480.jpeg", "url": "https://www.yogakreis-bodensee.de" },
         { "name": "Prof. Bruno Latour", "text": "Web presence built with the Drupal content management system", "image": "bruno_720x480.jpeg", "url": "http://www.bruno-latour.fr" },
         { "name": "pdf-to-fax", "text": "Web development with Next.js, React, Payload CMS and Cloudflare, payments via Stripe, fax delivery via Telnyx", "image": "pdf-to-fax_720x480.jpeg", "url": "https://pdftofax.com" },
-        { "name": "eMotion – Mapping Museum Experience", "text": "Web presence built with the Drupal content management system", "image": "emotion_720x480.jpeg", "url": "http://www.mapping-museum-experience.com/" }
+        { "name": "eMotion – Mapping Museum Experience", "text": "Web presence built with a content management system", "image": "emotion_720x480.jpeg", "url": "http://www.mapping-museum-experience.com/" }
       ]
     },
     "about": {

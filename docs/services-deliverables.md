@@ -20,7 +20,7 @@ you want to promise publicly (anything you list becomes a commitment).
 | 5 | Landing page | fixed price, from € 700 | briefing | one finished page |
 | 6 | AI chatbot | per project, from € 1,500 | conversation | chatbot on your own content |
 | 7 | Automation with n8n | per project, from € 500 | conversation | documented n8n workflows |
-| 8 | Custom web development | hourly, € 50 / hour | conversation | agreed development work |
+| 8 | Custom web development | hourly, from € 50 / hour | conversation | agreed development work |
 
 Rule for the split between 0 and 1: the free check **finds and names** problems on the home page; the paid
 analysis **covers the whole site and does the work**. The free report must not be a how-to guide for the paid one.
@@ -214,7 +214,7 @@ Simple or complex: "we can help". For work that does not fit a fixed-price offer
 extensions to an existing application, or ongoing development. Live on `/leistungen/webentwicklung/` and
 `/en/services/custom-development/` (JSON key `services.custom`).
 
-**Rate:** € 50 per hour (no VAT charged, small-business rule §19 UStG).
+**Rate:** from € 50 per hour (no VAT charged, small-business rule §19 UStG). € 50 applies to projects with a larger number of hours per month; shorter jobs are billed at a higher hourly rate.
 
 **Deliverables**
 - Written estimate with a range before work starts; no work beyond the agreed budget without your approval.
@@ -237,7 +237,7 @@ extensions to an existing application, or ongoing development. Live on `/leistun
 
 ## Price model at € 50 / hour
 
-Hourly rate: **€ 50 net**. The studio uses the small-business rule (§19 UStG), so no VAT is added and net equals
+Hourly rate: **from € 50 net** (the € 50 applies to projects with a larger number of hours per month; shorter jobs are billed higher, and the "from" prices below assume € 50). The studio uses the small-business rule (§19 UStG), so no VAT is added and net equals
 the amount the customer pays. If the studio leaves that rule, every price below needs +19 % VAT shown separately.
 
 "From" price = hours of the smallest sensible package × € 50, rounded to a clean figure. Hours are estimates
@@ -253,7 +253,7 @@ the amount the customer pays. If the studio leaves that rule, every price below 
 | 5 Landing page | briefing 1.5 h, build 8 h, form 1.5 h, revision 1 h, QA and publish 2 h | 14 | from € 700 | `services.landing.price` |
 | 6 AI chatbot | concept 4 h, RAG setup 16 h, guardrails and labelling 4 h, testing 4 h, handover 2 h; model usage costs run separately | 30 | from € 1,500 | `services.chatbot.price` |
 | 7 Automation | one n8n workflow: mapping 2 h, build 6 h, documentation and test 2 h | 10 | from € 500 | `services.automation.price` |
-| 8 Custom development | billed by the hour, estimate with range first | – | € 50 per hour | `services.custom.price` |
+| 8 Custom development | billed by the hour, estimate with range first | – | from € 50 per hour | `services.custom.price` |
 
 Observations
 - **Free check:** each check costs about an hour (€ 50). With up to 10 confirmed requests a week the cap means at most

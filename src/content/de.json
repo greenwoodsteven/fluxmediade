@@ -197,18 +197,18 @@
     "custom": {
       "title": "Individuelle Webentwicklung",
       "card": "Einfach oder komplex: Wir unterstützen Sie bei Ihrem Webprojekt. Abrechnung nach Stunden, mit vorheriger Schätzung.",
-      "seoTitle": "Individuelle Webentwicklung für 50 € pro Stunde | Fluxmedia",
-      "description": "Individuelle Webentwicklung, einfach oder komplex: Funktionen, Schnittstellen und laufende Weiterentwicklung für 50 € pro Stunde, mit schriftlicher Schätzung vor dem Start.",
+      "seoTitle": "Individuelle Webentwicklung ab 50 € pro Stunde | Fluxmedia",
+      "description": "Individuelle Webentwicklung, einfach oder komplex: Funktionen, Schnittstellen und laufende Weiterentwicklung ab 50 € pro Stunde, mit schriftlicher Schätzung vor dem Start.",
       "lead": "Ob kleine Erweiterung oder komplexe Anwendung: Wir unterstützen Sie. Wir arbeiten nach Stunden und geben Ihnen vor dem Start eine schriftliche Schätzung, damit Sie die Größenordnung der Kosten kennen. Das passt für Arbeiten, die in kein Festpreis-Paket passen: neue Funktionen, Schnittstellen, Erweiterungen einer bestehenden Website oder laufende Weiterentwicklung.",
       "audience": ["Firmen mit einer Website oder Anwendung, die neue Funktionen braucht", "Teams, die zusätzliche Entwicklungskapazität brauchen", "Projekte, die sich noch entwickeln und noch nicht zum Festpreis angeboten werden können"],
       "notFor": ["Sie möchten einen Festpreis für eine klar umrissene Website; Relaunch oder Landingpage passen dann besser", "Sie brauchen ein großes Team oder Betrieb rund um die Uhr"],
       "deliverables": ["Schriftliche Schätzung mit Spanne vor Beginn der Arbeit", "Arbeit je Aufgabe erfasst, mit Stundenzettel zu jeder Rechnung", "Funktionierende Software in Ihrem Repository, wo sinnvoll getestet", "Kurze Übergabe-Notizen", "Optional: reservierte Stunden pro Monat zum gleichen Satz"],
       "process": ["Gespräch zur Aufgabe, einfach oder komplex", "Schriftliche Schätzung mit Spanne", "Arbeit in kleinen Schritten mit regelmäßigen Zwischenständen", "Übergabe und Rechnung mit Stundenzettel"],
-      "price": "50 € pro Stunde",
-      "priceDrivers": "Benötigte Stunden: Umfang, Komplexität, Schnittstellen und wie gut der vorhandene Code dokumentiert ist. Das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen.",
+      "price": "ab 50 € pro Stunde",
+      "priceDrivers": "Benötigte Stunden: Umfang, Komplexität, Schnittstellen und wie gut der vorhandene Code dokumentiert ist. Der Stundensatz hängt vom Umfang pro Monat ab: Der niedrigste Satz (50 €) gilt bei größerem Stundenumfang, kürzere Aufträge kosten pro Stunde mehr. Das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen.",
       "technical": ["Frontend: React und Next.js mit TypeScript und Tailwind CSS; Budgets für Barrierefreiheit und Performance werden im Build geprüft", "Backend: Node.js oder PHP, REST/JSON-Schnittstellen oder ein Headless-CMS wie Payload", "Schnittstellen: Zahlungen mit Stripe, E-Mail und SMS, n8n, die WordPress-REST-API", "Auslieferung: Git-Workflow mit Pull Requests, automatisierte Tests, Vorschau- und Produktivumgebung, Rollback", "Sicherheit und Datenschutz: Eingabeprüfung, Mengenbegrenzung, Sicherheits-Header, Zugangsdaten außerhalb des Repositorys, Daten in der EU, wo nötig"],
       "faq": [
-        {"q": "Was kostet es?", "a": "50 € pro Stunde. Vor dem Start erhalten Sie eine schriftliche Schätzung mit Spanne, und das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen."},
+        {"q": "Was kostet es?", "a": "Ab 50 € pro Stunde. Der Satz von 50 € gilt für Projekte mit größerem Stundenumfang pro Monat; für kürzere Aufträge liegt der Stundensatz höher. Vor dem Start erhalten Sie eine schriftliche Schätzung mit Spanne, und das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen."},
         {"q": "Können Sie ein bestehendes Projekt übernehmen?", "a": "Ja. Wir sehen uns zuerst den Code an und sagen Ihnen ehrlich, was sich lohnt."},
         {"q": "Sollte ich lieber einen Festpreis anfragen?", "a": "Für klar umrissene Websites bieten wir Festpreis-Pakete an, siehe Website-Relaunch und Landingpage."}
       ]
@@ -277,7 +277,7 @@
         { "name": "Yoga Kreis Bodensee", "text": "WordPress-Website: Design und Entwicklung, Poster und Flyer", "image": "yoga-kreis_720x480.jpeg", "url": "https://www.yogakreis-bodensee.de" },
         { "name": "Prof. Bruno Latour", "text": "Internetpräsentation mit dem Content-Management-System Drupal", "image": "bruno_720x480.jpeg", "url": "http://www.bruno-latour.fr" },
         { "name": "pdf-to-fax", "text": "Webentwicklung mit Next.js, React, Payload CMS und Cloudflare, Zahlung per Stripe, Faxversand über Telnyx", "image": "pdf-to-fax_720x480.jpeg", "url": "https://pdftofax.com" },
-        { "name": "eMotion – Mapping Museum Experience", "text": "Internetpräsentation mit dem Content-Management-System Drupal", "image": "emotion_720x480.jpeg", "url": "http://www.mapping-museum-experience.com/" }
+        { "name": "eMotion – Mapping Museum Experience", "text": "Internetpräsentation mit dem Content-Management-System", "image": "emotion_720x480.jpeg", "url": "http://www.mapping-museum-experience.com/" }
       ]
     },
     "about": {
