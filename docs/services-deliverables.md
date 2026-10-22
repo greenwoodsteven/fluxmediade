@@ -13,7 +13,7 @@ you want to promise publicly (anything you list becomes a commitment).
 | # | Offer | Price model | Start with | Main deliverable |
 |---|-------|-------------|------------|------------------|
 | 0 | Free start-page check | free | form on `/seo-analyse-kostenlos/` | one-page PDF about the home page only |
-| 1 | AI visibility, multi-page analysis (GEO / AEO) | fixed price, from € 450 | free check or request | analysis of several pages + implementation package |
+| 1 | AI visibility (GEO / AEO) & SEO, multi-page analysis | fixed price, from € 450 | free check or request | analysis of several pages + implementation package |
 | 2 | Accessibility (BFSG / WCAG 2.2) | fixed price, from € 400 | questionnaire | audit + prioritised fixes |
 | 3 | Website relaunch | fixed price, from € 2,000 | analysis of existing site | rebuilt site, redirects, handover |
 | 4 | WordPress optimisation & support | fixed price / monthly, from € 400 | audit | faster, safer WordPress |
@@ -57,7 +57,11 @@ decline, processed after the email address is confirmed (see below).
 
 ---
 
-## 1. AI visibility, multi-page analysis (GEO / AEO)
+## 1. AI visibility (GEO / AEO) & SEO, multi-page analysis
+
+Why SEO is part of it: AI answers draw on search indexes (Google, Bing) and on crawled pages, so indexing, technical
+SEO, on-page basics and speed are preconditions for being cited. The analysis therefore covers both, with the same
+measurements. Link building, backlinks and ads are not part of it.
 
 Paid. Link back to the free check: "Not sure yet? The free start-page check covers your home page."
 
@@ -65,7 +69,10 @@ Paid. Link back to the free check: "Not sure yet? The free start-page check cove
 service). Larger sites by quote.
 
 **Deliverables**
-- Written analysis of all agreed pages (technical basics, headings, internal links, indexing, Core Web Vitals).
+- Written analysis of all agreed pages (technical and on-page SEO: titles, descriptions, headings, internal links,
+  indexing, canonicals, Core Web Vitals).
+- Core Web Vitals and Lighthouse recommendations per page: LCP, CLS and TBT (lab; INP from field data where
+  available), plus the Lighthouse improvement suggestions with estimated savings, reviewed against the real site.
 - Structured-data audit for the whole site with a corrected JSON-LD set (Organization, LocalBusiness, Service, FAQ,
   Article, BreadcrumbList as they apply).
 - AI visibility test: [N] questions that fit your business across ChatGPT, Claude, Perplexity, Gemini and Google AI
@@ -76,10 +83,10 @@ service). Larger sites by quote.
 - Re-test of the same questions after [N] weeks and a short before/after note.
 - Call to explain the results.
 
-**Not included / honest limits:** no guaranteed placement in AI answers; no backlink packages or ad management.
+**Not included / honest limits:** no guaranteed placement in AI answers or search results; no backlink packages or ad management; the Lighthouse SEO category checks basics only and is not a ranking prediction.
 
 **Technical implementation**
-- Crawl and measure: Lighthouse (lab data), axe, response headers, robots.txt and sitemap check, rendered-HTML check
+- Crawl and measure: Lighthouse (lab data: Core Web Vitals, SEO and best-practice audits, opportunities and diagnostics), PageSpeed Insights field data, axe, response headers, robots.txt and sitemap check, rendered-HTML check
   (is the content present without JavaScript?).
 - Structured data: JSON-LD generated from one data source and validated; no plugin dependence on custom builds,
   plugin settings or a small mu-plugin on WordPress.

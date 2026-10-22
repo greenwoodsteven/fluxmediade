@@ -1,7 +1,11 @@
-# AI visibility analysis (GEO / AEO): report layout, tools and method
+# AI visibility (GEO / AEO) & SEO analysis: report layout, tools and method
 
 Working document. Not deployed (`docs/` is never shipped). Public wording lives in `src/content/{de,en}.json`
 (`services.geo`, `analysis`); scope and prices in [`../services-deliverables.md`](../services-deliverables.md).
+
+Why SEO is in the title: AI answers draw on search indexes (Google, Bing) and on crawled pages, so indexing,
+technical SEO, on-page basics and speed are preconditions for being cited. The same measurements serve both. Link
+building, backlinks and ads are not part of the service.
 
 Two scopes use the same method:
 
@@ -48,7 +52,13 @@ last section. Placeholders in `[brackets]`.
    - Headings: one H1? Logical order? Do sub-headings answer real questions?
    - Indexing: robots meta, canonical, status code, redirect chain (http, www, trailing slash), sitemap listed.
    - Mobile: viewport, tap targets, text size.
-   - Core Web Vitals: LCP, CLS, INP from lab data (and field data if the site has enough traffic).
+   - Core Web Vitals: LCP and CLS from the Lighthouse lab run, with Total Blocking Time (TBT) as the lab stand-in
+     for INP; real INP, LCP and CLS from field data (PageSpeed Insights / CrUX) if the site has enough traffic.
+     State for every number whether it is lab or field.
+   - Lighthouse recommendations ("opportunities" and "diagnostics", each with an estimated saving in seconds or
+     KiB): **free report** shows only the single largest one as a finding (for example "images are too large,
+     about 0.6 s"); **paid analysis** lists all of them, sorted by saving, reviewed against the real site (the advice
+     is generic and some items do not apply).
 6. **Content without JavaScript**: is the main text visible in the raw HTML? (Many AI crawlers do not run scripts.)
 7. **Structured data**: types found (Organization, LocalBusiness, Service, FAQ, BreadcrumbList), errors and warnings,
    or "none". Whether name, address, phone, opening hours and the logo agree with the visible page and the
@@ -406,6 +416,13 @@ def psi(url, strategy="mobile"):
                 ("largest-contentful-paint", "cumulative-layout-shift", "total-blocking-time", "first-contentful-paint")},
         "field_lcp_ms": field.get("LARGEST_CONTENTFUL_PAINT_MS", {}).get("percentile"),
         "failed_audits": [k for k, v in a.items() if v.get("score") == 0][:15],
+        # Lighthouse recommendations: audits with an estimated saving, largest first
+        "opportunities": sorted(
+            [{"id": k, "title": v["title"], "saving_ms": v["details"].get("overallSavingsMs", 0),
+              "saving_bytes": v["details"].get("overallSavingsBytes", 0)}
+             for k, v in a.items()
+             if v.get("details", {}).get("type") == "opportunity" and v.get("score") is not None and v["score"] < 0.9],
+            key=lambda o: o["saving_ms"], reverse=True)[:10],
     }
 
 for strategy in ("mobile", "desktop"):
@@ -435,13 +452,69 @@ Defaults emulate a mid-range phone on slow 4G; add `--preset=desktop` for deskto
 ### 6.3 Reading the result
 
 - Scores are indicators. The measured values (LCP, CLS, TBT, INP in the field) and the list of failed audits matter more.
+- Lighthouse does not measure INP in the lab. It reports TBT as a proxy; real INP only appears in field data.
+- The opportunities are Lighthouse's own recommendations with estimated savings. They are good starting points for
+  findings, but generic: check each against the real page before it goes into a report. Estimated savings overlap
+  and do not add up.
 - SEO category passes do not mean AI visibility: it checks basics only (title, description, crawlable links, robots, `lang`, canonical).
 - Lab data on one machine differs from field data; say which one a number is from.
 - Accessibility category is a subset of what axe finds and is no conformity statement; run axe separately (section 2.2).
 
 ---
 
-## 7. Open decisions
+## 7. Report production checklist: what can be automated
+
+Steps to produce one start-page report, in order. **Yes** = a script can do it end to end, **Partly** = a script
+collects or drafts and a person decides or checks, **No** = needs human judgement or access. In the Notes column,
+**Manual:** says what the person has to do or decide.
+
+| # | Step | Tool / method | Automatable | Notes |
+|---|------|---------------|-------------|-------|
+| 1 | Receive request, confirm e-mail, store URL and search terms | form, `api/analysis.php`, `confirm.php` | **Yes** | Already built (proof of work, double opt-in, studio mail) |
+| 2 | Check that the request is usable (real site, reachable, not a duplicate) | `curl`, domain hash check | **Partly** | Script: reachability, redirect target, duplicate check. **Manual:** reject spam, competitors fishing for the method, sites we cannot help (no public site, login wall, illegal content); decide whether a redirected domain is the right one |
+| 3 | Define the question set (3 questions) and competitors | from terms plus industry | **Partly** | Script/LLM drafts 3 to 5 questions from the terms. **Manual:** pick the final 3, check they sound like a real customer, set region and language, name 2 to 3 real competitors (check they exist and serve the same area) |
+| 4 | Fetch status, redirects, headers, raw HTML | `curl -sIL`, saved HTML | **Yes** | |
+| 5 | robots.txt, sitemap, AI-crawler rules | fetch and parse per user agent | **Yes** | Whether a block is intended is the customer's decision; the report only states the state |
+| 6 | Content visible without JavaScript | raw HTML vs rendered DOM (headless browser) | **Yes** | Flags if the main text is missing in the raw HTML |
+| 7 | Title, description, headings, canonical, `lang`, Open Graph | HTML parser script | **Yes** | Whether text fits the search terms is judged in step 18 |
+| 8 | Lighthouse, 3 runs, mobile and desktop | PageSpeed Insights API or Lighthouse CLI | **Yes** | Median of 3; stores tool version and date |
+| 9 | Field data (Core Web Vitals) | PSI / CrUX | **Yes** | Often missing for low-traffic sites; report "no data" |
+| 10 | Structured data extraction and validation | JSON-LD parser, Schema Markup Validator | **Partly** | Script: extracts nodes, lists errors, compares name/address/phone with the visible page. **Manual:** open the Google Business Profile and one directory to compare data, run the Rich Results Test by hand where the API is not used, decide whether a mismatch is a real problem or a format difference |
+| 11 | Accessibility, conspicuous items | axe-core CLI, WAVE | **Partly** | Script: axe results and counts. **Manual:** keyboard walk-through (Tab, focus visible, skip link), zoom to 200 %, check that flagged items are real (false positives), word the result as "conspicuous items" and never as conformity |
+| 12 | Image check (format, size, `alt`, dimensions) | script over the DOM and network log | **Yes** | |
+| 13 | AI answers: run the questions on the assistants | LiteLLM / Promptfoo (API); manual in the apps | **Partly** | Script: API runs (search-enabled models where available). **Manual:** ask the same questions in the ChatGPT, Gemini and Google AI Overviews/AI Mode web apps (logged out or fresh profile, German UI, customer's region), copy each answer and its sources into the log file, note the date and mode |
+| 14 | Repeat each question and log answers | LiteLLM script with `RUNS`, Promptfoo `--repeat` | **Yes** | For the manual apps: repeat at least twice by hand |
+| 15 | Mention, citation and competitor counts | string match, parsed sources | **Yes** | Rough count; step 16 corrects it |
+| 16 | Fact accuracy of answers (address, services, hours) | Promptfoo assertions | **Partly** | Script: asserts fixed facts, flags missing brand and wrong city. **Manual:** read a sample of answers in full, judge half-right or negative mentions, mark hallucinated claims, count only what a customer would actually see |
+| 17 | Judge causes ("why not named") | reading evidence from steps 4-12 | **No** | **Manual:** link each gap to causes visible on the site (no crawlable text, missing data, blocked crawler, thin or inconsistent business data, no clear answer text). Word as "possible cause", never as proof; assistants also pick sources we cannot see |
+| 18 | Rate findings (impact, certainty, effort) and pick the top three | rule-based pre-sort, then a person | **Partly** | Script: sorts by a scoring table (impact x certainty / effort). **Manual:** choose the final three, make sure they matter for this business (not just for the tool), check the free report names problems but gives no how-to |
+| 19 | Write summary and finding texts | template plus LLM draft | **Partly** | Script/LLM: drafts in the report template from the evidence file. **Manual:** edit every sentence: plain language, correct facts, no promised rankings or citations, no claims the evidence does not support, customer's name and URL correct, German/English as requested |
+| 20 | Screenshots and evidence snippets | headless browser screenshots | **Partly** | Script: captures pages, snippets and AI answers. **Manual:** choose and crop; remove personal data of third parties, other customers' names and anything that reveals the paid method |
+| 21 | Build the PDF from the template | Markdown or HTML template to PDF | **Yes** | Template not built yet (section 8) |
+| 22 | Quality check before sending (checklist in section 3) | checklist | **No** | **Manual:** run the checklist, open the PDF, click every link, check the date and the URL, read it once as the customer; sign off in the log |
+| 23 | Send the report to the customer | mail, personal text | **No** | **Manual:** write a short personal mail, attach the PDF, send from the studio address, offer the call. Auto-send would contradict "prepared personally" |
+| 24 | Record the delivery (date, request, no extra personal data) | log / todo | **Partly** | Script: writes date, domain hash and status. **Manual:** note the follow-up date and any reply; delete data per `docs/privacy-actions.md` retention |
+| 25 | Re-test after the work (paid scope) | same scripts, same question set | **Yes** | Needs the fixed question set from step 3 |
+| 26 | Before/after comparison | diff of the two result files | **Partly** | Script: builds the table and the percentages. **Manual:** explain what changed and why, and state honestly where nothing improved |
+
+Summary: steps 4-9, 12, 14, 15, 21 and 25 run unattended. Steps 17, 22 and 23 stay human. Every **Partly** step is
+"script prepares, person decides". Honest framing for the website text: the report is **prepared personally**;
+automation speeds up measuring, judgement and sending remain ours.
+
+### 7.1 Automation solution (Node.js)
+
+A small Node.js command-line pipeline runs all **Yes** steps and the collecting or drafting part of every **Partly**
+step (fetch and markup checks, Lighthouse, axe, AI answers, screenshots, scoring, draft text). It writes the results
+into one dated work folder and stops at a generated `REVIEW.md` that lists the manual tasks above as tick boxes.
+Only after those are ticked does a second command build the PDF. Nothing is sent to the customer automatically.
+It runs locally or in CI as a separate tool, not inside the Next.js site.
+
+Details (requirements, libraries, folder layout, code sketches, flow, design rules, build order):
+[`ai-visibility-automation.md`](ai-visibility-automation.md).
+
+---
+
+## 8. Open decisions
 
 - Report template format (Markdown to PDF script, or a fixed document template). Not built yet.
 - Which assistants and modes the public text promises; the site lists ChatGPT, Claude, Perplexity, Gemini and
