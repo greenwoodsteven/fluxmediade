@@ -3,7 +3,7 @@
 // Never commit real credentials.
 return [
     'allowed_origins' => ['https://www.fluxmedia.de', 'https://fluxmedia.de'],
-    'to'        => 'greenwood@fluxmedia.de',
+    'to'        => 'mail@fluxmedia.de',
     'smtp' => [
         'host'       => 'mxe824.netcup.net',
         'port'       => 465,
