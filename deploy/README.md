@@ -4,6 +4,169 @@ Two ways to deploy. **[Simple: `git pull` + FTP](#simple-deployment-git-pull--ft
 git on the server and is enough for this site. The release-folder route below (script, atomic switch, rollback) is the
 optional upgrade; both build on your machine, because the server never needs Node.
 
+## Simple deployment: git pull + FTP
+
+The static site (`out/`) is built on your machine and uploaded by FTP. The PHP endpoints (`api/`) come from git on the
+server. `out/` is **not** tracked in git (it contains the Impressum data), so nothing is built on the server.
+
+The repository is cloned into `httpdocs`, and the domain's document root is its `out/` subfolder. The repository itself
+(`.git`, `src/`, `config/`, the storage folder) is therefore above the document root and not served:
+
+```
+/httpdocs/_fluxmediade/            <- git clone (git pull here)
+├── api/                           <- PHP endpoints from git
+│   └── config.php                 <- real credentials, git-ignored, survives every `git pull`
+├── fluxmedia-storage/             <- state of the free analysis (mode 700, git-ignored)
+└── out/                           <- DOCUMENT ROOT of fluxmedia.de = contents of the local out/ (FTP)
+    ├── index.html, _next/, images/, .htaccess, ...
+    └── api -> ../api              <- symlink to the endpoints
+```
+
+**Paths on netcup.** The SSH session is chrooted: there `~` is `/` and the repository is `/httpdocs/_fluxmediade`.
+PHP and cron see the real path, `/var/www/vhosts/hosting161521.ae822.netcup.net/httpdocs/_fluxmediade`. Use the real
+path in `config.php` (`storage_dir`) and in the cron job. Below, `REPO=/httpdocs/_fluxmediade` is used in SSH.
+
+### Update content (after setup)
+
+Day-to-day changes (text, prices, references, legal pages) are made on your machine and uploaded by FTP. The server needs
+no build tools and no `git pull` for them.
+
+| What you change | Where | Needs |
+|---|---|---|
+| Page text, prices (`services.<id>.price`), FAQ, legal pages, DE and EN | `src/content/de.json`, `src/content/en.json` | rebuild + FTP `out/` |
+| Address, phone, partners, VAT ID, email | `config/site.local.json` (git-ignored, exists only on your machine) | rebuild + FTP `out/` |
+| Images, fonts, `robots.txt`, `.htaccess` | `public/` | rebuild + FTP `out/` |
+| PHP endpoints, `smtp`, `secret`, `storage_dir` | `api/` (code, via git) or `api/config.php` (on the server) | `git pull` on the server, or edit `config.php` there |
+
+Steps:
+
+1. **Once per machine:** `git clone` the repository, `npm install`, and put your `config/site.local.json` in place (copy
+   `config/site.example.json`; keep a backup, it is not in git).
+2. **Update and preview:**
+   ```bash
+   git pull                      # latest version
+   npm run dev                   # http://localhost:3000, DE at /, EN at /en/
+   ```
+   Edit the JSON files. Keep both languages in step: a key missing in `en.json` is not caught by the type check, so
+   compare the two files after editing.
+3. **Check and build for production:**
+   ```bash
+   npm run lint                  # site check + TypeScript
+   npm run build:prod            # strict check (fails on any [PLACEHOLDER]) + build into out/
+   npm run serve                 # optional: look at the built site locally
+   ```
+4. **Save the change in git:** `git add -A && git commit -m "Update content: ..." && git push`.
+5. **Upload by FTP:** send the contents of your local `out/` to `/httpdocs/_fluxmediade/out/` (details in *Every release*
+   below: overwrite files, upload `_next/` and `images/` first and the HTML files last, include the hidden
+   `.htaccess`, keep the `api` link, binary mode).
+6. **Check on the live site:** hard-reload (Ctrl/Cmd+Shift+R) the changed pages in both languages, open `/impressum/`
+   if business data changed, and run the smoke test (home page, a 404, the contact form).
+
+If a change also touches `api/`, run `git pull` on the server in the same session (step 2 of *Every release*).
+
+### One time
+
+1. **Panel settings** (Plesk, *Websites & Domains → fluxmedia.de*):
+   - Document root: `/httpdocs/_fluxmediade/out`.
+   - *PHP Settings*: PHP 8.4, and **`open_basedir` = `{WEBSPACEROOT}{/}{:}{TMP}{/}{:}{/}var{/}lib{/}php{/}sessions`**
+     (choose it in the dropdown). The default (`{DOCROOT}{/}...`) confines PHP to `out/`, so `/api/*.php` fails with
+     "No input file specified." (PHP may not follow `out/api -> ../api` or write the storage folder). Check this setting
+     again after every PHP version change.
+   - TLS certificate enabled.
+2. **Clone** (read-only deploy key: `ssh-keygen -t ed25519`, add the public key in the GitHub repository settings):
+   ```bash
+   git clone git@github.com:greenwoodsteven/fluxmediade.git /httpdocs/_fluxmediade
+   git config --global core.pager cat        # netcup has no pager
+   ```
+3. **Storage folder, config and the link:**
+   ```bash
+   REPO=/httpdocs/_fluxmediade
+   mkdir -p $REPO/fluxmedia-storage && chmod 700 $REPO/fluxmedia-storage   # git-ignored
+   cp $REPO/api/config.example.php $REPO/api/config.php && chmod 600 $REPO/api/config.php
+   mkdir -p $REPO/out
+   ln -s ../api $REPO/out/api                # relative link: out/api -> ../api
+   ls -l $REPO/out/api                       # shows: api -> ../api
+   ```
+   Link commands: `ln -sfn ../api $REPO/out/api` repairs or replaces it (an `api` *folder* in `out/` must be renamed
+   first, or `ln` would create the link inside it); `rm $REPO/out/api` removes the link only (no trailing slash, never
+   `rm -r`). Re-create it if an FTP upload ever removes it.
+4. **`api/config.php`** (this is the working configuration; replace the two `SECRET` values, `openssl rand -hex 32`
+   for `secret`, and use the rotated SMTP password):
+   ```php
+   <?php
+   return [
+       'allowed_origins' => ['https://www.fluxmedia.de', 'https://fluxmedia.de'],
+       'to'        => 'greenwood@fluxmedia.de',
+       'smtp' => [
+           'host'       => 'mxe824.netcup.net',
+           'port'       => 465,
+           'encryption' => 'ssl',            // 'ssl' | 'tls'
+           'username'   => 'support@fluxmedia.de',
+           'password'   => 'SECRET',
+           'from_email' => 'support@fluxmedia.de',
+           'from_name'  => 'Fluxmedia',
+       ],
+       'rate_limit'  => ['max' => 5, 'window' => 3600],   // per IP hash
+       'storage_dir' => '/var/www/vhosts/hosting161521.ae822.netcup.net/httpdocs/_fluxmediade/fluxmedia-storage',
+       'base_url'    => 'https://www.fluxmedia.de',       // no trailing slash; used in the confirmation link
+       'secret'      => 'SECRET',                         // signs proof-of-work challenges
+       'audit'       => ['weekly_cap' => 10, 'domain_days' => 90, 'pending_hours' => 48],
+   ];
+   ```
+   `storage_dir` is the real path PHP sees (`__DIR__` in a temporary PHP file shows it), not `~` and not what the
+   chrooted SSH prints. `mail_dump` is for tests only and stays out.
+5. **Check:**
+   ```bash
+   curl -s https://www.fluxmedia.de/api/challenge.php                  # {"ok":true,"salt":"...","sig":"...","bits":14}
+   curl -sI https://www.fluxmedia.de/api/lib/bootstrap.php | head -1   # 403
+   curl -sI https://www.fluxmedia.de/api/config.php | head -1          # 403
+   ```
+   `No input file specified.` means PHP cannot reach `api/`: see the troubleshooting table (`open_basedir`, link).
+6. **Other domains of the account:** if any of them uses `/httpdocs` as its document root, `https://that-domain/_fluxmediade/.git/config`
+   must be 403 or 404. If not, put `RedirectMatch 403 ^/_fluxmediade` into `/httpdocs/.htaccess`.
+7. **Daily clean-up** of the free-analysis data (the privacy policy promises deletion after 48 hours, 90 days and one
+   day). In the panel add a cron job once a day, running with PHP 8.4:
+   ```bash
+   php /var/www/vhosts/hosting161521.ae822.netcup.net/httpdocs/_fluxmediade/api/cleanup.php    # prints "cleanup done"
+   ```
+   Run it once by hand over SSH first. The scripts also clean up while the forms are used, but only the cron job deletes
+   data when nobody submits anything.
+
+### Every release
+
+1. **On your machine:** commit and push your changes, make sure `config/site.local.json` has no `[...]` left, then
+   ```bash
+   npm run build:prod
+   ```
+2. **On the server, only if `api/` changed:** `cd /httpdocs/_fluxmediade && git pull`.
+   Do this together with step 3: the forms (JavaScript in `out/`) and the PHP endpoints must be the same version.
+3. **FTP the contents of your local `out/` into `/httpdocs/_fluxmediade/out/`** (the document root), not the folder
+   itself.
+   - Show hidden files in your client; `.htaccess` is in `out/` and must be uploaded every time.
+   - Overwrite existing files, and do **not** delete or overwrite the `api` link in `out/`.
+   - Upload order, to avoid a broken page while the upload runs: first `_next/` and `images/`, then everything else, the
+     HTML files last.
+   - Transfer mode "binary" (or "auto" in FileZilla), never "ASCII".
+   - Command-line alternative: `lftp -u USER sftp://HOST -e "mirror -R --only-newer --exclude '^api$' out/ /httpdocs/_fluxmediade/out; quit"`.
+     Add `--delete` to also remove old files (still excluding `api`), see the note below.
+4. **Smoke test** (section 4 of the release-folder route below): home page, a 404, the free-analysis form end to end, `api/lib/` returns 403.
+
+### Notes
+
+- **`git pull` does not touch `out/`:** it is git-ignored, as is `api/config.php`. Never run `git clean -x` or
+  `git clean -fdx` in the clone: it deletes ignored files, which means the whole site in `out/` and your `config.php`.
+- **Old files:** overwriting never removes files from earlier builds, so old `_next/static/chunks/*` pile up. They are
+  harmless. About once a month, delete `_next/` in `out/` and upload the new one, or use `lftp ... --delete`.
+- **Not atomic:** visitors can briefly see a mix of old and new files while the upload runs. Upload outside busy hours.
+- **Rollback:** `git checkout <commit>` in the clone for the PHP part (then `git checkout master` to return), and
+  rebuild the old commit locally and upload it again for the static part. Keep a ZIP of each uploaded `out/`
+  (`out-YYYYMMDD.zip`) to make that quick.
+- **Changing only text or prices:** edit the JSON, rebuild, upload `out/`; no `git pull` needed on the server.
+- **Changing only PHP:** `git pull` on the server; no FTP needed.
+- **Plain FTP is unencrypted:** use SFTP or FTPS if the plan offers it; otherwise at least avoid public Wi-Fi.
+- **`git pull` fails with local changes:** you edited a tracked file on the server. `git status` shows which; the
+  `config.php` is git-ignored and never causes this.
+
 ## Release-folder deployment
 
 The site is built on your machine (`out/` = static files) and uploaded together with `api/` (PHP) into a new release
@@ -232,169 +395,6 @@ Notes
   `config/site.local.json` is baked into the HTML at build time, so the branch contains the public Impressum values
   but never the SMTP password or `secret`.
 - Never serve the server's `repo/` folder: it holds `.git`. Only `current` may be the document root.
-
-## Simple deployment: git pull + FTP
-
-The static site (`out/`) is built on your machine and uploaded by FTP. The PHP endpoints (`api/`) come from git on the
-server. `out/` is **not** tracked in git (it contains the Impressum data), so nothing is built on the server.
-
-The repository is cloned into `httpdocs`, and the domain's document root is its `out/` subfolder. The repository itself
-(`.git`, `src/`, `config/`, the storage folder) is therefore above the document root and not served:
-
-```
-/httpdocs/_fluxmediade/            <- git clone (git pull here)
-├── api/                           <- PHP endpoints from git
-│   └── config.php                 <- real credentials, git-ignored, survives every `git pull`
-├── fluxmedia-storage/             <- state of the free analysis (mode 700, git-ignored)
-└── out/                           <- DOCUMENT ROOT of fluxmedia.de = contents of the local out/ (FTP)
-    ├── index.html, _next/, images/, .htaccess, ...
-    └── api -> ../api              <- symlink to the endpoints
-```
-
-**Paths on netcup.** The SSH session is chrooted: there `~` is `/` and the repository is `/httpdocs/_fluxmediade`.
-PHP and cron see the real path, `/var/www/vhosts/hosting161521.ae822.netcup.net/httpdocs/_fluxmediade`. Use the real
-path in `config.php` (`storage_dir`) and in the cron job. Below, `REPO=/httpdocs/_fluxmediade` is used in SSH.
-
-### One time
-
-1. **Panel settings** (Plesk, *Websites & Domains → fluxmedia.de*):
-   - Document root: `/httpdocs/_fluxmediade/out`.
-   - *PHP Settings*: PHP 8.4, and **`open_basedir` = `{WEBSPACEROOT}{/}{:}{TMP}{/}{:}{/}var{/}lib{/}php{/}sessions`**
-     (choose it in the dropdown). The default (`{DOCROOT}{/}...`) confines PHP to `out/`, so `/api/*.php` fails with
-     "No input file specified." (PHP may not follow `out/api -> ../api` or write the storage folder). Check this setting
-     again after every PHP version change.
-   - TLS certificate enabled.
-2. **Clone** (read-only deploy key: `ssh-keygen -t ed25519`, add the public key in the GitHub repository settings):
-   ```bash
-   git clone git@github.com:greenwoodsteven/fluxmediade.git /httpdocs/_fluxmediade
-   git config --global core.pager cat        # netcup has no pager
-   ```
-3. **Storage folder, config and the link:**
-   ```bash
-   REPO=/httpdocs/_fluxmediade
-   mkdir -p $REPO/fluxmedia-storage && chmod 700 $REPO/fluxmedia-storage   # git-ignored
-   cp $REPO/api/config.example.php $REPO/api/config.php && chmod 600 $REPO/api/config.php
-   mkdir -p $REPO/out
-   ln -s ../api $REPO/out/api                # relative link: out/api -> ../api
-   ls -l $REPO/out/api                       # shows: api -> ../api
-   ```
-   Link commands: `ln -sfn ../api $REPO/out/api` repairs or replaces it (an `api` *folder* in `out/` must be renamed
-   first, or `ln` would create the link inside it); `rm $REPO/out/api` removes the link only (no trailing slash, never
-   `rm -r`). Re-create it if an FTP upload ever removes it.
-4. **`api/config.php`** (this is the working configuration; replace the two `SECRET` values, `openssl rand -hex 32`
-   for `secret`, and use the rotated SMTP password):
-   ```php
-   <?php
-   return [
-       'allowed_origins' => ['https://www.fluxmedia.de', 'https://fluxmedia.de'],
-       'to'        => 'greenwood@fluxmedia.de',
-       'smtp' => [
-           'host'       => 'mxe824.netcup.net',
-           'port'       => 465,
-           'encryption' => 'ssl',            // 'ssl' | 'tls'
-           'username'   => 'support@fluxmedia.de',
-           'password'   => 'SECRET',
-           'from_email' => 'support@fluxmedia.de',
-           'from_name'  => 'Fluxmedia',
-       ],
-       'rate_limit'  => ['max' => 5, 'window' => 3600],   // per IP hash
-       'storage_dir' => '/var/www/vhosts/hosting161521.ae822.netcup.net/httpdocs/_fluxmediade/fluxmedia-storage',
-       'base_url'    => 'https://www.fluxmedia.de',       // no trailing slash; used in the confirmation link
-       'secret'      => 'SECRET',                         // signs proof-of-work challenges
-       'audit'       => ['weekly_cap' => 10, 'domain_days' => 90, 'pending_hours' => 48],
-   ];
-   ```
-   `storage_dir` is the real path PHP sees (`__DIR__` in a temporary PHP file shows it), not `~` and not what the
-   chrooted SSH prints. `mail_dump` is for tests only and stays out.
-5. **Check:**
-   ```bash
-   curl -s https://www.fluxmedia.de/api/challenge.php                  # {"ok":true,"salt":"...","sig":"...","bits":14}
-   curl -sI https://www.fluxmedia.de/api/lib/bootstrap.php | head -1   # 403
-   curl -sI https://www.fluxmedia.de/api/config.php | head -1          # 403
-   ```
-   `No input file specified.` means PHP cannot reach `api/`: see the troubleshooting table (`open_basedir`, link).
-6. **Other domains of the account:** if any of them uses `/httpdocs` as its document root, `https://that-domain/_fluxmediade/.git/config`
-   must be 403 or 404. If not, put `RedirectMatch 403 ^/_fluxmediade` into `/httpdocs/.htaccess`.
-7. **Daily clean-up** of the free-analysis data (the privacy policy promises deletion after 48 hours, 90 days and one
-   day). In the panel add a cron job once a day, running with PHP 8.4:
-   ```bash
-   php /var/www/vhosts/hosting161521.ae822.netcup.net/httpdocs/_fluxmediade/api/cleanup.php    # prints "cleanup done"
-   ```
-   Run it once by hand over SSH first. The scripts also clean up while the forms are used, but only the cron job deletes
-   data when nobody submits anything.
-
-### Update content (after setup)
-
-Day-to-day changes (text, prices, references, legal pages) are made on your machine and uploaded by FTP. The server needs
-no build tools and no `git pull` for them.
-
-| What you change | Where | Needs |
-|---|---|---|
-| Page text, prices (`services.<id>.price`), FAQ, legal pages, DE and EN | `src/content/de.json`, `src/content/en.json` | rebuild + FTP `out/` |
-| Address, phone, partners, VAT ID, email | `config/site.local.json` (git-ignored, exists only on your machine) | rebuild + FTP `out/` |
-| Images, fonts, `robots.txt`, `.htaccess` | `public/` | rebuild + FTP `out/` |
-| PHP endpoints, `smtp`, `secret`, `storage_dir` | `api/` (code, via git) or `api/config.php` (on the server) | `git pull` on the server, or edit `config.php` there |
-
-Steps:
-
-1. **Once per machine:** `git clone` the repository, `npm install`, and put your `config/site.local.json` in place (copy
-   `config/site.example.json`; keep a backup, it is not in git).
-2. **Update and preview:**
-   ```bash
-   git pull                      # latest version
-   npm run dev                   # http://localhost:3000, DE at /, EN at /en/
-   ```
-   Edit the JSON files. Keep both languages in step: a key missing in `en.json` is not caught by the type check, so
-   compare the two files after editing.
-3. **Check and build for production:**
-   ```bash
-   npm run lint                  # site check + TypeScript
-   npm run build:prod            # strict check (fails on any [PLACEHOLDER]) + build into out/
-   npm run serve                 # optional: look at the built site locally
-   ```
-4. **Save the change in git:** `git add -A && git commit -m "Update content: ..." && git push`.
-5. **Upload by FTP:** send the contents of your local `out/` to `/httpdocs/_fluxmediade/out/` (details in *Every release*
-   below: overwrite files, upload `_next/` and `images/` first and the HTML files last, include the hidden
-   `.htaccess`, keep the `api` link, binary mode).
-6. **Check on the live site:** hard-reload (Ctrl/Cmd+Shift+R) the changed pages in both languages, open `/impressum/`
-   if business data changed, and run the smoke test (home page, a 404, the contact form).
-
-If a change also touches `api/`, run `git pull` on the server in the same session (step 2 of *Every release*).
-
-### Every release
-
-1. **On your machine:** commit and push your changes, make sure `config/site.local.json` has no `[...]` left, then
-   ```bash
-   npm run build:prod
-   ```
-2. **On the server, only if `api/` changed:** `cd /httpdocs/_fluxmediade && git pull`.
-   Do this together with step 3: the forms (JavaScript in `out/`) and the PHP endpoints must be the same version.
-3. **FTP the contents of your local `out/` into `/httpdocs/_fluxmediade/out/`** (the document root), not the folder
-   itself.
-   - Show hidden files in your client; `.htaccess` is in `out/` and must be uploaded every time.
-   - Overwrite existing files, and do **not** delete or overwrite the `api` link in `out/`.
-   - Upload order, to avoid a broken page while the upload runs: first `_next/` and `images/`, then everything else, the
-     HTML files last.
-   - Transfer mode "binary" (or "auto" in FileZilla), never "ASCII".
-   - Command-line alternative: `lftp -u USER sftp://HOST -e "mirror -R --only-newer --exclude '^api$' out/ /httpdocs/_fluxmediade/out; quit"`.
-     Add `--delete` to also remove old files (still excluding `api`), see the note below.
-4. **Smoke test** (section 4 above): home page, a 404, the free-analysis form end to end, `api/lib/` returns 403.
-
-### Notes
-
-- **`git pull` does not touch `out/`:** it is git-ignored, as is `api/config.php`. Never run `git clean -x` or
-  `git clean -fdx` in the clone: it deletes ignored files, which means the whole site in `out/` and your `config.php`.
-- **Old files:** overwriting never removes files from earlier builds, so old `_next/static/chunks/*` pile up. They are
-  harmless. About once a month, delete `_next/` in `out/` and upload the new one, or use `lftp ... --delete`.
-- **Not atomic:** visitors can briefly see a mix of old and new files while the upload runs. Upload outside busy hours.
-- **Rollback:** `git checkout <commit>` in the clone for the PHP part (then `git checkout master` to return), and
-  rebuild the old commit locally and upload it again for the static part. Keep a ZIP of each uploaded `out/`
-  (`out-YYYYMMDD.zip`) to make that quick.
-- **Changing only text or prices:** edit the JSON, rebuild, upload `out/`; no `git pull` needed on the server.
-- **Changing only PHP:** `git pull` on the server; no FTP needed.
-- **Plain FTP is unencrypted:** use SFTP or FTPS if the plan offers it; otherwise at least avoid public Wi-Fi.
-- **`git pull` fails with local changes:** you edited a tracked file on the server. `git status` shows which; the
-  `config.php` is git-ignored and never causes this.
 
 ## Staging (`staging.fluxmedia.de`)
 
