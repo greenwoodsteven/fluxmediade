@@ -12,7 +12,7 @@ The policy text lives in `src/content/{de,en}.json` under `pages.privacy` and is
 | # | Processing | Policy says | The system does (code) | Match |
 |---|---|---|---|---|
 | 1 | Server logs | netcup logs IP, time, URL, status, user agent, referrer; deleted "after a short time"; processor agreement exists | done by netcup, not by us | **to verify** at netcup (retention, agreement) |
-| 2 | Cookies, tracking, third parties | none | no cookies, no browser storage, requests only to the same host (CSP `'self'`) | yes (confirm once in a browser) |
+| 2 | Cookies, tracking, third parties | none | one functional cookie `fm_lang` after an explicit language switch (disclosed in the privacy page), no browser storage, requests only to the same host (CSP `'self'`) | yes (confirm once in a browser) |
 | 3 | Contact and quote forms | data sent by email, auto-reply, stored in the mailbox, deleted when done; statutory retention if a contract follows | `api/contact.php`, `quote.php` send two mails through netcup SMTP; nothing else is stored; the mail contains the form fields plus language and `ref` | yes; deletion in the mailbox is manual (see action 6) |
 | 4 | Free analysis, pending data | stored until the email is confirmed, link valid 48 h, then deleted automatically (daily clean-up) | `pending/<hash of token>` file; removed on confirmation, when opened after expiry, by `audit_cleanup()` (cron) and opportunistically | yes **if the cron job runs** (action 3) |
 | 5 | Free analysis, domain | domain kept 90 days only as a hash | `domains/<sha256(host)>`; removed after `domain_days` by `audit_cleanup()` and on registration | yes (cron) |

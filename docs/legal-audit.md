@@ -100,9 +100,11 @@ Compared with what the site does, check and probably add:
 
 ## 5. Cookies and device access (TDDDG § 25)
 
-- The code sets no cookies and uses no browser storage (verified by search in `src/`).
+- The only cookie is `fm_lang` (`de`/`en`, one year), set by the language switcher (`src/components/LangLink.tsx`) after an
+  explicit click. It is strictly necessary under TDDDG § 25(2) no. 2, so no banner; it is disclosed in the privacy page
+  ("Sprachauswahl"). First-visit detection (Accept-Language, `public/.htaccess`) stores nothing. No other cookies or browser storage.
 - The page makes requests only to the same host (CSP: `default-src 'self'`, `connect-src 'self'`).
-- **To confirm once in a browser:** open the live site with developer tools, check *Application → Cookies / Local
+- **To confirm once in a browser:** open the live site with developer tools, check *Application → Cookies* holds at most `fm_lang` (only after using the switcher) and *Local
   storage* is empty and the *Network* tab shows only `www.fluxmedia.de`. If both are true, no consent banner is needed.
 - Re-check after every change that adds a script, an embed or a tool.
 

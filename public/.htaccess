@@ -10,6 +10,41 @@ RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} !^www\.fluxmedia\.de$ [NC]
 RewriteRule ^ https://www.fluxmedia.de%{REQUEST_URI} [L,R=301]
 
+# --- Language: first visit to "/" follows Accept-Language, a switcher choice wins ---
+# Only the bare root is negotiated, so deep links and crawlers (no Accept-Language) keep the canonical
+# German page. The fm_lang cookie is set by the language switcher only (src/components/LangLink.tsx).
+# Navigation from within the site (Referer) is never redirected, so the DE link works without JavaScript.
+# German is the default: English wins only if it is listed first, or listed and German is not.
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteCond %{HTTP_REFERER} !^https://www\.fluxmedia\.de/ [NC]
+RewriteCond %{HTTP_COOKIE} !(^|;\s*)fm_lang=
+RewriteCond %{HTTP:Accept-Language} ^\s*en(\W|$) [NC]
+RewriteRule ^$ /en/ [R=302,L]
+
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteCond %{HTTP_REFERER} !^https://www\.fluxmedia\.de/ [NC]
+RewriteCond %{HTTP_COOKIE} !(^|;\s*)fm_lang=
+RewriteCond %{HTTP:Accept-Language} (^|,)\s*en(\W|$) [NC]
+RewriteCond %{HTTP:Accept-Language} !(^|,)\s*de(\W|$) [NC]
+RewriteRule ^$ /en/ [R=302,L]
+
+# A returning visitor who chose English lands on /en/ too.
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteCond %{HTTP_REFERER} !^https://www\.fluxmedia\.de/ [NC]
+RewriteCond %{HTTP_COOKIE} (^|;\s*)fm_lang=en(;|$)
+RewriteRule ^$ /en/ [R=302,L]
+
+<IfModule mod_headers.c>
+  # The 200 answer for "/" depends on the request, so shared caches must key on these.
+  <If "%{REQUEST_URI} =~ m#^/(index\.html)?$#">
+    Header append Vary "Accept-Language"
+    Header append Vary "Cookie"
+  </If>
+</IfModule>
+
 # --- Never serve internals ----------------------------------------------
 RewriteRule (^|/)\.(?!well-known/) - [F]
 RewriteRule ^(config|docs|deploy|scripts|src|node_modules)(/|$) - [F]

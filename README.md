@@ -32,6 +32,7 @@ The new fluxmedia.de: a **Next.js 16 static export** (`output: 'export'`, HTML g
 | `scripts/site-config.mjs` | validates that file and writes `src/content/site.generated.json` (git-ignored); runs before `dev`, `build` and `lint`. `src/content/site.ts` reads the result |
 | `src/components/` | `Header`, `Footer`, `Picture`, `JsonLd`, `forms` (client-side forms), `pages` (all page bodies) |
 | `scripts/images.mjs` | pre-generates AVIF/WebP (and 480 px variants for `work/`) into `public/images/generated/` (git-ignored) |
+| `public/.htaccess` + `src/components/LangLink.tsx` | **language detection**: on `/` only, Apache redirects to `/en/` by `Accept-Language` unless the `fm_lang` cookie (set only by the language switcher) or an on-site referer says otherwise |
 | `public/` | static files copied to `out/`: `.htaccess`, fonts (Inter variable, SIL OFL), images, logos |
 | `api/` | PHP endpoints: `analysis.php`, `confirm.php`, `challenge.php`, `contact.php`, `quote.php`, `lib/`, PHPMailer 6.9.1 |
 | `deploy/` | `deploy.sh`, `.env.example`, staging `.htaccess` example, deployment guide |

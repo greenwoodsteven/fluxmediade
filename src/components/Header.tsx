@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { pathFor, locales, type Lang, type PageId } from "@/i18n/routes";
 import { getContent } from "@/content";
+import { LangLink } from "./LangLink";
 
 const navIds: PageId[] = ["services", "analysis", "quote", "references", "about", "contact"];
 
@@ -31,10 +32,10 @@ export function Header({ lang, current }: { lang: Lang; current: PageId }) {
         <ul aria-label={ui.langLabel} className="flex gap-1 text-sm">
           {locales.map((l) => (
             <li key={l}>
-              <Link href={pathFor(current, l)} hrefLang={l} lang={l} aria-current={l === lang ? "true" : undefined}
+              <LangLink href={pathFor(current, l)} hrefLang={l} lang={l} aria-current={l === lang ? "true" : undefined}
                 className={`px-2 py-1 uppercase ${l === lang ? "font-bold underline" : "hover:underline"}`}>
                 <span aria-hidden="true">{l}</span><span className="sr-only">{ui.langName[l]}</span>
-              </Link>
+              </LangLink>
             </li>
           ))}
         </ul>
