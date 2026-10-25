@@ -115,7 +115,7 @@ If a change also touches `api/`, run `git pull` on the server in the same sessio
    <?php
    return [
        'allowed_origins' => ['https://www.fluxmedia.de', 'https://fluxmedia.de'],
-       'to'        => 'mail@fluxmedia.de',
+       'to'        => 'info@fluxmedia.de',
        'smtp' => [
            'host'       => 'mxe824.netcup.net',
            'port'       => 465,

@@ -3,7 +3,7 @@
 // Never commit real credentials.
 return [
     'allowed_origins' => ['https://www.fluxmedia.de', 'https://fluxmedia.de'],
-    'to'        => 'mail@fluxmedia.de',
+    'to'        => 'info@fluxmedia.de',
     'owner'     => 'Steven Greenwood',   // shown in the signature of automatic replies
     'smtp' => [
         'host'       => 'mxe824.netcup.net',

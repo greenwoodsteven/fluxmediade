@@ -46,7 +46,7 @@ Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.
 Ihren Widerruf richten Sie an:
 Fluxmedia, Inhaber: [VOLLER NAME]
 [ANSCHRIFT]
-E-Mail: mail@fluxmedia.de
+E-Mail: info@fluxmedia.de
 
 Folgen des Widerrufs
 Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben,
@@ -69,7 +69,7 @@ haben, dass Sie Ihr Widerrufsrecht bei vollständiger Vertragserfüllung durch u
 Muster-Widerrufsformular
 (Wenn Sie den Vertrag widerrufen wollen, füllen Sie bitte dieses Formular aus und senden Sie es zurück.)
 
-An: Fluxmedia, Inhaber: [VOLLER NAME], [ANSCHRIFT], E-Mail: mail@fluxmedia.de
+An: Fluxmedia, Inhaber: [VOLLER NAME], [ANSCHRIFT], E-Mail: info@fluxmedia.de
 
 Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über die Erbringung der
 folgenden Dienstleistung: ................................
@@ -101,7 +101,7 @@ e-mail through netcup, no cookies except the language cookie.
 Datenschutzerklärung
 
 Verantwortlicher:
-Fluxmedia, Inhaber: [VOLLER NAME], [ANSCHRIFT], E-Mail: mail@fluxmedia.de
+Fluxmedia, Inhaber: [VOLLER NAME], [ANSCHRIFT], E-Mail: info@fluxmedia.de
 
 Wenn Sie uns über Kleinanzeigen, per E-Mail, telefonisch oder über unser Kontakt- oder Angebotsformular
 auf fluxmedia.de kontaktieren, verarbeiten wir Ihren Namen, Ihre Kontaktdaten und den Inhalt Ihrer

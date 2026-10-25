@@ -16,9 +16,8 @@ Technical review and drafting aid, **not legal advice**. Have the Steuerberater 
 - Data is in `config/site.local.json` (git-ignored): owner Steven Greenwood, address Sandbühl 31, 88662 Überlingen,
   USt-IdNr. DE447203035. The **Steuernummer is not published**. The GbR block uses the former GbR USt-IdNr. and
   `info@fluxmedia.de`.
-- **Check:** the data you pasted lists `info@fluxmedia.de` as the business e-mail. The site and the Impressum use
-  `mail@fluxmedia.de` (your earlier change) and use `info@fluxmedia.de` for the GbR. Say if the owner's address should be
-  `info@` instead.
+- **E-mail (2026-10-25):** the owner's site uses `info@fluxmedia.de`; the GbR page uses its own address
+  `gbr@fluxmedia.de` (an alias on netcup, with SPF/DKIM checked), so the two flows stay separate.
 - Implemented in the code (built and tested locally, not committed or deployed): Impressum, `/kontakt-gbr/`, `/widerruf/`
   with online form and footer button, privacy controller change, quote-page information, FAQ, mail signature.
   Status per item: `development-todo.md` section 1a.
@@ -71,7 +70,7 @@ Deutschland
 
 Kontakt
 Telefon: [TELEFON]
-E-Mail: mail@fluxmedia.de
+E-Mail: info@fluxmedia.de
 
 Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [USt-IdNr.]
 
@@ -146,7 +145,7 @@ Germany
 
 Contact
 Phone: [TELEFON]
-E-mail: mail@fluxmedia.de
+E-mail: info@fluxmedia.de
 
 VAT ID pursuant to § 27a UStG: [USt-IdNr.]
 
@@ -177,7 +176,7 @@ Kontakt Fluxmedia GbR (freiberufliche Aufträge)
 Fluxmedia GbR
 Gesellschafter: Steven Greenwood, Melanie Wein
 Sandbühl 31, 88662 Überlingen
-E-Mail: [info@fluxmedia.de oder andere Adresse der GbR]
+E-Mail: gbr@fluxmedia.de
 Telefon: [TELEFON DER GBR]
 Umsatzsteuer-Identifikationsnummer: [USt-IdNr. der GbR]
 
@@ -193,7 +192,7 @@ Points to settle before it goes live:
 | Co-partner | Melanie Wein must agree in writing to the wording and to being named |
 | What counts as freiberuflich | The GbR page should list only work the Steuerberater accepts as freiberuflich (§ 18 EStG). Web development and SEO are often gewerblich; listing them there would repeat the Abfärbung risk. Wording: describe the actual freiberufliche activity, for example consulting, training or other work as agreed with the Steuerberater, not "web development" |
 | Insurance | The current policy does not cover the GbR. The GbR needs its own cover before it takes orders; until then the page should say nothing about insured status |
-| Form and mail | Do not reuse the owner's quote form or `mail@fluxmedia.de`; a separate address keeps the two flows apart. Contact form: new endpoint or plain mailto link |
+| Form and mail | Do not reuse the owner's quote form. The GbR has its own address `gbr@fluxmedia.de`, which keeps the two flows apart. Contact form: new endpoint or plain mailto link |
 | Privacy | The GbR is its own controller for what it collects. The privacy page names both controllers (owner for fluxmedia.de, GbR for the GbR page) |
 | Same address | Both parties currently use the same street address. That is legal, but then the separate contact page, e-mail and the "never through the other party's address" sentence are what make the split clear |
 
@@ -210,7 +209,7 @@ Inhaber: [VOLLER NAME]
 Deutschland
 Kontakt:
 Telefon: [TELEFON]
-E-Mail: mail@fluxmedia.de
+E-Mail: info@fluxmedia.de
 www.fluxmedia.de
 USt-IdNr.: [USt-IdNr.]
 Berufshaftpflichtversicherung: Markel Insurance SE, Sophienstraße 26, 80333 München,
