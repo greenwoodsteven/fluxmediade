@@ -302,7 +302,7 @@
         { "h": "Performance und Sicherheit", "text": "Messbar schnelle Seiten und geprüfte Sicherheit, nachweisbar mit Audits." },
         { "h": "KI und Automatisierung", "text": "Chatbots auf Ihren eigenen Inhalten, automatisierte Abläufe und KI-gestützte Entwicklung mit menschlicher Prüfung." },
         { "h": "E-Commerce", "text": "Onlineshops und Anbindung gängiger Zahlungsarten und Marketing-Werkzeuge." },
-        { "h": "Technik im Hintergrund", "text": "JavaScript und TypeScript, Node.js, React und Next.js, PHP und Python, Datenbanken und Linux-Server." }
+        { "h": "Technik im Hintergrund", "text": "JavaScript und TypeScript, Node.js, React und Next.js, PHP, Datenbanken, Linux-Server und Claude Code." }
       ],
       "backgroundTitle": "Hintergrund",
       "background": ["Ich entwickle seit über 25 Jahren Software: im Web, im E-Commerce, in Forschungsprojekten und früher auch in der Lehre und in der Mediengestaltung.", "Mein Studium hat Medien und Technik verbunden, später kamen Weiterbildungen in Informationstechnik und Sicherheit hinzu.", "In der Forschung habe ich technische Projekte geleitet und an wissenschaftlichen Veröffentlichungen mitgewirkt. Daraus stammt mein Anspruch, Ergebnisse zu messen und nachvollziehbar zu belegen."]

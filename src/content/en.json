@@ -302,7 +302,7 @@
         { "h": "Performance and security", "text": "Measurably fast pages and checked security, proven with audits." },
         { "h": "AI and automation", "text": "Chatbots on your own content, automated workflows and AI-assisted development with human review." },
         { "h": "E-commerce", "text": "Online shops and integration of common payment methods and marketing tools." },
-        { "h": "Technology behind it", "text": "JavaScript and TypeScript, Node.js, React and Next.js, PHP and Python, databases and Linux servers." }
+        { "h": "Technology behind it", "text": "JavaScript and TypeScript, Node.js, React and Next.js, PHP, databases, Linux servers and Claude Code." }
       ],
       "backgroundTitle": "Background",
       "background": ["I have developed software for over 25 years: on the web, in e-commerce, in research projects and earlier also in teaching and media design.", "My studies combined media and technology; further training in information technology and security followed.", "In research I led technical projects and contributed to scientific publications. That is where my habit of measuring results and backing them up comes from."]
