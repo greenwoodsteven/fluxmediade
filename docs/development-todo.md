@@ -21,6 +21,7 @@ This list collects every open point from the audits, the legal and privacy docum
 | 7 | P1 | ops | Browser check on the live site: **no cookies, no storage, requests only to `www.fluxmedia.de`** | developer tools *Application* and *Network* tabs are clean | S | legal-audit section 5 |
 | 8 | P1 | ops | **SPF, DKIM and DMARC** for `fluxmedia.de` so the confirmation mails arrive | test mail passes the three checks (mail-tester or similar), analysis confirmation lands in the inbox | S | legal-audit section 8 |
 | 9 | P1 | legal | **Impressum** completeness: § 18 MStV line once the Ratgeber exists, dispute-resolution statement, VAT ID vs small-business rule | Steuerberater and lawyer confirm; `de.json`/`en.json` updated | S | legal-audit #4 |
+| 51 | P1 | decision | **Contracting party and insurance**: ask Exili in writing (question list in legal-audit 9a) who is insured (owner as Einzelunternehmer vs Fluxmedia GbR) and for which activities; talk to the co-partner; ask the Steuerberater (freiberuflich or gewerblich, invoicing per entity). Decide before changing Impressum, quotes or invoices | written answer from Exili, decision recorded (option A, B or C), then Impressum, privacy text and quote wording changed together | M | legal-audit #13, section 9a |
 
 ## 2. Accessibility (P1 to P2)
 
