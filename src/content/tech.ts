@@ -5,9 +5,9 @@ export const technologies = [
   "JavaScript", "TypeScript", "Node.js", "React", "Next.js", "PHP",
   "Payload", "Storybook", "MongoDB", "Redis", "MySQL", "Docker", "AWS", "HTML5", "CSS3", "Scrum", "Git", "Confluence", "Jira", "IntelliJ",
   "jQuery", "Kafka", "Ansible", "LimeSurvey", "Bitbucket", "Raspberry Pi", "Biosignalsplux",
-  "RequireJS", "Bootstrap", "Responsive Design", "Flash", "WordPress", "Drupal", "Magento", "Apache Solr", "Linux", "Cloudflare",
+  "RequireJS", "Bootstrap", "Responsive Design", "WordPress", "Drupal", "Magento", "Apache Solr", "Linux", "Cloudflare",
   "GitLab", "Jenkins", "Grafana", "Mocha", "Lighthouse", "PageSpeed", "Google Analytics", "JSON-LD",
-  "PayPal", "Apple Pay", "Stripe", "Emarsys", "Claude Code", "Tobii", "Adobe Photoshop", "Microsoft Office",
+  "PayPal", "Apple Pay", "Stripe", "Emarsys", "Claude Code", "Tobii",
 ] as const;
 
 /**

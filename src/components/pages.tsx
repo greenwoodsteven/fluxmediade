@@ -35,6 +35,7 @@ function Faqs({ title, items }: { title: string; items: Faq[] }) {
 }
 
 const orgId = `${site.url}/#organization`;
+const linkedIn = "https://www.linkedin.com/in/stevenhgreenwood";
 // Optional profile URLs (config/site.local.json "sameAs": [...]); omitted when not set
 const sameAs: string[] = (site as { sameAs?: string[] }).sameAs ?? [];
 
@@ -331,6 +332,12 @@ export function AboutPage({ lang }: { lang: Lang }) {
   return (
     <>
       <PageHead lang={lang} id="about" h1={p.h1} lead={p.lead} />
+      <div className={`${wrap} mt-4`}>
+        <a href={linkedIn} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 font-bold text-accent underline">
+          <Picture src="/images/LI-In-Bug.png" alt="" width={635} height={540} className="h-8 w-auto" />
+          <span>{p.linkedinText}<span className="sr-only"> ({p.newTab})</span></span>
+        </a>
+      </div>
       <section className={`${wrap} ${section}`} aria-labelledby="focus">
         <h2 id="focus" className="text-3xl font-bold">{p.focusTitle}</h2>
         <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -352,7 +359,7 @@ export function AboutPage({ lang }: { lang: Lang }) {
       </div>
       <JsonLd data={{
         "@context": "https://schema.org", "@type": "Person", name: site.owner, jobTitle: lang === "de" ? "Webentwickler" : "Web developer",
-        url: site.url + pathFor("about", lang), worksFor: { "@id": orgId },
+        url: site.url + pathFor("about", lang), sameAs: [linkedIn], worksFor: { "@id": orgId },
         address: { "@type": "PostalAddress", addressLocality: site.address.city, addressCountry: site.address.country }, inLanguage: lang,
       }} />
     </>
