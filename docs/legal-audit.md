@@ -23,7 +23,7 @@ them. "Check" means *someone qualified should look at it*, not that something is
 | 10 | Check | Old SMTP password rotated? config permissions, storage outside the webroot, 2FA on mail, GitHub, netcup | you |
 | 11 | Decide | AI crawlers are explicitly allowed in `robots.txt`; decide whether to keep or add a copyright reservation | you |
 | 12 | Later | AI chatbot offer (EU AI Act transparency), Stripe/PayPal, voicemail line, LinkedIn link: each needs a privacy-text update when it goes live | you |
-| 13 | **Decide before changing the Impressum** | Contracting party and insurance: the Exili IT-Haftpflicht is recorded under the owner's name as Einzelunternehmer, while the site, quotes and privacy text present Fluxmedia GbR. A claim against the GbR may not be covered, and billing leads of the GbR through the owner personally has legal, tax and partner problems. See section 9a | you, Exili, Steuerberater, lawyer, co-partner |
+| 13 | **Decide before changing the Impressum** | Contracting party and insurance: the exali IT-Haftpflicht is recorded under the owner's name as Einzelunternehmer, while the site, quotes and privacy text present Fluxmedia GbR. A claim against the GbR may not be covered, and billing leads of the GbR through the owner personally has legal, tax and partner problems. See section 9a | you, exali, Steuerberater, lawyer, co-partner |
 
 ## 2. Data-flow inventory (what the site really does)
 
@@ -209,12 +209,29 @@ Check:
 
 ### 9a. Contracting party, insurance and the GbR (reviewed 2026-10-24)
 
-**Facts given by the owner:** the Exili IT-Haftpflicht is recorded under the **owner's name, type Einzelunternehmer**.
-The site presents **Fluxmedia GbR** (two partners). Exili states that the terms could change at any time. The owner is
+**Facts given by the owner:** the exali IT-Haftpflicht is recorded under the **owner's name, type Einzelunternehmer**.
+The site presents **Fluxmedia GbR** (two partners). exali states that the terms could change at any time. The owner is
 considering moving Fluxmedia to the owner's own name and tax number only (Freiberufler or Einzelunternehmer, to be
-decided), and, if Exili requires it, insuring Einzelunternehmer and Freiberufler under the same name. The concern is
+decided), and, if exali requires it, insuring Einzelunternehmer and Freiberufler under the same name. The concern is
 mixing the GbR with the personal business. The owner mentioned a separate document on a "Fluxmedia close strategy";
 it was not found in `docs/` and is **not** reflected here.
+
+**Policy facts (Versicherungsschein EX.MPI.52981, dated 09.09.2026, `docs/insurance/HP_Police_IT-Haftpflicht_52981.md`):**
+
+| Item | Content |
+|---|---|
+| Insurer / broker | Insurer **Markel Insurance SE**, Sophienstr. 26, 80333 München. Broker **exali AG**, Augsburg (exali conditions apply only while exali remains the broker) |
+| Policyholder | The owner personally, legal form *Einzelunternehmen*. No trade name is recorded; the GbR is not named |
+| Cover | Vermögensschaden-Haftpflicht incl. Eigenschäden (300,000 €), Büro-/Betriebshaftpflicht incl. Produkthaftpflicht (3,000,000 € for personal injury and property damage), Datenschutz- & Cyber-Eigenschaden (limit 100,000 €); annual maximum three times the sum |
+| Deductible | 250 € (Vermögens- and Sachschäden), 1,000 € for the cyber part |
+| Insured activity | "Tätigkeiten der IT- und Telekommunikationsbranche gemäß Ihren Angaben" (the declared list is in the online application, not in the Versicherungsschein) |
+| Turnover declared | 0 to 30,000 € |
+| Term | 10.09.2026 to 01.10.2027; annual online change report (Jahresmeldung) counts as the notice of changes |
+| Startup discount | 15 % until the end of the 2nd year (founding not older than 12 months) |
+| Not in this document | Territorial scope, exclusions and retroactive cover: they are in the "IT-Haftpflicht Bedingungen exali 2026-03", which should be added to `docs/insurance/` |
+
+Consequences: the policyholder is the owner, so the party matches option D. The cover is for the owner only, **not
+for the GbR**. The declared turnover band (30,000 €) must be reported if combined turnover could exceed it.
 
 **Core rule:** insurance follows the real facts (who sells, who performs, who is liable), not who sends the invoice.
 Choosing the invoicing party to fit the policy does not create cover, and a mismatch can create a gap.
@@ -230,7 +247,7 @@ details) so that the personal policy applies.** Problems:
 | Data protection | The GbR collects the form data. Passing it on to the owner as a separate controller needs a legal basis, and the privacy text must name the recipient |
 | Freiberufler status | Web development, SEO and chatbot work is often treated as commercial (gewerblich), not freiberuflich. The Finanzamt decides; ask the Steuerberater before switching the tax number |
 
-**Insurance points to check (ask Exili in writing):**
+**Insurance points to check (ask exali in writing):**
 - **Insured party:** a policy for the owner as Einzelunternehmer does not automatically cover claims against the GbR,
   which is a separate party. The partners are personally liable for GbR debts (§ 721 BGB, to be confirmed). Cover for the
   GbR needs the GbR, with its partners, named as insured.
@@ -245,41 +262,49 @@ details) so that the personal policy applies.** Problems:
 | Option | What changes | Assessment |
 |---|---|---|
 | A. Owner as sole provider (new or renamed business) | Impressum, quotes, invoices, privacy text and domain holder move to the owner's business ("Fluxmedia, Inh. Name"). The GbR stops trading | Cleanest and matches the current policy. Needs a plan with the co-partner and the Steuerberater, and a decision on the tax number |
-| B. GbR stays the provider | Change the Exili policy to the GbR with partners co-insured | Matches the current site; the partners stay personally liable |
+| B. GbR stays the provider | Change the exali policy to the GbR with partners co-insured | Matches the current site; the partners stay personally liable |
 | C. Hybrid (GbR as lead source) | Written agreement GbR to owner, co-partner consent, disclosure on the site, invoices from the owner, insurance for both | Possible but complex; only as a short transition while the GbR is wound down |
-| D. Fluxmedia becomes a brand of the owner's existing business | The whole Impressum and the owner of fluxmedia.de change from Fluxmedia GbR to the owner's existing business, the same set-up as pdf-to-fax, which runs as a product of Mutopic. "Fluxmedia" stays as the brand and domain, the operator named in the Impressum, quotes, invoices and privacy text is the owner's business. **The GbR is not dissolved**; it simply no longer runs fluxmedia.de | Variant of A with the least new paperwork: the business, tax number and (probably) the Exili policy already exist. See the details below |
+| D. Fluxmedia becomes a brand of the owner's existing business | The whole Impressum and the owner of fluxmedia.de change from Fluxmedia GbR to the owner's existing business, the same set-up as pdf-to-fax, which already runs under the owner's name. "Fluxmedia" stays as the brand and domain, the operator named in the Impressum, quotes, invoices and privacy text is the owner's business. **The GbR is not dissolved**; it simply no longer runs fluxmedia.de | Variant of A with the least new paperwork: the business, tax number and the exali/Markel policy already exist. See the details below |
 
-**Option D in detail (variant of A):** the owner already runs pdf-to-fax as a product of Mutopic, so Fluxmedia would
-become a second product or brand of that business. This is a change of operator for the site, **not a dissolution**:
+**Option D in detail (variant of A):** the owner already runs pdf-to-fax as a sole trader, so Fluxmedia would
+become a second product or brand of that business. The Impressum names only "Fluxmedia, Inhaber: Full Name"; no other
+trading name is shown. This is a change of operator for the site, **not a dissolution**:
 the GbR can continue to exist.
-- **Impressum and operator:** the Impressum names the operator exactly as for pdf-to-fax (name, address, contact, tax
-  details), with "Fluxmedia" as the brand. For a sole trader, check with the Steuerberater or lawyer whether "Mutopic"
-  may stand alone or must be shown as "Mutopic, Inh. Full Name" (the full name is normally required in the Impressum).
-- **Insurance:** the policy already sits with the owner as Einzelunternehmer, so the party matches. Ask Exili in writing
-  whether it names the business "Mutopic", whether the activity list covers web development, SEO, AI visibility work,
-  chatbots and automation (not only the pdf-to-fax product), and whether one policy covers both products.
+- **Impressum and operator:** the Impressum names "Fluxmedia, Inhaber: Full Name" with address, contact and tax
+  details. The full name of the owner is required. Enter "Fluxmedia" as business designation in the Gewerbeanmeldung.
+  Texts: `docs/impressum-option-d.md`.
+- **Insurance:** the policy is held by the owner personally (Versicherungsnehmer), so the party matches. No trade name
+  is recorded and none is needed. Ask exali in writing whether the declared activity list covers web development, SEO,
+  AI visibility work, chatbots and automation (not only the pdf-to-fax product), and whether one policy covers both
+  products within the declared turnover.
 - **Tax:** one person is one entrepreneur. Turnover from pdf-to-fax and from Fluxmedia is counted together for the
   small-business rule (§ 19 UStG) and its limits. The Steuerberater should check the combined figures and the invoice
   wording. The Gewerbeanmeldung may need the new activities added, and the freiberuflich or gewerblich question
   (section 9a table) applies to the whole business.
 - **Brand and domain:** the name "Fluxmedia" and the domain belong to the GbR today. They need a written transfer, or a written licence from the GbR to the owner,
   or at least the co-partner's consent (domain registrant at the registrar, netcup contract holder, GitHub, mailbox,
-  social profiles).
+  social profiles). The owner considers a transfer or licence **not required**; the Steuerberater should confirm that
+  free use of the GbR's brand and domain has no tax effect (Nutzungsentnahme, Abfärbung).
 - **Existing customers and contracts:** contracts concluded with the GbR stay with the GbR until they are transferred
   (usually with the customer's consent) or completed. Check which party the Krieger Digital contract is with, because
-  the portfolio reference ("im Auftrag von Krieger Digital", section 6a) names the contractor.
+  the portfolio reference ("im Auftrag von Krieger Digital", section 6a) names the contractor. The owner states that
+  the GbR has had **no customers since 2023**, so no contracts have to be transferred.
 - **Co-partner and GbR:** the GbR stays, so no dissolution, liquidation or tax closing is needed for this step. The co-partner
   still has to agree in writing to the new operator, the use of the brand and domain, and the handling of open
   leads and contracts. Decide what the GbR does afterwards (dormant, other business, or later closing) and make sure it
   does not keep offering the same services under the same name, so customers are not confused about the contracting
-  party. If the GbR keeps trading, it needs its own insurance cover (section 9a, insurance points).
+  party. **Decision (owner, 2026-10-25):** the Impressum states that Fluxmedia GbR remains available for freiberufliche
+  orders through a **separate contact page**, and that contracts are concluded only with the party named in the quote,
+  never through the other party's address. This makes the divergence visible and avoids a mixed contracting party.
+  The GbR has no insurance under the current policy; it needs its own cover before it takes orders again.
 - **Privacy policy and processors:** the controller changes, and the netcup processor agreement and other contracts
   move to the new operator.
 - **Risk:** a sole trader is liable with all personal assets, for both products together. A problem in one product can
   reach the other. A limited-liability company (UG or GmbH) would separate this, but it is a different and larger step.
+  The owner's risk strategy is insurance plus general compliance.
 
 **Motivation (owner, 2026-10-24):** the reason for any change of operator is the insurance. The main harm to be covered
-is claims made by customers. Exili also offers an "other" form; the owner can ask whether the policy can cover both
+is claims made by customers. exali also offers an "other" form; the owner can ask whether the policy can cover both
 gewerbliche and freiberufliche activities.
 
 **Which insurance covers what:** a Betriebshaftpflicht covers injury and property damage and their consequences. A
@@ -287,12 +312,13 @@ customer's pure financial loss from faulty IT work (broken shop, lost leads, wro
 IT-Haftpflicht or Vermögensschaden-Haftpflicht. Confirm that the policy contains that part; ask separately about
 Cyber and data-protection claims.
 
-**Questions for Exili (ask in writing, get a Deckungsbestätigung):**
-1. Can one policy cover **all** activities under the owner's name: web development, SEO, AI visibility work, chatbots,
-   automation, and Mutopic's SaaS and IT support? Insurers care about policyholder, listed activities and declared
-   turnover, not about the tax classification (gewerblich or freiberuflich).
-2. Can both trading names, "Mutopic" and "Fluxmedia", be named, so that a claim over work sold as "Fluxmedia" falls under
-   the policy?
+**Questions for exali (ask in writing, get a Deckungsbestätigung):**
+1. Does the declared activity list ("gemäß Ihren Angaben") cover **all** activities under the owner's name: web
+   development, SEO, AI visibility work, chatbots, automation, and the SaaS and IT support of pdf-to-fax? Insurers care
+   about policyholder, listed activities and declared turnover, not about the tax classification (gewerblich or
+   freiberuflich).
+2. Is work sold under the brand "Fluxmedia" covered although the policy records no trade name? Is a written
+   confirmation of this possible?
 3. Does the "other" form or another product change price, limits or exclusions (AI work, promised rankings)?
 4. Is the **GbR** co-insured? A claim against the GbR is a claim against a separate party; the partners are personally
    liable for its debts, but that is not automatically covered.
@@ -300,19 +326,19 @@ Cyber and data-protection claims.
    covered (retroactive cover)?
 6. **After-cover:** what happens to claims if the GbR is dissolved or the policy ends? Former GbR partners can stay
    liable for GbR debts for a limited period (about five years, to be confirmed).
-7. Exili states that terms could change at any time: ask what notice applies and keep every answer in writing.
+7. exali states that terms could change at any time: ask what notice applies and keep every answer in writing.
 
-**Hybrid idea reviewed: "site owned by Fluxmedia GbR (to satisfy the Finanzamt), sales and development by Mutopic":**
+**Hybrid idea reviewed: "site owned by Fluxmedia GbR (to satisfy the Finanzamt), sales and development by the owner's sole proprietorship":**
 
 | Question | Assessment |
 |---|---|
-| Allowed to name two roles? | Yes, if truthful and clear: the Impressum names the site provider, and the quote, AGB and invoice name Mutopic as contracting party **before** the contract; Mutopic's details (name, address, contact, USt-IdNr) visible on the site |
-| Does it fix the insurance? | No, it adds a defendant: a customer who sees the GbR as site owner can also claim against the GbR, which the personal policy does not cover unless Exili co-insures it |
-| Does it satisfy the Finanzamt? | Not reliably. The Finanzamt looks at who earns the income and performs the work, not at the wording of the Impressum. A GbR that only owns a domain while the business happens in Mutopic is weak evidence of activity |
-| Brand and domain use | Needs a licence or fee. Free use by Mutopic looks like a *Nutzungsentnahme*; a fee or commission is gewerblich income inside a freiberuflich GbR (Abfärbung risk, § 15 Abs. 3 Nr. 1 EStG). Steuerberater to decide |
+| Allowed to name two roles? | Yes, if truthful and clear: the Impressum names the site provider, and the quote, AGB and invoice name the sole proprietorship as contracting party **before** the contract; its details (name, address, contact, USt-IdNr) visible on the site |
+| Does it fix the insurance? | No, it adds a defendant: a customer who sees the GbR as site owner can also claim against the GbR, which the personal policy does not cover unless exali co-insures it |
+| Does it satisfy the Finanzamt? | Not reliably. The Finanzamt looks at who earns the income and performs the work, not at the wording of the Impressum. A GbR that only owns a domain while the business happens in the sole proprietorship is weak evidence of activity |
+| Brand and domain use | Needs a licence or fee. Free use by the sole proprietorship looks like a *Nutzungsentnahme*; a fee or commission is gewerblich income inside a freiberuflich GbR (Abfärbung risk, § 15 Abs. 3 Nr. 1 EStG). Steuerberater to decide |
 | Sham risk | A structure built to show activity for the Finanzamt while the real work happens elsewhere can be seen as an abuse of structure (§ 42 AO). Do not word the Impressum for the Finanzamt; the Finanzamt gets its information from filings and the Steuerberater's letter, not from the website |
 
-**Order of work:** (1) send the questions above to Exili and wait for the written answer; if the policy can cover
+**Order of work:** (1) send the questions above to exali and wait for the written answer; if the policy can cover
 everything under the owner's name including both trading names, the insurance reason for a change falls away;
 (2) talk to the co-partner; (3) ask the Steuerberater about freiberuflich or gewerblich, invoicing per entity, and the
 timing against the GbR plans; (4) then choose option D (after the Steuerberater confirms the timing) or option B with
@@ -364,4 +390,4 @@ pages before the structure is decided.
 6. Decide consumers vs businesses and publish the matching wording (section 7).
 7. Document the hero image's source and licence (section 6).
 8. Before the Ratgeber goes live: § 18 MStV line in the Impressum, and review the article texts for claims.
-9. Decide the contracting party and the insurance (section 9a) **before** step 4 changes the Impressum: Exili in writing, co-partner, Steuerberater.
+9. Decide the contracting party and the insurance (section 9a) **before** step 4 changes the Impressum: exali in writing, co-partner, Steuerberater.

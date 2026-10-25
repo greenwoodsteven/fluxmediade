@@ -21,7 +21,33 @@ This list collects every open point from the audits, the legal and privacy docum
 | 7 | P1 | ops | Browser check on the live site: **no cookies, no storage, requests only to `www.fluxmedia.de`** | developer tools *Application* and *Network* tabs are clean | S | legal-audit section 5 |
 | 8 | P1 | ops | **SPF, DKIM and DMARC** for `fluxmedia.de` so the confirmation mails arrive | test mail passes the three checks (mail-tester or similar), analysis confirmation lands in the inbox | S | legal-audit section 8 |
 | 9 | P1 | legal | **Impressum** completeness: § 18 MStV line once the Ratgeber exists, dispute-resolution statement, VAT ID vs small-business rule | Steuerberater and lawyer confirm; `de.json`/`en.json` updated | S | legal-audit #4 |
-| 51 | P1 | decision | **Contracting party and insurance**: ask Exili in writing (question list in legal-audit 9a) who is insured (owner as Einzelunternehmer vs Fluxmedia GbR) and for which activities; talk to the co-partner; ask the Steuerberater (freiberuflich or gewerblich, invoicing per entity). Decide before changing Impressum, quotes or invoices | written answer from Exili, decision recorded (option A, B or C), then Impressum, privacy text and quote wording changed together | M | legal-audit #13, section 9a |
+| 51 | P1 | decision | **Contracting party and insurance**: ask exali in writing (question list in legal-audit 9a) who is insured (owner as Einzelunternehmer vs Fluxmedia GbR) and for which activities; talk to the co-partner; ask the Steuerberater (freiberuflich or gewerblich, invoicing per entity). Decide before changing Impressum, quotes or invoices | written answer from exali, decision recorded (option A, B or C), then Impressum, privacy text and quote wording changed together | M | legal-audit #13, section 9a |
+
+### 1a. Impressum, Widerruf and Datenschutz under option D
+
+Applies only if option D (`legal-audit.md` 9a) is chosen. Texts: `docs/impressum-option-d.md` and `docs/widerruf-datenschutz-option-d.md`.
+**Do not change the live pages before the decisions (52 to 56) are made.** Items 57 to 67 then change everything together.
+
+| # | Pri | Type | Task | Done when | Effort | Source |
+|---|---|---|---|---|---|---|
+| 52 | P1 | legal | **Insurance check**: add the "IT-Haftpflicht Bedingungen exali 2026-03" to `docs/insurance/`; read territorial scope, exclusions (AI work, promised rankings), retroactive cover; send the question list to exali and get the answers in writing | scope and activity list confirmed in writing | S | legal-audit 9a, policy EX.MPI.52981 |
+| 53 | P1 | legal | **Steuerberater**: freiberuflich or gewerblich for web, SEO and AI work; "Fluxmedia" as business designation in the Gewerbeanmeldung; combined turnover for § 19 UStG and the 30,000 € insurance band; free use of the GbR brand and domain (Nutzungsentnahme, Abfärbung) | written answer | S | legal-audit 9a |
+| 54 | P1 | decision | **Co-partner**: written agreement to option D, to the new Impressum, to being named on the GbR contact page, and to the GbR staying available for freiberufliche orders | written consent | S | impressum-option-d section 3 |
+| 55 | P1 | decision | **Businesses only or consumers too**: businesses only avoids the Widerrufsbelehrung and the Widerrufsbutton (§ 356a BGB); consumers need both | decision recorded | S | widerruf-datenschutz-option-d section 1 |
+| 56 | P1 | decision | **Publish the insurance line** in the Impressum or only in quote/AGB (§ 2 DL-InfoV) | decision recorded | S | impressum-option-d 2a |
+| 57 | P1 | content | **Fill the placeholders** from the Gewerbeanmeldung: full name, address, phone, USt-IdNr. (if any), territorial scope | no `[...]` left in the texts | S | impressum-option-d section 1 |
+| 58 | P1 | code | **Impressum DE/EN** in `de.json`/`en.json` and `config/site.local.json` (operator, Inhaber, insurance, Streitbeilegung, GbR block); remove the partner list and the old OS-platform text | page shows the new text | M | impressum-option-d section 2 |
+| 59 | P1 | code | **GbR contact page** (`/kontakt-gbr/`) with its own § 5 data, linked from the Impressum and the footer; no use of the owner's quote form or mailbox | page live, no insurance line on it | M | impressum-option-d section 3 |
+| 60 | P1 | code | **Privacy page**: controller changes to the owner, GbR named as controller only for its contact page; netcup processor contract stays | page names the right controllers | S | legal-audit 9a |
+| 61 | P1 | code | **Widerruf**: if consumers are accepted, add the page with Widerrufsbelehrung and Muster-Widerrufsformular, a footer link and the **Widerrufsbutton**; if businesses only, add the B2B sentence to the quote page and AGB | matches decision 55 | M | widerruf-datenschutz-option-d sections 2 and 3 |
+| 62 | P1 | code | **Quote and confirmation mails**: operator in the footer of the auto-reply (`api/lib/bootstrap.php`), contracting party named in the quote before the contract | mails name the owner | S | impressum-option-d section 6 |
+| 63 | P1 | content | **JSON-LD and site config**: `legalName`, organisation node, `partners`, `vatId`, address | structured data matches the Impressum | S | impressum-option-d section 6 |
+| 64 | P2 | content | **Invoice and AGB templates**: owner's full name and address, tax number, § 19 UStG note, price wording net/gross | template ready | M | impressum-option-d section 4 |
+| 65 | P2 | content | **Accessibility statement**: contact and responsible body | statement matches | S | impressum-option-d section 6 |
+| 66 | P2 | ops | **Kleinanzeigen and other profiles**: Impressum, Widerruf and Datenschutz blocks, commercial marking, price wording, no guarantee claims; same for Google Business Profile, LinkedIn, directories | profiles match the Impressum | S | widerruf-datenschutz-option-d section 5 |
+| 67 | P2 | ops | **Deploy and verify**: `./deploy/upload.sh`, `git pull` and the server `api/config.php` (`'to'`) if the mail address changes; check the Impressum, privacy and Widerruf pages live, run the axe/Lighthouse check | pages live and checked | S | deploy/README.md |
+| 68 | P2 | legal | **Lawyer check** of the final texts, especially § 356 Abs. 4 versus Abs. 6 BGB, the Widerrufsbutton, and whether the Vermögensschaden-Haftpflicht counts as Berufshaftpflicht under § 2 DL-InfoV | written feedback | M | widerruf-datenschutz-option-d section 3 |
+| 69 | P3 | ops | **Insurance upkeep**: update the Impressum line when the policy changes or ends (01.10.2027); annual Jahresmeldung; report turnover above 30,000 € | calendar reminder set | S | impressum-option-d 2a |
 
 ## 2. Accessibility (P1 to P2)
 

@@ -1,39 +1,36 @@
-# Impressum and Kleinanzeigen "Rechtliche Angaben" under option D
+# Impressum, GbR contact page and Kleinanzeigen "Rechtliche Angaben" under option D
 
-Draft texts for the case where **option D** in `legal-audit.md` section 9a is taken: Fluxmedia becomes a brand of the
-owner's existing sole proprietorship (Mutopic). The GbR is not dissolved, it just no longer runs fluxmedia.de.
+Draft texts for the case where **option D** in `legal-audit.md` section 9a is taken: Fluxmedia is run by the owner as a
+sole trader ("Fluxmedia, Inhaber: Full Name"). The GbR is not dissolved. It stays available for freiberufliche orders
+through a **separate contact page**, and the Impressum makes the split visible.
 
 Technical review and drafting aid, **not legal advice**. Have the Steuerberater or a lawyer check the final texts
-(see the order of work in `legal-audit.md` 9a). Do not publish before Exili has confirmed cover in writing.
+(order of work in `legal-audit.md` 9a). Withdrawal and privacy texts for Kleinanzeigen: `widerruf-datenschutz-option-d.md`.
 
-Square brackets are placeholders. Take them **word for word from the Gewerbeanmeldung and the Finanzamt letter**, the
-published data must match the registered data.
+Square brackets are placeholders. Take them **word for word from the Gewerbeanmeldung and the Finanzamt letter**.
 
 ## 1. Facts to fill in
 
 | Placeholder | Source | Note |
 |---|---|---|
-| `[VOLLER NAME]` | Gewerbeanmeldung | Full first and last name of the owner. Required, a trade name alone is not enough |
-| `[GESCHÄFTSBEZEICHNUNG]` | Gewerbeanmeldung | "Mutopic". Allowed as a business designation for a Kleingewerbe, but only together with the owner's name |
-| `[ANSCHRIFT]` | Gewerbeanmeldung | Street, postcode, town. Must be a **ladungsfähige Anschrift**, no P.O. box, no c/o forwarding address |
-| `[E-MAIL]` | existing | `mail@fluxmedia.de` can stay, if the mailbox is read |
-| `[TELEFON]` | existing | Second quick way to make contact; an e-mail alone is not enough on its own unless a quick contact form is also offered |
-| `[USt-IdNr.]` | Bundeszentralamt für Steuern | Only if one has been issued (§ 5 Abs. 1 Nr. 6 DDG). **Not** the tax number (Steuernummer) |
-| Register entry | none expected | A Kleingewerbe without Handelsregister entry: leave the line out, do not write "none" |
+| `[VOLLER NAME]` | Gewerbeanmeldung | Full first and last name. Required |
+| `[ANSCHRIFT]` | Gewerbeanmeldung | Street, postcode, town. A **ladungsfähige Anschrift**, no P.O. box. The GbR's address (Sandbühl 31, Überlingen) and the policy address are the same today; if the owner's business address is the same, say so only once per page |
+| `[TELEFON]` | existing | Second quick way to make contact next to the e-mail |
+| `[USt-IdNr.]` | Bundeszentralamt für Steuern | Only if issued (§ 5 Abs. 1 Nr. 6 DDG). Not the Steuernummer. Leave the line out otherwise |
+| Insurer | Versicherungsschein EX.MPI.52981 | Markel Insurance SE, Sophienstr. 26, 80333 München (the broker exali AG is not the insurer) |
+| `[GELTUNGSBEREICH]` | Versicherungsbedingungen | Territorial scope is **not** in the Versicherungsschein; read it in the "IT-Haftpflicht Bedingungen exali 2026-03" |
+| Register entry | none expected | A Kleingewerbe without Handelsregister entry: leave the line out |
 
-Do not publish the tax number. If the business is a Kleinunternehmer (§ 19 UStG), see section 5 for the invoice and
-price wording.
+"Fluxmedia" should be entered as business designation in the Gewerbeanmeldung.
 
-## 2. Impressum for fluxmedia.de (German, to replace the current text)
+## 2. Impressum for fluxmedia.de (German)
 
 ```text
 Impressum
 
 Angaben gemäß § 5 DDG
 
-Fluxmedia ist eine Marke von [GESCHÄFTSBEZEICHNUNG].
-
-[GESCHÄFTSBEZEICHNUNG]
+Fluxmedia
 Inhaber: [VOLLER NAME]
 [ANSCHRIFT]
 Deutschland
@@ -43,51 +40,63 @@ Telefon: [TELEFON]
 E-Mail: mail@fluxmedia.de
 
 Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [USt-IdNr.]
-(Zeile entfällt, wenn keine erteilt wurde.)
+
+Berufshaftpflichtversicherung
+Vermögensschaden- und Betriebshaftpflichtversicherung (IT-Haftpflicht) für den Inhaber
+Versicherer: Markel Insurance SE, Sophienstraße 26, 80333 München
+Räumlicher Geltungsbereich: [GELTUNGSBEREICH]
 
 Verbraucherstreitbeilegung
 Wir sind weder bereit noch verpflichtet, an Streitbeilegungsverfahren vor einer
 Verbraucherschlichtungsstelle teilzunehmen.
+
+Fluxmedia GbR
+Die Fluxmedia GbR besteht weiterhin und steht für freiberufliche Aufträge zur Verfügung.
+Diese Aufträge nimmt ausschließlich die GbR über ihre eigene Kontaktseite entgegen:
+[Link: Kontakt Fluxmedia GbR]. Verträge über die auf dieser Website beschriebenen Leistungen
+(Webentwicklung, KI-Sichtbarkeit & SEO, Chatbots, Automatisierung) schließt der oben genannte
+Inhaber; die Fluxmedia GbR ist daran nicht beteiligt. Vertragspartner ist jeweils nur diejenige
+Person oder Gesellschaft, die im Angebot ausdrücklich genannt ist. Bitte richten Sie Anfragen
+und Aufträge deshalb nur an die dort genannte Adresse.
 ```
 
-Notes on each block:
+Notes:
 
-- **"Marke von"** line: tells the visitor who is behind the brand before they read anything else. It is the line that
-  keeps the site truthful (§ 5 UWG, no misleading about the identity of the trader) once the business behind
-  "Fluxmedia" is no longer "Fluxmedia GbR".
-- **Inhaber**: for a sole trader the Impressum names the natural person. No "GbR", no partner list.
-- **Contact**: § 5 Abs. 1 Nr. 2 DDG needs details for fast, direct contact, including an e-mail address. Keep the phone
-  number. The contact forms on the site are an additional channel, not a replacement.
-- **Streitbeilegung** (§ 36 VSBG): a trader with up to 10 employees is exempt from the duty to take part, but must say
-  whether they are willing. The sentence above is the usual "not willing" wording; change it if the owner would take
-  part. The EU online dispute resolution platform was discontinued on 20 July 2025, so no link to it is needed any more.
-  Delete an old OS-platform paragraph if the current Impressum still has one.
-- **Not needed** unless it applies: Handelsregister, Aufsichtsbehörde, Berufsrecht or Kammer (these are for
-  regulated professions; a web developer or SEO consultant is not one), and "Verantwortlich für den Inhalt nach § 18
-  Abs. 2 MStV" (only for journalistic-editorial content such as a news or blog section with editorial character; if the
-  blog is purely about the services, it can be added anyway at no cost).
-- **Insurance:** see section 2a. It is not a § 5 DDG item, but § 2 DL-InfoV may require it once a professional liability
-  policy exists.
+- **Inhaber**: for a sole trader the Impressum names the natural person. No partner list.
+- **Contact** (§ 5 Abs. 1 Nr. 2 DDG): e-mail plus a second quick way (phone). The forms are an additional channel.
+- **Streitbeilegung** (§ 36 VSBG): up to 10 employees means no duty to take part, but a statement is required. Change
+  the sentence if the owner would take part. The EU online platform closed on 20 July 2025, so no link is needed.
+- **Kleinunternehmer** (§ 19 UStG): not an Impressum item. If no USt-IdNr. exists, drop the line. The note
+  "Kein Ausweis von Umsatzsteuer gemäß § 19 UStG" belongs on invoices, and the net/gross statement on quotes.
+- **Not needed**: Handelsregister, Aufsichtsbehörde, Kammer and Berufsrecht (not a regulated profession), and
+  "Verantwortlich nach § 18 Abs. 2 MStV" unless there is editorial content.
+- **Insurance block** (§ 2 Abs. 1 Nr. 11 DL-InfoV): see section 2a.
+- **GbR block**: the sentence "Vertragspartner ist jeweils nur ..." is what makes the divergence clear. It must stay
+  true: do not accept an order for the services listed under the GbR through the owner's address and vice versa.
 
-### 2a. Naming the insurer
+### 2a. The insurance line
 
-Not a § 5 DDG duty, so it does not belong in the Impressum by law. The duty comes from **§ 2 Abs. 1 Nr. 11 DL-InfoV**: a
-service provider who **has taken out** a professional liability insurance (Berufshaftpflichtversicherung) must give the
-insurer's name, address and the territorial scope of cover. The provider chooses how (§ 2 Abs. 2): on their own
-initiative, on site, in a form available electronically, or in the information documents sent to the customer
-(quote, AGB). Whether an IT-/Vermögensschaden-Haftpflicht counts as a Berufshaftpflicht here is not settled in my
-recollection; treat it as likely yes and confirm with the lawyer.
+The duty comes from **§ 2 Abs. 1 Nr. 11 DL-InfoV**, not from § 5 DDG: a provider who has taken out a professional
+liability insurance gives the insurer's name, address and the territorial scope of cover. The way is the provider's
+choice (§ 2 Abs. 2): on their own initiative, on site, in an electronically available form, or in the information
+documents sent to the customer. That a Vermögensschaden-Haftpflicht counts as Berufshaftpflichtversicherung is likely
+but not settled in my recollection; confirm with the lawyer.
 
 | Place | Verdict |
 |---|---|
-| Impressum | Allowed and common, the simplest way to meet the duty. Not required to be there |
-| Quote / AGB / terms page | Equally valid, and keeps the Impressum limited to § 5 DDG |
-| Nowhere | Risky once the policy exists (Abmahnung under UWG for a missing mandatory information) |
+| Impressum | Allowed and common; the simplest way to meet the duty |
+| Quote / AGB | Equally valid |
+| Nowhere | Risky once the policy exists (Abmahnung for a missing mandatory information) |
 
-If it is published: use the exact insurer name and address and the territorial scope from the policy (get it from the
-Exili written confirmation, see question 7 in `legal-audit.md` 9a), update it whenever the insurer changes, and never
-state the sum insured as a promise. A wrong or lapsed statement is itself misleading. Sample line:
-"Berufshaftpflichtversicherung: [Versicherer, Anschrift], Geltungsbereich: [z. B. Deutschland/EU]".
+Rules for the published line:
+
+- The insurer is **Markel Insurance SE**; exali AG is the broker and is not named.
+- The line says the policy is for **the owner (Inhaber)**. The policy does **not** cover the GbR (section 2, GbR block),
+  so the insurance line must not appear on the GbR's contact page.
+- Territorial scope: from the Bedingungen, not guessed. Do not state sums insured.
+- The policy runs to 01.10.2027. Remove or update the line the day the cover changes or ends.
+- The declared turnover band is 0 to 30,000 €. Report changes through the annual online change report (Jahresmeldung),
+  otherwise the published statement may not match the cover.
 
 ### English courtesy version
 
@@ -96,9 +105,7 @@ Legal notice
 
 Information pursuant to § 5 DDG
 
-Fluxmedia is a brand of [GESCHÄFTSBEZEICHNUNG].
-
-[GESCHÄFTSBEZEICHNUNG]
+Fluxmedia
 Owner: [VOLLER NAME]
 [ANSCHRIFT]
 Germany
@@ -109,21 +116,61 @@ E-mail: mail@fluxmedia.de
 
 VAT ID pursuant to § 27a UStG: [USt-IdNr.]
 
+Professional liability insurance
+Financial-loss and general liability insurance (IT liability) for the owner
+Insurer: Markel Insurance SE, Sophienstraße 26, 80333 München, Germany
+Territorial scope: [GELTUNGSBEREICH]
+
 Consumer dispute resolution
 We are neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board.
+
+Fluxmedia GbR
+Fluxmedia GbR still exists and is available for freelance (freiberufliche) orders. These orders are taken only by the
+GbR, through its own contact page: [link: Contact Fluxmedia GbR]. Contracts for the services described on this website
+(web development, AI visibility & SEO, chatbots, automation) are concluded by the owner named above; Fluxmedia GbR is
+not a party to them. The contracting party is always only the person or company named in the quote. Please send
+enquiries and orders only to the address named there.
 ```
 
-## 3. Rechtliche Angaben for the Kleinanzeigen ad
+## 3. Separate contact page for Fluxmedia GbR
 
-Layout follows the comparison seller (Impressum, Widerrufsrecht, Datenschutzerklärung). Kleinanzeigen shows these as
-three blocks, so each one must be complete on its own.
+A separate page, for example `/kontakt-gbr/`, linked from the Impressum block and from the footer. It is a page of its
+own, so it needs its own provider details (§ 5 DDG), and it must not reuse the owner's quote form.
 
-### 3.1 Impressum block
+```text
+Kontakt Fluxmedia GbR (freiberufliche Aufträge)
+
+Fluxmedia GbR
+Gesellschafter: Steven Greenwood, Melanie Wein
+Sandbühl 31, 88662 Überlingen
+E-Mail: [info@fluxmedia.de oder andere Adresse der GbR]
+Telefon: [TELEFON DER GBR]
+Umsatzsteuer-Identifikationsnummer: [USt-IdNr. der GbR]
+
+Diese Seite ist für freiberufliche Aufträge der Fluxmedia GbR. Für Webentwicklung, KI-Sichtbarkeit & SEO,
+Chatbots und Automatisierung von Fluxmedia (Inhaber [VOLLER NAME]) nutzen Sie bitte die Kontaktseite
+von Fluxmedia: [Link]. Verträge werden nur mit der im Angebot genannten Partei geschlossen.
+```
+
+Points to settle before it goes live:
+
+| Point | Note |
+|---|---|
+| Co-partner | Melanie Wein must agree in writing to the wording and to being named |
+| What counts as freiberuflich | The GbR page should list only work the Steuerberater accepts as freiberuflich (§ 18 EStG). Web development and SEO are often gewerblich; listing them there would repeat the Abfärbung risk. Wording: describe the actual freiberufliche activity, for example consulting, training or other work as agreed with the Steuerberater, not "web development" |
+| Insurance | The current policy does not cover the GbR. The GbR needs its own cover before it takes orders; until then the page should say nothing about insured status |
+| Form and mail | Do not reuse the owner's quote form or `mail@fluxmedia.de`; a separate address keeps the two flows apart. Contact form: new endpoint or plain mailto link |
+| Privacy | The GbR is its own controller for what it collects. The privacy page names both controllers (owner for fluxmedia.de, GbR for the GbR page) |
+| Same address | Both parties currently use the same street address. That is legal, but then the separate contact page, e-mail and the "never through the other party's address" sentence are what make the split clear |
+
+## 4. Rechtliche Angaben for the Kleinanzeigen ad (Impressum block)
+
+Layout follows the comparison seller (Impressum, Widerrufsrecht & Muster-Widerrufsformular, Datenschutzerklärung).
 
 ```text
 Impressum
 Angaben gemäß § 5 DDG
-[GESCHÄFTSBEZEICHNUNG] – Fluxmedia
+Fluxmedia
 Inhaber: [VOLLER NAME]
 [ANSCHRIFT]
 Deutschland
@@ -132,111 +179,47 @@ Telefon: [TELEFON]
 E-Mail: mail@fluxmedia.de
 www.fluxmedia.de
 USt-IdNr.: [USt-IdNr.]
+Berufshaftpflichtversicherung: Markel Insurance SE, Sophienstraße 26, 80333 München,
+Geltungsbereich: [GELTUNGSBEREICH]
 ```
 
-This is the same data as on the website. Differences from the comparison text:
+The Widerrufsrecht and Datenschutzerklärung blocks are in `widerruf-datenschutz-option-d.md`. Ad text rules:
 
-- The first line shows the brand **and** the legal operator, so a reader who knows the business as "Fluxmedia" and a
-  reader who finds "Mutopic" in the invoice can connect the two.
-- No private e-mail account: use the business address.
-- Add the USt-IdNr. line only if one exists.
-
-### 3.2 Widerrufsrecht block
-
-Which text applies depends on one decision that is the owner's to make: **sell only to businesses, or also to
-consumers.**
-
-| Choice | Effect |
-|---|---|
-| **B2B only (recommended for this offer)** | Say so clearly in the ad. Web development, SEO and AI visibility work is aimed at businesses. There is no statutory withdrawal right for businesses, so no Widerrufsbelehrung and no form is needed. Risk: a consumer can still contact you; decline, or treat the enquiry as a consumer contract |
-| Also consumers | A distance contract for services gives a 14-day withdrawal right. The Widerrufsbelehrung and the model form are mandatory, and for services that start within the 14 days you need the consumer's express request and acknowledgement to be able to charge for the work done (§ 357a BGB). Without a correct instruction the withdrawal period runs up to 12 months and 14 days |
-
-Text for **B2B only**:
-
-```text
-Widerrufsrecht
-Unser Angebot richtet sich ausschließlich an Unternehmer im Sinne von § 14 BGB
-(Gewerbetreibende, Freiberufler, Vereine und Organisationen, die zu gewerblichen oder
-selbstständigen Zwecken handeln). Ein gesetzliches Widerrufsrecht für Verbraucher besteht
-daher nicht. Verträge mit Verbrauchern schließen wir über diese Anzeige nicht.
-```
-
-Text for **consumers as well**: use the statutory model instruction (Anlage 1 zu Art. 246a § 1 Abs. 2 Satz 2 EGBGB,
-service contract version) and the model withdrawal form (Anlage 2), with the trader data from section 3.1, plus the
-sentence on early start of the service. Do not paraphrase the model texts, small changes lose the protection of
-using the official wording. A Kleinanzeigen listing for services that are bespoke projects is, in practice, a poor
-fit for this route.
-
-### 3.3 Datenschutzerklärung block
-
-The seller needs their own privacy text for what happens **after** the first message (enquiry by Kleinanzeigen chat,
-e-mail or phone). Kleinanzeigen's own privacy policy covers the platform, not the seller's processing.
-
-```text
-Datenschutzerklärung
-Verantwortlicher: [GESCHÄFTSBEZEICHNUNG], Inhaber [VOLLER NAME], [ANSCHRIFT],
-E-Mail: mail@fluxmedia.de
-
-Wenn Sie uns über Kleinanzeigen, per E-Mail oder telefonisch kontaktieren, verarbeiten wir
-Ihren Namen, Ihre Kontaktdaten und den Inhalt Ihrer Anfrage, um diese zu beantworten
-(Art. 6 Abs. 1 lit. b DSGVO, vorvertragliche Maßnahmen, bzw. lit. f DSGVO, berechtigtes
-Interesse an der Beantwortung von Anfragen). Die Daten werden gelöscht, sobald die Anfrage
-erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen
-(Rechnungen: 8 Jahre bzw. 6 Jahre für Geschäftsbriefe).
-Ihre Rechte (Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch, Datenübertragbarkeit)
-und die Beschwerde bei einer Aufsichtsbehörde sind in der ausführlichen Erklärung unter
-https://www.fluxmedia.de/datenschutz/ beschrieben.
-```
-
-Check before use:
-
-- The privacy page on fluxmedia.de must **already name the new controller** (same change as the Impressum, see the
-  "change everything together" step in `legal-audit.md` 9a). Otherwise this block links to a text that names the GbR.
-- The retention periods above (§ 147 AO / § 257 HGB, 8 years since the 2025 change for booking documents, 6 years for
-  commercial correspondence) are the Steuerberater's to confirm for a Kleingewerbe with EÜR.
-- If a Kleinanzeigen field is too short, put the short version in the ad and link to the full text on the website.
-
-### 3.4 Ad text rules that go with the legal block
-
-- Mark the ad as a **commercial** offer (gewerblich). Kleinanzeigen requires it, and a business posing as private
-  seller is a UWG violation.
+- Mark the ad as **commercial** (gewerblich); a business posing as private seller breaks the UWG.
 - Show the **price** and say whether it is net or gross (PAngV). For a Kleinunternehmer: "Preise ohne Ausweis von
-  Umsatzsteuer gemäß § 19 UStG". For a regular VAT payer: "zzgl. gesetzlicher Umsatzsteuer" for B2B-only offers.
-- Use the same price and scope wording as the website (for custom work: "ab 50 € pro Stunde", with the volume note).
-- No guarantee wording ("Platz 1", "garantiert in ChatGPT sichtbar"). The service pages already avoid this.
-- Name **Fluxmedia and the operator** in the ad, not only the brand.
+  Umsatzsteuer gemäß § 19 UStG". For a VAT payer in a B2B-only offer: "zzgl. gesetzlicher Umsatzsteuer".
+- Use the same price and scope wording as the website ("ab 50 € pro Stunde" with the volume note).
+- No guarantee wording ("Platz 1", "garantiert in ChatGPT sichtbar").
+- Name the owner and "Fluxmedia", not the GbR. Orders for the GbR's freiberufliche work do not go through this ad.
 
-## 4. Side by side: current set-up and option D
+## 5. What the Finanzamt could gather from the switch
 
-| Item | Today (Fluxmedia GbR) | Option D |
+The Finanzamt does not read the website for assessment, but it can. What it would see, and the answer for each:
+
+| Visible fact | Likely question | Answer |
 |---|---|---|
-| Operator in the Impressum | Fluxmedia GbR, partners listed | [GESCHÄFTSBEZEICHNUNG], Inhaber [VOLLER NAME] |
-| Brand shown | Fluxmedia | Fluxmedia, "eine Marke von ..." |
-| USt-IdNr. | the GbR's | the owner's, if any |
-| Contracting party in quote, invoice, AGB | GbR | the sole proprietorship |
-| Privacy controller | GbR | the sole proprietorship |
-| Contract liability | partners jointly | owner alone, with Exili cover as the main protection |
-| Kleinanzeigen "Rechtliche Angaben" | would name the GbR and both partners | same data as the Impressum above |
+| The Impressum names the owner as the operator of Fluxmedia, with a business activity in web, SEO and AI work | Is the activity registered and taxed? | Gewerbeanmeldung must list the activity; income goes into the existing EÜR; combined turnover counts for § 19 UStG |
+| The GbR "remains available for freiberufliche orders" | Is the GbR still active, and what does it do? | It supports the GbR as active, which suits the plan only if the GbR really does freiberufliche work; do not claim activity that is not there |
+| Same brand and domain used by two parties | Does the owner pay for the brand? Does income move out of the GbR? | Steuerberater: the owner says no transfer is required; confirm free use has no tax effect |
+| The GbR page lists services | Gewerblich services in a freiberuflich GbR? | Abfärbung risk (§ 15 Abs. 3 Nr. 1 EStG) |
 
-## 5. Other places that must change together
+Do not word the Impressum for the Finanzamt; the filings and the Steuerberater's letter are the channel.
 
-These name the operator and become wrong the moment the Impressum changes:
+## 6. Other places that change together
 
-1. Privacy policy (controller, contact, processor agreement partners if named).
-2. Quote form text and the confirmation e-mails (`api/` auto-reply signs as "Fluxmedia", add the operator in the footer).
+1. Privacy policy: controllers (owner for fluxmedia.de, GbR for its page), processor contracts with netcup.
+2. Quote form text and the confirmation e-mails (the `api/` auto-reply signs "Fluxmedia"; add the owner in the footer).
 3. AGB or terms, if any (contracting party).
-4. Invoice template: name, address, tax number or USt-IdNr., and for a Kleinunternehmer the § 19 UStG note.
-5. JSON-LD (`legalName`, `@id` organisation node, `founder`/`member` if any) and `config/site.local.json`
-   (`legalName`, `partners`, `address`, `vatId`).
+4. Invoice template: owner's full name, address, tax number or USt-IdNr., the § 19 UStG note if applicable.
+5. JSON-LD (`legalName`, organisation node) and `config/site.local.json` (`legalName`, `partners`, `address`, `vatId`).
 6. Accessibility statement (contact, responsible body).
-7. External profiles: Kleinanzeigen, Google Business Profile, LinkedIn page, any directory.
+7. External profiles: Kleinanzeigen, Google Business Profile, LinkedIn page, directories.
+8. The GbR contact page, footer link and the Impressum block.
 
-## 6. Open points for the owner
+## 7. Open points for the owner
 
-- Which of the two trading names is shown first on invoices, "Mutopic" or "Fluxmedia"? The invoice must carry the
-  registered name; the brand can follow it.
-- Whether Mutopic's own Impressum (pdf-to-fax) and this one use the same address and contact data. They should, they
-  describe the same person and business.
-- Whether the GbR is mentioned at all. It is not needed, but if a visitor knows the old Impressum, a short
-  "Fluxmedia wird seit [Datum] von ... betrieben" in the privacy history or on the About page avoids confusion. Check
-  this with the co-partner and the Steuerberater, since it touches the planning around the GbR.
+- The territorial scope and the declared activity list: add the "IT-Haftpflicht Bedingungen exali 2026-03" to
+  `docs/insurance/` so the insurance line can be checked against it.
+- Which freiberufliche work the GbR actually offers (Steuerberater to confirm the classification).
+- GbR insurance, address, e-mail and phone for the separate contact page.
+- Whether to publish the insurance line in the Impressum or only in the quote.
