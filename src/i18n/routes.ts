@@ -6,7 +6,7 @@ export const defaultLang: Lang = "de";
 
 export const pageIds = [
   "home", "services", "geo", "a11y", "relaunch", "wordpress", "landing", "chatbot", "automation", "custom",
-  "analysis", "quote", "references", "about", "contact", "imprint", "privacy", "a11yStatement",
+  "analysis", "quote", "references", "about", "contact", "gbr", "imprint", "privacy", "withdrawal", "a11yStatement",
 ] as const;
 export type PageId = (typeof pageIds)[number];
 
@@ -24,10 +24,12 @@ export const slugs: Record<PageId, Record<Lang, string>> = {
   analysis: { de: "seo-analyse-kostenlos", en: "free-seo-analysis" },
   quote: { de: "angebot", en: "quote" },
   references: { de: "referenzen", en: "references" },
-  about: { de: "ueber-uns", en: "about" },
+  about: { de: "ueber-mich", en: "about-me" },
   contact: { de: "kontakt", en: "contact" },
+  gbr: { de: "kontakt-gbr", en: "contact-gbr" },
   imprint: { de: "impressum", en: "legal-notice" },
   privacy: { de: "datenschutz", en: "privacy" },
+  withdrawal: { de: "widerruf", en: "withdrawal" },
   a11yStatement: { de: "barrierefreiheit", en: "accessibility-statement" },
 };
 

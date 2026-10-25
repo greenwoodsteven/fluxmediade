@@ -6,13 +6,11 @@ import { site } from "@/content/site";
 export function Footer({ lang }: { lang: Lang }) {
   const c = getContent(lang);
   const ui = c.ui;
-  const a = site.address;
   return (
     <footer className="mt-20 bg-ink text-white">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-3">
         <address className="not-italic">
           <strong>{site.legalName}</strong><br />
-          {a.street}<br />{a.zip} {a.city}<br />
           <a className="underline" href={`mailto:${site.email}`}>{site.email}</a><br />
           {site.phone}
         </address>
@@ -30,6 +28,7 @@ export function Footer({ lang }: { lang: Lang }) {
             {(["imprint", "privacy", "a11yStatement"] as const).map((id) => (
               <li key={id}><Link className="underline" href={pathFor(id, lang)}>{c.pages[id].h1}</Link></li>
             ))}
+            <li><Link className="font-bold underline" href={pathFor("withdrawal", lang)}>{ui.footer.withdraw}</Link></li>
           </ul>
           <p className="mt-4 text-sm text-white/80">{ui.footer.hosting}</p>
         </nav>

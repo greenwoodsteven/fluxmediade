@@ -5,8 +5,8 @@
     "mainNav": "Main navigation",
     "langLabel": "Language",
     "langName": { "de": "Deutsch", "en": "English" },
-    "nav": { "services": "Services", "analysis": "Free analysis", "quote": "Quote", "references": "References", "about": "About", "contact": "Contact" },
-    "footer": { "legal": "Legal", "services": "Services", "rights": "All rights reserved.", "hosting": "Hosted in Germany" },
+    "nav": { "services": "Services", "analysis": "Free analysis", "quote": "Quote", "references": "References", "about": "About me", "contact": "Contact" },
+    "footer": { "legal": "Legal", "services": "Services", "rights": "All rights reserved.", "hosting": "Hosted in Germany", "owner": "Owner", "withdraw": "Withdraw from contract" },
     "breadcrumbHome": "Home",
     "priceDrivers": "What drives the price",
     "audience": "Who it is for",
@@ -26,11 +26,6 @@
       "url": "Your website address (URL)",
       "terms": "Search terms, or service and location (1–3)",
       "termsHint": "e.g. “dentist Konstanz”",
-      "source": "How did you find us? (optional)",
-      "businessType": "Industry (optional)",
-      "platform": "Current platform (optional)",
-      "platforms": ["Not sure", "WordPress", "Other CMS / site builder", "Custom-coded", "No website yet"],
-      "budget": "Rough budget (optional)",
       "message": "Your message",
       "consent": "I have read the <a>privacy policy</a> and agree to my details being processed to handle my request.",
       "okAnalysis": "Almost done! We have sent you an email with a confirmation link. Your request is only processed after you click the link. Please also check your spam folder.",
@@ -67,7 +62,11 @@
       "price": "from €450",
       "priceDrivers": "Size of the website, number of pages and languages, existing technology and the depth of implementation you want.",
       "technical": ["Measurement: Lighthouse (Core Web Vitals, SEO checks and improvement suggestions with estimated savings) and axe per page, response headers, robots.txt and sitemap, and a check that the content is present without JavaScript", "Structured data: JSON-LD (Organization, LocalBusiness, Service, FAQ, BreadcrumbList) generated from one data source and validated", "Crawler access: robots.txt rules for AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended) as you decide, optionally an llms.txt", "Content structure: one H1, question-style subheadings, the short answer first, FAQ blocks with matching markup", "Speed: AVIF/WebP images, caching headers, less script weight", "Documentation: before/after table, the JSON-LD files and a list of the changed templates"],
-      "freeCheck": {"title": "Start with the free check", "text": "The free start-page check looks at your home page only and names the biggest findings. The multi-page analysis on this page covers the pages you choose, carries out the fixes and re-tests the result.", "link": "Free start-page check"},
+      "freeCheck": {
+        "title": "Start with the free check",
+        "text": "The free start-page check looks at your home page only and names the biggest findings. The multi-page analysis on this page covers the pages you choose, carries out the fixes and re-tests the result.",
+        "link": "Free start-page check"
+      },
       "faq": [
         { "q": "Can you guarantee appearing in AI answers?", "a": "No, nobody can. We improve the technical and content conditions so your website is understandable, fast and citable." },
         { "q": "What does the analysis cost?", "a": "The start-page check of your home page is free and delivered as a short PDF report. The multi-page analysis and the implementation are priced at a fixed price once we have seen your site." },
@@ -208,9 +207,9 @@
       "priceDrivers": "Hours needed: scope, complexity, integrations and how well the existing code is documented. The hourly rate depends on the monthly volume: the lowest rate (€50) applies to a larger number of hours, shorter jobs cost more per hour. We do not exceed the agreed budget without asking you first.",
       "technical": ["Front end: React and Next.js with TypeScript and Tailwind CSS; accessibility and performance budgets are checked in the build", "Back end: Node.js or PHP, REST/JSON APIs, or a headless CMS such as Payload", "Integrations: payments with Stripe, email and SMS, n8n, the WordPress REST API", "Delivery: git workflow with pull requests, automated tests, preview and production environments, rollback", "Security and privacy: input validation, rate limiting, security headers, secrets kept outside the repository, EU-hosted data where required"],
       "faq": [
-        {"q": "What does it cost?", "a": "From €50 per hour. The €50 rate applies to projects with a larger number of hours per month; for shorter jobs the hourly rate is higher. Before we start you receive a written estimate with a range, and we do not go beyond the agreed budget without asking you first."},
-        {"q": "Can you take over an existing project?", "a": "Yes. We look at the code first and tell you honestly what is worthwhile."},
-        {"q": "Should I ask for a fixed price instead?", "a": "For clearly defined websites we offer fixed-price packages, see website relaunch and landing page."}
+        { "q": "What does it cost?", "a": "From €50 per hour. The €50 rate applies to projects with a larger number of hours per month; for shorter jobs the hourly rate is higher. Before we start you receive a written estimate with a range, and we do not go beyond the agreed budget without asking you first." },
+        { "q": "Can you take over an existing project?", "a": "Yes. We look at the code first and tell you honestly what is worthwhile." },
+        { "q": "Should I ask for a fixed price instead?", "a": "For clearly defined websites we offer fixed-price packages, see website relaunch and landing page." }
       ]
     }
   },
@@ -233,7 +232,8 @@
         { "q": "What does a website cost?", "a": "It depends on scope. We give fixed prices from a clear starting amount and prepare every quote personally." },
         { "q": "WordPress or custom?", "a": "We recommend what fits your business. If you maintain content yourself, WordPress often serves you well." },
         { "q": "Is the first analysis really free?", "a": "Yes, with no obligation. We do it personally and limit the number per week." },
-        { "q": "Where do you work?", "a": "On Lake Constance, for clients across the region and beyond." }
+        { "q": "Where do you work?", "a": "On Lake Constance, for clients across the region and beyond." },
+        { "q": "Are you covered by liability insurance?", "a": "Yes. The owner is insured under a financial-loss and general liability insurance (IT liability) with Markel Insurance SE, Sophienstraße 26, 80333 München, Germany. Territorial scope: worldwide for financial losses; restrictions apply to personal injury and property damage with a US connection." }
       ],
       "closing": "Ready for the next step?"
     },
@@ -263,7 +263,12 @@
       "platforms": ["Recommend to me", "WordPress", "Custom (static)"],
       "scopeQ": "How large should the website be?",
       "scopes": ["1 page", "2–5 pages", "6–15 pages", "More than 15 pages", "Not sure yet"],
-      "extra": "Shops (WooCommerce, Shopify) are possible on request."
+      "extra": "Shops (WooCommerce, Shopify) are possible on request.",
+      "infoTitle": "Contracting party and insurance",
+      "provider": "The contracting party is Fluxmedia. We do not use general terms and conditions; price and scope are stated in each quote. Consumers have a statutory right of withdrawal. Provider details:",
+      "providerLink": "Legal notice",
+      "withdrawLink": "Withdrawal information and withdrawal",
+      "insurance": "Liability insurance (§ 2 DL-InfoV): The owner is insured under a financial-loss and general liability insurance (IT liability) with Markel Insurance SE, Sophienstraße 26, 80333 München, Germany. Territorial scope: worldwide for financial losses; restrictions apply to personal injury and property damage with a US connection."
     },
     "references": {
       "seoTitle": "References | Fluxmedia",
@@ -281,15 +286,26 @@
       ]
     },
     "about": {
-      "seoTitle": "About us: web developers on Lake Constance | Fluxmedia",
-      "description": "Fluxmedia is a small web development studio in Überlingen on Lake Constance. Over 10 years of experience, personal and transparent.",
-      "h1": "About us",
-      "lead": "Fluxmedia is a small web development and design studio on Lake Constance. You talk directly to the people who build your website.",
-      "body": [
-        "We have over 10 years of experience in web development, from online shops to web presences for institutions. We rely on proven, open technology and care about speed, accessibility and clean structure.",
-        "This website is our proof: no tracking, no third-party fonts and measurable results. We also use AI tools in our work; every result is reviewed by people."
+      "seoTitle": "About me: web developer on Lake Constance | Fluxmedia",
+      "description": "Web developer on Lake Constance: websites, accessibility, SEO and AI visibility, performance and automation. Personal and transparent.",
+      "h1": "About me",
+      "lead": "I am Steven Greenwood, a web developer on Lake Constance. With Fluxmedia I build fast, accessible and easy-to-find websites. You talk directly to the person who builds your website.",
+      "body": ["Whether an online shop or a web presence for an institution, I rely on proven, open technology and care about speed, accessibility and clean structure.", "This website is my proof: no tracking, no third-party fonts and measurable results. I also use AI tools in my work; I review every result myself."],
+      "values": ["Personal and transparent", "Fixed prices, not surprises", "Honest scope: no ranking promises"],
+      "cloudTitle": "Technology and topics of the analysis",
+      "techTitle": "Technologies",
+      "focusTitle": "Focus areas",
+      "focus": [
+        { "h": "Websites and web development", "text": "Fast, custom-built websites, relaunch and migration, landing pages and WordPress care." },
+        { "h": "Accessibility", "text": "Audits and fixes to WCAG 2.2 and BFSG so your website can be used by everyone." },
+        { "h": "SEO and AI visibility", "text": "Clean technology, structured data and open crawler access so search engines and AI assistants can find you." },
+        { "h": "Performance and security", "text": "Measurably fast pages and checked security, proven with audits." },
+        { "h": "AI and automation", "text": "Chatbots on your own content, automated workflows and AI-assisted development with human review." },
+        { "h": "E-commerce", "text": "Online shops and integration of common payment methods and marketing tools." },
+        { "h": "Technology behind it", "text": "JavaScript and TypeScript, Node.js, React and Next.js, PHP and Python, databases and Linux servers." }
       ],
-      "values": ["Personal and transparent", "Fixed prices, not surprises", "Honest scope: no ranking promises"]
+      "backgroundTitle": "Background",
+      "background": ["I have developed software for over 25 years: on the web, in e-commerce, in research projects and earlier also in teaching and media design.", "My studies combined media and technology; further training in information technology and security followed.", "In research I led technical projects and contributed to scientific publications. That is where my habit of measuring results and backing them up comes from."]
     },
     "contact": {
       "seoTitle": "Contact | Fluxmedia",
@@ -298,37 +314,82 @@
       "lead": "Write to us. We reply within one working day.",
       "direct": "Reach us directly"
     },
+    "gbr": {
+      "seoTitle": "Contact Fluxmedia GbR | Fluxmedia",
+      "description": "Contact and provider details of Fluxmedia GbR for freelance orders.",
+      "h1": "Contact Fluxmedia GbR",
+      "note": "This page applies to freelance (freiberufliche) orders of Fluxmedia GbR.",
+      "sections": [
+        { "h": "Information pursuant to § 5 DDG", "p": ["{gbrName}", "Partners: {gbrPartners}", "{gbrAddress}"] },
+        { "h": "Contact", "p": ["Phone: {gbrPhone}", "Email: {gbrEmail}"] },
+        { "h": "VAT ID", "p": ["VAT identification number: {gbrVatId}"] },
+        { "h": "What this page is for", "p": ["Fluxmedia GbR still exists and is available for freelance orders. Only the GbR takes such orders, through the address above. Contracts are concluded only with the party named in the quote."] },
+        {
+          "h": "Difference from Fluxmedia",
+          "p": ["Web development, AI visibility & SEO, chatbots, automation and the other services on this website are offered by Fluxmedia (provider: see legal notice). Fluxmedia GbR is not a party to these contracts. Please do not send enquiries about these services to the GbR address."],
+          "link": { "id": "contact", "text": "Contact Fluxmedia" }
+        }
+      ]
+    },
     "imprint": {
       "seoTitle": "Legal notice | Fluxmedia",
-      "description": "Legal notice of Fluxmedia GbR.",
+      "description": "Legal notice of Fluxmedia, owner Steven Greenwood.",
       "h1": "Legal notice",
-      "note": "Courtesy translation. The German version is authoritative.",
+      "note": "",
       "sections": [
-        { "h": "Information pursuant to § 5 DDG", "p": ["{legalName}", "{address}", "Partners: {partners}"] },
+        { "h": "Information pursuant to § 5 DDG", "p": ["{legalName}", "Owner: {owner}", "{address}"] },
         { "h": "Contact", "p": ["Phone: {phone}", "Email: {email}"] },
         { "h": "VAT ID", "p": ["VAT identification number: {vatId}"] },
-        { "h": "Liability for content and links", "p": ["The content was created with great care. We cannot guarantee its accuracy, completeness or timeliness. The operators of external links are solely responsible for their content."] }
+        { "h": "Consumer dispute resolution", "p": ["We are neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board."] },
+        {
+          "h": "Fluxmedia GbR",
+          "p": ["Fluxmedia GbR still exists and is available for freelance (freiberufliche) orders. These orders are taken only by the GbR, through its own contact page. Contracts for the services described on this website are concluded by the owner named above; Fluxmedia GbR is not a party to them. The contracting party is always only the person or company named in the quote. Please send enquiries and orders only to the address named there."],
+          "link": { "id": "gbr", "text": "Contact Fluxmedia GbR (freelance orders)" }
+        },
+        { "h": "Liability for content and links", "p": ["The content was prepared with the greatest care. We cannot guarantee that it is correct, complete or up to date. The operators of external sites are solely responsible for their content."] }
       ]
     },
     "privacy": {
       "seoTitle": "Privacy policy | Fluxmedia",
-      "description": "Privacy policy of Fluxmedia GbR.",
+      "description": "Privacy policy of Fluxmedia, owner Steven Greenwood.",
       "h1": "Privacy policy",
       "note": "Courtesy translation. The German version is authoritative.",
       "sections": [
-        { "h": "Controller", "p": ["The controller for data processing on this website is {legalName}, {address}. Email: {email}.", "Please send questions about data protection to this email address."] },
+        { "h": "Controller", "p": ["The controller for data processing on this website is {legalName}, owner: {owner}, {address}. Email: {email}.", "For enquiries to Fluxmedia GbR through its contact page, the controller is {gbrName}, {gbrAddress}, email: {gbrEmail}.", "Please send questions about data protection to the relevant email address."] },
         { "h": "Overview", "p": ["We process personal data only as far as it is necessary to operate this website, to handle your enquiries and for security. We use no analytics or tracking tools and no third-party content (for example fonts, maps or videos). All files are served from our own server."] },
-        { "h": "Language choice", "p": ["On the first visit to the home page we choose between German and English based on your browser's language setting (the Accept-Language header). Nothing is stored for this. If you switch the language yourself with the language switcher, we save that choice in a cookie (fm_lang, value: de or en, lifetime one year) so that you see your chosen language on your next visit. The cookie contains no identifier and serves only this purpose; it is not evaluated and not shared.","The cookie is technically necessary to carry out your explicit choice (section 25(2) no. 2 TDDDG), so no consent is required. Processing is based on Art. 6(1)(f) GDPR. You can delete the cookie in your browser at any time."] },
+        { "h": "Language choice", "p": ["On the first visit to the home page we choose between German and English based on your browser's language setting (the Accept-Language header). Nothing is stored for this. If you switch the language yourself with the language switcher, we save that choice in a cookie (fm_lang, value: de or en, lifetime one year) so that you see your chosen language on your next visit. The cookie contains no identifier and serves only this purpose; it is not evaluated and not shared.", "The cookie is technically necessary to carry out your explicit choice (section 25(2) no. 2 TDDDG), so no consent is required. Processing is based on Art. 6(1)(f) GDPR. You can delete the cookie in your browser at any time."] },
         { "h": "Hosting and server log files", "p": ["This website is hosted by netcup GmbH in Germany. When you open the website, the server processes technically necessary connection data in log files: IP address, date and time, requested address, amount of data transferred, status code, browser and operating system details (user agent) and the page you came from (referrer).", "The purpose is the secure and stable operation of the website. The legal basis is Art. 6(1)(f) GDPR (legitimate interest in secure operation). The log files are deleted automatically after a short time. We have a data processing agreement with netcup GmbH under Art. 28 GDPR."] },
         { "h": "Contact and quote forms, email", "p": ["If you use the contact form or the quote form or write to us by email, we process your details (for example name, email address, message, project details) to answer your enquiry. Form data is sent to us by email and you receive an automatic acknowledgement. The emails are delivered and stored through the mail server of netcup GmbH (processor).", "The legal basis is Art. 6(1)(b) GDPR where your enquiry is aimed at a contract, otherwise Art. 6(1)(f) GDPR (legitimate interest in answering enquiries). Where you have consented to the processing (Art. 6(1)(a) GDPR), you can withdraw your consent at any time. Processing carried out until then remains lawful.", "We delete your enquiry once it has been dealt with and no statutory retention duty applies. If a contract is concluded, we keep the business records for the periods required by commercial and tax law (usually six to ten years)."] },
-        { "h": "Free analysis", "p": ["For the free analysis you enter your name, email address, your website address and search terms, and optionally industry, platform, budget and how you found us. First your browser solves a small computing task (proof of work) as protection against automated requests. No data is sent to third parties and no cookies are set.", "We then store your details temporarily on our server and send you an email with a confirmation link. Only after you confirm do we pass the request on to ourselves and process it. The link is valid for 48 hours. If it is not confirmed, we delete the details automatically (daily clean-up).", "To limit repeated and abusive requests, we store the requested domain for 90 days only as a check value (hash), not in plain text. We also count confirmed requests per week, without any personal data.", "The legal basis is Art. 6(1)(b) GDPR (carrying out the analysis you asked for) and Art. 6(1)(f) GDPR (protection against abuse). We send you the report by email. After that we treat the enquiry as described in the previous section. We do not use your email address from the analysis for advertising or newsletters unless you give separate consent."] },
+        { "h": "Free analysis", "p": ["For the free analysis you enter your name, email address, your website address and search terms. First your browser solves a small computing task (proof of work) as protection against automated requests. No data is sent to third parties and no cookies are set.", "We then store your details temporarily on our server and send you an email with a confirmation link. Only after you confirm do we pass the request on to ourselves and process it. The link is valid for 48 hours. If it is not confirmed, we delete the details automatically (daily clean-up).", "To limit repeated and abusive requests, we store the requested domain for 90 days only as a check value (hash), not in plain text. We also count confirmed requests per week, without any personal data.", "The legal basis is Art. 6(1)(b) GDPR (carrying out the analysis you asked for) and Art. 6(1)(f) GDPR (protection against abuse). We send you the report by email. After that we treat the enquiry as described in the previous section. We do not use your email address from the analysis for advertising or newsletters unless you give separate consent."] },
+        { "h": "Withdrawal", "p": ["If you withdraw from a contract using the withdrawal form, we process your name, email address, the contract details, your message and the time of receipt in order to handle the withdrawal and confirm receipt. The legal basis is Art. 6(1)(b) and (c) GDPR in conjunction with § 356a BGB. The data is kept like other business records, in line with commercial and tax retention periods."] },
         { "h": "Protection against abuse", "p": ["To limit automated requests, every form submission stores a salted hash of your IP address together with the times of your latest requests. The value cannot easily be traced back to your IP address and is deleted after one day at the latest. The legal basis is Art. 6(1)(f) GDPR (protecting the website against abuse)."] },
         { "h": "Recipients and third countries", "p": ["The only recipients of your data are ourselves and our hosting and email provider, netcup GmbH, as processor. We do not transfer data to countries outside the EU and the EEA and do not pass it on to third parties for advertising."] },
         { "h": "External links", "p": ["This website contains links to third-party websites, for example to reference projects. You only leave our website when you click such a link; no data is sent to those sites beforehand. The privacy notices of the respective operators apply to the processing there."] },
         { "h": "Encryption", "p": ["This website uses HTTPS (TLS encryption), shown by the lock symbol in the address bar. Your form data is therefore transmitted encrypted. Depending on the mail server, emails are not always transmitted encrypted. If that is a problem for you, please do not send confidential content by email."] },
         { "h": "Automated decisions", "p": ["No automated decision-making including profiling under Art. 22 GDPR takes place."] },
         { "h": "Your rights", "p": ["You have the right of access (Art. 15 GDPR), rectification (Art. 16), erasure (Art. 17), restriction of processing (Art. 18), data portability (Art. 20) and objection (Art. 21). You can withdraw consent at any time with effect for the future (Art. 7(3)).", "Where processing is based on a legitimate interest (Art. 6(1)(f) GDPR), you can object to it at any time on grounds relating to your particular situation.", "To exercise your rights, please write to {email}. We answer requests within one month.", "You also have the right to lodge a complaint with a data protection supervisory authority. The authority responsible for us is the State Commissioner for Data Protection and Freedom of Information of Baden-Württemberg (Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg), Lautenbergstraße 1, 70173 Stuttgart, www.baden-wuerttemberg.datenschutz.de. You can also contact the supervisory authority at your place of residence."] },
-        { "h": "Date and changes", "p": ["Date of this privacy policy: 19 October 2026. We update it when our services or the law change."] }
+        { "h": "Date and changes", "p": ["Date of this privacy policy: 25 October 2026. We update it when our services or the law change."] }
+      ]
+    },
+    "withdrawal": {
+      "seoTitle": "Withdrawal and cancellation policy | Fluxmedia",
+      "description": "Withdrawal information, model withdrawal form and online withdrawal for consumers.",
+      "h1": "Withdraw from contract",
+      "note": "Withdrawal information and online withdrawal for consumers.",
+      "formTitle": "Withdraw from your contract online",
+      "formIntro": "Fill in the form and click “Confirm withdrawal”. You will immediately receive a confirmation of receipt by e-mail with date and time.",
+      "contract": "Contract (service and date of the order or quote)",
+      "contractHint": "e.g. “Landing page, quote of 12 November 2026”",
+      "note2": "Message (optional)",
+      "confirm": "Confirm withdrawal",
+      "ok": "We have received your withdrawal. We have sent you the confirmation with date and time by e-mail.",
+      "sections": [
+        { "h": "Right of withdrawal", "p": ["You have the right to withdraw from this contract within fourteen days without giving any reason.", "The withdrawal period is fourteen days from the day the contract was concluded.", "To exercise your right of withdrawal, you must inform us of your decision to withdraw from this contract by an unequivocal statement (for example a letter sent by post or an e-mail). You may use the form on this page or the model withdrawal form below, but you are not obliged to.", "To meet the withdrawal deadline, it is sufficient to send your communication before the withdrawal period has expired."] },
+        { "h": "Send your withdrawal to", "p": ["{legalName}, owner: {owner}", "{address}", "Email: {email}"] },
+        { "h": "Effects of withdrawal", "p": ["If you withdraw from this contract, we must reimburse all payments we have received from you without undue delay and in any event within fourteen days from the day on which we receive your notice of withdrawal. We use the same means of payment as you used for the original transaction, unless expressly agreed otherwise; you will not be charged any fees for the reimbursement.", "If you requested that the service begin during the withdrawal period, you must pay us an amount proportionate to what has been provided until you informed us of your withdrawal, compared with the full coverage of the contract."] },
+        { "h": "Early expiry of the right of withdrawal", "p": ["Your right of withdrawal expires for a service contract once we have fully performed the service, provided that performance began only after you gave your express consent and acknowledged that you lose your right of withdrawal once the contract has been fully performed."] },
+        { "h": "Who can withdraw", "p": ["The statutory right of withdrawal applies to consumers (§ 13 BGB). Businesses have no statutory right of withdrawal."] },
+        { "h": "Model withdrawal form", "p": ["If you want to withdraw from the contract, please fill in this form and send it back.", "To: {legalName}, owner: {owner}, {address}, email: {email}", "I/We (*) hereby give notice that I/We (*) withdraw from my/our (*) contract for the provision of the following service: ................................", "Ordered on (*) / received on (*): ................................", "Name of consumer(s): ................................", "Address of consumer(s): ................................", "Signature of consumer(s) (only if notified on paper): ................................", "Date: ................................", "(*) Delete as appropriate."] }
       ]
     },
     "a11yStatement": {

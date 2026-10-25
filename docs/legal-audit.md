@@ -228,7 +228,7 @@ it was not found in `docs/` and is **not** reflected here.
 | Turnover declared | 0 to 30,000 € |
 | Term | 10.09.2026 to 01.10.2027; annual online change report (Jahresmeldung) counts as the notice of changes |
 | Startup discount | 15 % until the end of the 2nd year (founding not older than 12 months) |
-| Not in this document | Territorial scope, exclusions and retroactive cover: they are in the "IT-Haftpflicht Bedingungen exali 2026-03", which should be added to `docs/insurance/` |
+| Scope and cover rules (Bedingungen exali 2026-03, now in `docs/insurance/`) | **Worldwide for financial losses**; personal and property damage with US courts or US law only in limited cases (D. Räumlicher Geltungsbereich). Unlimited Nachmeldefrist (claims reported after the policy ends). No retroactive cover without a prior contract (Vorvertrag). Exclusions and the declared activity list still to be checked with exali |
 
 Consequences: the policyholder is the owner, so the party matches option D. The cover is for the owner only, **not
 for the GbR**. The declared turnover band (30,000 €) must be reported if combined turnover could exceed it.
@@ -293,7 +293,7 @@ the GbR can continue to exist.
   still has to agree in writing to the new operator, the use of the brand and domain, and the handling of open
   leads and contracts. Decide what the GbR does afterwards (dormant, other business, or later closing) and make sure it
   does not keep offering the same services under the same name, so customers are not confused about the contracting
-  party. **Decision (owner, 2026-10-25):** the Impressum states that Fluxmedia GbR remains available for freiberufliche
+  party. **Decision (owner, 2026-10-25):** all work is received through the Einzelunternehmer for now, because of the insurance; the co-partner is passive and accepts the owner's decisions; consumers are accepted as customers. The Impressum states that Fluxmedia GbR remains available for freiberufliche
   orders through a **separate contact page**, and that contracts are concluded only with the party named in the quote,
   never through the other party's address. This makes the divergence visible and avoids a mixed contracting party.
   The GbR has no insurance under the current policy; it needs its own cover before it takes orders again.

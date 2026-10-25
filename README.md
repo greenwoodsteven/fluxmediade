@@ -28,7 +28,7 @@ The new fluxmedia.de: a **Next.js 16 static export** (`output: 'export'`, HTML g
 | `src/app/robots.ts`, `sitemap.ts` | `robots.txt` and `sitemap.xml`, generated from the route table |
 | `src/i18n/routes.ts` | **route table**: page id → slug per language, service ids, helpers |
 | `src/content/de.json`, `en.json` | **all copy**, including service prices (`services.<id>.price`) |
-| `config/site.local.json` | **real business data** (legal name, partners, email, phone, address, VAT id); git-ignored. Template: `config/site.example.json` |
+| `config/site.local.json` | **real business data** (name, owner, email, phone, address, VAT id, and the `gbr` block for the separate GbR contact page); git-ignored. Template: `config/site.example.json` |
 | `scripts/site-config.mjs` | validates that file and writes `src/content/site.generated.json` (git-ignored); runs before `dev`, `build` and `lint`. `src/content/site.ts` reads the result |
 | `src/components/` | `Header`, `Footer`, `Picture`, `JsonLd`, `forms` (client-side forms), `pages` (all page bodies) |
 | `scripts/images.mjs` | pre-generates AVIF/WebP (and 480 px variants for `work/`) into `public/images/generated/` (git-ignored) |
@@ -40,7 +40,7 @@ The new fluxmedia.de: a **Next.js 16 static export** (`output: 'export'`, HTML g
 
 ## Working with content
 
-- **Business data** (`[TELEFON]`, address, partners, email, VAT id): `config/site.local.json`. It is not in git, so
+- **Business data** (`[TELEFON]`, address, owner, GbR block, email, VAT id): `config/site.local.json`. It is not in git, so
   after a fresh clone run `cp config/site.example.json config/site.local.json` and fill it in (without it the build
   uses the example placeholders). These values are not secret: they appear in the public Impressum. They are kept out
   of the repository so they are not published with the code. `vatId` may stay empty (small-business rule); the

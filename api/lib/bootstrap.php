@@ -80,11 +80,17 @@ function text(string $key, int $max = 4000): string {
     return mb_substr(trim($v), 0, $max);
 }
 
-function require_fields(array $values, array $required): void {
+function require_fields(array $values, array $required, bool $consent = true): void {
     foreach ($required as $k) if (($values[$k] ?? '') === '') respond(422, ['ok' => false, 'error' => 'missing:' . $k]);
     if (isset($values['email']) && !filter_var($values['email'], FILTER_VALIDATE_EMAIL)) respond(422, ['ok' => false, 'error' => 'email']);
     if (isset($values['url']) && $values['url'] !== '' && !preg_match('#^https?://#i', $values['url'])) respond(422, ['ok' => false, 'error' => 'url']);
-    if (($_POST['consent'] ?? '') !== '1') respond(422, ['ok' => false, 'error' => 'consent']);
+    if ($consent && ($_POST['consent'] ?? '') !== '1') respond(422, ['ok' => false, 'error' => 'consent']);
+}
+
+/** Mail signature: brand plus owner (config key 'owner', set in api/config.php) so the sender is identifiable. */
+function signature(): string {
+    $owner = config()['owner'] ?? '';
+    return 'Fluxmedia' . ($owner !== '' ? (lang() === 'de' ? "\nInhaber: $owner" : "\nOwner: $owner") : '');
 }
 
 function lang(): string { return ($_POST['lang'] ?? 'de') === 'en' ? 'en' : 'de'; }

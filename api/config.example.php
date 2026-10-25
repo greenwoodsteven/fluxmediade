@@ -4,6 +4,7 @@
 return [
     'allowed_origins' => ['https://www.fluxmedia.de', 'https://fluxmedia.de'],
     'to'        => 'mail@fluxmedia.de',
+    'owner'     => 'Steven Greenwood',   // shown in the signature of automatic replies
     'smtp' => [
         'host'       => 'mxe824.netcup.net',
         'port'       => 465,

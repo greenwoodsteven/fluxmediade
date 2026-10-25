@@ -1,10 +1,31 @@
 {
   "name": "Fluxmedia",
-  "legalName": "Fluxmedia GbR",
+  "legalName": "Fluxmedia",
+  "owner": "[VOLLER NAME DES INHABERS]",
   "email": "info@example.com",
   "phone": "[TELEFON]",
-  "address": { "street": "[STRASSE UND HAUSNUMMER]", "zip": "[PLZ]", "city": "[ORT]", "country": "DE" },
+  "address": {
+    "street": "[STRASSE UND HAUSNUMMER]",
+    "zip": "[PLZ]",
+    "city": "[ORT]",
+    "country": "DE"
+  },
   "region": "Bodensee",
-  "partners": ["[GESELLSCHAFTER 1]", "[GESELLSCHAFTER 2]"],
-  "vatId": ""
+  "vatId": "",
+  "gbr": {
+    "legalName": "Fluxmedia GbR",
+    "partners": [
+      "[GESELLSCHAFTER 1]",
+      "[GESELLSCHAFTER 2]"
+    ],
+    "email": "info@example.com",
+    "phone": "[TELEFON]",
+    "address": {
+      "street": "[STRASSE UND HAUSNUMMER]",
+      "zip": "[PLZ]",
+      "city": "[ORT]",
+      "country": "DE"
+    },
+    "vatId": ""
+  }
 }

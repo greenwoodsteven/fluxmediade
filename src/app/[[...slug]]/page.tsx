@@ -5,7 +5,7 @@ import { getContent } from "@/content";
 import { buildMetadata } from "@/lib/seo";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Home, ServicePage, ServicesIndex, AnalysisPage, QuotePage, ReferencesPage, AboutPage, ContactPage, LegalPage } from "@/components/pages";
+import { Home, ServicePage, ServicesIndex, AnalysisPage, QuotePage, ReferencesPage, AboutPage, ContactPage, GbrPage, WithdrawalPage, LegalPage } from "@/components/pages";
 
 type Props = { params: Promise<{ slug?: string[] }> };
 
@@ -34,6 +34,8 @@ export default async function Page({ params }: Props) {
   else if (id === "references") body = <ReferencesPage lang={lang} />;
   else if (id === "about") body = <AboutPage lang={lang} />;
   else if (id === "contact") body = <ContactPage lang={lang} />;
+  else if (id === "gbr") body = <GbrPage lang={lang} />;
+  else if (id === "withdrawal") body = <WithdrawalPage lang={lang} />;
   else body = <LegalPage id={id as "imprint" | "privacy" | "a11yStatement"} lang={lang} />;
   return (<><Header lang={lang} current={id} /><main key={`${lang}-${id}`} id="main" tabIndex={-1} className="page-enter">{body}</main><Footer lang={lang} /></>);
 }

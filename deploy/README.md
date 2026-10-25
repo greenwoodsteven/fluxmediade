@@ -36,7 +36,7 @@ no build tools and no `git pull` for them.
 | What you change | Where | Needs |
 |---|---|---|
 | Page text, prices (`services.<id>.price`), FAQ, legal pages, DE and EN | `src/content/de.json`, `src/content/en.json` | rebuild + FTP `out/` |
-| Address, phone, partners, VAT ID, email | `config/site.local.json` (git-ignored, exists only on your machine) | rebuild + FTP `out/` |
+| Address, phone, owner, GbR block, VAT ID, email | `config/site.local.json` (git-ignored, exists only on your machine) | rebuild + FTP `out/` |
 | Images, fonts, `robots.txt`, `.htaccess` | `public/` | rebuild + FTP `out/` |
 | PHP endpoints, `smtp`, `secret`, `storage_dir` | `api/` (code, via git) or `api/config.php` (on the server) | `git pull` on the server, or edit `config.php` there |
 

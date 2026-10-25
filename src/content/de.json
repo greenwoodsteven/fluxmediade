@@ -5,8 +5,8 @@
     "mainNav": "Hauptnavigation",
     "langLabel": "Sprache",
     "langName": { "de": "Deutsch", "en": "English" },
-    "nav": { "services": "Leistungen", "analysis": "Kostenlose Analyse", "quote": "Angebot", "references": "Referenzen", "about": "Über uns", "contact": "Kontakt" },
-    "footer": { "legal": "Rechtliches", "services": "Leistungen", "rights": "Alle Rechte vorbehalten.", "hosting": "Gehostet in Deutschland" },
+    "nav": { "services": "Leistungen", "analysis": "Kostenlose Analyse", "quote": "Angebot", "references": "Referenzen", "about": "Über mich", "contact": "Kontakt" },
+    "footer": { "legal": "Rechtliches", "services": "Leistungen", "rights": "Alle Rechte vorbehalten.", "hosting": "Gehostet in Deutschland", "owner": "Inhaber", "withdraw": "Vertrag widerrufen" },
     "breadcrumbHome": "Startseite",
     "priceDrivers": "Was den Preis bestimmt",
     "audience": "Für wen",
@@ -26,11 +26,6 @@
       "url": "Adresse Ihrer Website (URL)",
       "terms": "Suchbegriffe bzw. Leistung und Ort (1–3)",
       "termsHint": "z. B. „Zahnarzt Konstanz“",
-      "source": "Wie haben Sie uns gefunden? (optional)",
-      "businessType": "Branche (optional)",
-      "platform": "Aktuelle Plattform (optional)",
-      "platforms": ["Weiß ich nicht", "WordPress", "Anderes CMS / Baukasten", "Individuell programmiert", "Noch keine Website"],
-      "budget": "Grobes Budget (optional)",
       "message": "Ihre Nachricht",
       "consent": "Ich habe die <a>Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage einverstanden.",
       "okAnalysis": "Fast geschafft! Wir haben Ihnen eine E-Mail mit einem Bestätigungslink geschickt. Ihre Anfrage wird erst nach einem Klick auf den Link bearbeitet. Bitte prüfen Sie auch den Spam-Ordner.",
@@ -67,7 +62,11 @@
       "price": "ab 450 €",
       "priceDrivers": "Umfang der Website, Anzahl der Seiten und Sprachen, vorhandene Technik und gewünschte Umsetzungstiefe.",
       "technical": ["Messung: Lighthouse (Core Web Vitals, SEO-Prüfungen und Verbesserungsvorschläge mit geschätzter Ersparnis) und axe pro Seite, Antwort-Header, robots.txt und Sitemap sowie Prüfung, ob die Inhalte auch ohne JavaScript vorhanden sind", "Strukturierte Daten: JSON-LD (Organization, LocalBusiness, Service, FAQ, BreadcrumbList) aus einer Datenquelle erzeugt und validiert", "Zugriff für Crawler: robots.txt-Regeln für KI-Crawler (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended) nach Ihrer Entscheidung, optional eine llms.txt", "Inhaltsstruktur: eine H1, Zwischenüberschriften als Fragen, die kurze Antwort zuerst, FAQ-Blöcke mit passender Auszeichnung", "Geschwindigkeit: AVIF/WebP-Bilder, Caching-Header, weniger Skriptgewicht", "Dokumentation: Vorher-nachher-Tabelle, die JSON-LD-Dateien und eine Liste der geänderten Vorlagen"],
-      "freeCheck": {"title": "Starten Sie mit dem kostenlosen Check", "text": "Der kostenlose Startseiten-Check betrachtet nur Ihre Startseite und nennt die größten Befunde. Die Analyse mehrerer Seiten auf dieser Seite deckt die von Ihnen gewählten Seiten ab, setzt die Korrekturen um und prüft das Ergebnis erneut.", "link": "Kostenloser Startseiten-Check"},
+      "freeCheck": {
+        "title": "Starten Sie mit dem kostenlosen Check",
+        "text": "Der kostenlose Startseiten-Check betrachtet nur Ihre Startseite und nennt die größten Befunde. Die Analyse mehrerer Seiten auf dieser Seite deckt die von Ihnen gewählten Seiten ab, setzt die Korrekturen um und prüft das Ergebnis erneut.",
+        "link": "Kostenloser Startseiten-Check"
+      },
       "faq": [
         { "q": "Kann man in KI-Antworten garantiert erscheinen?", "a": "Nein. Niemand kann das garantieren. Wir verbessern die technischen und inhaltlichen Voraussetzungen, damit Ihre Website verständlich, schnell und zitierfähig ist." },
         { "q": "Was kostet die Analyse?", "a": "Der Check Ihrer Startseite ist kostenlos und wird als kurzer PDF-Bericht geliefert. Die Analyse mehrerer Seiten und die Umsetzung erhalten Sie zum Festpreis, sobald wir Ihre Website gesehen haben." },
@@ -208,9 +207,9 @@
       "priceDrivers": "Benötigte Stunden: Umfang, Komplexität, Schnittstellen und wie gut der vorhandene Code dokumentiert ist. Der Stundensatz hängt vom Umfang pro Monat ab: Der niedrigste Satz (50 €) gilt bei größerem Stundenumfang, kürzere Aufträge kosten pro Stunde mehr. Das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen.",
       "technical": ["Frontend: React und Next.js mit TypeScript und Tailwind CSS; Budgets für Barrierefreiheit und Performance werden im Build geprüft", "Backend: Node.js oder PHP, REST/JSON-Schnittstellen oder ein Headless-CMS wie Payload", "Schnittstellen: Zahlungen mit Stripe, E-Mail und SMS, n8n, die WordPress-REST-API", "Auslieferung: Git-Workflow mit Pull Requests, automatisierte Tests, Vorschau- und Produktivumgebung, Rollback", "Sicherheit und Datenschutz: Eingabeprüfung, Mengenbegrenzung, Sicherheits-Header, Zugangsdaten außerhalb des Repositorys, Daten in der EU, wo nötig"],
       "faq": [
-        {"q": "Was kostet es?", "a": "Ab 50 € pro Stunde. Der Satz von 50 € gilt für Projekte mit größerem Stundenumfang pro Monat; für kürzere Aufträge liegt der Stundensatz höher. Vor dem Start erhalten Sie eine schriftliche Schätzung mit Spanne, und das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen."},
-        {"q": "Können Sie ein bestehendes Projekt übernehmen?", "a": "Ja. Wir sehen uns zuerst den Code an und sagen Ihnen ehrlich, was sich lohnt."},
-        {"q": "Sollte ich lieber einen Festpreis anfragen?", "a": "Für klar umrissene Websites bieten wir Festpreis-Pakete an, siehe Website-Relaunch und Landingpage."}
+        { "q": "Was kostet es?", "a": "Ab 50 € pro Stunde. Der Satz von 50 € gilt für Projekte mit größerem Stundenumfang pro Monat; für kürzere Aufträge liegt der Stundensatz höher. Vor dem Start erhalten Sie eine schriftliche Schätzung mit Spanne, und das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen." },
+        { "q": "Können Sie ein bestehendes Projekt übernehmen?", "a": "Ja. Wir sehen uns zuerst den Code an und sagen Ihnen ehrlich, was sich lohnt." },
+        { "q": "Sollte ich lieber einen Festpreis anfragen?", "a": "Für klar umrissene Websites bieten wir Festpreis-Pakete an, siehe Website-Relaunch und Landingpage." }
       ]
     }
   },
@@ -233,7 +232,8 @@
         { "q": "Was kostet eine Website?", "a": "Das hängt vom Umfang ab. Wir nennen Festpreise ab einem klaren Betrag und erstellen jedes Angebot persönlich." },
         { "q": "WordPress oder individuell?", "a": "Wir empfehlen, was zu Ihrem Betrieb passt. Wer selbst Inhalte pflegt, ist mit WordPress oft gut bedient." },
         { "q": "Ist die Erstanalyse wirklich kostenlos?", "a": "Ja. Sie verpflichtet zu nichts. Wir erstellen sie persönlich und begrenzen die Anzahl pro Woche." },
-        { "q": "Wo arbeiten Sie?", "a": "Am Bodensee, für Kunden in der ganzen Region und darüber hinaus." }
+        { "q": "Wo arbeiten Sie?", "a": "Am Bodensee, für Kunden in der ganzen Region und darüber hinaus." },
+        { "q": "Sind Sie haftpflichtversichert?", "a": "Ja. Der Inhaber ist über eine Vermögensschaden- und Betriebshaftpflichtversicherung (IT-Haftpflicht) bei der Markel Insurance SE, Sophienstraße 26, 80333 München, versichert. Räumlicher Geltungsbereich: weltweit für Vermögensschäden; für Personen- und Sachschäden mit USA-Bezug gelten Einschränkungen." }
       ],
       "closing": "Bereit für den nächsten Schritt?"
     },
@@ -263,7 +263,12 @@
       "platforms": ["Empfehlen Sie mir", "WordPress", "Individuell (statisch)"],
       "scopeQ": "Wie groß soll die Website werden?",
       "scopes": ["1 Seite", "2–5 Seiten", "6–15 Seiten", "Mehr als 15 Seiten", "Weiß ich noch nicht"],
-      "extra": "Shops (WooCommerce, Shopify) sind auf Anfrage möglich."
+      "extra": "Shops (WooCommerce, Shopify) sind auf Anfrage möglich.",
+      "infoTitle": "Vertragspartner und Versicherung",
+      "provider": "Vertragspartner ist Fluxmedia. Allgemeine Geschäftsbedingungen verwenden wir nicht; Preis und Leistung stehen im jeweiligen Angebot. Verbraucher haben ein gesetzliches Widerrufsrecht. Anbieterangaben:",
+      "providerLink": "Impressum",
+      "withdrawLink": "Widerrufsbelehrung und Widerruf",
+      "insurance": "Haftpflichtversicherung nach § 2 DL-InfoV: Der Inhaber ist über eine Vermögensschaden- und Betriebshaftpflichtversicherung (IT-Haftpflicht) bei der Markel Insurance SE, Sophienstraße 26, 80333 München, versichert. Räumlicher Geltungsbereich: weltweit für Vermögensschäden; für Personen- und Sachschäden mit USA-Bezug gelten Einschränkungen."
     },
     "references": {
       "seoTitle": "Referenzen | Fluxmedia",
@@ -281,15 +286,26 @@
       ]
     },
     "about": {
-      "seoTitle": "Über uns: Webentwickler am Bodensee | Fluxmedia",
-      "description": "Fluxmedia ist ein kleines Studio für Webentwicklung in Überlingen am Bodensee. Über 10 Jahre Erfahrung, persönlich und transparent.",
-      "h1": "Über uns",
-      "lead": "Fluxmedia ist ein kleines Studio für Webentwicklung und Design am Bodensee. Sie sprechen direkt mit den Menschen, die Ihre Website bauen.",
-      "body": [
-        "Wir haben über 10 Jahre Erfahrung in der Webentwicklung, vom Onlineshop bis zum Webauftritt für Institutionen. Wir setzen auf bewährte, offene Technik und legen Wert auf Geschwindigkeit, Barrierefreiheit und saubere Struktur.",
-        "Diese Website ist unser Beleg: ohne Tracking, ohne Drittanbieter-Schriften und mit messbaren Ergebnissen. Wir setzen bei der Arbeit auch KI-Werkzeuge ein – jedes Ergebnis wird von Menschen geprüft."
+      "seoTitle": "Über mich: Webentwickler am Bodensee | Fluxmedia",
+      "description": "Webentwickler am Bodensee: Websites, Barrierefreiheit, SEO und KI-Sichtbarkeit, Performance und Automatisierung. Persönlich und transparent.",
+      "h1": "Über mich",
+      "lead": "Ich bin Steven Greenwood, Webentwickler am Bodensee. Mit Fluxmedia baue ich schnelle, barrierefreie und gut auffindbare Websites. Sie sprechen direkt mit dem, der Ihre Website baut.",
+      "body": ["Ob Onlineshop oder Webauftritt für Institutionen: Ich setze auf bewährte, offene Technik und lege Wert auf Geschwindigkeit, Barrierefreiheit und saubere Struktur.", "Diese Website ist mein Beleg: ohne Tracking, ohne Drittanbieter-Schriften und mit messbaren Ergebnissen. Bei der Arbeit setze ich auch KI-Werkzeuge ein – jedes Ergebnis prüfe ich selbst."],
+      "values": ["Persönlich und transparent", "Festpreise statt Überraschungen", "Ehrlicher Umfang: keine Ranking-Versprechen"],
+      "cloudTitle": "Technik und Themen der Analyse",
+      "techTitle": "Technologien",
+      "focusTitle": "Schwerpunkte",
+      "focus": [
+        { "h": "Websites und Webentwicklung", "text": "Schnelle, individuell entwickelte Websites, Relaunch und Migration, Landingpages und WordPress-Betreuung." },
+        { "h": "Barrierefreiheit", "text": "Prüfung und Behebung nach WCAG 2.2 und BFSG, damit Ihre Website für alle nutzbar ist." },
+        { "h": "SEO und KI-Sichtbarkeit", "text": "Saubere Technik, strukturierte Daten und offener Crawler-Zugriff, damit Suchmaschinen und KI-Assistenten Sie finden." },
+        { "h": "Performance und Sicherheit", "text": "Messbar schnelle Seiten und geprüfte Sicherheit, nachweisbar mit Audits." },
+        { "h": "KI und Automatisierung", "text": "Chatbots auf Ihren eigenen Inhalten, automatisierte Abläufe und KI-gestützte Entwicklung mit menschlicher Prüfung." },
+        { "h": "E-Commerce", "text": "Onlineshops und Anbindung gängiger Zahlungsarten und Marketing-Werkzeuge." },
+        { "h": "Technik im Hintergrund", "text": "JavaScript und TypeScript, Node.js, React und Next.js, PHP und Python, Datenbanken und Linux-Server." }
       ],
-      "values": ["Persönlich und transparent", "Festpreise statt Überraschungen", "Ehrlicher Umfang: keine Ranking-Versprechen"]
+      "backgroundTitle": "Hintergrund",
+      "background": ["Ich entwickle seit über 25 Jahren Software: im Web, im E-Commerce, in Forschungsprojekten und früher auch in der Lehre und in der Mediengestaltung.", "Mein Studium hat Medien und Technik verbunden, später kamen Weiterbildungen in Informationstechnik und Sicherheit hinzu.", "In der Forschung habe ich technische Projekte geleitet und an wissenschaftlichen Veröffentlichungen mitgewirkt. Daraus stammt mein Anspruch, Ergebnisse zu messen und nachvollziehbar zu belegen."]
     },
     "contact": {
       "seoTitle": "Kontakt | Fluxmedia",
@@ -298,37 +314,82 @@
       "lead": "Schreiben Sie uns. Wir antworten innerhalb eines Werktags.",
       "direct": "Direkt erreichen"
     },
+    "gbr": {
+      "seoTitle": "Kontakt Fluxmedia GbR | Fluxmedia",
+      "description": "Kontakt und Anbieterangaben der Fluxmedia GbR für freiberufliche Aufträge.",
+      "h1": "Kontakt Fluxmedia GbR",
+      "note": "Diese Seite gilt für freiberufliche Aufträge der Fluxmedia GbR.",
+      "sections": [
+        { "h": "Angaben gemäß § 5 DDG", "p": ["{gbrName}", "Gesellschafter: {gbrPartners}", "{gbrAddress}"] },
+        { "h": "Kontakt", "p": ["Telefon: {gbrPhone}", "E-Mail: {gbrEmail}"] },
+        { "h": "Umsatzsteuer-ID", "p": ["Umsatzsteuer-Identifikationsnummer: {gbrVatId}"] },
+        { "h": "Wofür diese Seite gilt", "p": ["Die Fluxmedia GbR besteht weiter und steht für freiberufliche Aufträge zur Verfügung. Solche Aufträge nimmt ausschließlich die GbR über die oben genannte Adresse entgegen. Verträge werden nur mit der im Angebot genannten Partei geschlossen."] },
+        {
+          "h": "Abgrenzung zu Fluxmedia",
+          "p": ["Webentwicklung, KI-Sichtbarkeit & SEO, Chatbots, Automatisierung und die übrigen Leistungen auf dieser Website bietet Fluxmedia an (Anbieter siehe Impressum). Die Fluxmedia GbR ist an diesen Verträgen nicht beteiligt. Bitte richten Sie Anfragen zu diesen Leistungen nicht an die Adresse der GbR."],
+          "link": { "id": "contact", "text": "Zum Kontakt von Fluxmedia" }
+        }
+      ]
+    },
     "imprint": {
       "seoTitle": "Impressum | Fluxmedia",
-      "description": "Impressum der Fluxmedia GbR.",
+      "description": "Impressum von Fluxmedia, Inhaber Steven Greenwood.",
       "h1": "Impressum",
       "note": "",
       "sections": [
-        { "h": "Angaben gemäß § 5 DDG", "p": ["{legalName}", "{address}", "Gesellschafter: {partners}"] },
+        { "h": "Angaben gemäß § 5 DDG", "p": ["{legalName}", "Inhaber: {owner}", "{address}"] },
         { "h": "Kontakt", "p": ["Telefon: {phone}", "E-Mail: {email}"] },
         { "h": "Umsatzsteuer-ID", "p": ["Umsatzsteuer-Identifikationsnummer: {vatId}"] },
+        { "h": "Verbraucherstreitbeilegung", "p": ["Wir sind weder bereit noch verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."] },
+        {
+          "h": "Fluxmedia GbR",
+          "p": ["Die Fluxmedia GbR besteht weiterhin und steht für freiberufliche Aufträge zur Verfügung. Diese Aufträge nimmt ausschließlich die GbR über ihre eigene Kontaktseite entgegen. Verträge über die auf dieser Website beschriebenen Leistungen schließt der oben genannte Inhaber; die Fluxmedia GbR ist daran nicht beteiligt. Vertragspartner ist jeweils nur diejenige Person oder Gesellschaft, die im Angebot ausdrücklich genannt ist. Bitte richten Sie Anfragen und Aufträge deshalb nur an die dort genannte Adresse."],
+          "link": { "id": "gbr", "text": "Kontakt Fluxmedia GbR (freiberufliche Aufträge)" }
+        },
         { "h": "Haftung für Inhalte und Links", "p": ["Die Inhalte wurden mit größter Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität können wir keine Gewähr übernehmen. Für Inhalte externer Links sind ausschließlich deren Betreiber verantwortlich."] }
       ]
     },
     "privacy": {
       "seoTitle": "Datenschutzerklärung | Fluxmedia",
-      "description": "Datenschutzerklärung der Fluxmedia GbR.",
+      "description": "Datenschutzerklärung von Fluxmedia, Inhaber Steven Greenwood.",
       "h1": "Datenschutzerklärung",
       "note": "",
       "sections": [
-        { "h": "Verantwortliche", "p": ["Verantwortlich für die Datenverarbeitung auf dieser Website ist {legalName}, {address}. E-Mail: {email}.", "Fragen zum Datenschutz richten Sie bitte an diese E-Mail-Adresse."] },
+        { "h": "Verantwortliche", "p": ["Verantwortlich für die Datenverarbeitung auf dieser Website ist {legalName}, Inhaber: {owner}, {address}. E-Mail: {email}.", "Für Anfragen an die Fluxmedia GbR über deren Kontaktseite ist die {gbrName}, {gbrAddress}, E-Mail: {gbrEmail}, verantwortlich.", "Fragen zum Datenschutz richten Sie bitte an die jeweilige E-Mail-Adresse."] },
         { "h": "Überblick", "p": ["Wir verarbeiten personenbezogene Daten nur, soweit das für den Betrieb dieser Website, die Bearbeitung Ihrer Anfragen und die Sicherheit erforderlich ist. Wir setzen keine Analyse- oder Tracking-Werkzeuge und keine Inhalte von Drittanbietern (zum Beispiel Schriften, Karten oder Videos) ein. Alle Dateien werden von unserem eigenen Server ausgeliefert."] },
-        { "h": "Sprachauswahl", "p": ["Beim ersten Aufruf der Startseite wählen wir anhand der Spracheinstellung Ihres Browsers (Header Accept-Language) zwischen Deutsch und Englisch. Dabei wird nichts gespeichert. Wenn Sie die Sprache selbst über die Sprachauswahl wechseln, speichern wir diese Entscheidung in einem Cookie (fm_lang, Inhalt: de oder en, Laufzeit ein Jahr), damit Sie beim nächsten Besuch wieder die gewählte Sprache sehen. Das Cookie enthält keine Kennung und dient nur dieser Funktion; es wird nicht ausgewertet und nicht weitergegeben.","Das Cookie ist technisch erforderlich, um Ihre ausdrückliche Auswahl umzusetzen (§ 25 Abs. 2 Nr. 2 TDDDG); eine Einwilligung ist dafür nicht nötig. Die Verarbeitung beruht auf Art. 6 Abs. 1 lit. f DSGVO. Sie können das Cookie jederzeit in Ihrem Browser löschen."] },
+        { "h": "Sprachauswahl", "p": ["Beim ersten Aufruf der Startseite wählen wir anhand der Spracheinstellung Ihres Browsers (Header Accept-Language) zwischen Deutsch und Englisch. Dabei wird nichts gespeichert. Wenn Sie die Sprache selbst über die Sprachauswahl wechseln, speichern wir diese Entscheidung in einem Cookie (fm_lang, Inhalt: de oder en, Laufzeit ein Jahr), damit Sie beim nächsten Besuch wieder die gewählte Sprache sehen. Das Cookie enthält keine Kennung und dient nur dieser Funktion; es wird nicht ausgewertet und nicht weitergegeben.", "Das Cookie ist technisch erforderlich, um Ihre ausdrückliche Auswahl umzusetzen (§ 25 Abs. 2 Nr. 2 TDDDG); eine Einwilligung ist dafür nicht nötig. Die Verarbeitung beruht auf Art. 6 Abs. 1 lit. f DSGVO. Sie können das Cookie jederzeit in Ihrem Browser löschen."] },
         { "h": "Hosting und Server-Logfiles", "p": ["Diese Website wird bei der netcup GmbH in Deutschland gehostet. Beim Aufruf der Website verarbeitet der Server technisch notwendige Verbindungsdaten in Logdateien: IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, übertragene Datenmenge, Statuscode, Browser- und Betriebssystemangaben (User-Agent) sowie die zuvor besuchte Seite (Referrer).", "Zweck ist der sichere und stabile Betrieb der Website. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am sicheren Betrieb). Die Logdateien werden nach kurzer Zeit automatisch gelöscht. Mit der netcup GmbH besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO."] },
         { "h": "Kontakt- und Angebotsformular, E-Mail", "p": ["Wenn Sie das Kontaktformular oder das Angebotsformular nutzen oder uns eine E-Mail schreiben, verarbeiten wir Ihre Angaben (zum Beispiel Name, E-Mail-Adresse, Nachricht, Angaben zum Projekt), um Ihre Anfrage zu beantworten. Die Formulardaten werden per E-Mail an uns übermittelt, und Sie erhalten eine automatische Eingangsbestätigung. Die E-Mails werden über den Mailserver der netcup GmbH (Auftragsverarbeiter) zugestellt und gespeichert.", "Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage auf einen Vertrag abzielt, sonst Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung von Anfragen). Soweit Sie in die Verarbeitung eingewilligt haben (Art. 6 Abs. 1 lit. a DSGVO), können Sie die Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung bleibt davon unberührt.", "Wir löschen Ihre Anfrage, sobald sie abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Kommt ein Vertrag zustande, bewahren wir die geschäftlichen Unterlagen entsprechend den handels- und steuerrechtlichen Fristen auf (in der Regel sechs bis zehn Jahre)."] },
-        { "h": "Kostenlose Analyse", "p": ["Für die kostenlose Analyse geben Sie Name, E-Mail-Adresse, die Adresse Ihrer Website und Suchbegriffe an, optional Branche, Plattform, Budget und wie Sie uns gefunden haben. Zuerst löst Ihr Browser eine kleine Rechenaufgabe (Proof-of-Work) gegen automatisierte Anfragen. Dabei werden keine Daten an Dritte übertragen und keine Cookies gesetzt.", "Anschließend speichern wir Ihre Angaben vorübergehend auf unserem Server und senden Ihnen eine E-Mail mit einem Bestätigungslink. Erst nach Ihrer Bestätigung leiten wir die Anfrage an uns weiter und bearbeiten sie. Der Link ist 48 Stunden gültig. Wird er nicht bestätigt, löschen wir die Angaben automatisch (täglicher Löschlauf).", "Um Mehrfach- und Missbrauchsanfragen zu begrenzen, speichern wir die angefragte Domain 90 Tage lang ausschließlich als Prüfwert (Hash), nicht im Klartext. Außerdem zählen wir die bestätigten Anfragen pro Woche, ohne Personenbezug.", "Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Durchführung der von Ihnen gewünschten Analyse) und Art. 6 Abs. 1 lit. f DSGVO (Schutz vor Missbrauch). Den Bericht senden wir Ihnen per E-Mail. Danach behandeln wir die Anfrage wie im vorherigen Abschnitt beschrieben. Ihre E-Mail-Adresse aus der Analyse verwenden wir nicht für Werbung oder Newsletter, es sei denn, Sie willigen gesondert ein."] },
+        { "h": "Kostenlose Analyse", "p": ["Für die kostenlose Analyse geben Sie Name, E-Mail-Adresse, die Adresse Ihrer Website und Suchbegriffe an. Zuerst löst Ihr Browser eine kleine Rechenaufgabe (Proof-of-Work) gegen automatisierte Anfragen. Dabei werden keine Daten an Dritte übertragen und keine Cookies gesetzt.", "Anschließend speichern wir Ihre Angaben vorübergehend auf unserem Server und senden Ihnen eine E-Mail mit einem Bestätigungslink. Erst nach Ihrer Bestätigung leiten wir die Anfrage an uns weiter und bearbeiten sie. Der Link ist 48 Stunden gültig. Wird er nicht bestätigt, löschen wir die Angaben automatisch (täglicher Löschlauf).", "Um Mehrfach- und Missbrauchsanfragen zu begrenzen, speichern wir die angefragte Domain 90 Tage lang ausschließlich als Prüfwert (Hash), nicht im Klartext. Außerdem zählen wir die bestätigten Anfragen pro Woche, ohne Personenbezug.", "Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Durchführung der von Ihnen gewünschten Analyse) und Art. 6 Abs. 1 lit. f DSGVO (Schutz vor Missbrauch). Den Bericht senden wir Ihnen per E-Mail. Danach behandeln wir die Anfrage wie im vorherigen Abschnitt beschrieben. Ihre E-Mail-Adresse aus der Analyse verwenden wir nicht für Werbung oder Newsletter, es sei denn, Sie willigen gesondert ein."] },
+        { "h": "Widerruf", "p": ["Wenn Sie über das Widerrufsformular einen Vertrag widerrufen, verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse, die Angaben zum Vertrag, Ihre Nachricht und den Zeitpunkt des Eingangs, um den Widerruf zu bearbeiten und Ihnen den Eingang zu bestätigen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b und c DSGVO in Verbindung mit § 356a BGB. Die Daten werden wie die übrigen geschäftlichen Unterlagen entsprechend den handels- und steuerrechtlichen Fristen aufbewahrt."] },
         { "h": "Schutz vor Missbrauch", "p": ["Zur Begrenzung automatisierter Anfragen speichern wir bei jeder Formularübermittlung einen gesalzenen Hash Ihrer IP-Adresse zusammen mit den Zeitpunkten Ihrer letzten Anfragen. Der Wert lässt sich nicht ohne Weiteres auf Ihre IP-Adresse zurückführen und wird nach spätestens einem Tag gelöscht. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (Schutz der Website vor Missbrauch)."] },
         { "h": "Empfänger und Drittländer", "p": ["Empfänger Ihrer Daten sind ausschließlich wir selbst und unser Hosting- und E-Mail-Anbieter, die netcup GmbH, als Auftragsverarbeiter. Wir übermitteln keine Daten in Länder außerhalb der EU und des EWR und geben sie nicht zu Werbezwecken an Dritte weiter."] },
         { "h": "Externe Links", "p": ["Diese Website enthält Links zu Websites Dritter, zum Beispiel zu Referenzprojekten. Erst wenn Sie einen solchen Link anklicken, verlassen Sie unsere Website; vorher werden keine Daten an diese Seiten übertragen. Für die dortige Verarbeitung gelten die Datenschutzhinweise der jeweiligen Betreiber."] },
         { "h": "Verschlüsselung", "p": ["Diese Website nutzt HTTPS (TLS-Verschlüsselung), erkennbar am Schloss-Symbol in der Adresszeile. Ihre Formulardaten werden damit verschlüsselt übertragen. E-Mails werden je nach Mailserver nicht immer verschlüsselt übertragen. Senden Sie vertrauliche Inhalte deshalb nicht per E-Mail, wenn das für Sie ein Problem ist."] },
         { "h": "Automatisierte Entscheidungen", "p": ["Eine automatisierte Entscheidungsfindung einschließlich Profiling nach Art. 22 DSGVO findet nicht statt."] },
         { "h": "Ihre Rechte", "p": ["Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3).", "Beruht die Verarbeitung auf einem berechtigten Interesse (Art. 6 Abs. 1 lit. f DSGVO), können Sie ihr aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen.", "Zur Ausübung Ihrer Rechte schreiben Sie bitte an {email}. Wir beantworten Anfragen innerhalb eines Monats.", "Sie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Für uns zuständig ist der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Lautenbergstraße 1, 70173 Stuttgart, www.baden-wuerttemberg.datenschutz.de. Sie können sich auch an die Aufsichtsbehörde an Ihrem Wohnort wenden."] },
-        { "h": "Stand und Änderungen", "p": ["Stand dieser Datenschutzerklärung: 19. Oktober 2026. Wir passen sie an, wenn sich unsere Angebote oder die Rechtslage ändern."] }
+        { "h": "Stand und Änderungen", "p": ["Stand dieser Datenschutzerklärung: 25. Oktober 2026. Wir passen sie an, wenn sich unsere Angebote oder die Rechtslage ändern."] }
+      ]
+    },
+    "withdrawal": {
+      "seoTitle": "Widerruf und Widerrufsbelehrung | Fluxmedia",
+      "description": "Widerrufsbelehrung, Muster-Widerrufsformular und Online-Widerruf für Verbraucher.",
+      "h1": "Vertrag widerrufen",
+      "note": "Widerrufsbelehrung und Online-Widerruf für Verbraucher.",
+      "formTitle": "Vertrag online widerrufen",
+      "formIntro": "Füllen Sie das Formular aus und klicken Sie auf „Widerruf bestätigen“. Sie erhalten sofort eine Eingangsbestätigung per E-Mail mit Datum und Uhrzeit.",
+      "contract": "Vertrag (Leistung und Datum der Bestellung oder des Angebots)",
+      "contractHint": "z. B. „Landingpage, Angebot vom 12.11.2026“",
+      "note2": "Nachricht (optional)",
+      "confirm": "Widerruf bestätigen",
+      "ok": "Ihr Widerruf ist bei uns eingegangen. Die Bestätigung mit Datum und Uhrzeit haben wir per E-Mail an Sie gesendet.",
+      "sections": [
+        { "h": "Widerrufsrecht", "p": ["Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.", "Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsschlusses.", "Um Ihr Widerrufsrecht auszuüben, müssen Sie uns mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief oder eine E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das Formular auf dieser Seite oder das Muster-Widerrufsformular unten verwenden, das jedoch nicht vorgeschrieben ist.", "Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden."] },
+        { "h": "Ihren Widerruf richten Sie an", "p": ["{legalName}, Inhaber: {owner}", "{address}", "E-Mail: {email}"] },
+        { "h": "Folgen des Widerrufs", "p": ["Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.", "Haben Sie verlangt, dass die Dienstleistung während der Widerrufsfrist beginnen soll, so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Ausübung des Widerrufsrechts hinsichtlich dieses Vertrags unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag vorgesehenen Dienstleistungen entspricht."] },
+        { "h": "Vorzeitiges Erlöschen des Widerrufsrechts", "p": ["Ihr Widerrufsrecht erlischt bei einem Vertrag über die Erbringung von Dienstleistungen, wenn wir die Dienstleistung vollständig erbracht haben und mit der Ausführung der Dienstleistung erst begonnen haben, nachdem Sie dazu Ihre ausdrückliche Zustimmung gegeben und gleichzeitig Ihre Kenntnis davon bestätigt haben, dass Sie Ihr Widerrufsrecht bei vollständiger Vertragserfüllung durch uns verlieren."] },
+        { "h": "Wer widerrufen kann", "p": ["Das gesetzliche Widerrufsrecht gilt für Verbraucher (§ 13 BGB). Für Unternehmer besteht kein gesetzliches Widerrufsrecht."] },
+        { "h": "Muster-Widerrufsformular", "p": ["Wenn Sie den Vertrag widerrufen wollen, füllen Sie bitte dieses Formular aus und senden Sie es zurück.", "An: {legalName}, Inhaber: {owner}, {address}, E-Mail: {email}", "Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über die Erbringung der folgenden Dienstleistung: ................................", "Bestellt am (*) / erhalten am (*): ................................", "Name des/der Verbraucher(s): ................................", "Anschrift des/der Verbraucher(s): ................................", "Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier): ................................", "Datum: ................................", "(*) Unzutreffendes streichen."] }
       ]
     },
     "a11yStatement": {

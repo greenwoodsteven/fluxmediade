@@ -15,7 +15,6 @@ if (capacity_full()) respond(503, ['ok' => false, 'error' => 'capacity']);
 $token = pending_save([
     'fields' => [
         'Name' => $f['name'], 'E-Mail' => $f['email'], 'URL' => $f['url'], 'Suchbegriffe' => $f['terms'],
-        'Branche' => line('business', 100), 'Plattform' => line('platform', 100), 'Budget' => line('budget', 100), 'Quelle' => line('source', 100),
     ],
     'host' => $host, 'lang' => lang(), 'ref' => line('ref', 50),
 ]);

@@ -39,9 +39,9 @@ async function solvePow(): Promise<Pow | null> {
   return null;
 }
 
-function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMessage, notice }: {
+function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMessage, notice, consent = true }: {
   endpoint: string; lang: Lang; f: F; children: ReactNode; submitLabel?: string; hideSubmit?: boolean;
-  pow?: boolean; okMessage?: string; notice?: string;
+  pow?: boolean; okMessage?: string; notice?: string; consent?: boolean;
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorKey, setErrorKey] = useState("");
@@ -110,6 +110,7 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMe
         <div aria-hidden="true" style={{ position: "absolute", left: "-10000px" }}>
           <label>Company<input type="text" name="company" tabIndex={-1} autoComplete="off" /></label>
         </div>
+        {consent && (
         <div>
           <label className="flex items-start gap-2">
             <input type="checkbox" name="consent" value="1" required className="mt-1 size-5"
@@ -119,6 +120,7 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMe
           </label>
           {errors.consent && <p id="consent-error" className="mt-1 font-bold text-accent">{errors.consent}</p>}
         </div>
+        )}
         <div aria-live="polite">
           {count > 0 && <p className="font-bold text-accent">{f.errSummary}</p>}
           {status === "error" && (
@@ -160,13 +162,6 @@ export function AnalysisForm({ lang, f, submitLabel }: { lang: Lang; f: F; submi
         <Field id="name" label={f.name} required autoComplete="name" />
         <Field id="email" label={f.email} type="email" required autoComplete="email" />
       </div>
-      <Field id="business" label={f.businessType} />
-      <div>
-        <label htmlFor="platform" className="label">{f.platform}</label>
-        <select id="platform" name="platform" className="field">{f.platforms.map((p) => <option key={p}>{p}</option>)}</select>
-      </div>
-      <Field id="budget" label={f.budget} />
-      <Field id="source" label={f.source} />
     </Shell>
   );
 }
@@ -228,5 +223,19 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
         {step < last && <button type="button" className="btn" onClick={() => setStep(step + 1)}>{f.next}</button>}
       </div>
     </div>
+  );
+}
+
+/** Online withdrawal (§ 356a BGB): footer link "Vertrag widerrufen" -> this form -> button "Widerruf bestätigen". */
+export function WithdrawalForm({ lang, f, w }: { lang: Lang; f: F; w: Content["pages"]["withdrawal"] }) {
+  return (
+    <Shell endpoint="/api/withdrawal.php" lang={lang} f={f} submitLabel={w.confirm} okMessage={w.ok} consent={false}>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field id="name" label={f.name} required autoComplete="name" />
+        <Field id="email" label={f.email} type="email" required autoComplete="email" />
+      </div>
+      <Field id="contract" label={w.contract} required hint={w.contractHint} />
+      <Field id="message" label={w.note2} multiline rows={3} />
+    </Shell>
   );
 }

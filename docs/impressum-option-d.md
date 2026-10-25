@@ -7,7 +7,41 @@ through a **separate contact page**, and the Impressum makes the split visible.
 Technical review and drafting aid, **not legal advice**. Have the Steuerberater or a lawyer check the final texts
 (order of work in `legal-audit.md` 9a). Withdrawal and privacy texts for Kleinanzeigen: `widerruf-datenschutz-option-d.md`.
 
+## Decisions and status (owner, 2026-10-25)
+
+- All work comes in through the Einzelunternehmer for now (insurance); specific jobs go through the GbR on its own contact page.
+- Co-partner is passive and accepts the owner's decisions. Consumers are accepted (Widerruf page and button needed).
+- The insurance statement goes into the **quote page and the home FAQ** (no AGB exist), not into the Impressum. The
+  Impressum text in section 2 below shows the optional block for completeness; the live site does not use it.
+- Data is in `config/site.local.json` (git-ignored): owner Steven Greenwood, address Sandbühl 31, 88662 Überlingen,
+  USt-IdNr. DE447203035. The **Steuernummer is not published**. The GbR block uses the former GbR USt-IdNr. and
+  `info@fluxmedia.de`.
+- **Check:** the data you pasted lists `info@fluxmedia.de` as the business e-mail. The site and the Impressum use
+  `mail@fluxmedia.de` (your earlier change) and use `info@fluxmedia.de` for the GbR. Say if the owner's address should be
+  `info@` instead.
+- Implemented in the code (built and tested locally, not committed or deployed): Impressum, `/kontakt-gbr/`, `/widerruf/`
+  with online form and footer button, privacy controller change, quote-page information, FAQ, mail signature.
+  Status per item: `development-todo.md` section 1a.
+
 Square brackets are placeholders. Take them **word for word from the Gewerbeanmeldung and the Finanzamt letter**.
+
+## 0a. Where the owner's name must appear (decision 2026-10-25: as little as possible)
+
+The name is **not** needed in the footer, the copyright line, the contact page, the quote page, the GbR page or the
+automatic replies. Required or advisable:
+
+| Place | Why | Source |
+|---|---|---|
+| Impressum | Name of the provider; for a sole trader the full first and last name | § 5 Abs. 1 Nr. 1 DDG |
+| Privacy policy | Name and contact details of the controller | Art. 13 Abs. 1 lit. a DSGVO |
+| Widerrufsbelehrung and model form | Name and address of the trader to whom the withdrawal is sent | Art. 246a § 1 Abs. 2 EGBGB, Anlage 1 and 2 |
+| Quote (the document), contract and invoice | Identity and address of the trader before the contract; invoice issuer's full name | Art. 246a § 1 Abs. 1 Nr. 2, 3 EGBGB; § 14 Abs. 4 Nr. 1 UStG |
+| About me page | Voluntary: it is the page about the person | none |
+| Withdrawal confirmation e-mail | Advisable: confirms receipt for the trader | none |
+
+The quote *page* is only a request form; it links to the Impressum for the provider details. The binding quote
+document you send must carry the full name and address. Not required for a Kleingewerbe: the extra business-letter data of
+§ 37a HGB (that applies to registered merchants). Technical review, not legal advice.
 
 ## 1. Facts to fill in
 

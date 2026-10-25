@@ -18,12 +18,18 @@ const problems = [];
 const str = (v, key, required = true) => {
   if (typeof v !== "string" || (required && v.trim() === "")) problems.push(`${key} must be a non-empty string`);
 };
-for (const k of ["name", "legalName", "email", "phone", "region"]) str(data[k], k);
+for (const k of ["name", "legalName", "owner", "email", "phone", "region"]) str(data[k], k);
 str(data.vatId, "vatId", false);
 for (const k of ["street", "zip", "city", "country"]) str(data.address?.[k], `address.${k}`);
-if (!Array.isArray(data.partners) || data.partners.length === 0 || data.partners.some((p) => typeof p !== "string" || !p.trim()))
-  problems.push("partners must be a non-empty list of names");
-if (typeof data.email === "string" && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) problems.push("email is not a valid address");
+// Fluxmedia GbR: only used for its separate contact page (freiberufliche Aufträge)
+const g = data.gbr;
+for (const k of ["legalName", "email", "phone"]) str(g?.[k], `gbr.${k}`);
+str(g?.vatId, "gbr.vatId", false);
+for (const k of ["street", "zip", "city", "country"]) str(g?.address?.[k], `gbr.address.${k}`);
+if (!Array.isArray(g?.partners) || g.partners.length === 0 || g.partners.some((p) => typeof p !== "string" || !p.trim()))
+  problems.push("gbr.partners must be a non-empty list of names");
+for (const [k, v] of [["email", data.email], ["gbr.email", g?.email]])
+  if (typeof v === "string" && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) problems.push(`${k} is not a valid address`);
 if (problems.length) { console.error(`site-config: ${src} is invalid:\n- ${problems.join("\n- ")}`); process.exit(1); }
 
 const open = [];

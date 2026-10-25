@@ -1,10 +1,13 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { getContent, type ServiceContent, type LegalSection } from "@/content";
 import { pathFor, serviceIds, type Lang, type PageId, type ServiceId } from "@/i18n/routes";
 import { site } from "@/content/site";
+import { technologies, analysisCloud } from "@/content/tech";
+import { TechCloud3D } from "./TechCloud3D";
 import { Picture } from "./Picture";
 import { JsonLd } from "./JsonLd";
-import { AnalysisForm, ContactForm, QuoteForm } from "./forms";
+import { AnalysisForm, ContactForm, QuoteForm, WithdrawalForm } from "./forms";
 
 const wrap = "mx-auto max-w-6xl px-4";
 const section = "py-12 md:py-16";
@@ -172,6 +175,27 @@ export function ServicesIndex({ lang }: { lang: Lang }) {
   );
 }
 
+function TechCloud({ lang }: { lang: Lang }) {
+  const about = getContent(lang).pages.about;
+  const hash = (t: string) => Array.from(t).reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 9973, 7);
+  const items = analysisCloud.map((t) => ({ label: (lang === "en" && t.en) || t.de, w: t.w })).sort((a, b) => hash(a.label) - hash(b.label));
+  return <TechCloud3D items={items} label={about.cloudTitle} />;
+}
+
+function TechBanner({ lang }: { lang: Lang }) {
+  const title = getContent(lang).pages.about.techTitle;
+  return (
+    <section className="bg-ink text-white" aria-labelledby="tech-banner">
+      <div className={`${wrap} py-8`}>
+        <h2 id="tech-banner" className="text-xl font-bold text-white">{title}</h2>
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {technologies.map((t) => <li key={t} className="rounded-full border border-white/40 px-3 py-1 text-sm transition-transform duration-150 motion-safe:hover:scale-110 hover:border-white">{t}</li>)}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 export function Home({ lang }: { lang: Lang }) {
   const c = getContent(lang);
   const p = c.pages.home;
@@ -179,9 +203,9 @@ export function Home({ lang }: { lang: Lang }) {
   const more = ["landing", "chatbot", "automation", "custom"] as const;
   return (
     <>
-      <section className="relative isolate overflow-hidden bg-ink text-white" aria-labelledby="hero">
+      <section className="group relative isolate overflow-hidden bg-ink text-white" aria-labelledby="hero">
         <Picture src="/images/hero.jpg" alt="" width={1280} height={960} priority variants={[{ suffix: "-768", w: 768 }]}
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-35" />
+          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-35 transition-transform duration-700 ease-out motion-safe:group-hover:scale-105" />
         <div className={`${wrap} py-20 md:py-32`}>
           <p className="text-lg uppercase tracking-wide">{p.sub}</p>
           <h1 id="hero" className="mt-4 max-w-3xl text-4xl font-bold text-white md:text-5xl">{p.h1}</h1>
@@ -192,9 +216,10 @@ export function Home({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      <section id="analyse" className={`${wrap} ${section} grid gap-8 md:grid-cols-2`} aria-labelledby="ana">
-        <div><h2 id="ana" className="text-2xl font-bold">{p.analysisTitle}</h2><p className="mt-3">{p.analysisText}</p></div>
-        <AnalysisForm lang={lang} f={getContent(lang).ui.forms} submitLabel={getContent(lang).ui.ctaAnalysis} />
+      <section id="analyse" className={`${wrap} ${section} grid items-start gap-x-8 gap-y-8 md:grid-cols-2 md:grid-rows-[auto_1fr]`} aria-labelledby="ana">
+        <div className="md:col-start-1 md:row-start-1"><h2 id="ana" className="text-2xl font-bold">{p.analysisTitle}</h2><p className="mt-3">{p.analysisText}</p></div>
+        <div className="md:col-start-2 md:row-span-2 md:row-start-1"><AnalysisForm lang={lang} f={getContent(lang).ui.forms} submitLabel={getContent(lang).ui.ctaAnalysis} /></div>
+        <div className="md:col-start-1 md:row-start-2"><TechCloud lang={lang} /></div>
       </section>
 
       <section className="bg-paper" aria-labelledby="svc">
@@ -219,6 +244,7 @@ export function Home({ lang }: { lang: Lang }) {
       </section>
 
       <References lang={lang} limit={3} heading={p.refsTitle} />
+      <TechBanner lang={lang} />
       <Faqs title={p.faqTitle} items={p.faq} />
 
       <section className={`${wrap} ${section} text-center`}>
@@ -285,7 +311,19 @@ export function AnalysisPage({ lang }: { lang: Lang }) {
 
 export function QuotePage({ lang }: { lang: Lang }) {
   const p = getContent(lang).pages.quote;
-  return (<><PageHead lang={lang} id="quote" h1={p.h1} lead={p.lead} /><div className={`${wrap} ${section} max-w-3xl`}><QuoteForm lang={lang} f={getContent(lang).ui.forms} q={p} /></div></>);
+  return (
+    <>
+      <PageHead lang={lang} id="quote" h1={p.h1} lead={p.lead} />
+      <div className={`${wrap} ${section} max-w-3xl`}>
+        <QuoteForm lang={lang} f={getContent(lang).ui.forms} q={p} />
+        <section className="mt-12 border-t border-line pt-6 text-sm" aria-labelledby="qinfo">
+          <h2 id="qinfo" className="text-lg font-bold">{p.infoTitle}</h2>
+          <p className="mt-2">{p.provider} <Link className="underline text-accent" href={pathFor("imprint", lang)}>{p.providerLink}</Link>. <Link className="underline text-accent" href={pathFor("withdrawal", lang)}>{p.withdrawLink}</Link></p>
+          <p className="mt-2">{p.insurance}</p>
+        </section>
+      </div>
+    </>
+  );
 }
 
 export function AboutPage({ lang }: { lang: Lang }) {
@@ -293,11 +331,30 @@ export function AboutPage({ lang }: { lang: Lang }) {
   return (
     <>
       <PageHead lang={lang} id="about" h1={p.h1} lead={p.lead} />
-      <div className={`${wrap} ${section} max-w-3xl`}>
+      <section className={`${wrap} ${section}`} aria-labelledby="focus">
+        <h2 id="focus" className="text-3xl font-bold">{p.focusTitle}</h2>
+        <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {p.focus.map((f) => (
+            <li key={f.h} className="rounded border border-line p-5">
+              <h3 className="text-xl font-bold text-ink">{f.h}</h3>
+              <p className="mt-2">{f.text}</p>
+            </li>))}
+        </ul>
+      </section>
+      <TechBanner lang={lang} />
+      <div className={`${wrap} py-12 max-w-3xl`}>
         {p.body.map((t) => <p key={t} className="mt-4">{t}</p>)}
         <List items={p.values} /><Cta lang={lang} />
+        <section className="mt-12" aria-labelledby="bg">
+          <h2 id="bg" className="text-xl font-bold">{p.backgroundTitle}</h2>
+          {p.background.map((t) => <p key={t} className="mt-3">{t}</p>)}
+        </section>
       </div>
-      <JsonLd data={{ "@context": "https://schema.org", "@type": "Person", name: site.partners[0], worksFor: { "@type": "Organization", name: site.legalName }, inLanguage: lang }} />
+      <JsonLd data={{
+        "@context": "https://schema.org", "@type": "Person", name: site.owner, jobTitle: lang === "de" ? "Webentwickler" : "Web developer",
+        url: site.url + pathFor("about", lang), worksFor: { "@id": orgId },
+        address: { "@type": "PostalAddress", addressLocality: site.address.city, addressCountry: site.address.country }, inLanguage: lang,
+      }} />
     </>
   );
 }
@@ -310,7 +367,7 @@ export function ContactPage({ lang }: { lang: Lang }) {
       <div className={`${wrap} ${section} grid gap-10 md:grid-cols-2`}>
         <ContactForm lang={lang} f={getContent(lang).ui.forms} />
         <section aria-labelledby="dir"><h2 id="dir" className="text-xl font-bold">{p.direct}</h2>
-          <address className="mt-3 not-italic">{site.legalName}<br />{site.address.street}<br />{site.address.zip} {site.address.city}<br />
+          <address className="mt-3 not-italic">{site.legalName}<br />
             <a className="underline text-accent" href={`mailto:${site.email}`}>{site.email}</a><br />{site.phone}</address></section>
       </div>
     </>
@@ -318,20 +375,47 @@ export function ContactPage({ lang }: { lang: Lang }) {
 }
 
 function fill(t: string) {
-  const a = site.address;
-  return t.replace("{legalName}", site.legalName).replace("{address}", `${a.street}, ${a.zip} ${a.city}`.replace(", ,", ","))
-    .replace("{partners}", site.partners.join(", ")).replace("{phone}", site.phone).replace("{email}", site.email).replace("{vatId}", site.vatId);
+  const line = (a: { street: string; zip: string; city: string }) => `${a.street}, ${a.zip} ${a.city}`;
+  const g = site.gbr;
+  const map: Record<string, string> = {
+    legalName: site.legalName, owner: site.owner, address: line(site.address), phone: site.phone, email: site.email, vatId: site.vatId,
+    gbrName: g.legalName, gbrPartners: g.partners.join(", "), gbrAddress: line(g.address), gbrPhone: g.phone, gbrEmail: g.email, gbrVatId: g.vatId,
+  };
+  return t.replace(/\{(\w+)\}/g, (m, k: string) => map[k] ?? m);
 }
 
-export function LegalPage({ id, lang }: { id: "imprint" | "privacy" | "a11yStatement"; lang: Lang }) {
+type LegalId = "imprint" | "privacy" | "a11yStatement" | "gbr" | "withdrawal";
+
+export function LegalPage({ id, lang, children }: { id: LegalId; lang: Lang; children?: ReactNode }) {
   const p = getContent(lang).pages[id] as { h1: string; note: string; sections: LegalSection[] };
+  const empty = (t: string) => (t.includes("{vatId}") && !site.vatId) || (t.includes("{gbrVatId}") && !site.gbr.vatId);
   return (
     <>
       <PageHead lang={lang} id={id} h1={p.h1} lead={p.note} />
       <div className={`${wrap} ${section} prose-flux max-w-3xl`}>
-        {p.sections.filter((s) => site.vatId || !s.p.some((t) => t.includes("{vatId}"))).map((s) => (
-          <section key={s.h} className="mt-8"><h2 className="text-xl font-bold">{s.h}</h2>{s.p.map((t) => <p key={t}>{fill(t)}</p>)}</section>))}
+        {p.sections.filter((s) => !s.p.some(empty)).map((s) => (
+          <section key={s.h} className="mt-8"><h2 className="text-xl font-bold">{s.h}</h2>{s.p.map((t) => <p key={t}>{fill(t)}</p>)}
+            {s.link && <p><Link className="underline text-accent" href={pathFor(s.link.id as PageId, lang)}>{s.link.text}</Link></p>}</section>))}
+        {children}
       </div>
     </>
+  );
+}
+
+export function GbrPage({ lang }: { lang: Lang }) {
+  return <LegalPage id="gbr" lang={lang} />;
+}
+
+export function WithdrawalPage({ lang }: { lang: Lang }) {
+  const c = getContent(lang);
+  const p = c.pages.withdrawal;
+  return (
+    <LegalPage id="withdrawal" lang={lang}>
+      <section className="mt-10" aria-labelledby="wd-form">
+        <h2 id="wd-form" className="text-xl font-bold">{p.formTitle}</h2>
+        <p className="mt-2">{p.formIntro}</p>
+        <div className="mt-4"><WithdrawalForm lang={lang} f={c.ui.forms} w={p} /></div>
+      </section>
+    </LegalPage>
   );
 }

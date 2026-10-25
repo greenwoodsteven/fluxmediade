@@ -55,6 +55,8 @@ RewriteRule ^api/.*~$ - [F]
 
 # --- Legacy URLs (301 to the new equivalents; extend from the old URL list)
 RewriteRule ^index\.html$ / [R=301,L]
+RewriteRule ^ueber-uns/?$ /ueber-mich/ [R=301,L]
+RewriteRule ^en/about/?$ /en/about-me/ [R=301,L]
 
 # --- Errors: a real 404 page (the old `ErrorDocument 404 /` caused soft-404s)
 ErrorDocument 404 /404.html
