@@ -120,7 +120,13 @@ export function ServicePage({ id, lang }: { id: ServiceId; lang: Lang }) {
         provider: { "@type": "ProfessionalService", "@id": orgId, name: site.legalName, url: site.url }, areaServed: "DE",
         ...offer(s.price),
       }} />
-      <div className={`${wrap} mt-6`}><p className="font-bold text-ink">{s.price}</p><p className="text-sm text-muted">{ui.vatNote}</p><Cta lang={lang} service={id} /></div>
+      <div className={`${wrap} mt-6 flex flex-wrap items-start justify-between gap-6`}>
+        <div>
+          <p className="font-bold text-ink">{s.price}</p><p className="text-sm text-muted">{ui.vatNote}</p>
+          {id === "geo" && <div className="mt-6"><Link className="btn btn-outline" href={pathFor("analysis", lang)}>{ui.ctaAnalysis}</Link></div>}
+        </div>
+        <QuoteLink className="btn" href={pathFor("quote", lang)} need={quoteNeed[id]}>{ui.ctaQuote}</QuoteLink>
+      </div>
       {s.freeCheck && (
         <aside className={`${wrap} mt-6`} aria-labelledby="free">
           <div className="rounded border-2 border-accent p-4">
