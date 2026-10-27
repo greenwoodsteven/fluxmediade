@@ -40,9 +40,9 @@ async function solvePow(): Promise<Pow | null> {
   return null;
 }
 
-function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMessage, notice, consent = true, actions }: {
+function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMessage, notice, consent = true, hideConsent, actions }: {
   endpoint: string; lang: Lang; f: F; children: ReactNode; submitLabel?: string; hideSubmit?: boolean;
-  pow?: boolean; okMessage?: string; notice?: string; consent?: boolean; actions?: ReactNode;
+  pow?: boolean; okMessage?: string; notice?: string; consent?: boolean; hideConsent?: boolean; actions?: ReactNode;
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorKey, setErrorKey] = useState("");
@@ -117,7 +117,7 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMe
           <label>Company<input type="text" name="company" tabIndex={-1} autoComplete="off" /></label>
         </div>
         {consent && (
-        <div>
+        <div hidden={hideConsent}>
           <label className="flex items-start gap-2">
             <input type="checkbox" name="consent" value="1" required className="mt-1 size-5"
               aria-invalid={errors.consent ? true : undefined} aria-describedby={errors.consent ? "consent-error" : undefined} />
@@ -235,7 +235,7 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
       <p className="mb-4 font-bold text-ink" aria-live="polite">
         {f.step} {step + 1} {f.of} {q.stepTitles.length}: {q.stepTitles[step]}
       </p>
-      <Shell endpoint="/api/quote.php" lang={lang} f={f} hideSubmit={step !== last} actions={backBtn}>
+      <Shell endpoint="/api/quote.php" lang={lang} f={f} hideSubmit={step !== last} hideConsent={step !== last} actions={backBtn}>
         {panel(0, choice("need", q.needs, q.stepTitles[0], setNeedIdx))}
         {panel(1, (
           <div className="space-y-4">
