@@ -4,7 +4,8 @@ guard();
 $f = ['name' => line('name', 100), 'email' => line('email', 200), 'url' => line('url', 300)];
 require_fields($f, ['name', 'email']);
 notify('[quote] Angebotsanfrage von ' . $f['name'], [
-    'Name' => $f['name'], 'E-Mail' => $f['email'], 'URL' => $f['url'], 'Bedarf' => line('need'), 'Plattform' => line('platform'),
+    'Name' => $f['name'], 'E-Mail' => $f['email'], 'URL' => $f['url'], 'Bedarf' => line('need'), 'Website vorhanden' => line('site'), 'Plattform (vorhanden)' => line('platform_existing'), 'Zugang' => line('access'),
+    'Plattform (gewünscht)' => line('platform'), 'Plattform (andere)' => line('platform_other'),
     'Umfang' => line('scope'), 'Nachricht' => text('message', 2000),
 ], $f['name'], $f['email'], auto_reply($f['name'], 'quote'));
 respond(200, ['ok' => true]);

@@ -196,13 +196,18 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
   }, [step]);
   const last = q.stepTitles.length - 1;
 
-  const choice = (name: string, options: string[], legend: string) => (
-    <fieldset>
+  const [needIdx, setNeedIdx] = useState(0);
+  const [hasSite, setHasSite] = useState(true);
+  const [platformIdx, setPlatformIdx] = useState(0);
+  const geo = needIdx === q.needs.length - 2;   // "AI visibility & SEO" (second to last, before "Something else")
+
+  const choice = (name: string, options: string[], legend: string, onPick?: (i: number) => void) => (
+    <fieldset key={name + options.length}>
       <legend className="label">{legend}</legend>
       <div className="mt-2 grid gap-2 sm:grid-cols-2">
         {options.map((o, i) => (
           <label key={o} className="flex items-center gap-2 rounded border border-line p-3">
-            <input type="radio" name={name} value={o} required defaultChecked={i === 0} className="size-5" />{o}
+            <input type="radio" name={name} value={o} required defaultChecked={i === 0} className="size-5" onChange={() => onPick?.(i)} />{o}
           </label>
         ))}
       </div>
@@ -218,9 +223,26 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
         {f.step} {step + 1} {f.of} {q.stepTitles.length}: {q.stepTitles[step]}
       </p>
       <Shell endpoint="/api/quote.php" lang={lang} f={f} hideSubmit={step !== last}>
-        {panel(0, choice("need", q.needs, q.stepTitles[0]))}
-        {panel(1, choice("platform", q.platforms, q.platformQ))}
-        {panel(2, <>{choice("scope", q.scopes, q.scopeQ)}<p className="mt-3 text-sm text-muted">{q.extra}</p></>)}
+        {panel(0, choice("need", q.needs, q.stepTitles[0], setNeedIdx))}
+        {panel(1, (
+          <div className="space-y-4">
+            {choice("site", q.sites, q.siteQ, (i) => setHasSite(i === 0))}
+            {hasSite ? (
+              <>
+                <Field id="platform_existing" label={q.existingLabel} hint={q.existingHint} />
+                {choice("access", q.access, q.accessQ)}
+              </>
+            ) : (
+              <>
+                {choice("platform", q.platforms, q.platformQ, setPlatformIdx)}
+                {platformIdx === q.platforms.length - 1 && <Field id="platform_other" label={q.otherLabel} />}
+              </>
+            )}
+          </div>
+        ))}
+        {panel(2, geo
+          ? <>{choice("scope", q.scopesGeo, q.scopeGeoQ)}<p className="mt-3 text-sm text-muted">{q.geoNote}</p></>
+          : <>{choice("scope", q.scopes, q.scopeQ)}<p className="mt-3 text-sm text-muted">{q.extra}</p></>)}
         {panel(3, (
           <div className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
