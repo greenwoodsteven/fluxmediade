@@ -146,8 +146,8 @@ export function ServicePage({ id, lang }: { id: ServiceId; lang: Lang }) {
               <thead><tr>{s.compare.cols.map((h) => <th key={h} scope="col" className="border-b-2 border-ink p-2">{h}</th>)}</tr></thead>
               <tbody>{s.compare.rows.map((r) => (
                 <tr key={r[0]}>{r.map((cell, i) => i === 0
-                  ? <th key={cell} scope="row" className="border-b border-line p-2 font-bold">{cell}</th>
-                  : <td key={cell} className="border-b border-line p-2">{cell}</td>)}</tr>))}</tbody>
+                  ? <th key={i} scope="row" className="border-b border-line p-2 font-bold">{cell}</th>
+                  : <td key={i} className="border-b border-line p-2">{cell}</td>)}</tr>))}</tbody>
             </table>
           </div>
         </section>

@@ -13,7 +13,7 @@ you want to promise publicly (anything you list becomes a commitment).
 | # | Offer | Price model | Start with | Main deliverable |
 |---|-------|-------------|------------|------------------|
 | 0 | Free start-page check | free | form on `/seo-analyse-kostenlos/` | one-page PDF about the home page only |
-| 1 | AI visibility (GEO / AEO) & SEO, multi-page analysis | fixed price, from € 450 | free check or request | analysis of several pages + implementation package |
+| 1 | AI visibility (GEO / AEO) & SEO, three packages (Basic 250 / Standard 450 / Complete 890 €) | fixed price, from € 250 | free check or request | analysis of several pages + implementation package |
 | 2 | Accessibility (BFSG / WCAG 2.2) | fixed price, from € 400 | questionnaire | audit + prioritised fixes |
 | 3 | Website relaunch | fixed price, from € 2,000 | analysis of existing site | rebuilt site, redirects, handover |
 | 4 | WordPress optimisation & support | fixed price / monthly, from € 400 | audit | faster, safer WordPress |
@@ -246,7 +246,7 @@ the amount the customer pays. If the studio leaves that rule, every price below 
 | Offer | Smallest package covered by "from" price | Est. hours | From price | JSON key (`price`) |
 |---|---|---|---|---|
 | 0 Free start-page check | one-page PDF, home page only | 1 | free (cost to studio: € 50 of time) | – |
-| 1 AI visibility | analysis of up to 5 pages (5 h), three quick wins carried out (3 h), call and report (1 h) | 9 | from € 450 | `services.geo.price` |
+| 1 AI visibility | Standard package: analysis of the agreed pages (5 h), three quick wins carried out (3 h), call and report (1 h); Basic 250 € and Complete 890 € per the ad and `services.geo.compare` | 9 | 450 € (Standard) | `services.geo.price` shows "from 250 €" |
 | 2 Accessibility | audit of up to 5 pages incl. manual checks and report; fixes are extra, at the hourly rate | 8 | from € 400 | `services.a11y.price` |
 | 3 Website relaunch | small site up to about 5 pages: concept 4 h, build 24 h, content and migration 6 h, redirects and QA 4 h, handover 2 h | 40 | from € 2,000 | `services.relaunch.price` |
 | 4 WordPress | plugin and speed audit with the main fixes; monthly support about 2 h = € 100 / month, quoted separately | 8 | from € 400 | `services.wordpress.price` |
@@ -257,7 +257,7 @@ the amount the customer pays. If the studio leaves that rule, every price below 
 
 Observations
 - **Free check:** each check costs about an hour (€ 50). With up to 10 confirmed requests a week the cap means at most
-  about 10 h a week. Break-even: roughly one in nine checks has to turn into a "from € 450" analysis.
+  about 10 h a week. Break-even: roughly one in nine checks has to turn into a 450 € (Standard) analysis.
 - **Rate level:** € 50 an hour is at the low end for freelance web development in Germany. It works as an entry
   price, but leaves little room for unbilled time (quotes, calls, support). Compare after the first three projects
   and adjust the hours, not only the rate.

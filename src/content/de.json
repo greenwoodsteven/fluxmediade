@@ -59,19 +59,34 @@
       "lead": "KI-Suchsysteme zitieren Websites, die klar, schnell und gut strukturiert sind, und sie stützen sich auf dieselben Grundlagen wie die klassische Suche: Indexierung, Technik, Inhalte. Wir analysieren mehrere Seiten Ihrer Website, prüfen die SEO-Grundlagen und Core Web Vitals und testen, wie Ihre Firma in ChatGPT, Claude, Perplexity, Gemini und Google-KI-Antworten erscheint, beheben die technischen Ursachen und formulieren Ihre Inhalte so, dass sie zitierbar werden. Ein Platz in den Antworten oder in den Suchergebnissen lässt sich nicht garantieren.",
       "audience": ["Handwerksbetriebe, Praxen und Dienstleister mit lokalem Einzugsgebiet", "Firmen, deren Website zwar existiert, aber selten genannt wird", "Alle, die wissen möchten, wo sie heute stehen"],
       "notFor": ["Sie erwarten eine garantierte Platzierung in KI-Antworten", "Sie suchen Backlink-Pakete oder Anzeigenverwaltung"],
-      "deliverables": ["Schriftliche Analyse der vereinbarten Seiten (technisches und On-Page-SEO: Titel, Überschriften, interne Verlinkung, Indexierung, Core Web Vitals mit konkreten Empfehlungen aus dem Lighthouse-Audit)", "Prüfung der strukturierten Daten für die gesamte Website mit korrigiertem JSON-LD", "KI-Sichtbarkeitstest: Fragen, die zu Ihrem Geschäft passen, in ChatGPT, Claude, Perplexity, Gemini und Google-KI-Antworten, mit Datum dokumentiert", "Inhaltsprüfung mit konkreten Hinweisen zur Überarbeitung der Seiten, die zitiert werden sollen", "Priorisierte Maßnahmenliste nach Wirkung und Aufwand", "Umsetzung der wichtigsten Maßnahmen im Paket „Audit & Quick Wins“", "Erneute Prüfung derselben Fragen nach einigen Wochen, mit kurzem Vorher-nachher-Vergleich"],
-      "process": ["Optional: kostenloser Startseiten-Check", "Festlegen, welche Seiten abgedeckt werden", "Analyse mehrerer Seiten und Gespräch zu den Ergebnissen", "Umsetzung zum Festpreis, danach erneute Prüfung"],
-      "price": "ab 450 €",
-      "priceDrivers": "Umfang der Website, Anzahl der Seiten und Sprachen, vorhandene Technik und gewünschte Umsetzungstiefe.",
+      "deliverables": ["Schriftliche Analyse der vereinbarten Seiten (technisches und On-Page-SEO: Titel, Überschriften, interne Verlinkung, Indexierung, Core Web Vitals mit konkreten Empfehlungen aus dem Lighthouse-Audit)", "Prüfung der strukturierten Daten (JSON-LD); ab Paket Standard korrigiert", "KI-Sichtbarkeitstest (ab Paket Standard): Fragen, die zu Ihrem Geschäft passen, in ChatGPT, Claude, Perplexity, Gemini und Google-KI-Antworten, mit Datum dokumentiert", "Inhaltsprüfung mit konkreten Hinweisen zur Überarbeitung der Seiten, die zitiert werden sollen", "Priorisierte Maßnahmenliste nach Wirkung und Aufwand", "Umsetzung der wichtigsten Maßnahmen (ab Paket Standard)", "Erneute Prüfung derselben Fragen nach einigen Wochen, mit kurzem Vorher-nachher-Vergleich (ab Paket Standard)", "Paket Komplett: bis zu 8 Seiten und zusätzlich die Prüfung der Barrierefreiheit (BFSG / WCAG 2.2); die Behebung der Mängel wird nach Aufwand extra abgerechnet"],
+      "process": ["Optional: kostenloser Startseiten-Check", "Paket und Seiten festlegen", "Analyse der Seiten und Gespräch zu den Ergebnissen", "Je nach Paket: Umsetzung zum Festpreis, danach erneute Prüfung"],
+      "price": "ab 250 €",
+      "priceDrivers": "Festpreis nach Paket: Basic 250 €, Standard 450 €, Komplett 890 €. Darüber hinaus richtet sich der Preis nach dem Umfang der Website, der Anzahl der Seiten und Sprachen, der vorhandenen Technik und der gewünschten Umsetzungstiefe; Sie erhalten vor dem Start ein Festpreis-Angebot. Die Behebung von Mängeln aus der Barrierefreiheitsprüfung wird nach Aufwand extra abgerechnet.",
       "technical": ["Messung: Lighthouse (Core Web Vitals, SEO-Prüfungen und Verbesserungsvorschläge mit geschätzter Ersparnis) und axe pro Seite, Antwort-Header, robots.txt und Sitemap sowie Prüfung, ob die Inhalte auch ohne JavaScript vorhanden sind", "Strukturierte Daten: JSON-LD (Organization, LocalBusiness, Service, FAQ, BreadcrumbList) aus einer Datenquelle erzeugt und validiert", "Zugriff für Crawler: robots.txt-Regeln für KI-Crawler (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended) nach Ihrer Entscheidung, optional eine llms.txt", "Inhaltsstruktur: eine H1, Zwischenüberschriften als Fragen, die kurze Antwort zuerst, FAQ-Blöcke mit passender Auszeichnung", "Geschwindigkeit: AVIF/WebP-Bilder, Caching-Header, weniger Skriptgewicht", "Dokumentation: Vorher-nachher-Tabelle, die JSON-LD-Dateien und eine Liste der geänderten Vorlagen"],
       "freeCheck": {
         "title": "Starten Sie mit dem kostenlosen Check",
-        "text": "Der kostenlose Startseiten-Check betrachtet nur Ihre Startseite und nennt die größten Befunde. Die Analyse mehrerer Seiten auf dieser Seite deckt die von Ihnen gewählten Seiten ab, setzt die Korrekturen um und prüft das Ergebnis erneut.",
+        "text": "Der kostenlose Startseiten-Check betrachtet nur Ihre Startseite und nennt die größten Befunde. Die Pakete auf dieser Seite gehen weiter: Sie analysieren mehrere Seiten, und ab Standard werden die Korrekturen umgesetzt und das Ergebnis erneut geprüft.",
         "link": "Kostenloser Startseiten-Check"
+      },
+      "compare": {
+        "title": "Die drei Pakete im Vergleich",
+        "cols": ["Leistung", "Basic", "Standard", "Komplett"],
+        "rows": [
+          ["Preis (ohne Ausweis von Umsatzsteuer)", "250 €", "450 €", "890 €"],
+          ["Umfang", "3 Seiten", "Vereinbarte Seiten", "Bis zu 8 Seiten"],
+          ["Technisches SEO, Core Web Vitals, Indexierung, interne Verlinkung", "Ja", "Ja", "Ja"],
+          ["Strukturierte Daten (JSON-LD)", "Geprüft", "Geprüft und korrigiert", "Geprüft und korrigiert"],
+          ["Priorisierte Maßnahmenliste", "Ja", "Ja", "Ja"],
+          ["KI-Sichtbarkeitstest in ChatGPT, Claude, Perplexity, Gemini und Google-KI-Antworten", "Nein", "Ja", "Ja"],
+          ["Umsetzung der wichtigsten Maßnahmen", "Nein", "Ja", "Ja"],
+          ["Erneute Prüfung nach einigen Wochen", "Nein", "Ja", "Ja"],
+          ["Prüfung der Barrierefreiheit (BFSG / WCAG 2.2)", "Nein", "Nein", "Ja (Behebung nach Aufwand extra)"]
+        ]
       },
       "faq": [
         { "q": "Kann man in KI-Antworten garantiert erscheinen?", "a": "Nein. Niemand kann das garantieren. Wir verbessern die technischen und inhaltlichen Voraussetzungen, damit Ihre Website verständlich, schnell und zitierfähig ist." },
-        { "q": "Was kostet die Analyse?", "a": "Der Check Ihrer Startseite ist kostenlos und wird als kurzer PDF-Bericht geliefert. Die Analyse mehrerer Seiten und die Umsetzung erhalten Sie zum Festpreis, sobald wir Ihre Website gesehen haben." },
+        { "q": "Was kostet die Analyse?", "a": "Der Check Ihrer Startseite ist kostenlos und wird als kurzer PDF-Bericht geliefert. Danach gibt es drei Festpreis-Pakete: Basic 250 €, Standard 450 €, Komplett 890 € (ohne Ausweis von Umsatzsteuer, § 19 UStG). Vor dem Start erhalten Sie ein Festpreis-Angebot." },
         { "q": "Brauche ich dafür eine neue Website?", "a": "Meist nicht. Oft genügen strukturierte Daten, klarere Texte und einige technische Korrekturen an der bestehenden Seite." },
         { "q": "Wie lange dauert es bis zur Wirkung?", "a": "Das lässt sich nicht seriös vorhersagen. KI-Systeme und Suchmaschinen aktualisieren ihre Daten in unterschiedlichen Abständen." }
       ]
@@ -205,11 +220,11 @@
       "notFor": ["Sie möchten einen Festpreis für eine klar umrissene Website; Relaunch oder Landingpage passen dann besser", "Sie brauchen ein großes Team oder Betrieb rund um die Uhr"],
       "deliverables": ["Schriftliche Schätzung mit Spanne vor Beginn der Arbeit", "Arbeit je Aufgabe erfasst, mit Stundenzettel zu jeder Rechnung", "Funktionierende Software in Ihrem Repository, wo sinnvoll getestet", "Kurze Übergabe-Notizen", "Optional: reservierte Stunden pro Monat zum gleichen Satz"],
       "process": ["Gespräch zur Aufgabe, einfach oder komplex", "Schriftliche Schätzung mit Spanne", "Arbeit in kleinen Schritten mit regelmäßigen Zwischenständen", "Übergabe und Rechnung mit Stundenzettel"],
-      "price": "ab 50 € pro Stunde",
-      "priceDrivers": "Benötigte Stunden: Umfang, Komplexität, Schnittstellen und wie gut der vorhandene Code dokumentiert ist. Der Stundensatz hängt vom Umfang pro Monat ab: Der niedrigste Satz (50 €) gilt bei größerem Stundenumfang, kürzere Aufträge kosten pro Stunde mehr. Das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen.",
+      "price": "50 € pro Stunde ab 10 Stunden im Monat, darunter 70 €",
+      "priceDrivers": "Benötigte Stunden: Umfang, Komplexität, Schnittstellen und wie gut der vorhandene Code dokumentiert ist. Der Stundensatz hängt vom Umfang pro Monat ab: 70 € bei weniger als 10 Stunden im Monat, 50 € ab 10 Stunden im Monat. Das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen.",
       "technical": ["Frontend: React und Next.js mit TypeScript und Tailwind CSS; Budgets für Barrierefreiheit und Performance werden im Build geprüft", "Backend: Node.js oder PHP, REST/JSON-Schnittstellen oder ein Headless-CMS wie Payload", "Schnittstellen: Zahlungen mit Stripe, E-Mail und SMS, n8n, die WordPress-REST-API", "Auslieferung: Git-Workflow mit Pull Requests, automatisierte Tests, Vorschau- und Produktivumgebung, Rollback", "Sicherheit und Datenschutz: Eingabeprüfung, Mengenbegrenzung, Sicherheits-Header, Zugangsdaten außerhalb des Repositorys, Daten in der EU, wo nötig"],
       "faq": [
-        { "q": "Was kostet es?", "a": "Ab 50 € pro Stunde. Der Satz von 50 € gilt für Projekte mit größerem Stundenumfang pro Monat; für kürzere Aufträge liegt der Stundensatz höher. Vor dem Start erhalten Sie eine schriftliche Schätzung mit Spanne, und das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen." },
+        { "q": "Was kostet es?", "a": "Ab 50 € pro Stunde: 70 € bei weniger als 10 Stunden im Monat, 50 € ab 10 Stunden im Monat. Vor dem Start erhalten Sie eine schriftliche Schätzung mit Spanne, und das vereinbarte Budget überschreiten wir nicht, ohne vorher mit Ihnen zu sprechen." },
         { "q": "Können Sie ein bestehendes Projekt übernehmen?", "a": "Ja. Wir sehen uns zuerst den Code an und sagen Ihnen ehrlich, was sich lohnt." },
         { "q": "Sollte ich lieber einen Festpreis anfragen?", "a": "Für klar umrissene Websites bieten wir Festpreis-Pakete an, siehe Website-Relaunch und Landingpage." }
       ]
@@ -343,7 +358,7 @@
       "sections": [
         { "h": "Angaben gemäß § 5 DDG", "p": ["{legalName}", "Inhaber: {owner}", "{address}"] },
         { "h": "Kontakt", "p": ["Telefon: {phone}", "E-Mail: {email}"] },
-        { "h": "Umsatzsteuer-ID", "p": ["Umsatzsteuer-Identifikationsnummer: {vatId}"] },
+        { "h": "Umsatzsteuer-ID", "p": ["Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: {vatId}"] },
         { "h": "Verbraucherstreitbeilegung", "p": ["Wir sind weder bereit noch verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."] },
         {
           "h": "Fluxmedia GbR",

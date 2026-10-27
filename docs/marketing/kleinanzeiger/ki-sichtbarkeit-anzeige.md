@@ -103,14 +103,11 @@ Impressum
 Angaben gemäß § 5 DDG
 Fluxmedia
 Inhaber: Steven Greenwood
-Sandbühl 31
-88662 Überlingen
-Deutschland
+Sandbühl 31, 88662 Überlingen
 
-Kontakt:
-Telefon: +49 160 1222388
+Kontakt
+Telefon: +49-160-1222388
 E-Mail: info@fluxmedia.de
-www.fluxmedia.de
 
 Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE447203035
 
@@ -243,5 +240,5 @@ Sachschäden mit USA-Bezug gelten Einschränkungen.
    competitors' ads); paste 3.1, 3.2 and 3.3 there, and keep 3.4 in the description.
 6. **Do not use the saved competitor HTML files** (they hold other people's contact data) for anything beyond this
    comparison; they are not part of the repository.
-7. Phone number in the Impressum: `+49 160 1222388` is the number in the site configuration. Confirm it is the one meant
+7. Phone number in the Impressum: `+49-160-1222388` (written exactly like this on the site and in the ad block) is the number in the site configuration. Confirm it is the one meant
    for public display.

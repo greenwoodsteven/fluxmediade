@@ -59,19 +59,34 @@
       "lead": "AI search systems cite websites that are clear, fast and well structured, and they rely on the same basics as classic search: indexing, technology, content. We analyse several pages of your website, check the SEO basics and Core Web Vitals, and test how your business appears in ChatGPT, Claude, Perplexity, Gemini and Google AI answers, fix the technical causes and word your content so it can be cited. A place in the answers or in search results cannot be guaranteed.",
       "audience": ["Trades, practices and service providers with a local catchment area", "Businesses whose website exists but is rarely mentioned", "Anyone who wants to know where they stand today"],
       "notFor": ["You expect a guaranteed placement in AI answers", "You are looking for backlink packages or ad management"],
-      "deliverables": ["Written analysis of the agreed pages (technical and on-page SEO: titles, headings, internal links, indexing, Core Web Vitals with concrete recommendations from the Lighthouse audit)", "Structured-data audit for the whole site with a corrected JSON-LD set", "AI visibility test: questions that fit your business in ChatGPT, Claude, Perplexity, Gemini and Google AI answers, documented with dates", "Content review with concrete rewrite notes for the pages that should be cited", "Prioritised action list by impact and effort", "Implementation of the top measures in the “Audit & Quick Wins” package", "Re-test of the same questions after a few weeks, with a short before/after note"],
-      "process": ["Optional: free start-page check", "Agree which pages are covered", "Multi-page analysis and a call about the results", "Implementation at a fixed price, then a re-test"],
-      "price": "from €450",
-      "priceDrivers": "Size of the website, number of pages and languages, existing technology and the depth of implementation you want.",
+      "deliverables": ["Written analysis of the agreed pages (technical and on-page SEO: titles, headings, internal links, indexing, Core Web Vitals with concrete recommendations from the Lighthouse audit)", "Structured-data check (JSON-LD); corrected from the Standard package", "AI visibility test (from the Standard package): questions that fit your business in ChatGPT, Claude, Perplexity, Gemini and Google AI answers, documented with dates", "Content review with concrete rewrite notes for the pages that should be cited", "Prioritised action list by impact and effort", "Implementation of the top measures (from the Standard package)", "Re-test of the same questions after a few weeks, with a short before/after note (from the Standard package)", "Complete package: up to 8 pages and an accessibility check (BFSG / WCAG 2.2) on top; fixing the issues is billed extra by effort"],
+      "process": ["Optional: free start-page check", "Agree the package and the pages", "Analysis of the pages and a call about the results", "Depending on the package: implementation at a fixed price, then a re-test"],
+      "price": "from €250",
+      "priceDrivers": "Fixed price by package: Basic €250, Standard €450, Complete €890. Beyond that the price depends on the size of the website, the number of pages and languages, the existing technology and the depth of implementation you want; you receive a fixed-price quote before we start. Fixing the issues found in the accessibility check is billed extra by effort.",
       "technical": ["Measurement: Lighthouse (Core Web Vitals, SEO checks and improvement suggestions with estimated savings) and axe per page, response headers, robots.txt and sitemap, and a check that the content is present without JavaScript", "Structured data: JSON-LD (Organization, LocalBusiness, Service, FAQ, BreadcrumbList) generated from one data source and validated", "Crawler access: robots.txt rules for AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended) as you decide, optionally an llms.txt", "Content structure: one H1, question-style subheadings, the short answer first, FAQ blocks with matching markup", "Speed: AVIF/WebP images, caching headers, less script weight", "Documentation: before/after table, the JSON-LD files and a list of the changed templates"],
       "freeCheck": {
         "title": "Start with the free check",
-        "text": "The free start-page check looks at your home page only and names the biggest findings. The multi-page analysis on this page covers the pages you choose, carries out the fixes and re-tests the result.",
+        "text": "The free start-page check looks at your home page only and names the biggest findings. The packages on this page go further: they analyse several pages, and from Standard the fixes are carried out and the result is re-tested.",
         "link": "Free start-page check"
+      },
+      "compare": {
+        "title": "The three packages compared",
+        "cols": ["Service", "Basic", "Standard", "Complete"],
+        "rows": [
+          ["Price (no VAT shown)", "€250", "€450", "€890"],
+          ["Scope", "3 pages", "Agreed pages", "Up to 8 pages"],
+          ["Technical SEO, Core Web Vitals, indexing, internal links", "Yes", "Yes", "Yes"],
+          ["Structured data (JSON-LD)", "Checked", "Checked and corrected", "Checked and corrected"],
+          ["Prioritised action list", "Yes", "Yes", "Yes"],
+          ["AI visibility test in ChatGPT, Claude, Perplexity, Gemini and Google AI answers", "No", "Yes", "Yes"],
+          ["Implementation of the top measures", "No", "Yes", "Yes"],
+          ["Re-test after a few weeks", "No", "Yes", "Yes"],
+          ["Accessibility check (BFSG / WCAG 2.2)", "No", "No", "Yes (fixing billed extra)"]
+        ]
       },
       "faq": [
         { "q": "Can you guarantee appearing in AI answers?", "a": "No, nobody can. We improve the technical and content conditions so your website is understandable, fast and citable." },
-        { "q": "What does the analysis cost?", "a": "The start-page check of your home page is free and delivered as a short PDF report. The multi-page analysis and the implementation are priced at a fixed price once we have seen your site." },
+        { "q": "What does the analysis cost?", "a": "The start-page check of your home page is free and delivered as a short PDF report. After that there are three fixed-price packages: Basic €250, Standard €450, Complete €890 (no VAT shown, § 19 UStG). You receive a fixed-price quote before we start." },
         { "q": "Do I need a new website for this?", "a": "Usually not. Structured data, clearer copy and a few technical fixes to the existing site are often enough." },
         { "q": "How long until it has an effect?", "a": "That cannot be predicted reliably. AI systems and search engines update their data at different intervals." }
       ]
@@ -205,11 +220,11 @@
       "notFor": ["You want a fixed price for a clearly defined website; the relaunch or the landing page fits better", "You need a large team or round-the-clock operation"],
       "deliverables": ["Written estimate with a range before work starts", "Work tracked per task, with a timesheet on every invoice", "Working software in your repository, tested where it makes sense", "Short handover notes", "Optional: reserved hours per month at the same rate"],
       "process": ["Conversation about the task, simple or complex", "Written estimate with a range", "Work in small steps with regular updates", "Handover and invoice with timesheet"],
-      "price": "from €50 per hour",
-      "priceDrivers": "Hours needed: scope, complexity, integrations and how well the existing code is documented. The hourly rate depends on the monthly volume: the lowest rate (€50) applies to a larger number of hours, shorter jobs cost more per hour. We do not exceed the agreed budget without asking you first.",
+      "price": "€50 per hour from 10 hours a month, €70 below that",
+      "priceDrivers": "Hours needed: scope, complexity, integrations and how well the existing code is documented. The hourly rate depends on the monthly volume: €70 for fewer than 10 hours a month, €50 from 10 hours a month. We do not exceed the agreed budget without asking you first.",
       "technical": ["Front end: React and Next.js with TypeScript and Tailwind CSS; accessibility and performance budgets are checked in the build", "Back end: Node.js or PHP, REST/JSON APIs, or a headless CMS such as Payload", "Integrations: payments with Stripe, email and SMS, n8n, the WordPress REST API", "Delivery: git workflow with pull requests, automated tests, preview and production environments, rollback", "Security and privacy: input validation, rate limiting, security headers, secrets kept outside the repository, EU-hosted data where required"],
       "faq": [
-        { "q": "What does it cost?", "a": "From €50 per hour. The €50 rate applies to projects with a larger number of hours per month; for shorter jobs the hourly rate is higher. Before we start you receive a written estimate with a range, and we do not go beyond the agreed budget without asking you first." },
+        { "q": "What does it cost?", "a": "From €50 per hour: €70 for fewer than 10 hours a month, €50 from 10 hours a month. Before we start you receive a written estimate with a range, and we do not go beyond the agreed budget without asking you first." },
         { "q": "Can you take over an existing project?", "a": "Yes. We look at the code first and tell you honestly what is worthwhile." },
         { "q": "Should I ask for a fixed price instead?", "a": "For clearly defined websites we offer fixed-price packages, see website relaunch and landing page." }
       ]
@@ -343,7 +358,7 @@
       "sections": [
         { "h": "Information pursuant to § 5 DDG", "p": ["{legalName}", "Owner: {owner}", "{address}"] },
         { "h": "Contact", "p": ["Phone: {phone}", "Email: {email}"] },
-        { "h": "VAT ID", "p": ["VAT identification number: {vatId}"] },
+        { "h": "VAT ID", "p": ["VAT identification number pursuant to § 27a UStG: {vatId}"] },
         { "h": "Consumer dispute resolution", "p": ["We are neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board."] },
         {
           "h": "Fluxmedia GbR",
