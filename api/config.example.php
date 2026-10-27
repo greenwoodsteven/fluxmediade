@@ -4,7 +4,9 @@
 return [
     'allowed_origins' => ['https://www.fluxmedia.de', 'https://fluxmedia.de'],
     'to'        => 'info@fluxmedia.de',
-    'owner'     => 'Steven Greenwood',   // shown in the signature of automatic replies
+    'owner'     => 'Steven Greenwood',   // shown in the signature and footer of automatic replies
+    'owner_address_en' => 'Sandbühl 31, 88662 Überlingen, Germany',   // optional: postal address in the mail footer (as in the Impressum)
+    'owner_address_de' => 'Sandbühl 31, 88662 Überlingen',   // optional: postal address in the mail footer (as in the Impressum)
     'smtp' => [
         'host'       => 'mxe824.netcup.net',
         'port'       => 465,

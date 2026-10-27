@@ -93,6 +93,50 @@ function signature(): string {
     return 'Fluxmedia' . ($owner !== '' ? (lang() === 'de' ? "\nInhaber: $owner" : "\nOwner: $owner") : '');
 }
 
+/**
+ * HTML version of a plain-text mail body: blank-line separated paragraphs, a lone URL becomes a button.
+ * The plain text stays the AltBody, so every mail is multipart/alternative.
+ */
+function mail_html(string $text, string $lang): string {
+    $base = rtrim(config()['base_url'] ?? 'https://www.fluxmedia.de', '/');
+    $p = 'margin:0 0 16px;font:16px/1.6 Arial,Helvetica,sans-serif;color:#333333;';
+    $out = '';
+    foreach (preg_split('/\n{2,}/', trim($text)) as $para) {
+        $para = trim($para);
+        if (preg_match('#^https?://\S+$#', $para)) {
+            $u = htmlspecialchars($para, ENT_QUOTES);
+            $label = $lang === 'de' ? 'Anfrage bestätigen' : 'Confirm request';
+            $out .= '<p style="margin:24px 0;"><a href="' . $u . '" style="display:inline-block;padding:12px 24px;background:#0b5f8a;color:#ffffff;font:bold 16px Arial,Helvetica,sans-serif;text-decoration:none;border-radius:4px;">' . $label . '</a></p>'
+                . '<p style="margin:0 0 16px;font:13px/1.5 Arial,Helvetica,sans-serif;color:#666666;word-break:break-all;">' . $u . '</p>';
+        } else {
+            $out .= '<p style="' . $p . '">' . nl2br(htmlspecialchars($para, ENT_QUOTES), false) . '</p>';
+        }
+    }
+    $c = config();
+    $legal = ['Fluxmedia' . (($c['owner'] ?? '') !== '' ? ($lang === 'de' ? ' · Inhaber: ' : ' · Owner: ') . htmlspecialchars($c['owner'], ENT_QUOTES) : '')];
+    $addr = $c['owner_address_' . $lang] ?? $c['owner_address'] ?? '';
+    if ($addr !== '') $legal[] = htmlspecialchars($addr, ENT_QUOTES);
+    $imprint = $lang === 'de' ? "$base/impressum/" : "$base/en/legal-notice/";
+    $privacy = $lang === 'de' ? "$base/datenschutz/" : "$base/en/privacy/";
+    $legal[] = '<a href="' . $imprint . '" style="color:#666666;">' . ($lang === 'de' ? 'Impressum' : 'Legal notice') . '</a> · <a href="' . $privacy . '" style="color:#666666;">' . ($lang === 'de' ? 'Datenschutz' : 'Privacy') . '</a>';
+    return '<!doctype html><html lang="' . $lang . '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>'
+        . '<body style="margin:0;padding:0;background:#f4f4f4;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;"><tr><td align="center" style="padding:24px 12px;">'
+        . '<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#ffffff;">'
+        . '<tr><td style="padding:24px 32px;border-bottom:1px solid #e5e5e5;"><img src="cid:fluxlogo" width="178" height="33" alt="Fluxmedia" style="display:block;border:0;width:178px;height:33px;"></td></tr>'
+        . '<tr><td style="padding:32px 32px 16px;">' . $out . '</td></tr>'
+        . '<tr><td style="padding:16px 32px 24px;border-top:1px solid #e5e5e5;font:12px/1.6 Arial,Helvetica,sans-serif;color:#666666;">' . implode('<br>', $legal) . '</td></tr>'
+        . '</table></td></tr></table></body></html>';
+}
+
+/** Switch a mailer to HTML (logo embedded by CID, no remote image to block) with the plain text as AltBody. */
+function set_html_body(PHPMailer $m, string $text, string $lang): void {
+    $m->clearAttachments();
+    $m->isHTML(true);
+    $m->addEmbeddedImage(__DIR__ . '/logo-email.png', 'fluxlogo', 'fluxmedia.png', PHPMailer::ENCODING_BASE64, 'image/png');
+    $m->Body = mail_html($text, $lang);
+    $m->AltBody = $text;
+}
+
 function lang(): string { return ($_POST['lang'] ?? 'de') === 'en' ? 'en' : 'de'; }
 
 /** Test helper: with config['mail_dump'] set, mails are written to that folder instead of being sent. */
@@ -121,7 +165,7 @@ function mailer(): PHPMailer {
 }
 
 /**
- * Notify the studio (Reply-To = visitor) and send a plain auto-reply.
+ * Notify the studio (Reply-To = visitor, plain text) and send an HTML auto-reply.
  * Nothing is stored beyond the mail itself.
  */
 function notify(string $subject, array $fields, string $replyName, string $replyEmail, array $autoReply): void {
@@ -135,6 +179,7 @@ function notify(string $subject, array $fields, string $replyName, string $reply
         $t = microtime(true);
         $m->addAddress(config()['to']);
         $m->addReplyTo($replyEmail, $replyName);
+        $m->isHTML(false);
         $m->Subject = $subject;
         $m->Body = $body;
         // High priority for the studio notification (not for the visitor's auto-reply)
@@ -150,7 +195,7 @@ function notify(string $subject, array $fields, string $replyName, string $reply
         $m->Priority = null;
         $m->addAddress($replyEmail, $replyName);
         $m->Subject = $autoReply['subject'];
-        $m->Body = $autoReply['body'];
+        set_html_body($m, $autoReply['body'], lang());
         $m->addCustomHeader('Auto-Submitted', 'auto-replied');
         $t = microtime(true);
         $m->send();
@@ -171,6 +216,10 @@ function auto_reply(string $name, string $kind): array {
     $de = lang() === 'de';
     $hours = $kind === 'analysis' ? ($de ? 'innerhalb von 48 Stunden (2 Werktagen)' : 'within 48 hours (2 working days)') : ($de ? 'innerhalb eines Werktags' : 'within one working day');
     return $de
-        ? ['subject' => 'Ihre Anfrage bei Fluxmedia', 'body' => "Guten Tag $name,\n\nvielen Dank für Ihre Anfrage. Wir melden uns $hours persönlich bei Ihnen.\n\nFreundliche Grüße\nFluxmedia\n"]
-        : ['subject' => 'Your enquiry at Fluxmedia', 'body' => "Hello $name,\n\nThank you for your enquiry. We will get back to you personally $hours.\n\nKind regards\nFluxmedia\n"];
+        ? ['subject' => 'Ihre Anfrage bei Fluxmedia', 'body' => "Guten Tag $name,\n\nvielen Dank für Ihre Anfrage. Wir melden uns $hours persönlich bei Ihnen."
+            . ($kind === 'quote' ? "\n\nEin Vertrag kommt erst mit Ihrer Annahme unseres schriftlichen Angebots zustande. Vertragspartner ist die dort genannte Person: " . (config()['owner'] ?? 'Fluxmedia') . ', Inhaber Fluxmedia.' : '')
+            . "\n\nFreundliche Grüße\n" . signature() . "\n"]
+        : ['subject' => 'Your enquiry at Fluxmedia', 'body' => "Hello $name,\n\nThank you for your enquiry. We will get back to you personally $hours."
+            . ($kind === 'quote' ? "\n\nA contract is only concluded when you accept our written quote. The contracting party is the one named there: " . (config()['owner'] ?? 'Fluxmedia') . ', owner of Fluxmedia.' : '')
+            . "\n\nKind regards\n" . signature() . "\n"];
 }

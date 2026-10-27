@@ -100,8 +100,9 @@ function confirm_mail(string $name, string $email, string $link, string $lang, s
         $m->addAddress($email, $name);
         $m->Subject = $de ? 'Bitte bestätigen Sie Ihre Analyse-Anfrage' : 'Please confirm your analysis request';
         $m->Body = $de
-            ? "Guten Tag $name,\n\nbitte bestätigen Sie Ihre E-Mail-Adresse, damit wir Ihre Anfrage für die kostenlose Analyse bearbeiten können:\n\nWebsite: $url\nSuchbegriffe: $terms\n\n$link\n\nDer Link ist $hours Stunden gültig. Wenn Sie die Analyse nicht angefragt haben, ignorieren Sie diese E-Mail einfach.\n\nFreundliche Grüße\nFluxmedia\n"
-            : "Hello $name,\n\nplease confirm your email address so we can process your request for the free analysis:\n\nWebsite: $url\nSearch terms: $terms\n\n$link\n\nThe link is valid for $hours hours. If you did not request the analysis, simply ignore this email.\n\nKind regards\nFluxmedia\n";
+            ? "Guten Tag $name,\n\nbitte bestätigen Sie Ihre E-Mail-Adresse, damit wir Ihre Anfrage für die kostenlose Analyse bearbeiten können:\n\nWebsite: $url\nSuchbegriffe: $terms\n\n$link\n\nDer Link ist $hours Stunden gültig. Wenn Sie die Analyse nicht angefragt haben, ignorieren Sie diese E-Mail einfach.\n\nFreundliche Grüße\n" . signature() . "\n"
+            : "Hello $name,\n\nplease confirm your email address so we can process your request for the free analysis:\n\nWebsite: $url\nSearch terms: $terms\n\n$link\n\nThe link is valid for $hours hours. If you did not request the analysis, simply ignore this email.\n\nKind regards\n" . signature() . "\n";
+        set_html_body($m, $m->Body, $lang);
         $m->addCustomHeader('Auto-Submitted', 'auto-generated');
         $t = microtime(true);
         $m->send();
