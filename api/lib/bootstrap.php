@@ -97,11 +97,11 @@ function signature(): string {
  * HTML version of a plain-text mail body: blank-line separated paragraphs, a lone URL becomes a button.
  * The plain text stays the AltBody, so every mail is multipart/alternative.
  */
-function mail_html(string $text, string $lang): string {
+function mail_html(string $text, string $lang, ?string $inner = null): string {
     $base = rtrim(config()['base_url'] ?? 'https://www.fluxmedia.de', '/');
     $p = 'margin:0 0 16px;font:16px/1.6 Arial,Helvetica,sans-serif;color:#333333;';
     $out = '';
-    foreach (preg_split('/\n{2,}/', trim($text)) as $para) {
+    foreach ($inner !== null ? [] : preg_split('/\n{2,}/', trim($text)) as $para) {
         $para = trim($para);
         if (preg_match('#^https?://\S+$#', $para)) {
             $u = htmlspecialchars($para, ENT_QUOTES);
@@ -123,17 +123,17 @@ function mail_html(string $text, string $lang): string {
         . '<body style="margin:0;padding:0;background:#f4f4f4;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;"><tr><td align="center" style="padding:24px 12px;">'
         . '<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#ffffff;">'
         . '<tr><td style="padding:24px 32px;border-bottom:1px solid #e5e5e5;"><img src="cid:fluxlogo" width="178" height="33" alt="Fluxmedia" style="display:block;border:0;width:178px;height:33px;"></td></tr>'
-        . '<tr><td style="padding:32px 32px 16px;">' . $out . '</td></tr>'
+        . '<tr><td style="padding:32px 32px 16px;">' . ($inner ?? $out) . '</td></tr>'
         . '<tr><td style="padding:16px 32px 24px;border-top:1px solid #e5e5e5;font:12px/1.6 Arial,Helvetica,sans-serif;color:#666666;">' . implode('<br>', $legal) . '</td></tr>'
         . '</table></td></tr></table></body></html>';
 }
 
 /** Switch a mailer to HTML (logo embedded by CID, no remote image to block) with the plain text as AltBody. */
-function set_html_body(PHPMailer $m, string $text, string $lang): void {
+function set_html_body(PHPMailer $m, string $text, string $lang, ?string $inner = null): void {
     $m->clearAttachments();
     $m->isHTML(true);
     $m->addEmbeddedImage(__DIR__ . '/logo-email.png', 'fluxlogo', 'fluxmedia.png', PHPMailer::ENCODING_BASE64, 'image/png');
-    $m->Body = mail_html($text, $lang);
+    $m->Body = mail_html($text, $lang, $inner);
     $m->AltBody = $text;
 }
 
@@ -169,6 +169,18 @@ function mailer(): PHPMailer {
  * Nothing is stored beyond the mail itself.
  */
 function notify(string $subject, array $fields, string $replyName, string $replyEmail, array $autoReply): void {
+    if (lang() === 'en') {   // the studio mail follows the visitor's language; callers pass German labels
+        $tr = ['Angebotsanfrage von' => 'Quote request from', 'Kontaktanfrage von' => 'Contact request from', 'Analyse-Anfrage:' => 'Analysis request:',
+               'Widerruf von' => 'Withdrawal from'];
+        $labels = ['E-Mail bestätigt' => 'Email confirmed', 'E-Mail' => 'Email', 'Bedarf' => 'Need', 'Website vorhanden' => 'Has a website',
+                   'Plattform (vorhanden)' => 'Existing platform', 'Zugang' => 'Access', 'Plattform (gewünscht)' => 'Desired platform',
+                   'Plattform (andere)' => 'Other platform', 'Umfang' => 'Scope', 'Nachricht' => 'Message', 'Vertrag' => 'Contract',
+                   'Eingang' => 'Received', 'Hinweis' => 'Note'];
+        $subject = strtr($subject, $tr);
+        $out = [];
+        foreach ($fields as $k => $v) $out[$labels[$k] ?? $k] = $k === 'E-Mail bestätigt' ? 'yes' : $v;
+        $fields = $out;
+    }
     $body = '';
     foreach ($fields as $label => $value) if ($value !== '') $body .= $label . ': ' . $value . "\n";
     $body .= "\nLang: " . lang() . "\nRef: " . line('ref', 50) . "\n";
@@ -179,9 +191,14 @@ function notify(string $subject, array $fields, string $replyName, string $reply
         $t = microtime(true);
         $m->addAddress(config()['to']);
         $m->addReplyTo($replyEmail, $replyName);
-        $m->isHTML(false);
+        // HTML table for reading, the plain text stays as AltBody
+        $rows = '';
+        foreach ($fields as $label => $value) if ($value !== '')
+            $rows .= '<tr><td style="padding:6px 16px 6px 0;vertical-align:top;font:bold 15px/1.5 Arial,Helvetica,sans-serif;color:#222222;white-space:nowrap;">' . htmlspecialchars($label, ENT_QUOTES)
+                . '</td><td style="padding:6px 0;vertical-align:top;font:15px/1.5 Arial,Helvetica,sans-serif;color:#333333;">' . nl2br(htmlspecialchars($value, ENT_QUOTES), false) . '</td></tr>';
+        $rows .= '<tr><td colspan="2" style="padding:12px 0 0;font:13px/1.5 Arial,Helvetica,sans-serif;color:#666666;">Lang: ' . lang() . ' · Ref: ' . htmlspecialchars(line('ref', 50), ENT_QUOTES) . '</td></tr>';
+        set_html_body($m, $body, lang(), '<table role="presentation" cellpadding="0" cellspacing="0" width="100%">' . $rows . '</table>');
         $m->Subject = $subject;
-        $m->Body = $body;
         // High priority for the studio notification (not for the visitor's auto-reply)
         $m->Priority = 1;                                  // X-Priority: 1 (Highest)
         $m->addCustomHeader('X-MSMail-Priority', 'High');
@@ -194,6 +211,7 @@ function notify(string $subject, array $fields, string $replyName, string $reply
         $m->clearCustomHeaders();
         $m->Priority = null;
         $m->addAddress($replyEmail, $replyName);
+        $m->addReplyTo(config()['to'], $m->FromName);      // customers answer to the info address, not the SMTP login
         $m->Subject = $autoReply['subject'];
         set_html_body($m, $autoReply['body'], lang());
         $m->addCustomHeader('Auto-Submitted', 'auto-replied');
