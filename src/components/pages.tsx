@@ -85,7 +85,7 @@ function Cta({ lang, service }: { lang: Lang; service?: ServiceId }) {
   const ui = getContent(lang).ui;
   return (
     <div className="mt-6 flex flex-wrap gap-3">
-      <Link className="btn" href={pathFor("analysis", lang)}>{ui.ctaAnalysis}</Link>
+      {(!service || service === "geo") && <Link className="btn" href={pathFor("analysis", lang)}>{ui.ctaAnalysis}</Link>}
       <QuoteLink className="btn btn-outline" href={pathFor("quote", lang)} need={service && quoteNeed[service]}>{ui.ctaQuote}</QuoteLink>
     </div>
   );
