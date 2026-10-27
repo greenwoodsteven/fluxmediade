@@ -13,7 +13,7 @@ return [
         'encryption' => 'ssl',            // 'ssl' | 'tls'
         'username'   => 'support@fluxmedia.de',
         'password'   => 'CHANGE_ME',
-        'from_email' => 'support@fluxmedia.de',
+        'from_email' => 'info@fluxmedia.de',       // shown as sender; the login (username) stays the SMTP envelope sender
         'from_name'  => 'Fluxmedia',
     ],
     'rate_limit' => ['max' => 5, 'window' => 3600],   // per IP hash

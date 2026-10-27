@@ -161,6 +161,7 @@ function mailer(): PHPMailer {
     $m->SMTPSecure = $s['encryption'] === 'tls' ? PHPMailer::ENCRYPTION_STARTTLS : PHPMailer::ENCRYPTION_SMTPS;
     $m->CharSet = 'UTF-8';
     $m->setFrom($s['from_email'], $s['from_name']);
+    if (filter_var($s['username'], FILTER_VALIDATE_EMAIL)) $m->Sender = $s['username'];   // envelope sender stays the login, so the visible From address can be an alias such as info@
     return $m;
 }
 
@@ -230,14 +231,18 @@ function log_timing(string $what): void {
     if (!empty(config()['log_timing'])) error_log('fluxmedia mail timing: ' . $what);
 }
 
-function auto_reply(string $name, string $kind): array {
+function auto_reply(string $name, string $kind, array $summary = []): array {
     $de = lang() === 'de';
+    // Non-personal parts of the request, echoed back so the visitor sees what we received: "Label: value" lines.
+    $recap = '';
+    foreach ($summary as $label => $value) if ($value !== '') $recap .= "\n" . $label . ': ' . $value;
+    if ($recap !== '') $recap = "\n\n" . ($de ? 'Ihre Angaben:' : 'Your details:') . $recap;
     $hours = $kind === 'analysis' ? ($de ? 'innerhalb von 48 Stunden (2 Werktagen)' : 'within 48 hours (2 working days)') : ($de ? 'innerhalb eines Werktags' : 'within one working day');
     return $de
-        ? ['subject' => 'Ihre Anfrage bei Fluxmedia', 'body' => "Guten Tag $name,\n\nvielen Dank für Ihre Anfrage. Wir melden uns $hours persönlich bei Ihnen."
+        ? ['subject' => 'Ihre Anfrage bei Fluxmedia', 'body' => "Guten Tag $name,\n\nvielen Dank für Ihre Anfrage. Wir melden uns $hours persönlich bei Ihnen." . $recap
             . ($kind === 'quote' ? "\n\nEin Vertrag kommt erst mit Ihrer Annahme unseres schriftlichen Angebots zustande. Vertragspartner ist die dort genannte Person: " . (config()['owner'] ?? 'Fluxmedia') . ', Inhaber Fluxmedia.' : '')
             . "\n\nFreundliche Grüße\n" . signature() . "\n"]
-        : ['subject' => 'Your enquiry at Fluxmedia', 'body' => "Hello $name,\n\nThank you for your enquiry. We will get back to you personally $hours."
+        : ['subject' => 'Your enquiry at Fluxmedia', 'body' => "Hello $name,\n\nThank you for your enquiry. We will get back to you personally $hours." . $recap
             . ($kind === 'quote' ? "\n\nA contract is only concluded when you accept our written quote. The contracting party is the one named there: " . (config()['owner'] ?? 'Fluxmedia') . ', owner of Fluxmedia.' : '')
             . "\n\nKind regards\n" . signature() . "\n"];
 }
