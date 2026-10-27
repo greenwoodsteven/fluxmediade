@@ -185,7 +185,7 @@ function TechCloud({ lang }: { lang: Lang }) {
   const about = getContent(lang).pages.about;
   const hash = (t: string) => Array.from(t).reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 9973, 7);
   const items = analysisCloud.map((t) => ({ label: (lang === "en" && t.en) || t.de, w: t.w })).sort((a, b) => hash(a.label) - hash(b.label));
-  return <TechCloud3D items={items} label={about.cloudTitle} stopLabel={getContent(lang).ui.motionStop} playLabel={getContent(lang).ui.motionPlay} />;
+  return <TechCloud3D items={items} label={about.cloudTitle} />;
 }
 
 function TechBanner({ lang }: { lang: Lang }) {

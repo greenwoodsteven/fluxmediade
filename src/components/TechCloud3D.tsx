@@ -14,16 +14,14 @@ const HEIGHT = 380; // px, the same for the static and the 3D state so nothing j
  * rotation, and screen readers get the plain list. Positions are written straight
  * to the DOM each frame (no React re-render per frame), and the loop stops while the cloud is off screen.
  */
-export function TechCloud3D({ items, label, stopLabel, playLabel }: { items: CloudItem[]; label: string; stopLabel: string; playLabel: string }) {
-  const [motion, setMotion] = useState(false);   // the reduced-motion preference allows the sphere
-  const [paused, setPaused] = useState(false);   // WCAG 2.2.2: automatic movement needs a way to stop it
-  const animated = motion && !paused;
+export function TechCloud3D({ items, label }: { items: CloudItem[]; label: string }) {
+  const [animated, setAnimated] = useState(false);   // the reduced-motion preference allows the sphere
   const boxRef = useRef<HTMLDivElement>(null);
   const tagRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setMotion(!mq.matches);
+    const sync = () => setAnimated(!mq.matches);
     sync();
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
@@ -95,19 +93,12 @@ export function TechCloud3D({ items, label, stopLabel, playLabel }: { items: Clo
     };
   }, [animated, items]);
 
-  const toggle = motion && (
-    <button type="button" className="btn btn-outline mt-3" onClick={() => setPaused(!paused)}>
-      {paused ? playLabel : stopLabel}
-    </button>
-  );
-
   if (!animated)
     return (
       <div>
         <ul className="flex flex-wrap content-center items-baseline gap-x-4 gap-y-1 leading-tight" style={{ minHeight: HEIGHT }} aria-label={label}>
           {items.map((t) => <li key={t.label} className={staticCls[t.w]}>{t.label}</li>)}
         </ul>
-        {toggle}
       </div>
     );
 
@@ -122,7 +113,6 @@ export function TechCloud3D({ items, label, stopLabel, playLabel }: { items: Clo
             style={{ fontSize: `${fontRem[t.w]}rem` }}>{t.label}</span>
         ))}
       </div>
-      {toggle}
     </div>
   );
 }
