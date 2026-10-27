@@ -14,13 +14,19 @@ const HEIGHT = 380; // px, the same for the static and the 3D state so nothing j
  * rotation, and screen readers get the plain list. Positions are written straight
  * to the DOM each frame (no React re-render per frame), and the loop stops while the cloud is off screen.
  */
-export function TechCloud3D({ items, label }: { items: CloudItem[]; label: string }) {
-  const [animated, setAnimated] = useState(false);
+export function TechCloud3D({ items, label, stopLabel, playLabel }: { items: CloudItem[]; label: string; stopLabel: string; playLabel: string }) {
+  const [motion, setMotion] = useState(false);   // the reduced-motion preference allows the sphere
+  const [paused, setPaused] = useState(false);   // WCAG 2.2.2: automatic movement needs a way to stop it
+  const animated = motion && !paused;
   const boxRef = useRef<HTMLDivElement>(null);
   const tagRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) setAnimated(true);
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setMotion(!mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
   }, []);
 
   useEffect(() => {
@@ -52,7 +58,7 @@ export function TechCloud3D({ items, label }: { items: CloudItem[]; label: strin
         const x2 = x * cy + z1 * sy, z2 = z1 * cy - x * sy;
         const depth = (z2 + R) / (2 * R);          // 0 = back, 1 = front
         el.style.transform = `translate3d(calc(-50% + ${(x2 * stretch).toFixed(1)}px), calc(-50% + ${y1.toFixed(1)}px), ${z2.toFixed(1)}px)`;
-        el.style.opacity = String(0.25 + 0.75 * depth);
+        el.style.opacity = String(0.85 + 0.15 * depth);   // floor keeps the muted words at 4.5:1 on white (WCAG 1.4.3); depth reads from the perspective scale
         el.style.zIndex = String(Math.round(depth * 100));
       }
     };
@@ -89,11 +95,20 @@ export function TechCloud3D({ items, label }: { items: CloudItem[]; label: strin
     };
   }, [animated, items]);
 
+  const toggle = motion && (
+    <button type="button" className="btn btn-outline mt-3" onClick={() => setPaused(!paused)}>
+      {paused ? playLabel : stopLabel}
+    </button>
+  );
+
   if (!animated)
     return (
-      <ul className="flex flex-wrap content-center items-baseline gap-x-4 gap-y-1 leading-tight" style={{ minHeight: HEIGHT }} aria-label={label}>
-        {items.map((t) => <li key={t.label} className={staticCls[t.w]}>{t.label}</li>)}
-      </ul>
+      <div>
+        <ul className="flex flex-wrap content-center items-baseline gap-x-4 gap-y-1 leading-tight" style={{ minHeight: HEIGHT }} aria-label={label}>
+          {items.map((t) => <li key={t.label} className={staticCls[t.w]}>{t.label}</li>)}
+        </ul>
+        {toggle}
+      </div>
     );
 
   return (
@@ -107,6 +122,7 @@ export function TechCloud3D({ items, label }: { items: CloudItem[]; label: strin
             style={{ fontSize: `${fontRem[t.w]}rem` }}>{t.label}</span>
         ))}
       </div>
+      {toggle}
     </div>
   );
 }

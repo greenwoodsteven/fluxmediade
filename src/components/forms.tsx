@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
 import type { Content } from "@/content";
 import { pathFor, type Lang } from "@/i18n/routes";
@@ -49,6 +49,10 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMe
   const startPow = () => { if (pow) powRef.current ??= solvePow(); };
   const [errors, setErrors] = useState<Errors>({});
   const formRef = useRef<HTMLFormElement>(null);
+  const okRef = useRef<HTMLParagraphElement>(null);
+
+  // The form unmounts on success, which would drop keyboard focus onto <body>: move it to the confirmation.
+  useEffect(() => { if (status === "ok") okRef.current?.focus(); }, [status]);
 
   /** Own validation (the form has noValidate, so no browser bubbles). Returns true when everything is valid. */
   function validate(): boolean {
@@ -74,6 +78,7 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMe
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (status === "sending") return; // the button stays focusable (aria-disabled), so guard here
     if (!validate()) return;
     const fd = new FormData(e.currentTarget);
     fd.set("lang", lang);
@@ -97,7 +102,7 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMe
   }
 
   if (status === "ok")
-    return <p role="status" className="rounded border-2 border-accent p-4 font-bold text-ink">{okMessage ?? f.ok}</p>;
+    return <p ref={okRef} tabIndex={-1} role="status" className="rounded border-2 border-accent p-4 font-bold text-ink">{okMessage ?? f.ok}</p>;
 
   const count = Object.keys(errors).length;
   return (
@@ -123,12 +128,13 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMe
         )}
         <div aria-live="polite">
           {count > 0 && <p className="font-bold text-accent">{f.errSummary}</p>}
+          {status === "sending" && <p className="sr-only">{f.sending}</p>}
           {status === "error" && (
             <p role="alert" className="font-bold text-red-800">{errorKey === "domain" ? f.errDomain : errorKey === "capacity" ? f.errCapacity : f.error} <a className="underline" href={`mailto:${site.email}`}>{site.email}</a></p>
           )}
         </div>
         {!hideSubmit && (
-          <button type="submit" disabled={status === "sending"} className="btn">
+          <button type="submit" aria-disabled={status === "sending" || undefined} className="btn">
             {status === "sending" ? f.sending : submitLabel ?? f.send}
           </button>
         )}
@@ -180,6 +186,14 @@ export function ContactForm({ lang, f }: { lang: Lang; f: F }) {
 
 export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"]["quote"] }) {
   const [step, setStep] = useState(0);
+  const wizardRef = useRef<HTMLDivElement>(null);
+  const stepChanged = useRef(false);
+  const goTo = (n: number) => { stepChanged.current = true; setStep(n); };
+  // After a step change the old button may vanish (on the last step "Next" does): put focus on the new step's first control.
+  useEffect(() => {
+    if (!stepChanged.current) return;
+    wizardRef.current?.querySelector<HTMLElement>("[data-panel]:not([hidden]) input")?.focus();
+  }, [step]);
   const last = q.stepTitles.length - 1;
 
   const choice = (name: string, options: string[], legend: string) => (
@@ -196,10 +210,10 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
   );
 
   // All steps stay in the DOM (hidden) so one native FormData collects everything.
-  const panel = (i: number, body: ReactNode) => <div hidden={step !== i}>{body}</div>;
+  const panel = (i: number, body: ReactNode) => <div data-panel hidden={step !== i}>{body}</div>;
 
   return (
-    <div>
+    <div ref={wizardRef}>
       <p className="mb-4 font-bold text-ink" aria-live="polite">
         {f.step} {step + 1} {f.of} {q.stepTitles.length}: {q.stepTitles[step]}
       </p>
@@ -219,8 +233,8 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
         ))}
       </Shell>
       <div className="mt-4 flex gap-3">
-        {step > 0 && <button type="button" className="btn btn-outline" onClick={() => setStep(step - 1)}>{f.back}</button>}
-        {step < last && <button type="button" className="btn" onClick={() => setStep(step + 1)}>{f.next}</button>}
+        {step > 0 && <button type="button" className="btn btn-outline" onClick={() => goTo(step - 1)}>{f.back}</button>}
+        {step < last && <button type="button" className="btn" onClick={() => goTo(step + 1)}>{f.next}</button>}
       </div>
     </div>
   );

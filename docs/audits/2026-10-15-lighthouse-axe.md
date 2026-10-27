@@ -53,3 +53,32 @@ Audited 15 Oct 2026 against the static export (`out/`), targets from plan §5.
 
 ## Re-running
 Tooling is not part of the repo. Build (`npm run build`), serve `out/` with gzip, then run Lighthouse (mobile) and `axe-core` (tags above) over the page list.
+
+---
+
+# Follow-up: manual pass, 27 Oct 2026
+
+Run against a local build (`out/` plus the PHP endpoints with `mail_dump`), in Chrome, with axe-core 4.10.2 (same tags as above). Screen readers (NVDA, VoiceOver) and WAVE were **not** run; everything below is keyboard, DOM and measurement.
+
+## What was checked
+- **axe on 18 pages** (DE and EN: home, services, AI visibility, accessibility, analysis, quote, references, about, contact, GbR contact, Impressum, privacy, withdrawal, statement, EN home, quote, privacy, statement): 0 violations after the fixes.
+- **Form states**, contact and quote forms: empty submit (focus goes to the first invalid field, `aria-invalid` and `aria-describedby` set, summary in an `aria-live` region), sending, server error (`role="alert"`), success.
+- **Quote wizard**: all four steps by keyboard.
+- **Reflow** at 640 px (200 % zoom) and 320 px (400 %): horizontal overflow on none of the 18 pages after the fix below.
+- **Reduced motion**: `prefers-reduced-motion` stops transitions, the page fade and smooth scrolling; the word cloud starts static.
+- **Hero contrast** (item 12): hero image sampled pixel by pixel under every text box, with the real 35 % opacity over `#222`. Worst case 5.00:1 (the image contains pure white, so this is also the theoretical worst case). AA needs 4.5:1. The axe "incomplete" on the hero no longer appears.
+
+## Findings and fixes
+| # | Finding | WCAG | Fix |
+|---|---|---|---|
+| 1 | After a successful send the form unmounts and focus falls to `<body>`; the status was not focused | 2.4.3, 4.1.3 | `forms.tsx`: the confirmation is focused (`tabIndex=-1`) |
+| 2 | Quote wizard: on the last step the focused "Next" button disappears, focus is lost; on other steps focus stays on the button, behind the changed content | 2.4.3 | `forms.tsx`: focus moves to the first control of the new step |
+| 3 | Submit button was `disabled` while sending (focus drops), and sending was not announced | 2.4.3, 4.1.3 | `aria-disabled` plus a guard in `onSubmit`, a screen-reader-only "Wird gesendet …" in the live region |
+| 4 | Rotating word cloud on the home page moves automatically for longer than 5 s with no way to stop it | 2.2.2 (A) | Button "Animation anhalten / starten" (DE and EN); stopping shows the static list; the preference is now followed live |
+| 5 | Words at the back of the sphere faded to 25 % opacity: contrast down to 1.6:1 (axe violation, 5 to 6 nodes on `/` and `/en/`) | 1.4.3 | Opacity floor 85 %, worst case 4.8:1 for the muted words |
+| 6 | `/datenschutz/` scrolled sideways by 7 px at 320 px (the word "Datenschutzerklärung" in the h1) | 1.4.10 | `overflow-wrap` and `hyphens: auto` on headings |
+
+## Still open
+- **NVDA and VoiceOver**, and **WAVE**: not run. The markup is correct (names, descriptions, live regions), but how it is read out has not been heard.
+- In the word cloud, overlapping words make axe report `color-contrast` as "incomplete" (cannot evaluate). The words are also available as a plain list, and the movement can be paused.
+- Confirm on real devices and on the live site once deployed.

@@ -2,6 +2,8 @@
   "ui": {
     "skip": "Skip to content",
     "menu": "Menu",
+    "motionStop": "Pause animation",
+    "motionPlay": "Play animation",
     "mainNav": "Main navigation",
     "langLabel": "Language",
     "langName": { "de": "Deutsch", "en": "English" },
@@ -400,9 +402,10 @@
       "h1": "Accessibility statement",
       "note": "Courtesy translation. The German version is authoritative.",
       "sections": [
-        { "h": "Status", "p": ["We aim for conformance of this website with WCAG 2.2, level AA. Conformance has not been fully verified yet. This statement describes what has been tested and what is still outstanding.", "Date of this statement: 19 October 2026."] },
-        { "h": "What has been tested", "p": ["Automated testing with Lighthouse and axe on the main pages, most recently on 19 October 2026: no violations of the criteria that can be checked automatically.", "The pages are built with semantic HTML, a clear heading hierarchy, a skip link to the content, visible keyboard focus and labelled form fields. Error messages in forms are tied to their fields. The website uses no third-party content and sets only one cookie, for the chosen language."] },
-        { "h": "Not yet tested", "p": ["Manual testing with the keyboard only and with screen readers (NVDA, VoiceOver) is still outstanding.", "The error and success messages of the forms and the quote form have only been tested in part.", "The contrast of the text on the home page image is still being checked; the testing tool could not assess it conclusively there.", "We will update this statement once the manual testing is complete."] },
+        { "h": "Status", "p": ["We aim for conformance of this website with WCAG 2.2, level AA. Conformance has not been fully verified yet. This statement describes what has been tested and what is still outstanding.", "Date of this statement: 27 October 2026."] },
+        { "h": "What has been tested", "p": ["Automated testing with Lighthouse and axe on the main pages, most recently on 27 October 2026 on 18 pages in both languages: no violations of the criteria that can be checked automatically.",
+    "Checked by hand in the browser: keyboard operation and focus handling of the forms in every state (input, error, sending, server error, success) and in every step of the quote form, display at 200% and 400% zoom (page width 640 and 320 pixels) without horizontal scrolling, and the contrast of the text on the home page image (measured: at least 5.0:1). The moving word cloud can be paused and is static from the start when you have chosen reduced motion.", "The pages are built with semantic HTML, a clear heading hierarchy, a skip link to the content, visible keyboard focus and labelled form fields. Error messages in forms are tied to their fields. The website uses no third-party content and sets only one cookie, for the chosen language."] },
+        { "h": "Not yet tested", "p": ["Testing with screen readers (NVDA, VoiceOver) and with the WAVE tool is still outstanding. So far we have only checked that labels, error texts and status messages are correctly linked in the page code, not how they are read out.", "In the moving word cloud individual words overlap at times; testing tools cannot assess their contrast then. The words are also provided as a list for screen readers, and the movement can be paused.", "We will update this statement once the screen reader testing is complete."] },
         { "h": "Feedback and contact", "p": ["Please report barriers to {email}. We reply within one working day."] }
       ]
     }
