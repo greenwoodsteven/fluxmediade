@@ -165,6 +165,20 @@ function mailer(): PHPMailer {
     return $m;
 }
 
+/** Send; if the server refuses the configured From address (alias not allowed for this login), retry once from the login address. */
+function send_mail(PHPMailer $m): void {
+    try {
+        $m->send();
+    } catch (MailException $e) {
+        $login = config()['smtp']['username'];
+        if (strcasecmp($m->From, $login) === 0) throw $e;
+        error_log('fluxmedia mail: From ' . $m->From . ' refused (' . $e->getMessage() . '), retrying from ' . $login);
+        $m->setFrom($login, $m->FromName);
+        $m->Sender = $login;
+        $m->send();
+    }
+}
+
 /**
  * Notify the studio (Reply-To = visitor, plain text) and send an HTML auto-reply.
  * Nothing is stored beyond the mail itself.
@@ -204,7 +218,7 @@ function notify(string $subject, array $fields, string $replyName, string $reply
         $m->Priority = 1;                                  // X-Priority: 1 (Highest)
         $m->addCustomHeader('X-MSMail-Priority', 'High');
         $m->addCustomHeader('Importance', 'High');
-        $m->send();
+        send_mail($m);
         $t1 = microtime(true) - $t;
 
         $m->clearAllRecipients();
@@ -217,7 +231,7 @@ function notify(string $subject, array $fields, string $replyName, string $reply
         set_html_body($m, $autoReply['body'], lang());
         $m->addCustomHeader('Auto-Submitted', 'auto-replied');
         $t = microtime(true);
-        $m->send();
+        send_mail($m);
         $m->smtpClose();
         log_timing(sprintf('studio %.2fs, auto-reply %.2fs', $t1, microtime(true) - $t));
     } catch (MailException $e) {

@@ -118,7 +118,7 @@ function confirm_mail(string $name, string $email, string $link, string $lang, s
         set_html_body($m, $m->Body, $lang);
         $m->addCustomHeader('Auto-Submitted', 'auto-generated');
         $t = microtime(true);
-        $m->send();
+        send_mail($m);
         log_timing(sprintf('confirmation %.2fs', microtime(true) - $t));
     } catch (\Throwable $e) {
         error_log('fluxmedia mail error: ' . $e->getMessage());
