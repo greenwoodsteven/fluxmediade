@@ -77,12 +77,15 @@ function List({ items }: { items: string[] }) {
   return <ul className="mt-3 list-disc space-y-1 pl-5">{items.map((i) => <li key={i}>{i}</li>)}</ul>;
 }
 
-function Cta({ lang }: { lang: Lang }) {
+/** Index into the quote form's "need" radios (quote.needs) for each service. */
+const quoteNeed: Record<ServiceId, number> = { geo: 5, a11y: 4, relaunch: 1, wordpress: 3, landing: 2, chatbot: 6, automation: 6, custom: 6 };
+
+function Cta({ lang, service }: { lang: Lang; service?: ServiceId }) {
   const ui = getContent(lang).ui;
   return (
     <div className="mt-6 flex flex-wrap gap-3">
       <Link className="btn" href={pathFor("analysis", lang)}>{ui.ctaAnalysis}</Link>
-      <Link className="btn btn-outline" href={pathFor("quote", lang)}>{ui.ctaQuote}</Link>
+      <Link className="btn btn-outline" href={service ? `${pathFor("quote", lang)}?need=${quoteNeed[service]}` : pathFor("quote", lang)}>{ui.ctaQuote}</Link>
     </div>
   );
 }
@@ -116,7 +119,7 @@ export function ServicePage({ id, lang }: { id: ServiceId; lang: Lang }) {
         provider: { "@type": "ProfessionalService", "@id": orgId, name: site.legalName, url: site.url }, areaServed: "DE",
         ...offer(s.price),
       }} />
-      <div className={`${wrap} mt-6`}><p className="font-bold text-ink">{s.price}</p><p className="text-sm text-muted">{ui.vatNote}</p><Cta lang={lang} /></div>
+      <div className={`${wrap} mt-6`}><p className="font-bold text-ink">{s.price}</p><p className="text-sm text-muted">{ui.vatNote}</p><Cta lang={lang} service={id} /></div>
       {s.freeCheck && (
         <aside className={`${wrap} mt-6`} aria-labelledby="free">
           <div className="rounded border-2 border-accent p-4">
@@ -150,6 +153,7 @@ export function ServicePage({ id, lang }: { id: ServiceId; lang: Lang }) {
                   : <td key={i} className="border-b border-line p-2">{cell}</td>)}</tr>))}</tbody>
             </table>
           </div>
+          <Cta lang={lang} service={id} />
         </section>
       )}
       <Faqs title={ui.faq} items={s.faq} />

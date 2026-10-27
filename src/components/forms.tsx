@@ -39,9 +39,9 @@ async function solvePow(): Promise<Pow | null> {
   return null;
 }
 
-function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMessage, notice, consent = true }: {
+function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMessage, notice, consent = true, actions }: {
   endpoint: string; lang: Lang; f: F; children: ReactNode; submitLabel?: string; hideSubmit?: boolean;
-  pow?: boolean; okMessage?: string; notice?: string; consent?: boolean;
+  pow?: boolean; okMessage?: string; notice?: string; consent?: boolean; actions?: ReactNode;
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorKey, setErrorKey] = useState("");
@@ -134,9 +134,12 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMe
           )}
         </div>
         {!hideSubmit && (
-          <button type="submit" aria-disabled={status === "sending" || undefined} className="btn">
-            {status === "sending" ? f.sending : submitLabel ?? f.send}
-          </button>
+          <div className="flex flex-wrap gap-3">
+            {actions}
+            <button type="submit" aria-disabled={status === "sending" || undefined} className="btn">
+              {status === "sending" ? f.sending : submitLabel ?? f.send}
+            </button>
+          </div>
         )}
       </form>
     </ErrorsCtx.Provider>
@@ -195,8 +198,16 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
     wizardRef.current?.querySelector<HTMLElement>("[data-panel]:not([hidden]) input")?.focus();
   }, [step]);
   const last = q.stepTitles.length - 1;
+  const backBtn = step > 0 ? <button type="button" className="btn btn-outline" onClick={() => goTo(step - 1)}>{f.back}</button> : null;
 
   const [needIdx, setNeedIdx] = useState(0);
+  // Service pages link here with ?need=<index>; read on the client because the page is statically exported.
+  useEffect(() => {
+    const n = Number(new URLSearchParams(window.location.search).get("need"));
+    if (!Number.isInteger(n) || n < 0 || n >= q.needs.length) return;
+    setNeedIdx(n);
+    wizardRef.current?.querySelectorAll<HTMLInputElement>('input[name="need"]')[n]?.click();
+  }, [q.needs.length]);
   const [hasSite, setHasSite] = useState(true);
   const [platformIdx, setPlatformIdx] = useState(0);
   const geo = needIdx === q.needs.length - 2;   // "AI visibility & SEO" (second to last, before "Something else")
@@ -222,7 +233,7 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
       <p className="mb-4 font-bold text-ink" aria-live="polite">
         {f.step} {step + 1} {f.of} {q.stepTitles.length}: {q.stepTitles[step]}
       </p>
-      <Shell endpoint="/api/quote.php" lang={lang} f={f} hideSubmit={step !== last}>
+      <Shell endpoint="/api/quote.php" lang={lang} f={f} hideSubmit={step !== last} actions={backBtn}>
         {panel(0, choice("need", q.needs, q.stepTitles[0], setNeedIdx))}
         {panel(1, (
           <div className="space-y-4">
@@ -255,7 +266,7 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
         ))}
       </Shell>
       <div className="mt-4 flex gap-3">
-        {step > 0 && <button type="button" className="btn btn-outline" onClick={() => goTo(step - 1)}>{f.back}</button>}
+        {step > 0 && step < last && backBtn}
         {step < last && <button type="button" className="btn" onClick={() => goTo(step + 1)}>{f.next}</button>}
       </div>
     </div>
