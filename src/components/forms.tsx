@@ -131,7 +131,7 @@ function Shell({ endpoint, lang, f, children, submitLabel, hideSubmit, pow, okMe
           {count > 0 && <p className="font-bold text-accent">{f.errSummary}</p>}
           {status === "sending" && <p className="sr-only">{f.sending}</p>}
           {status === "error" && (
-            <p role="alert" className="font-bold text-red-800">{errorKey === "domain" ? f.errDomain : errorKey === "email" ? f.errEmailUsed : errorKey === "capacity" ? f.errCapacity : f.error} <a className="underline" href={`mailto:${site.email}`}>{site.email}</a></p>
+            <p role="alert" className="font-bold text-red-800">{errorKey === "domain" ? f.errDomain : errorKey === "email" ? f.errEmailUsed : errorKey === "rate" ? f.errRate : errorKey === "capacity" ? f.errCapacity : f.error} <a className="underline" href={`mailto:${site.email}`}>{site.email}</a></p>
           )}
         </div>
         {!hideSubmit && (

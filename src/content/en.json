@@ -33,6 +33,7 @@
       "okAnalysis": "Almost done! We have sent you an email with a confirmation link. Your request is only processed after you click the link. Please also check your spam folder.",
       "errEmailUsed": "An analysis has already been requested with this email address in the last 90 days. If you have questions, write to",
       "errDomain": "An analysis has already been requested for this domain in the last 90 days. If you have questions, write to",
+      "errRate": "Too many requests from your connection in the last hour. Please try again later or write to",
       "errCapacity": "All analysis slots for this week are taken. Please try again in a few days or write to",
       "analysisTerms": "The analysis is for your own website: one analysis per company, domain and email address within 90 days. The number of analyses per week is limited and we may decline requests. Your request is only processed after you have confirmed your email address.",
       "send": "Send",

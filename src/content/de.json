@@ -33,6 +33,7 @@
       "okAnalysis": "Fast geschafft! Wir haben Ihnen eine E-Mail mit einem Bestätigungslink geschickt. Ihre Anfrage wird erst nach einem Klick auf den Link bearbeitet. Bitte prüfen Sie auch den Spam-Ordner.",
       "errEmailUsed": "Mit dieser E-Mail-Adresse wurde in den letzten 90 Tagen bereits eine Analyse angefragt. Bei Fragen schreiben Sie uns an",
       "errDomain": "Für diese Domain wurde in den letzten 90 Tagen bereits eine Analyse angefragt. Bei Fragen schreiben Sie uns an",
+      "errRate": "Zu viele Anfragen von Ihrem Anschluss in der letzten Stunde. Bitte versuchen Sie es später erneut oder schreiben Sie uns an",
       "errCapacity": "Diese Woche sind alle Analyse-Plätze vergeben. Bitte versuchen Sie es in einigen Tagen erneut oder schreiben Sie an",
       "analysisTerms": "Die Analyse gilt für Ihre eigene Website: eine Analyse pro Unternehmen, Domain und E-Mail-Adresse innerhalb von 90 Tagen. Die Zahl der Analysen pro Woche ist begrenzt, wir können Anfragen ablehnen. Bearbeitet wird Ihre Anfrage erst, nachdem Sie Ihre E-Mail-Adresse bestätigt haben.",
       "send": "Absenden",
