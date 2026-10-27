@@ -111,7 +111,7 @@ export function ServiceCard({ id, lang, small, as: H = "h3" }: { id: ServiceId; 
 export function ServicePage({ id, lang }: { id: ServiceId; lang: Lang }) {
   const c = getContent(lang);
   const ui = c.ui;
-  const s: ServiceContent & { compare?: { title: string; cols: string[]; rows: string[][] }; freeCheck?: { title: string; text: string; link: string } } = c.services[id];
+  const s: ServiceContent & { compare?: { title: string; cols: string[]; rows: string[][] }; freeCheck?: { title: string; text: string } } = c.services[id];
   return (
     <>
       <PageHead lang={lang} id={id} h1={s.title} lead={s.lead} />
@@ -123,7 +123,6 @@ export function ServicePage({ id, lang }: { id: ServiceId; lang: Lang }) {
       <div className={`${wrap} mt-6 flex flex-wrap items-start justify-between gap-6`}>
         <div>
           <p className="font-bold text-ink">{s.price}</p><p className="text-sm text-muted">{ui.vatNote}</p>
-          {id === "geo" && <div className="mt-6"><Link className="btn btn-outline" href={pathFor("analysis", lang)}>{ui.ctaAnalysis}</Link></div>}
         </div>
         <QuoteLink className="btn" href={pathFor("quote", lang)} need={quoteNeed[id]}>{ui.ctaQuote}</QuoteLink>
       </div>
@@ -132,7 +131,7 @@ export function ServicePage({ id, lang }: { id: ServiceId; lang: Lang }) {
           <div className="rounded border-2 border-accent p-4">
             <h2 id="free" className="text-lg font-bold text-ink">{s.freeCheck.title}</h2>
             <p className="mt-2">{s.freeCheck.text}</p>
-            <p className="mt-2"><Link className="font-bold underline text-accent" href={pathFor("analysis", lang)}>{s.freeCheck.link}</Link></p>
+            <p className="mt-4"><Link className="btn btn-outline" href={pathFor("analysis", lang)}>{ui.ctaAnalysis}</Link></p>
           </div>
         </aside>
       )}

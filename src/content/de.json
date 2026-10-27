@@ -66,8 +66,7 @@
       "technical": ["Messung: Lighthouse (Core Web Vitals, SEO-Prüfungen und Verbesserungsvorschläge mit geschätzter Ersparnis) und axe pro Seite, Antwort-Header, robots.txt und Sitemap sowie Prüfung, ob die Inhalte auch ohne JavaScript vorhanden sind", "Strukturierte Daten: JSON-LD (Organization, LocalBusiness, Service, FAQ, BreadcrumbList) aus einer Datenquelle erzeugt und validiert", "Zugriff für Crawler: robots.txt-Regeln für KI-Crawler (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended) nach Ihrer Entscheidung, optional eine llms.txt", "Inhaltsstruktur: eine H1, Zwischenüberschriften als Fragen, die kurze Antwort zuerst, FAQ-Blöcke mit passender Auszeichnung", "Geschwindigkeit: AVIF/WebP-Bilder, Caching-Header, weniger Skriptgewicht", "Dokumentation: Vorher-nachher-Tabelle, die JSON-LD-Dateien und eine Liste der geänderten Vorlagen"],
       "freeCheck": {
         "title": "Starten Sie mit dem kostenlosen Check",
-        "text": "Der kostenlose Startseiten-Check betrachtet nur Ihre Startseite und nennt die größten Befunde. Die Pakete auf dieser Seite gehen weiter: Sie analysieren mehrere Seiten, und ab Standard werden die Korrekturen umgesetzt und das Ergebnis erneut geprüft.",
-        "link": "Kostenloser Startseiten-Check"
+        "text": "Der kostenlose Startseiten-Check betrachtet nur Ihre Startseite und nennt die größten Befunde. Die Pakete auf dieser Seite gehen weiter: Sie analysieren mehrere Seiten, und ab Standard werden die Korrekturen umgesetzt und das Ergebnis erneut geprüft."
       },
       "compare": {
         "title": "Die drei Pakete im Vergleich",

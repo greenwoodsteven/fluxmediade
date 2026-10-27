@@ -66,8 +66,7 @@
       "technical": ["Measurement: Lighthouse (Core Web Vitals, SEO checks and improvement suggestions with estimated savings) and axe per page, response headers, robots.txt and sitemap, and a check that the content is present without JavaScript", "Structured data: JSON-LD (Organization, LocalBusiness, Service, FAQ, BreadcrumbList) generated from one data source and validated", "Crawler access: robots.txt rules for AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended) as you decide, optionally an llms.txt", "Content structure: one H1, question-style subheadings, the short answer first, FAQ blocks with matching markup", "Speed: AVIF/WebP images, caching headers, less script weight", "Documentation: before/after table, the JSON-LD files and a list of the changed templates"],
       "freeCheck": {
         "title": "Start with the free check",
-        "text": "The free start-page check looks at your home page only and names the biggest findings. The packages on this page go further: they analyse several pages, and from Standard the fixes are carried out and the result is re-tested.",
-        "link": "Free start-page check"
+        "text": "The free start-page check looks at your home page only and names the biggest findings. The packages on this page go further: they analyse several pages, and from Standard the fixes are carried out and the result is re-tested."
       },
       "compare": {
         "title": "The three packages compared",
