@@ -7,6 +7,7 @@ import { technologies, analysisCloud } from "@/content/tech";
 import { TechCloud3D } from "./TechCloud3D";
 import { Picture } from "./Picture";
 import { JsonLd } from "./JsonLd";
+import { QuoteLink } from "./QuoteLink";
 import { AnalysisForm, ContactForm, QuoteForm, WithdrawalForm } from "./forms";
 
 const wrap = "mx-auto max-w-6xl px-4";
@@ -85,7 +86,7 @@ function Cta({ lang, service }: { lang: Lang; service?: ServiceId }) {
   return (
     <div className="mt-6 flex flex-wrap gap-3">
       <Link className="btn" href={pathFor("analysis", lang)}>{ui.ctaAnalysis}</Link>
-      <Link className="btn btn-outline" href={service ? `${pathFor("quote", lang)}?need=${quoteNeed[service]}` : pathFor("quote", lang)}>{ui.ctaQuote}</Link>
+      <QuoteLink className="btn btn-outline" href={pathFor("quote", lang)} need={service && quoteNeed[service]}>{ui.ctaQuote}</QuoteLink>
     </div>
   );
 }

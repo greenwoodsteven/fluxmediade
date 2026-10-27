@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Content } from "@/content";
 import { pathFor, type Lang } from "@/i18n/routes";
 import { site } from "@/content/site";
+import { QUOTE_NEED_KEY } from "./QuoteLink";
 
 // Strings are passed in from server components so the client bundle does not ship both language files.
 type F = Content["ui"]["forms"];
@@ -201,9 +202,10 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
   const backBtn = step > 0 ? <button type="button" className="btn btn-outline" onClick={() => goTo(step - 1)}>{f.back}</button> : null;
 
   const [needIdx, setNeedIdx] = useState(0);
-  // Service pages link here with ?need=<index>; read on the client because the page is statically exported.
+  // A service page's quote button leaves the need in sessionStorage (no URL parameter); take it once.
   useEffect(() => {
-    const n = Number(new URLSearchParams(window.location.search).get("need"));
+    let n = NaN;
+    try { n = Number(sessionStorage.getItem(QUOTE_NEED_KEY)); sessionStorage.removeItem(QUOTE_NEED_KEY); } catch {}
     if (!Number.isInteger(n) || n < 0 || n >= q.needs.length) return;
     setNeedIdx(n);
     wizardRef.current?.querySelectorAll<HTMLInputElement>('input[name="need"]')[n]?.click();
