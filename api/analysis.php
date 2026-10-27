@@ -9,6 +9,7 @@ if (!pow_verify()) respond(400, ['ok' => false, 'error' => 'pow']);
 $host = audit_domain($f['url']);
 if ($host === null) respond(422, ['ok' => false, 'error' => 'url']);
 if (domain_recent($host)) respond(409, ['ok' => false, 'error' => 'domain']);
+if (email_recent($f['email'])) respond(409, ['ok' => false, 'error' => 'email']);
 if (capacity_full()) respond(503, ['ok' => false, 'error' => 'capacity']);
 
 // Nothing reaches the studio until the visitor has confirmed the e-mail address (see confirm.php).

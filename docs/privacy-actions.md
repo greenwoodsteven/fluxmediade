@@ -15,6 +15,7 @@ The policy text lives in `src/content/{de,en}.json` under `pages.privacy` and is
 | 2 | Cookies, tracking, third parties | none | one functional cookie `fm_lang` after an explicit language switch (disclosed in the privacy page), no browser storage, requests only to the same host (CSP `'self'`) | yes (confirm once in a browser) |
 | 3 | Contact and quote forms | data sent by email, auto-reply, stored in the mailbox, deleted when done; statutory retention if a contract follows | `api/contact.php`, `quote.php` send two mails through netcup SMTP; nothing else is stored; the mail contains the form fields plus language and `ref` | yes; deletion in the mailbox is manual (see action 6) |
 | 4 | Free analysis, pending data | stored until the email is confirmed, link valid 48 h, then deleted automatically (daily clean-up) | `pending/<hash of token>` file; removed on confirmation, when opened after expiry, by `audit_cleanup()` (cron) and opportunistically | yes **if the cron job runs** (action 3) |
+| 5b | Free analysis, email address | email kept 90 days only as a hash | `emails/<sha256(lower(email))>`; removed after `domain_days` by `audit_cleanup()` and on registration | yes (cron) |
 | 5 | Free analysis, domain | domain kept 90 days only as a hash | `domains/<sha256(host)>`; removed after `domain_days` by `audit_cleanup()` and on registration | yes (cron) |
 | 6 | Free analysis, weekly cap | confirmed requests counted without personal data | empty marker files in `confirmed/`, 7 days | yes |
 | 7 | Proof of work | browser task, no data to third parties, no cookies | `challenge.php` returns a signed random value; used values kept as hashes for 1 h | yes |
@@ -54,6 +55,7 @@ Priority: **A** before you rely on the policy, **B** soon, **C** when the event 
 | Pending analysis request (name, email, website, terms, optional fields) | `storage/pending` | link valid 48 h | confirmation, expiry on opening, `cleanup.php` daily |
 | Confirmed analysis request | mailbox (as above) | as contact email | you |
 | Domain hash | `storage/domains` | 90 days | `cleanup.php`, registration |
+| Email hash | `storage/emails` | 90 days | `cleanup.php`, registration |
 | Weekly-cap marker (no personal data) | `storage/confirmed` | 7 days | `cleanup.php` |
 | Proof-of-work marker (hash of a random value) | `storage/pow` | 1 hour | `cleanup.php`, randomly |
 | IP hash and request times | `storage/ratelimit` | 1 hour window, file removed within a day | `cleanup.php`, randomly |

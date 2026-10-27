@@ -65,6 +65,19 @@ function domain_register(string $host): void {
     touch(storage('domains') . '/' . hash('sha256', $host));
 }
 
+/** The same limit per email address (stored only as a hash, case-insensitive). */
+function email_key(string $email): string { return hash('sha256', mb_strtolower(trim($email))); }
+
+function email_recent(string $email): bool {
+    $f = storage('emails') . '/' . email_key($email);
+    return is_file($f) && filemtime($f) > time() - audit_cfg()['domain_days'] * 86400;
+}
+
+function email_register(string $email): void {
+    prune(storage('emails'), audit_cfg()['domain_days'] * 86400);
+    touch(storage('emails') . '/' . email_key($email));
+}
+
 function capacity_full(): bool {
     $dir = storage('confirmed');
     prune($dir, 7 * 86400);
@@ -118,6 +131,7 @@ function audit_cleanup(): void {
     $c = audit_cfg();
     prune(storage('pending'), $c['pending_hours'] * 3600);
     prune(storage('domains'), $c['domain_days'] * 86400);
+    prune(storage('emails'), $c['domain_days'] * 86400);
     prune(storage('confirmed'), 7 * 86400);
     prune(storage('pow'), 3600);
     prune(storage('ratelimit'), (int) ((config()['rate_limit']['window'] ?? 3600)));

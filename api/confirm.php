@@ -48,6 +48,11 @@ if (domain_recent($data['host'])) {
     page($lang, $de ? 'Bereits angefragt' : 'Already requested',
         $de ? 'Für diese Domain wurde bereits eine Analyse angefragt. Bei Fragen schreiben Sie uns gern.' : 'An analysis has already been requested for this domain. Feel free to write to us with any questions.');
 }
+if (email_recent($data['fields']['E-Mail'])) {
+    pending_delete($token);
+    page($lang, $de ? 'Bereits angefragt' : 'Already requested',
+        $de ? 'Mit dieser E-Mail-Adresse wurde bereits eine Analyse angefragt. Bei Fragen schreiben Sie uns gern.' : 'An analysis has already been requested with this email address. Feel free to write to us with any questions.');
+}
 if (capacity_full()) {
     pending_delete($token);
     page($lang, $de ? 'Aktuell ausgelastet' : 'Fully booked at the moment',
@@ -56,6 +61,7 @@ if (capacity_full()) {
 }
 
 domain_register($data['host']);
+email_register($data['fields']['E-Mail']);
 capacity_take();
 pending_delete($token);
 $_POST['lang'] = $lang;
