@@ -20,7 +20,7 @@ export function Header({ lang, current }: { lang: Lang; current: PageId }) {
     <header className="border-b border-line bg-white">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-3">
         <Link href={pathFor("home", lang)} aria-label="Fluxmedia – Startseite / Home">
-          <img src="/images/logo_black.svg" alt="Fluxmedia" width={178} height={33} className="h-8 w-auto" />
+          <img src="/images/logo_black.png" alt="Fluxmedia" width={178} height={33} className="h-8 w-auto" />
         </Link>
         <nav aria-label={ui.mainNav} className="order-3 w-full md:order-none md:w-auto">
           <details className="md:hidden">

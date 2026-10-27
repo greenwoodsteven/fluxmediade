@@ -256,7 +256,7 @@ export function Home({ lang }: { lang: Lang }) {
         "@graph": [
           {
             "@type": "ProfessionalService", "@id": orgId, name: site.legalName, url: site.url,
-            logo: `${site.url}/images/logo_black.svg`, image: `${site.url}/images/hero.jpg`,
+            logo: `${site.url}/images/logo_black.png`, image: `${site.url}/images/hero.jpg`,
             email: site.email, areaServed: site.region, inLanguage: lang,
             address: { "@type": "PostalAddress", addressLocality: site.address.city, addressCountry: site.address.country },
             description: p.description,
