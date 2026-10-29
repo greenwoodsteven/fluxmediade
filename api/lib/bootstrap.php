@@ -190,7 +190,8 @@ function notify(string $subject, array $fields, string $replyName, string $reply
         $labels = ['E-Mail bestätigt' => 'Email confirmed', 'E-Mail' => 'Email', 'Bedarf' => 'Need', 'Website vorhanden' => 'Has a website',
                    'Plattform (vorhanden)' => 'Existing platform', 'Zugang' => 'Access', 'Plattform (gewünscht)' => 'Desired platform',
                    'Plattform (andere)' => 'Other platform', 'Umfang' => 'Scope', 'Nachricht' => 'Message', 'Vertrag' => 'Contract',
-                   'Eingang' => 'Received', 'Hinweis' => 'Note'];
+                   'Eingang' => 'Received', 'Hinweis' => 'Note',
+                   'Frage 1 (KI-Test)' => 'Question 1 (AI test)', 'Frage 2 (KI-Test)' => 'Question 2 (AI test)', 'Frage 3 (KI-Test)' => 'Question 3 (AI test)'];
         $subject = strtr($subject, $tr);
         $out = [];
         foreach ($fields as $k => $v) $out[$labels[$k] ?? $k] = $k === 'E-Mail bestätigt' ? 'yes' : $v;

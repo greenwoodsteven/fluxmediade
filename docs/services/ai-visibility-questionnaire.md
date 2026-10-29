@@ -1,7 +1,8 @@
 # AI visibility: customer questionnaire (sent with the quote)
 
 Where the input for the AI visibility test comes from (`ai-visibility.md` section 2.3, step 1). Decision 2026-10-29:
-the quote wizard stays at four steps and collects no question set. Instead the studio sends this short questionnaire
+the quote wizard stays at four steps and collects no full question set, only up to 3 optional suggestions on step 3
+(Standard and Komplett; fields `geo_q1` to `geo_q3`, sent to the studio mail only). Item 4 below builds on them. Besides that, the studio sends this short questionnaire
 **together with the written quote** for every AI visibility order (Standard and Komplett need all items; Basic needs
 items 1 to 3 only, because it has no AI test). The quote auto-reply announces it (`api/quote.php`), and the process step
 on `/leistungen/ki-sichtbarkeit/` mentions it.

@@ -18,6 +18,8 @@ $recap = [
 notify('[quote] Angebotsanfrage von ' . $f['name'], [
     'Name' => $f['name'], 'E-Mail' => $f['email'], 'URL' => $f['url'], 'Bedarf' => line('need'), 'Website vorhanden' => line('site'), 'Plattform (vorhanden)' => line('platform_existing'), 'Zugang' => line('access'),
     'Plattform (gewünscht)' => line('platform'), 'Plattform (andere)' => line('platform_other'),
-    'Umfang' => line('scope'), 'Nachricht' => text('message', 2000),
+    'Umfang' => line('scope'),
+    'Frage 1 (KI-Test)' => line('geo_q1', 300), 'Frage 2 (KI-Test)' => line('geo_q2', 300), 'Frage 3 (KI-Test)' => line('geo_q3', 300),
+    'Nachricht' => text('message', 2000),
 ], $f['name'], $f['email'], auto_reply($f['name'], 'quote', $recap, $extra));
 respond(200, ['ok' => true]);

@@ -212,7 +212,9 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
   }, [q.needs.length]);
   const [hasSite, setHasSite] = useState(true);
   const [platformIdx, setPlatformIdx] = useState(0);
+  const [scopeIdx, setScopeIdx] = useState(0);
   const geo = needIdx === q.needs.length - 2;   // "AI visibility & SEO" (second to last, before "Something else")
+  const geoTest = geo && (scopeIdx === 1 || scopeIdx === 2);   // Standard and Complete include the AI visibility test
 
   const choice = (name: string, options: string[], legend: string, onPick?: (i: number) => void) => (
     <fieldset key={name + options.length}>
@@ -236,7 +238,7 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
         {f.step} {step + 1} {f.of} {q.stepTitles.length}: {q.stepTitles[step]}
       </p>
       <Shell endpoint="/api/quote.php" lang={lang} f={f} hideSubmit={step !== last} hideConsent={step !== last} actions={backBtn}>
-        {panel(0, choice("need", q.needs, q.stepTitles[0], setNeedIdx))}
+        {panel(0, choice("need", q.needs, q.stepTitles[0], (i) => { setNeedIdx(i); setScopeIdx(0); }))}
         {panel(1, (
           <div className="space-y-4">
             {choice("site", q.sites, q.siteQ, (i) => setHasSite(i === 0))}
@@ -254,7 +256,17 @@ export function QuoteForm({ lang, f, q }: { lang: Lang; f: F; q: Content["pages"
           </div>
         ))}
         {panel(2, geo
-          ? <>{choice("scope", q.scopesGeo, q.scopeGeoQ)}<p className="mt-3 text-sm text-muted">{q.geoNote}</p></>
+          ? <>
+            {choice("scope", q.scopesGeo, q.scopeGeoQ, setScopeIdx)}
+            {geoTest && (
+              <div className="mt-4 space-y-3">
+                <p className="label">{q.geoQuestionsTitle}</p>
+                <p className="text-sm text-muted">{q.geoQuestionsHint}</p>
+                {[1, 2, 3].map((n) => <Field key={n} id={`geo_q${n}`} label={`${q.geoQuestionLabel} ${n}`} />)}
+              </div>
+            )}
+            <p className="mt-3 text-sm text-muted">{q.geoNote}</p>
+          </>
           : <>{choice("scope", q.scopes, q.scopeQ)}<p className="mt-3 text-sm text-muted">{q.extra}</p></>)}
         {panel(3, (
           <div className="space-y-4">
