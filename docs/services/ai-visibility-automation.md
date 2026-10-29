@@ -195,3 +195,68 @@ Design rules:
 
 Expected effect: the one-hour effort of the free check drops mostly to the review (steps 13 apps, 16, 17, 19, 22),
 about 25 to 35 minutes; measure it on the first five real requests before promising anything.
+
+## Deployment: local tool or Cloudflare Worker
+
+**Decision (proposal): run it as a local tool on the owner's machine.** It is not deployed anywhere and has no running
+cost beyond the API calls. A Cloudflare Worker is possible for parts of it, but only becomes worth it if the free
+check is offered as an automatic self-service; it would then cost money and need a privacy review first.
+
+### Option A: local tool (recommended to start)
+
+- Lives in `tools/visibility/` (or its own repo) and runs with `node run.mjs ...` on the Mac. `docs/` and `tools/` are
+  never uploaded: `deploy/upload.sh` ships only `out/`, and the server's `git pull` does not need to run for this tool.
+- Nothing to host, nothing to secure: customer data stays in the git-ignored `work/` folder; keys are environment
+  variables on the machine.
+- Full tool set works unchanged: Lighthouse through `chrome-launcher`, Playwright with its own Chromium, axe, the
+  filesystem for `work/<domain>-<date>/`, `page.pdf()` for the report.
+- Cost: only the AI provider API calls (and the PageSpeed Insights API, which is free within its quota). Cap the calls
+  per run as described under *Design rules*.
+- Limit: runs only when the owner starts it, and the review gate is manual anyway, so this costs nothing in practice.
+
+### Option B: Cloudflare Worker (only if it must run without the owner's machine)
+
+What does **not** work as is:
+- **Lighthouse** needs a full Chrome and cannot run inside a Worker. Replace it with the PageSpeed Insights API
+  (`fetch`), which gives the same lab data (the sketch in this file already names it as the alternative).
+- **Playwright** (axe, screenshots, raw vs rendered text, PDF) would run through Cloudflare **Browser Rendering**
+  (`@cloudflare/playwright`), a paid, metered service with its own concurrency and time limits, not the local Chromium.
+- **Filesystem** (`work/` folder, `evidence.json`, `shots/`) does not exist; storage would move to R2 (files) or D1/KV
+  (records), and `REVIEW.md` would need another form (for example a private page behind Cloudflare Access).
+- **Run time**: a full run (3 Lighthouse runs, several AI providers, repeat runs) is longer than a single request.
+  It would have to be split into steps with **Workflows** or **Queues**, which is more code than the local script.
+
+What it would cost (check the current Cloudflare pricing before deciding; prices and free allowances change):
+- **Workers Paid plan**, a small fixed monthly fee, needed for Browser Rendering, Workflows and longer CPU time. The
+  free plan is too small for this.
+- **Browser Rendering**: billed by browser time and concurrent browsers; every audited page adds to it.
+- **R2, D1, Queues, Workflows**: usage-based, small at this volume, but not zero.
+- **AI provider calls and the PageSpeed API** cost the same as locally, so a Worker does not make them cheaper.
+
+Privacy and legal (the reason to hold back):
+- Customer URLs, answers and findings would be stored with a processor, so Cloudflare must be covered by a processing
+  agreement (AVV/DPA) and the data location chosen; the privacy policy and `docs/privacy-actions.md` would need an entry.
+- The public site must stay free of third-party requests (legal-audit section 5). A Worker used only internally,
+  behind Cloudflare Access, does not change that; calling it from the public pages would, and must not happen.
+- The free analysis is a PHP endpoint on netcup (`api/analysis.php`) with its own proof of work, rate limit and
+  retention. Moving it to a Worker would redo that protection and the 48-hour reply promise.
+
+### When to switch
+
+Stay local until all of these hold, measured on real requests:
+1. At least five reports have been produced and the manual review time is known.
+2. Requests arrive faster than the owner can run the tool, or must be answered when the machine is off.
+3. The privacy review for the processor is done.
+
+Then start small: keep the review gate and the local `build.mjs`, and move only the collecting steps (`fetch`,
+PageSpeed Insights, `ai-answers`) into a Worker that writes `evidence.json` to R2. Lighthouse and Playwright steps move last,
+or stay local.
+
+| | A: local tool | B: Cloudflare Worker |
+|---|---|---|
+| Fixed cost | none | Workers Paid plan |
+| Variable cost | AI API calls | AI API calls plus Browser Rendering, storage, queues |
+| Lighthouse, Playwright, axe | unchanged | PageSpeed API and Browser Rendering instead |
+| Customer data | on the owner's machine | with a processor (AVV, location, privacy text) |
+| Effort | as in the sketches | rework into steps, storage, access control |
+| Runs when the machine is off | no | yes |
