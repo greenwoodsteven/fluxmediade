@@ -245,7 +245,7 @@ function log_timing(string $what): void {
     if (!empty(config()['log_timing'])) error_log('fluxmedia mail timing: ' . $what);
 }
 
-function auto_reply(string $name, string $kind, array $summary = []): array {
+function auto_reply(string $name, string $kind, array $summary = [], string $extra = ''): array {
     $de = lang() === 'de';
     // Non-personal parts of the request, echoed back so the visitor sees what we received: "Label: value" lines.
     $recap = '';
@@ -253,10 +253,10 @@ function auto_reply(string $name, string $kind, array $summary = []): array {
     if ($recap !== '') $recap = "\n\n" . ($de ? 'Ihre Angaben:' : 'Your details:') . $recap;
     $hours = $kind === 'analysis' ? ($de ? 'innerhalb von 48 Stunden (2 Werktagen)' : 'within 48 hours (2 working days)') : ($de ? 'innerhalb eines Werktags' : 'within one working day');
     return $de
-        ? ['subject' => 'Ihre Anfrage bei Fluxmedia', 'body' => "Guten Tag $name,\n\nvielen Dank für Ihre Anfrage. Wir melden uns $hours persönlich bei Ihnen." . $recap
+        ? ['subject' => 'Ihre Anfrage bei Fluxmedia', 'body' => "Guten Tag $name,\n\nvielen Dank für Ihre Anfrage. Wir melden uns $hours persönlich bei Ihnen." . $recap . $extra
             . ($kind === 'quote' ? "\n\nEin Vertrag kommt erst mit Ihrer Annahme unseres schriftlichen Angebots zustande. Vertragspartner ist die dort genannte Person: " . (config()['owner'] ?? 'Fluxmedia') . ', Inhaber Fluxmedia.' : '')
             . "\n\nFreundliche Grüße\n" . signature() . "\n"]
-        : ['subject' => 'Your enquiry at Fluxmedia', 'body' => "Hello $name,\n\nThank you for your enquiry. We will get back to you personally $hours." . $recap
+        : ['subject' => 'Your enquiry at Fluxmedia', 'body' => "Hello $name,\n\nThank you for your enquiry. We will get back to you personally $hours." . $recap . $extra
             . ($kind === 'quote' ? "\n\nA contract is only concluded when you accept our written quote. The contracting party is the one named there: " . (config()['owner'] ?? 'Fluxmedia') . ', owner of Fluxmedia.' : '')
             . "\n\nKind regards\n" . signature() . "\n"];
 }

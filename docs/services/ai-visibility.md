@@ -117,7 +117,9 @@ Goal: find out whether and how assistants name and describe the customer's busin
 customer would ask. This is a **sample, not a ranking**.
 
 1. **Question set**: 3 questions for the free check (15 or more for the paid analysis), written from the customer's
-   point of view, mixed types:
+   point of view, mixed types. Source: the free check uses the home page; the paid analysis uses the customer's answers
+   to the questionnaire sent with the quote ([`ai-visibility-questionnaire.md`](ai-visibility-questionnaire.md)). The studio
+   writes the final set and the customer approves it before the first run:
    - Local intent: "Welcher Zahnarzt in Konstanz bietet Sprechstunde am Samstag an?"
    - Comparison: "Worauf achte ich bei einem Steuerberater am Bodensee?"
    - Brand: "Was ist [Firmenname] für ein Unternehmen?" (does the assistant know the firm, and is it right?)
