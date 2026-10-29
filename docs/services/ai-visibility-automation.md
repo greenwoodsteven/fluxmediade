@@ -4,7 +4,11 @@ Working document. Not deployed (`docs/` is never shipped). Companion to [`ai-vis
 defines the report, the methods and the step table (section 7: which steps are automatable and what stays manual).
 This file describes how to automate those steps.
 
-Status: **proposal, nothing built yet.** The code blocks are sketches to show the shape; they have not been run.
+Status: **skeleton started (2026-10-29).** The tool lives in its own private repository, `/Users/bob/Sites/ai-visibility-tool`
+(no submodule; this repo keeps the specification, the tool repo keeps the code). Built so far: `steps/fetch.mjs` (steps 4, 5, 7),
+`steps/questions.mjs` (step 3: question set draft into `answers.json`, validated by `build.mjs`), the `REVIEW.md` generator, and
+`run.mjs` / `build.mjs` (build refuses to run while review boxes are open). Everything else is still open; its status table is in
+that repo's `README.md`. The other code blocks in this file are sketches that have not been run.
 
 ## One command, one review gate
 
@@ -204,7 +208,7 @@ check is offered as an automatic self-service; it would then cost money and need
 
 ### Option A: local tool (recommended to start)
 
-- Lives in `tools/visibility/` (or its own repo) and runs with `node run.mjs ...` on the Mac. `docs/` and `tools/` are
+- Lives in its own repo, `/Users/bob/Sites/ai-visibility-tool` (private, `work/` git-ignored), and runs with `node run.mjs ...` on the Mac. `docs/` and `tools/` are
   never uploaded: `deploy/upload.sh` ships only `out/`, and the server's `git pull` does not need to run for this tool.
 - Nothing to host, nothing to secure: customer data stays in the git-ignored `work/` folder; keys are environment
   variables on the machine.
