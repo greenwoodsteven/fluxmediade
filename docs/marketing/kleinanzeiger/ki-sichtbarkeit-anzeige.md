@@ -32,8 +32,8 @@ Alternative if the price should not be in the title: `SEO- & KI-Check: Werden Si
 Wird Ihre Firma in Google, ChatGPT, Claude und Perplexity gefunden?
 
 Ich prüfe Ihre Website technisch und inhaltlich, teste, wie Ihre Firma in KI-Antworten erscheint, und sage Ihnen,
-was zu tun ist. Auf Wunsch setze ich die wichtigsten Punkte direkt um. Persönlich vom Webentwickler am Bodensee,
-nicht automatisch erzeugt. Festpreis, kein Abo, 100 % remote.
+was zu tun ist. Auf Wunsch setze ich die wichtigsten Punkte direkt um. Persönlich vom Webentwickler am Bodensee mit
+über 15 Jahren Erfahrung, nicht automatisch erzeugt. Festpreis, kein Abo, 100 % remote.
 
 ZUM KENNENLERNEN: KOSTENLOSER STARTSEITEN-CHECK
 Kurzer PDF-Bericht zu Ihrer Startseite innerhalb von 48 Stunden (2 Werktage), unverbindlich. Die Anzahl pro Woche
@@ -86,6 +86,8 @@ Fluxmedia, Inhaber Steven Greenwood, Bodensee. Schreiben Sie mir einfach hier ü
 Notes on the wording:
 
 - "Nicht automatisch erzeugt" and "persönlich vom Webentwickler" repeat the site's own claims (analysis page).
+- "Über 15 Jahre Erfahrung" (ad text) and "15+ Jahre Erfahrung" (thumbnail badge) match the home page (`pages.home.sub` and
+  `trust[0]`). The claim must be provable (UWG, `legal-audit.md` section 7); keep a CV or project list that shows it.
 - No ranking promise appears anywhere; "wird empfohlen" is only in the thumbnail's mock chat and is illustrative. If the
   ad is challenged, the "Wichtig" block is the safeguard.
 - The 48-hour and weekly-limit wording follows `pages.analysis` on the site.
@@ -220,6 +222,7 @@ Sachschäden mit USA-Bezug gelten Einschränkungen.
 
 | Item | Ad | Site today | Action |
 |---|---|---|---|
+| Experience "15+ Jahre" | ad text and thumbnail badge | home page says "Über 15 Jahre Erfahrung" (after the next deploy) | Deploy the site change; keep proof of the claim |
 | Packages 250 / 450 / 890 € | in the ad | the page `/leistungen/ki-sichtbarkeit/` still says "ab 450 €" | Update the site page **before or at the same time** as the ad, or the ad contradicts it |
 | Hourly rate 70 € / 50 € | not in the ad | "ab 50 € pro Stunde" | Keep out of the ad; update site wording (see competition doc, section 7) |
 | Security check, accessibility add-on | in the ad | not described as a package | Add to the site, and clear the passive security check with exali (to-do 52) |

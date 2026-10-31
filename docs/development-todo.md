@@ -87,7 +87,7 @@ Items from your review notes in `docs/content-de-en.md` that are **not applied y
 
 | # | Pri | Type | Task | Notes | Effort |
 |---|---|---|---|---|---|
-| 24 | P2 | content | **Experience wording**: "over 10 years in web development, in Berlin and on Lake Constance" in `pages.home.sub` | the claim must match the facts (legal-audit section 7) | S |
+| 24 | P2 | content | **Experience wording**: "over 15 years in web development, in Berlin and on Lake Constance" (owner changed the claim from 10 to 15+ years on 2026-10-31) in `pages.home.sub` | the claim must match the facts (legal-audit section 7) | S |
 | 25 | P2 | content | **Shops**: mention Stripe (and PayPal only if you have shipped it) in `services.relaunch` FAQ and `pages.quote.extra` | note the payment providers in the privacy policy when a shop is built | S |
 | 26 | P2 | content | **Remote work**: say "personally on Lake Constance, remotely throughout Germany" | `areaServed` is already `DE` in the structured data | S |
 | 27 | P2 | content | **LinkedIn link** on the about page, plus `sameAs` in the structured data | needs the profile URL; plain link, no embed | S |

@@ -16,7 +16,7 @@ them. "Check" means *someone qualified should look at it*, not that something is
 | 3 | ~~Fix soon~~ **Implemented 2026-10-19**, review still open | Privacy policy rewritten with the standard structure (section 4). Still to confirm: the processor agreement with netcup, the log retention at netcup, the daily cron job, and a legal review of the text | you, lawyer / DPO |
 | 4 | **Fix soon** | Impressum: check completeness (§ 18 MStV, dispute resolution, VAT ID vs small-business rule) | lawyer, Steuerberater |
 | 5 | Check | `hero.jpg` and the other site images: source and licence not recorded | you |
-| 6 | Check | Marketing claims on the site must be provable (UWG): "Über 10 Jahre Erfahrung", "Server in Deutschland", "DSGVO-bewusst", "Festpreis", prices | you |
+| 6 | Check | Marketing claims on the site must be provable (UWG): "Über 15 Jahre Erfahrung", "Server in Deutschland", "DSGVO-bewusst", "Festpreis", prices | you |
 | 7 | Check | Consumers or only businesses? If consumers: price display, withdrawal right, terms | lawyer |
 | 8 | Check | Follow-up emails after the free analysis need a legal basis (UWG § 7) | you |
 | 9 | Check | Records and processors: processing register, processor agreement with netcup, security measures document | you |
@@ -169,7 +169,7 @@ German law has no rule that allows it by default. The question is decided case b
 ## 7. Advertising claims and prices (UWG, PAngV)
 
 Claims on the site that you must be able to prove on request:
-- "Über 10 Jahre Erfahrung" / "Over 10 years" (the site says Bodensee; your own notes mention Berlin earlier: align the wording with the facts).
+- "Über 15 Jahre Erfahrung" / "Over 15 years" (the site says Bodensee; your own notes mention Berlin earlier: align the wording with the facts).
 - "Server in Deutschland" / "Gehostet in Deutschland": true for the netcup hosting if the data centre is in Germany;
   the technical sections of the service pages mention AWS and Cloudflare as stack options for client projects, which is
   fine as long as they are not described as part of this site.
