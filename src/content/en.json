@@ -234,17 +234,17 @@
   },
   "pages": {
     "home": {
-      "seoTitle": "Web development on Lake Constance: fast, accessible, AI-visible | Fluxmedia",
-      "description": "Fluxmedia, web developer on Lake Constance with over 15 years of experience: free SEO and AI analysis, website relaunch, WordPress support and accessibility at fixed prices.",
+      "seoTitle": "Web development: fast, accessible, AI-visible | Fluxmedia",
+      "description": "Fluxmedia, web developer with over 15 years of experience: free SEO and AI analysis, website relaunch, WordPress support and accessibility at fixed prices.",
       "h1": "Your website: fast, accessible and visible in AI answers.",
-      "sub": "Over 15 years of experience in web development on Lake Constance",
+      "sub": "Over 15 years of experience in web development",
       "analysisTitle": "Free SEO & AI analysis of your website",
       "analysisText": "Done personally by a web developer, not generated automatically. You receive a short PDF report within 48 hours.",
       "leadServices": "Our services",
       "more": "More solutions",
       "stepsTitle": "How it works",
       "steps": ["Request", "Analysis in 48 hours", "Conversation", "Fixed price"],
-      "trust": ["Over 15 years of experience", "Servers in Germany", "GDPR-conscious", "Fixed prices", "Personal, on Lake Constance"],
+      "trust": ["Over 15 years of experience", "Servers in Germany", "GDPR-conscious", "Fixed prices", "Personal service"],
       "refsTitle": "Selected references",
       "faqTitle": "Frequently asked questions",
       "faq": [

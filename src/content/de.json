@@ -234,17 +234,17 @@
   },
   "pages": {
     "home": {
-      "seoTitle": "Webentwicklung am Bodensee: schnell, barrierefrei, KI-sichtbar | Fluxmedia",
-      "description": "Fluxmedia, Webentwickler am Bodensee mit über 15 Jahren Erfahrung: kostenlose SEO- und KI-Analyse, Website-Relaunch, WordPress-Support und Barrierefreiheit zum Festpreis.",
+      "seoTitle": "Webentwicklung: schnell, barrierefrei, KI-sichtbar | Fluxmedia",
+      "description": "Fluxmedia, Webentwickler mit über 15 Jahren Erfahrung: kostenlose SEO- und KI-Analyse, Website-Relaunch, WordPress-Support und Barrierefreiheit zum Festpreis.",
       "h1": "Ihre Website: schnell, barrierefrei und in KI-Antworten sichtbar.",
-      "sub": "Über 15 Jahre Erfahrung in Webentwicklung am Bodensee",
+      "sub": "Über 15 Jahre Erfahrung in Webentwicklung",
       "analysisTitle": "Kostenlose SEO- & KI-Analyse Ihrer Website",
       "analysisText": "Persönlich vom Webentwickler, nicht automatisch erzeugt. Sie erhalten einen kurzen PDF-Bericht innerhalb von 48 Stunden.",
       "leadServices": "Unsere Leistungen",
       "more": "Weitere Lösungen",
       "stepsTitle": "So funktioniert es",
       "steps": ["Anfrage", "Analyse in 48 Stunden", "Gespräch", "Festpreis"],
-      "trust": ["Über 15 Jahre Erfahrung", "Server in Deutschland", "DSGVO-bewusst", "Festpreis", "Persönlich am Bodensee"],
+      "trust": ["Über 15 Jahre Erfahrung", "Server in Deutschland", "DSGVO-bewusst", "Festpreis", "Persönliche Betreuung"],
       "refsTitle": "Ausgewählte Referenzen",
       "faqTitle": "Häufige Fragen",
       "faq": [

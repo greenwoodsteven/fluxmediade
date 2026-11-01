@@ -32,7 +32,7 @@ Alternative if the price should not be in the title: `SEO- & KI-Check: Werden Si
 Wird Ihre Firma in Google, ChatGPT, Claude und Perplexity gefunden?
 
 Ich prüfe Ihre Website technisch und inhaltlich, teste, wie Ihre Firma in KI-Antworten erscheint, und sage Ihnen,
-was zu tun ist. Auf Wunsch setze ich die wichtigsten Punkte direkt um. Persönlich vom Webentwickler am Bodensee mit
+was zu tun ist. Auf Wunsch setze ich die wichtigsten Punkte direkt um. Persönlich vom Webentwickler mit
 über 15 Jahren Erfahrung, nicht automatisch erzeugt. Festpreis, kein Abo, 100 % remote.
 
 ZUM KENNENLERNEN: KOSTENLOSER STARTSEITEN-CHECK
@@ -80,7 +80,7 @@ WICHTIG
 Mehr zur Leistung: https://www.fluxmedia.de/leistungen/ki-sichtbarkeit/
 Referenzen: https://www.fluxmedia.de/referenzen/
 
-Fluxmedia, Inhaber Steven Greenwood, Bodensee. Schreiben Sie mir einfach hier über Kleinanzeigen.
+Fluxmedia, Inhaber Steven Greenwood. Schreiben Sie mir einfach hier über Kleinanzeigen.
 ```
 
 Notes on the wording:
